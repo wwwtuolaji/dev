@@ -16,13 +16,13 @@ return array (
   'guest_comment' => true,
   'enable_radar' => false,
   'site_logo' => 'data/files/mall/settings/site_logo.png',
-  'site_name' => 'ECMall',
-  'site_title' => 'ECMall',
-  'site_description' => '这是一个用ECMall架设的网上商城',
-  'site_keywords' => 'ecmall mall',
+  'site_name' => 'FuLucang',
+  'site_title' => '福禄仓',
+  'site_description' => '万家企业商业资源为基础的互利合作分享平台。',
+  'site_keywords' => '七彩云南，红木家具，珠宝，紫砂，福禄仓投资集团',
   'icp_number' => '',
   'site_status' => '1',
   'closed_reason' => '商城维护中，暂时关闭，请稍候访问。',
-  'hot_search' => '',
+  'hot_search' => '七彩云南,珠宝,',
 );
 ?>

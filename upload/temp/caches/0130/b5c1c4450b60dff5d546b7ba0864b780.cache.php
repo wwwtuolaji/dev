@@ -1,7 +1,7 @@
 <?php
 /**
  *  @Created By ECMall PhpCacheServer
- *  @Time:2016-10-20 21:21:19
+ *  @Time:2016-10-21 15:40:07
  */
 
 if(filemtime(__FILE__) + 3600 < time())return false;
@@ -345,6 +345,70 @@ return array (
       array (
         'id' => '52',
         'value' => '酒坛',
+        'children' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  5 => 
+  array (
+    'id' => '53',
+    'value' => '家电',
+    'children' => 
+    array (
+      0 => 
+      array (
+        'id' => '54',
+        'value' => '洗衣机',
+        'children' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'id' => '55',
+        'value' => '电冰箱',
+        'children' => 
+        array (
+        ),
+      ),
+      2 => 
+      array (
+        'id' => '56',
+        'value' => '空调',
+        'children' => 
+        array (
+        ),
+      ),
+      3 => 
+      array (
+        'id' => '57',
+        'value' => '空气净化器',
+        'children' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  6 => 
+  array (
+    'id' => '58',
+    'value' => '五金',
+    'children' => 
+    array (
+      0 => 
+      array (
+        'id' => '59',
+        'value' => '工具',
+        'children' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'id' => '60',
+        'value' => '标准件',
         'children' => 
         array (
         ),

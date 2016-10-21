@@ -20,7 +20,7 @@ $(function(){
 </head>
 <body>
 <div id="enter">
-    <h1><img alt="商城后台" src="templates/style/images/enter_logo.gif" /></h1>
+    <h1><img alt="ecmall_admin" src="templates/style/images/enter_logo.gif" /></h1>
     <table>
     <form method="post">
         <tr>

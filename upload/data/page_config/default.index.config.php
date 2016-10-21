@@ -9,7 +9,7 @@ return array (
       'options' => 
       array (
         'ad_image_url' => 'data/files/mall/template/201610141709273865.jpg',
-        'ad_link_url' => '',
+        'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=3',
       ),
     ),
     '_widget_798' => 
@@ -23,7 +23,7 @@ return array (
       'options' => 
       array (
         'ad_image_url' => 'data/files/mall/template/201610161408546151.jpg',
-        'ad_link_url' => '',
+        'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=19',
       ),
     ),
     '_widget_828' => 
@@ -40,7 +40,7 @@ return array (
       'options' => 
       array (
         'ad_image_url' => 'data/files/mall/template/201610171620162039.jpg',
-        'ad_link_url' => '',
+        'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=35',
       ),
     ),
     '_widget_878' => 
@@ -51,27 +51,27 @@ return array (
         0 => 
         array (
           'ad_image_url' => 'data/files/mall/template/201610141013383227.jpg',
-          'ad_link_url' => '',
+          'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=1',
         ),
         1 => 
         array (
           'ad_image_url' => 'data/files/mall/template/201610141013384370.jpg',
-          'ad_link_url' => '',
+          'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=3',
         ),
         2 => 
         array (
           'ad_image_url' => 'data/files/mall/template/201610141013386656.jpg',
-          'ad_link_url' => '',
+          'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=49',
         ),
         3 => 
         array (
           'ad_image_url' => 'data/files/mall/template/201610141013387228.jpg',
-          'ad_link_url' => '',
+          'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=35',
         ),
         4 => 
         array (
           'ad_image_url' => 'data/files/mall/template/201610141013387800.jpg',
-          'ad_link_url' => '',
+          'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=19',
         ),
       ),
     ),
@@ -106,7 +106,7 @@ return array (
         'bgcolor' => '#dcad7f',
         'keyword_list' => '熟普洱 生普洱 袋包茶',
         'ad_image_url' => 'data/files/mall/template/201610161250039014.jpg',
-        'ad_link_url' => '',
+        'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=1',
         'img_recom_id' => '-100',
         'img_cate_id' => '1',
         'sub_module_name' => '精品推荐',
@@ -132,7 +132,7 @@ return array (
         'bgcolor' => '#dcad7f',
         'keyword_list' => '',
         'ad_image_url' => 'data/files/mall/template/201610171236159236.jpg',
-        'ad_link_url' => '',
+        'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=19',
         'img_recom_id' => '-100',
         'img_cate_id' => '19',
         'sub_module_name' => '',
@@ -160,7 +160,7 @@ return array (
       'options' => 
       array (
         'ad_image_url' => 'data/files/mall/template/201610161452363760.jpg',
-        'ad_link_url' => '',
+        'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=35',
       ),
     ),
     '_widget_595' => 
@@ -180,7 +180,7 @@ return array (
         'bgcolor' => '#dcad7f',
         'keyword_list' => '手镯 手串 吊坠 把件',
         'ad_image_url' => 'data/files/mall/template/201610161236334964.jpg',
-        'ad_link_url' => '',
+        'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=35',
         'img_recom_id' => '-100',
         'img_cate_id' => '35',
         'sub_module_name' => '时尚精品',
@@ -198,9 +198,9 @@ return array (
         'ad2_image_url' => 'data/files/mall/template/201610161103366610.jpg',
         'ad2_link_url' => 'http://fulucang.cc/index.php?app=store&id=3',
         'ad3_image_url' => 'data/files/mall/template/201610171415081976.jpg',
-        'ad3_link_url' => 'http://fulucang.cc/index.php?app=store&id=5',
+        'ad3_link_url' => 'http://fulucang.cc/index.php?app=store&id=8',
         'ad4_image_url' => 'data/files/mall/template/201610171415081090.jpg',
-        'ad4_link_url' => 'http://fulucang.cc/index.php?app=store&id=5',
+        'ad4_link_url' => 'http://fulucang.cc/index.php?app=store&id=2',
       ),
     ),
     '_widget_446' => 
@@ -212,7 +212,7 @@ return array (
         'bgcolor' => '#dcad7f',
         'keyword_list' => '沙发 床 柜 椅',
         'ad_image_url' => 'data/files/mall/template/201610161223596602.jpg',
-        'ad_link_url' => '',
+        'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=3',
         'img_recom_id' => '-100',
         'img_cate_id' => '3',
         'txt_recom_id' => '-100',

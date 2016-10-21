@@ -1,7 +1,7 @@
 <?php
 /**
  *  @Created By ECMall PhpCacheServer
- *  @Time:2016-10-20 17:42:32
+ *  @Time:2016-10-21 15:40:51
  */
 
 if(filemtime(__FILE__) + 1800 < time())return false;
@@ -16,6 +16,8 @@ return array (
       2 => 19,
       3 => 35,
       4 => 49,
+      5 => 53,
+      6 => 58,
     ),
   ),
   5 => 
@@ -396,6 +398,76 @@ return array (
   array (
     'name' => '酒坛',
     'pid' => '49',
+    'cids' => 
+    array (
+    ),
+  ),
+  53 => 
+  array (
+    'name' => '家电',
+    'pid' => '0',
+    'cids' => 
+    array (
+      0 => 54,
+      1 => 55,
+      2 => 56,
+      3 => 57,
+    ),
+  ),
+  54 => 
+  array (
+    'name' => '洗衣机',
+    'pid' => '53',
+    'cids' => 
+    array (
+    ),
+  ),
+  55 => 
+  array (
+    'name' => '电冰箱',
+    'pid' => '53',
+    'cids' => 
+    array (
+    ),
+  ),
+  56 => 
+  array (
+    'name' => '空调',
+    'pid' => '53',
+    'cids' => 
+    array (
+    ),
+  ),
+  57 => 
+  array (
+    'name' => '空气净化器',
+    'pid' => '53',
+    'cids' => 
+    array (
+    ),
+  ),
+  58 => 
+  array (
+    'name' => '五金',
+    'pid' => '0',
+    'cids' => 
+    array (
+      0 => 59,
+      1 => 60,
+    ),
+  ),
+  59 => 
+  array (
+    'name' => '工具',
+    'pid' => '58',
+    'cids' => 
+    array (
+    ),
+  ),
+  60 => 
+  array (
+    'name' => '标准件',
+    'pid' => '58',
     'cids' => 
     array (
     ),

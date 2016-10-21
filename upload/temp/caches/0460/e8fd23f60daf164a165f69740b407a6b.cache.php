@@ -1,7 +1,7 @@
 <?php
 /**
  *  @Created By ECMall PhpCacheServer
- *  @Time:2016-10-21 06:09:14
+ *  @Time:2016-10-21 15:37:44
  */
 
 if(filemtime(__FILE__) + 1800 < time())return false;
@@ -17,21 +17,13 @@ return array (
   ),
   1 => 
   array (
-    'goods_id' => '67',
-    'goods_name' => '明式餐枱',
-    'default_image' => 'data/files/store_2/goods_38/small_201610161643588655.jpg',
-    'price' => '10800.00',
-    'stock' => '9',
-  ),
-  2 => 
-  array (
     'goods_id' => '7',
     'goods_name' => '糯香小金沱.生',
     'default_image' => 'data/files/store_6/goods_103/small_201610161005036189.jpg',
     'price' => '35.00',
     'stock' => '99',
   ),
-  3 => 
+  2 => 
   array (
     'goods_id' => '8',
     'goods_name' => '普茶花韵60g',
@@ -39,13 +31,21 @@ return array (
     'price' => '68.00',
     'stock' => '99',
   ),
-  4 => 
+  3 => 
   array (
     'goods_id' => '66',
     'goods_name' => '七彩云南庆丰祥普洱茶 普茶花韵 茉莉花茶叶',
     'default_image' => 'data/files/store_6/goods_130/small_201610161642104390.png',
     'price' => '68.00',
     'stock' => '100',
+  ),
+  4 => 
+  array (
+    'goods_id' => '67',
+    'goods_name' => '明式餐枱',
+    'default_image' => 'data/files/store_2/goods_38/small_201610161643588655.jpg',
+    'price' => '10800.00',
+    'stock' => '9',
   ),
   5 => 
   array (

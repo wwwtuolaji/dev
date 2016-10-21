@@ -1,7 +1,7 @@
 <?php
 /**
  *  @Created By ECMall PhpCacheServer
- *  @Time:2016-10-20 16:48:09
+ *  @Time:2016-10-21 15:40:51
  */
 
 if(filemtime(__FILE__) + 1800 < time())return false;
@@ -67,9 +67,9 @@ return array (
     'im_yahoo' => NULL,
     'im_aliww' => NULL,
     'reg_time' => '1476400644',
-    'last_login' => '1476915799',
+    'last_login' => '1476989836',
     'last_ip' => '60.4.229.166',
-    'logins' => '36',
+    'logins' => '38',
     'ugrade' => '0',
     'portrait' => 'data/files/mall/portrait/1/2.jpg',
     'outer_id' => '0',
