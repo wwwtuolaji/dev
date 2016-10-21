@@ -1,8 +1,8 @@
 <?php
 
 return array (
-  'SITE_URL' => 'http://fulucang.cc',
-  'DB_CONFIG' => 'mysql://root:fulucang2016@localhost:3306/dev_fulucang',
+  'SITE_URL' => 'http://work/online/dev/upload/',
+  'DB_CONFIG' => 'mysql://root:root@localhost:3306/dev_fulucang',
   'DB_PREFIX' => 'ecm_',
   'LANG' => 'sc-utf-8',
   'COOKIE_DOMAIN' => '',
