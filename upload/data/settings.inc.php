@@ -1,0 +1,28 @@
+<?php 
+return array (
+  'certificate_id' => '1686538936',
+  'token' => 'e081bbae01acfc052f6d3b320d59751ce09f3ede02955b4c1f4330e260c592a2',
+  'default_goods_image' => 'data/files/mall/settings/default_goods_image.jpg',
+  'default_store_logo' => 'data/files/mall/settings/default_store_logo.jpg',
+  'default_user_portrait' => 'data/files/mall/settings/default_user_portrait.jpg',
+  'time_zone' => '8',
+  'time_format_simple' => 'Y-m-d',
+  'time_format_complete' => 'Y-m-d H:i:s',
+  'price_format' => '¥%s',
+  'statistics_code' => '',
+  'sitemap_enabled' => true,
+  'sitemap_frequency' => 1,
+  'rewrite_enabled' => false,
+  'guest_comment' => true,
+  'enable_radar' => false,
+  'site_logo' => 'data/files/mall/settings/site_logo.png',
+  'site_name' => 'ECMall',
+  'site_title' => 'ECMall',
+  'site_description' => '这是一个用ECMall架设的网上商城',
+  'site_keywords' => 'ecmall mall',
+  'icp_number' => '',
+  'site_status' => '1',
+  'closed_reason' => '商城维护中，暂时关闭，请稍候访问。',
+  'hot_search' => '',
+);
+?>
