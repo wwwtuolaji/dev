@@ -1,0 +1,206 @@
+{include file=header.html}
+{include file=curlocal.html}
+<div class="content">
+    <div class="commodity_assort">
+        <div class="module_sidebar" style="width: 980px">
+            <div class="wrap">
+                <div class="wrap_child">
+                    <div class="recommend">
+                    <!--开始了-->
+  <link rel="stylesheet" type="text/css" href="{res file=css/about.css}">
+ <script type="text/javascript">
+  sfHover = function() {
+        var sfEls = document.getElementById("menu").getElementsByTagName("LI");
+        for (var i=0; i<sfEls.length; i++) {
+            sfEls[i].onmouseover=function() {
+                this.className+=" sfhover";
+
+            }
+            sfEls[i].onmouseout=function() {
+                this.className=this.className.replace(new RegExp(" sfhover\\b"), "");
+            }
+        }
+  }
+  if (window.attachEvent) window.attachEvent("onload", sfHover);
+  function show_down(){
+    document.getElementById('tt').style.display = document.getElementById('tt').style.display=="none"?"block":"none";
+  }
+  //document.getElementById("member_info");
+      //document.getElementById('tt').style.display = document.getElementById('tt').style.display=="none"?"block":"none";
+        window.onload = function()
+    {   
+
+    }
+
+    function setDivHidden(){
+      var topMenus = getClass('div','detail');
+        for(var i=0;i < topMenus.length; i++)
+        {
+            topMenus[i].style.display="none";   
+        }
+    }
+
+      //获取所有class相同的元素
+    function getClass(tagName,className) //获得标签名为tagName,类名className的元素
+    {
+        if(document.getElementsByClassName) //支持这个函数
+        {        return document.getElementsByClassName(className);
+        }
+        else
+        {       var tags=document.getElementsByTagName(tagName);//获取标签
+            var tagArr=[];//用于返回类名为className的元素
+            for(var i=0;i < tags.length; i++)
+            {
+                if(tags[i].class == className)
+                {
+                    tagArr[tagArr.length] = tags[i];//保存满足条件的元素
+                }
+            }
+            return tagArr;
+        }
+
+    }
+    function produce(obj){
+      var topMenus;
+     topMenus=  getClass('li','ww');
+      for(var i=0;i < topMenus.length; i++)
+        {
+            topMenus[i].className="w";  
+        }
+        setDivHidden();
+        if (obj.innerHTML=="店主至尊卡") {
+          var tempArr = getClass('div','detail');
+          for(var i=0;i < tempArr.length; i++)
+          {
+            if (i==0) {
+              tempArr[i].style.display="block"; 
+            }else{
+              tempArr[i].style.display="none";   
+            }
+          }
+        }else if (obj.innerHTML=="至尊卡") {
+          var tempArr = getClass('div','detail');
+          for(var i=0;i < tempArr.length; i++)
+          {
+            if (i==1) {
+              tempArr[i].style.display="block"; 
+            }else{
+              tempArr[i].style.display="none";   
+            }
+          }
+        }else if (obj.innerHTML=="金卡"){
+          var tempArr = getClass('div','detail');
+          for(var i=0;i < tempArr.length; i++)
+          {
+            if (i==2) {
+              tempArr[i].style.display="block"; 
+            }else{
+              tempArr[i].style.display="none";   
+            }
+          }
+        }else {
+          var tempArr = getClass('div','detail');
+          for(var i=0;i < tempArr.length; i++)
+          {
+            if (i==3) {
+              tempArr[i].style.display="block"; 
+            }else{
+              tempArr[i].style.display="none";   
+            }
+          }
+        }
+      obj.className="ww";
+    }
+</script>
+  <style>
+  #tt{ list-style:none; padding:0; margin-left:40px; width:150px;display: block}
+  .left .sidebar ul li .w{
+    background: rgba(0, 0, 0, 0) url("http://work/dev/upload/themes/mall/default/styles/default/css/../images/sidebar-out.gif") no-repeat scroll center center;
+  
+    font-size: 14px;
+    height: 35px;
+    line-height: 35px;
+    text-indent: 40px;
+    width: 100%;
+    color: #666;
+    text-decoration: none;
+  } 
+  .left .sidebar ul li .ww{
+    background: rgba(0, 0, 0, 0) url("http://work/dev/upload/themes/mall/default/styles/default/css/../images/sidebar-on.gif") no-repeat scroll center center;
+  
+    font-size: 14px;
+    height: 35px;
+    line-height: 35px;
+    text-indent: 40px;
+    width: 100%;
+    color: #666;
+    text-decoration: none;
+  }
+  </style>
+<div class="container">           
+  <form action="search.aspx" method="get" class="form1">
+    <div class="main-bg">
+      <div class="main clearfix">
+          <!--start:left-->
+        <div class="left" style="height: 2118.4px;">
+          <div class="title">关于我们</div>
+          <ul class="sidebar">
+            <li class=""><a href="{url app=about}">公司简介</a></li>
+            <li class=""><a href="javascript:void(0);">核心团队</a></li>
+            <li class=""><a href="javascript:void(0);">荣誉资质</a></li>
+            <li class=""><a href="javascript:void(0);">合作伙伴</a></li>
+            <li class="current"><a href="javascript:void(0);"id="member_info"onclick="show_down()">会员介绍</a>
+              <ul id="tt">
+                <li><a class="ww" href="javascript:void(0);" onclick="produce(this)">店主至尊卡</a></li>
+                <li><a class="w" href="javascript:void(0);"  onclick="produce(this)">至尊卡</a></li>
+                <li><a class="w" href="javascript:void(0);"  onclick="produce(this)">金卡</a></li>
+                <li><a class="w" href="javascript:void(0);"  onclick="produce(this)">福禄卡</a></li>
+              </ul>
+
+            </li>
+          </ul>
+        </div>
+                 <!--end:left--></!--end:left-->
+            <!--start:right-->
+            <div class="right" style="width:750px">
+               <div class="position clearfix"><h1>会员介绍</h1><span>您所在的位置：<a href="">Home</a> / <a href="javascript:return false;">关于我们</a> / <a href="javascript:return false;"> 会员介绍</a></span></div>
+            <div class="detail"style="display: block" >
+
+            <p><span style="color: rgb(51, 51, 51);"><span style="font-family: 微软雅黑;"><br>
+            <h3  style="text-align: center;">店主至尊卡会员详情介绍</h3>
+            &nbsp;&nbsp;</span></span><span style="color: #808080"><span style="font-family: 微软雅黑"> </span></span></p>       
+          </div>
+            <div class="detail"style="display: none" >
+
+              <p><span style="color: rgb(51, 51, 51);"><span style="font-family: 微软雅黑;"><br>
+              <h3  style="text-align: center;">至尊卡会员详情介绍</h3>
+              &nbsp;&nbsp;</span></span><span style="color: #808080"><span style="font-family: 微软雅黑"> </span></span></p>       
+            </div>
+            <div class="detail"style="display: none" >
+
+              <p><span style="color: rgb(51, 51, 51);"><span style="font-family: 微软雅黑;"><br>
+              <h3  style="text-align: center;">金卡会员详情介绍</h3>
+              &nbsp;&nbsp;</span></span><span style="color: #808080"><span style="font-family: 微软雅黑"> </span></span></p>       
+            </div>
+            <div class="detail"style="display: none" >
+
+              <p><span style="color: rgb(51, 51, 51);"><span style="font-family: 微软雅黑;"><br>
+              <h3  style="text-align: center;">福禄卡会员详情介绍</h3>
+              &nbsp;&nbsp;</span></span><span style="color: #808080"><span style="font-family: 微软雅黑"> </span></span></p>       
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+                       <!--开始了-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{include file=footer.html}

@@ -31,7 +31,33 @@ class AboutApp extends MallbaseApp
         $this->_config_seo('title', Lang::get('about') . ' - '. Conf::get('site_title'));
         $this->display('about.goods.html');
     }
+    //会员信息页面
+    function member_info(){
+         /* 取得导航 */
+        $this->assign('navs', $this->_get_navs());
 
+        /* 取得商品分类 */
+        $gcategorys = $this->_list_gcategory();
+
+        /* 当前位置 */
+        $_curlocal=array(
+            array(
+                'text'  => Lang::get('index'),
+                'url'   => 'index.php',
+            ),
+            array(
+                'text'  => Lang::get('关于我们'),
+                'url'   => '',
+            ),
+        );
+        $this->assign('_curlocal',$_curlocal);
+        $model_setting = &af('settings');
+        $setting = $model_setting->getAll(); //载入系统设置数据
+        $about_content=$setting['content'];
+         $this->assign('about_content',$about_content);
+        $this->_config_seo('title', Lang::get('about') . ' - '. Conf::get('site_title'));
+        $this->display('member_info.goods.html');
+    }
 
 
 
