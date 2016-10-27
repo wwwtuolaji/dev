@@ -309,7 +309,7 @@ ul, ol { list-style-type:none; }
 .sidebar .list_pic h3 a { display: block; width: 70px; height: 32px; line-height: 16px; overflow: hidden; font-weight: normal; color: #666; text-decoration: none; font-size: 12px; }
 .sidebar .list_pic h3 a:hover { color: #ff6000; text-decoration: underline; }
 
-.sidebar .list_text { width: 252px; height: 80px; padding-top: 6px; overflow: hidden; }
+.sidebar .list_text {  width: 252px; height: 80px; padding-top: 6px; overflow: hidden; }
 .sidebar .list_text li { width: 252px; height: 20px; line-height: 20px; overflow: hidden; float: left; }
 .sidebar .list_text li a { display: block; width: 145px; height: 18px; overflow: hidden; padding-left: 12px; float: left; color: #666; text-decoration: none; background: url(../images/ico.gif) no-repeat -20px 4px; font-weight: normal; }
 .sidebar .list_text li a:hover { color: #ff6000; text-decoration: underline; }
