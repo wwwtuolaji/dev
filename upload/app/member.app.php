@@ -31,6 +31,10 @@ class MemberApp extends MemberbaseApp
         $info = $user_mod->get_info($user['user_id']);
         $user['portrait'] = portrait($user['user_id'], $info['portrait'], 'middle');
         $this->assign('user', $user);
+        if (!empty($info)) {
+            $price=$info['use_money'];
+            $this->assign('price',$price);
+        }
 
         /* 店铺信用和好评率 */
         if ($user['has_store'])

@@ -110,12 +110,26 @@ class FrontendApp extends ECBaseApp
 
                 return;
             }
-
-            $user_name = trim($_POST['user_name']);
-            $password  = $_POST['password'];
-
             $ms =& ms();
-            $user_id = $ms->user->auth($user_name, $password);
+            //增加卡号登陆方式
+            if (!empty($_POST['card_pwd'])&&isset($_POST['is_card_submit'])&&$_POST['is_card_submit']=="yes") {
+                $db = &db();
+                $sql="select * from ecm_member where inner_card_num ='$_POST[card_pwd]'";
+                $user=$db->getrow($sql);  
+                if (empty($user)) {
+                   $user_id=false;
+                   $ms =& ms();
+                   $ms->user->_error("&nbsp;卡号异常请联系管理员！");
+                }else{
+                    $user_id=$user['user_id'];
+                }
+
+            }else{
+                $user_name = trim($_POST['user_name']);
+                $password  = $_POST['password'];
+                $user_id = $ms->user->auth($user_name, $password);
+            }
+           
             if (!$user_id)
             {
                 /* 未通过验证，提示错误信息 */

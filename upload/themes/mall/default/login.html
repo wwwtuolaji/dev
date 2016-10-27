@@ -2,6 +2,7 @@
 
 <script type="text/javascript">
 $(function(){
+   
     $('#login_form').validate({
         errorPlacement: function(error, element){
             $(element).parent('td').append(error); 
@@ -44,14 +45,101 @@ $(function(){
         }
     });
 });
-</script>
 
+$(function(){
+   
+    $('#login_form2').validate({
+        errorPlacement: function(error, element){
+            $(element).parent('td').append(error); 
+        },
+        success       : function(label){
+            label.addClass('validate_right').text('OK!');
+        },
+        onkeyup : false,
+        rules : {
+           
+            card_pwd : {
+                required : true
+            },
+            captcha : {
+                required : true,
+                remote   : {
+                    url : 'index.php?app=captcha&act=check_captcha',
+                    type: 'get',
+                    data:{
+                        captcha : function(){
+                            return $('#captcha1').val();
+                        }
+                    }
+                }
+            }
+        },
+        messages : {
+            card_pwd : {
+                required : '卡号不能为空'
+            },
+            captcha : {
+                required : '{$lang.captcha_required}',
+                remote   : '{$lang.captcha_error}'
+            }
+        }
+    });
+});
+//设置卡号登陆
+function set_cart_login(){
+    setTimeout(function(){
+        document.getElementById("card_pwd").focus(); 
+    }, 0); 
+    document.getElementById("login_con1").style.display="none";
+    document.getElementById("login_con2").style.display="block";
+    document.getElementById("b1").style.fontFamily="宋体";
+    document.getElementById("b2").style.fontFamily="黑体";
+
+}
+function set_cart_login1(){
+    document.getElementById("login_con2").style.display="none";
+    document.getElementById("login_con1").style.display="block";
+     document.getElementById("b2").style.fontFamily="宋体";
+    document.getElementById("b1").style.fontFamily="";
+
+}
+</script>
+    <style>
+        .login{
+            color: #100E0E;
+            background-color: #FFFFFF; 
+            letter-spacing: 2px;
+            text-align: center;
+            height: 20px;
+            line-height: 30px;
+            float: left;
+            border-right: 1px solid black;
+            font-weight:;  
+            cursor:pointer; 
+        }
+        .login2{
+            font-family:"宋体";
+            color: #100E0E;
+            background-color: #FFFFFF;
+            letter-spacing: 2px;
+            text-align: center;
+            height: 20px;
+            line-height: 30px;
+            float: left;
+            width: 80px; height: 30px; margin-top: -5px; margin-left: 0px;
+            border-bottom-color: 1px solid red;
+            cursor:pointer;
+        }
+        .module_common .hh {
+            background: rgba(0, 0, 0, 0) url("") repeat scroll 0 0;}
+    </style>
 <div class="content">
     <div class="module_common">
-        <h2><b class="login" title="LOGIN{$lang.user_login}"></b></h2>
+        <h2 class="hh" style="display: inline-block;"><b id="b1"class="login" title="LOGIN{$lang.user_login}"onclick="set_cart_login1()">{$lang.user_login}</b></h2>
+        <h2 class="hh" style="display: inline-block;"><b id="b2"class="login2" title="LOGIN{$lang.user_login}" onclick="set_cart_login()" >卡号登陆</b></h2>
         <div class="wrap">
             <div class="wrap_child">
-                <div class="login_con">
+                <div class="login_con" id="login_con1"style="">
                     <div class="login_left">
                         <form method="post" id="login_form">
                         <table>
@@ -81,6 +169,7 @@ $(function(){
                             </tr>
                         </table>
                         <input type="hidden" name="ret_url" value="{$ret_url}" />
+                        <input type="hidden" name="is_card_submit" value="no" />
                         </form>
                     </div>
 
@@ -96,6 +185,52 @@ $(function(){
                         <a href="{url app=member&act=register&ret_url=$ret_url}" class="login_btn" title="{$lang.register_now}"></a>
                     </div>
                 </div>
+            
+                <!--start-->
+                <div class="login_con" id="login_con2"style="display: none">
+                    <div class="login_left">
+                        <form method="post" id="login_form2">
+                        <table>
+                           
+                            <tr>
+                                <td>请把会员卡放置感应区：</td>
+                                <td><input type="password" name="card_pwd" id="card_pwd"class="text width5"/></td>
+                            </tr>
+                            <!--{if $captcha}-->
+                            <tr>
+                                <td>{$lang.captcha}:</td>
+                                <td>
+                                    <input type="text" name="captcha" class="text" id="captcha1" />
+                                    <span><a href="javascript:change_captcha($('#captcha'));" class="renewedly"><img id="captcha" src="index.php?app=captcha&amp;{$random_number}" /></a></span>
+                                </td>
+                            </tr>
+                            <!--{/if}-->
+                            <tr class="distance">
+                                <td></td>
+                                <td>
+                                  <input type="submit" name="Submit" value="" class="enter" />                                  
+                                  <a href="{url app=find_password}" class="clew">{$lang.forget_password}</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="hidden" name="ret_url" value="{$ret_url}" />
+                         <input type="hidden" name="is_card_submit" value="yes" />
+                        </form>
+                    </div>
+
+                    <div class="login_right">
+                        <h4>{$lang.attention}:<br />{$lang.not_member}</h4>
+                        <p>{$lang.after_register}</p>
+                        <ol>
+                            <li><strong>1.</strong> {$lang.save_profile}</li>
+                            <li><strong>2.</strong> {$lang.collect_goods}</li>
+                           <!-- <li><strong>3.</strong> {$lang.member_point}</li>-->
+                            <li><strong>3.</strong> {$lang.subscription_goods}</li>
+                        </ol>
+                        <a href="{url app=member&act=register&ret_url=$ret_url}" class="login_btn" title="{$lang.register_now}"></a>
+                    </div>
+                </div>
+                <!--end-->
             </div>
         </div>
     </div>

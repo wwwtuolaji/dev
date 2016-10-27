@@ -341,7 +341,7 @@ ul, ol { list-style-type:none; }
 .module_common .category { display: block; width: 168px; height: 22px; background: url(../images/category.gif) no-repeat; }
 .module_common .bargain_on { display: block; width: 66px; height: 22px; background: url(../images/bargain_on.gif) no-repeat; }
 .module_common .set_up_shop { display: block; width: 253px; height: 22px; background: url(../images/set_up_shop.gif) no-repeat; }
-.module_common .login { display: block; width: 133px; height: 21px; background: url(../images/login.gif) no-repeat; }
+.module_common .login { display: block; width: 80px; height: 30px; margin-top: -5px; margin-left: -5px;}
 .module_common .register { display: block; width: 140px; height: 23px; background: url(../images/register.gif) no-repeat; }
 .module_common .links { display: block; width: 115px; height: 26px; background: url(../images/links.gif) no-repeat; }
 .module_common .information { display: block; width: 196px; height: 26px; background: url(../images/information.gif) no-repeat; }

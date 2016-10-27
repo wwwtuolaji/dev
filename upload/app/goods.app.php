@@ -285,7 +285,7 @@ class GoodsApp extends StorebaseApp
              //已经登陆判断会员级别
             $user_info=$this->visitor->get();
             foreach ($goods['_specs'] as $key => $value) {
-                if (in_array($user_info['member_level'], array(1,2,3,4))) {
+                if (in_array($user_info['member_level'], array(1))) {
                     $str="member_price_".trim($user_info['member_level']);
                     $goods['_specs'][$key]['member_price_show']=$goods['_specs'][$key][$str];  
                 }else{

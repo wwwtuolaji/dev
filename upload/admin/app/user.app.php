@@ -281,7 +281,7 @@ class UserApp extends BackendApp
 
                 $member_card_num=$_POST['member_card_num'];
                 $db = &db();    
-                $sql="select * from ecm_member where member_card_num='$member_card_num' and user_name= '".$_POST['uname']."'";
+                $sql="select * from ecm_member where member_card_num='$member_card_num' and user_name<> '".$_POST['uname']."'";
                 $have_card =$db->getrow($sql); 
             
                 if ($have_card) {
@@ -294,11 +294,11 @@ class UserApp extends BackendApp
 
                 $inner_card_num=$_POST['inner_card_num'];
                 $db = &db();    
-                $sql="select * from ecm_member where inner_card_num='$inner_card_num' and user_name= '".$_POST['uname']."'";
+                $sql="select * from ecm_member where inner_card_num='$inner_card_num' and user_name<> '".$_POST['uname']."'";
                 $have_card =$db->getrow($sql); 
             
                 if ($have_card) {
-                    $this->show_warning("修改的卡号,与其他用户的卡号冲突");
+                    $this->show_warning("修改的外部卡号,与其他用户的卡号冲突");
                     return;
                 }
             }
