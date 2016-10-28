@@ -35,6 +35,28 @@ class MemberApp extends MemberbaseApp
             $price=$info['use_money'];
             $this->assign('price',$price);
         }
+        if (!empty($info)) {
+            $level_content=$info['member_level'];
+            switch ($level_content) {
+                case '1':
+                    $level_content="店主至尊卡会员";
+                    break;
+                case '2':
+                    $level_content="至尊卡会员";
+                    break;
+                case '3':
+                    $level_content="金卡会员";
+                    break;
+                case '4':
+                    $level_content="福禄卡会员";
+                    break;
+                
+                default:
+                   $level_content="未知会员";
+                    break;
+            }
+            $this->assign('level_content',$level_content);
+        }
 
         /* 店铺信用和好评率 */
         if ($user['has_store'])
