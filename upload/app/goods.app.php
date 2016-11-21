@@ -292,6 +292,27 @@ class GoodsApp extends StorebaseApp
                     $goods['_specs'][$key]['member_price_show']='false';  
                 }             
             }
+            $record = & m('record');
+            $record_date=$record ->getrecord_by_goodsid($data['id'],$user_info['user_id']);
+            $now_time=time();
+            
+            if (empty($record_date['visit_date'])) {
+                $record_data=array('user_id'    =>$user_info['user_id'],
+                                   'visit_date' =>time(),
+                                   'goods_id'   =>$data['id']);
+                $record->add($record_data);
+            }else{
+                if ($now_time-$record_date['visit_date']>=1800) {
+                    $record_data=array('user_id'    =>$user_info['user_id'],
+                                   'visit_date' =>time(),
+                                   'goods_id'   =>$data['id']);
+                    $record->add($record_data);
+                   
+                }
+                $conditions="record_id=".$record_date['record_id'];
+                $record_data=array('visit_date' =>time());
+                $record->edit($conditions,$record_data);
+            }
         }
         /*var_dump($goods);
         die;*/
@@ -526,6 +547,9 @@ class GoodsApp extends StorebaseApp
         $seo_info['keywords'] = implode(',', array_merge($keywords, $data['tags']));        
         $seo_info['description'] = sub_str(strip_tags($data['description']), 10, true);
         return $seo_info;
+    }
+    function _insert_record($data){
+       $record = & m('record');
     }
 }
 

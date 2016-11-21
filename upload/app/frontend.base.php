@@ -778,6 +778,12 @@ class MemberbaseApp extends MallbaseApp
                     'name'  => 'coupon',
                     'icon'  => 'ico19',
             );
+            $menu['im_seller']['submenu']['history']  = array(
+                    'text'  => "商品浏览记录",
+                    'url'   => 'index.php?app=history',
+                    'name'  => 'history',
+                    'icon'  => 'ico10', 
+            );
         }
 
         return $menu;

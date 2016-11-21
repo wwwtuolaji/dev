@@ -1,0 +1,62 @@
+{include file=member.header.html}
+<div class="content">
+    {include file=member.menu.html}
+    <div id="right"> {include file=member.submenu.html}
+        <div class="wrap">
+            <div class="public table">
+                <table>
+                   
+                    <tr class="gray">                      
+                        <th>消费者姓名</th>
+                        <th>浏览商品</th>
+                        <th>会员等级</th>
+                        <th>联系方式</th>
+                        <th>访问时间</th>
+                        <th>企业名称</th>
+                    </tr>
+               
+                <!-- {if empty($store_info)}    -->       
+                    <tr>
+                        <td colspan="8" class="member_no_records padding6">{$lang.no_records}</td>
+                    </tr>
+               <!--  {else} -->
+                   <!--  {foreach from=$store_info item=history} -->
+                        <tr><td style="text-align: center;">{$history.user_name}</td> <td style="text-align: center;">{$history.goods_name}</td><td style="text-align: center;">{$history.member_level}</td><td style="text-align: center;">{$history.phone_tel}</td><td style="text-align: center;">{$history.visit_date}</td><td style="text-align: center;">
+                        {if $history.store_id eq 0}
+                            暂未开通
+                        {else}
+                        <a href="{url app=store&id=$history.store_id}">{$history.store_name}</a>
+                        {/if}
+                       
+                        </td></tr>
+                   <!--  {/foreach} -->
+                 <!-- {/if} -->
+                
+                <tr class="line_bold line_bold_bottom">
+                    <td colspan="8">&nbsp;</td>
+                </tr>
+                <tr>
+                    <th><!-- <input id="all2" type="checkbox" class="checkall" /> --></th>
+                    <th colspan="7">
+                    <!-- <p class="position1"><label for="all2"><span class="all">{$lang.checkall}</span></label>
+                     <a href="javascript:void(0);" ectype="batchbutton" class="delete" uri="index.php?app=coupon&act=drop" name="id" presubmit="confirm('{$lang.drop_confirm}')">{$lang.drop}</a></p> -->
+                     <p class="position2">
+                       {include file=member.page.bottom.html}
+                     </p>
+                     </th>  
+                </tr>
+            
+                </table>
+            </div>
+            <div class="wrap_bottom"></div>
+        </div>
+        <iframe name="coupon" style="display:none;"></iframe>
+        <div class="clear"></div>
+        <div class="adorn_right1"></div>
+        <div class="adorn_right2"></div>
+        <div class="adorn_right3"></div>
+        <div class="adorn_right4"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+{include file=footer.html}
