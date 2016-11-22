@@ -39,10 +39,11 @@ class RecordModel extends BaseModel
      */
     function get_record_by_store_id($store_id,$page=10)
     {
-        $sql="select us.user_name,gs.goods_name,us.member_level,us.phone_tel,rd.visit_date,priv.store_id,store.store_name from ecm_record as rd inner join ecm_member as us on rd.user_id=us.user_id inner join ecm_goods as gs on rd.goods_id=gs.goods_id inner join  ecm_user_priv as priv on rd.user_id=priv.user_id left join ecm_store as store on store.store_id=priv.store_id where gs.store_id='$store_id' and priv.store_id<>'$store_id' order by visit_date desc limit $page";
+        $sql="SELECT us.user_name, gs.goods_name, us.member_level, us.phone_tel, rd.visit_date, priv.store_id, store.store_name FROM ecm_record AS rd INNER JOIN ecm_member AS us ON rd.user_id = us.user_id INNER JOIN ecm_goods AS gs ON rd.goods_id = gs.goods_id LEFT JOIN ecm_user_priv AS priv ON rd.user_id = priv.user_id LEFT JOIN ecm_store AS store ON store.store_id = priv.store_id WHERE rd.goods_id IN (SELECT gs.goods_id FROM ecm_goods AS gs WHERE gs.store_id = '$store_id') AND rd.user_id<>(select user_id from ecm_user_priv where store_id='$store_id') order by visit_date desc limit $page";
+       //1.获取当前店铺的用户信息
+       
+        return $record_arr= $this->db->getall($sql);
 
-       /* select us.user_name,gs.goods_name,us.member_level ,us.phone_tel,rd.visit_date,priv.store_id,store.store_name  from ecm_record as rd inner join ecm_member as us on rd.user_id=us.user_id inner join ecm_goods as gs on rd.goods_id=gs.goods_id inner join  ecm_user_priv as priv on rd.user_id=priv.user_id inner join ecm_store as store where priv.store_id='$store_id' and gs.store_id=priv.store_id order by visit_date desc limit $page*/
-        return $this->db->getall($sql);
     }
     /**
      * [get_record_count_by_store_id 获取当前商店的浏览记录总数]
@@ -51,7 +52,7 @@ class RecordModel extends BaseModel
      */
     function get_record_count_by_store_id($store_id)
     {
-        $sql="select count(priv.store_id) from ecm_record as rd inner join ecm_member as us on rd.user_id=us.user_id inner join ecm_goods as gs on rd.goods_id=gs.goods_id inner join  ecm_user_priv as priv on rd.user_id=priv.user_id where priv.store_id='$store_id' and gs.store_id=priv.store_id";
+        $sql="select count(*) from ecm_record as rd WHERE rd.goods_id IN (SELECT gs.goods_id FROM ecm_goods AS gs WHERE gs.store_id = '$store_id') AND rd.user_id<>(select user_id from ecm_user_priv where store_id='$store_id')";
         return $this->db->getone($sql);
     }
 
