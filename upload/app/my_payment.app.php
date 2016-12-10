@@ -73,7 +73,7 @@ class My_paymentApp extends StoreadminbaseApp
     function install()
     {
         $code = isset($_GET['code']) ? trim($_GET['code']) : 0;
-   $code=str_replace(array("/","\\"), '', $code); 
+        $code=str_replace(array("/","\\"), '', $code); 
         if (!$code)
         {
             echo Lang::get('no_such_payment');
@@ -181,6 +181,8 @@ class My_paymentApp extends StoreadminbaseApp
             $payment['payment_desc']=   $payment_info['payment_desc'];
             $payment['enabled']     =   $payment_info['enabled'];
             $payment['sort_order']  =   $payment_info['sort_order'];
+           /* var_dump($payment);
+            die;*/
             $this->assign('yes_or_no', array(Lang::get('no'), Lang::get('yes')));
             $this->assign('config', unserialize($payment_info['config']));
             $this->assign('payment', $payment);

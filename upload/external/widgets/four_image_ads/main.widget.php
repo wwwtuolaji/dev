@@ -22,6 +22,8 @@ class Four_image_adsWidget extends BaseWidget
             'ad3_link_url'   => $this->options['ad3_link_url'],
             'ad4_image_url'  => $this->options['ad4_image_url'],
             'ad4_link_url'   => $this->options['ad4_link_url'],
+            'ad5_image_url'  => $this->options['ad5_image_url'],
+            'ad5_link_url'   => $this->options['ad5_link_url'],
         );
     }
 
@@ -43,7 +45,7 @@ class Four_image_adsWidget extends BaseWidget
     {
         import('uploader.lib');
         $images = array();
-        for ($i = 1; $i <= 4; $i++)
+        for ($i = 1; $i <= 5; $i++)
         {
             $file = $_FILES['ad' . $i . '_image_file'];
             if ($file['error'] == UPLOAD_ERR_OK)

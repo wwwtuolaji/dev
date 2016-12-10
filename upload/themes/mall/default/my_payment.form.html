@@ -31,7 +31,26 @@ $(function(){
                 <p><input type="text" class="text width2" value="{$payment.sort_order}" name="sort_order"/></p>
             </li>
             <!--{foreach from=$payment.config item=info key=conf}-->
-            <li>
+            {if $conf eq "alipay_account"}
+                <li >
+                 <h4>{$info.text}:</h4>
+                <p><!--{if $info.type eq 'text'}--> <input type="text" name="config[{$conf}]" id="ctrl_{$conf}" value="{$config.$conf}" size="{$info.size}" onfocus="{$info.onfocus}" onchange="{$info.onchange}" onblur="{$info.onblur}" class="text"/>
+                <!--{elseif $info.type eq 'select'}-->
+                <select name="config[{$conf}]" id="ctrl_{$conf}" onchange="{$info.onchange}" class="width8 padding4">
+                       {html_options options=$info.items selected=$config.$conf}
+                 </select>
+                 <!--{elseif $info.type eq 'textarea'}-->
+                 <textarea cols="{$info.cols}" rows="{$info.rows}" name="config[{$conf}]" id="ctrl_{$conf}" onfocus="{$info.onfocus}" onchange="{$info.onchange}" onblur="{$info.onblur}" class="text" >{$config.$conf}</textarea>
+                 <!--{elseif $info.type eq 'radio'}-->
+                       {html_radios options=$info.items checked=$config.$conf name=$info.name}
+                 <!--{elseif $info.type eq 'checkbox'}-->
+                    {html_checkbox options=$info.items checked=$config.$conf name=$info.name}
+                 <!--{/if}-->
+                 <span>{$info.desc}</span>
+                 </p>
+                </li>
+            {else}
+            <li style="display: none">
                 <h4>{$info.text}:</h4>
                 <p><!--{if $info.type eq 'text'}--> <input type="text" name="config[{$conf}]" id="ctrl_{$conf}" value="{$config.$conf}" size="{$info.size}" onfocus="{$info.onfocus}" onchange="{$info.onchange}" onblur="{$info.onblur}" class="text"/>
                 <!--{elseif $info.type eq 'select'}-->
@@ -48,13 +67,15 @@ $(function(){
                  <span>{$info.desc}</span>
                  </p>
             </li>
+             {/if}
             <!--{/foreach}-->
             <!--{if $payment.is_online}-->
-            <li>
+            <li >
                 <h4>{$lang.payment_pcode}:</h4>
                 <p><input type="text" name="config[pcode]" value="{$config.pcode}" size="3" class="text" /><span>{$lang.pcode_desc}</span></p>
             </li>
             <!--{/if}-->
+           
         </ul>
         <div class="submit"><input type="submit" class="btn" value="{$lang.submit}" /></div>
         </form>

@@ -7,6 +7,7 @@
     line-height: 35px;
     text-indent: 30px;
     width: 199px;
+    background-size: 90%;
 }
 * {
     margin: 0;
@@ -48,23 +49,24 @@ body{ font-family:"宋体"; font-size:12px; }
 /*关于我们*/
 .content .flash2{ width:; height:212px; background:url(../images/flash2-bg.gif) repeat-x;}
 .content .main-bg{ width:; height:; background:#DCDCDC; padding-bottom:20px;}
-.main{ margin:0 auto; width:965px; height:1110px;}
-.main .left{ float:left; width:199px; height:auto; text-align:left; background:#F2F2F2;}
-.left .title{ width:199px; height:35px; font-family:"微软雅黑"; font-size:15px; line-height:35px; text-indent:30px; color:#fff;}
-.left .sidebar{ width:197px; height:auto; border:1px solid #fff; background:#F2F2F2; padding-top:10px;}
+.main{ margin:0 auto; width:1220px; height:1110px;}
+.main .left{ float:left; width:300px; height:auto; text-align:left; background:#F2F2F2;}
+.left .title{ width:302px; height:35px; font-family:"微软雅黑"; font-size:26px; line-height:35px; text-indent:30px; color:#fff;}
+.left .sidebar{ width:300px; height:auto; border:1px solid #fff; background:#F2F2F2; padding-top:10px;}
 .left .sidebar li{ width:100%; height:auto;}
-.left .sidebar li a{ display:block; width:100%; height:35px; line-height:35px; background:url(../images/sidebar-out.gif) center center no-repeat; text-indent:60px; font-size:14px;}
-.left .sidebar li a:hover,.left ul li.current a{ background:url(../images/sidebar-on.gif) center center no-repeat; color:#6CBA4E;}
+.left .sidebar li a{ display:block; width:100%; height:35px; line-height:35px; background:url(../images/sidebar-out.gif) center left no-repeat; text-indent:80px; font-size:20px;background-size:100%;border-bottom: dotted 1px #716B6B;}
+.left .sidebar li a:hover,.left ul li.current a{ background:url(../images/sidebar-on.gif) center left no-repeat; background-size:100%; color:#6CBA4E;}
 .left .sidebar li .sidebar3{ width:100%; height:auto;}
 .left .sidebar li .sidebar3 li{ width:100%; height:25px; line-height:25px;}
 .left .sidebar li .sidebar3 li a{ color:#069; background:none; font-size:12px; text-indent:50px;}
 .left .sidebar li .sidebar3 li.current a,.left .sidebar li .sidebar3 li a:hover{ text-decoration:underline;}
 
 .right{ float:right; width:748px; height:auto; text-align:left; background:#F2F2F2; border:1px solid #fff;}
-.right .position{ width:100%; height:28px; background:url(../images/position-bg.gif) right bottom no-repeat; padding-top:15px; margin-bottom:15px;}
+.right .position{ width:100%; height:28px; 
+    background:url(../images/position-bg.gif) right bottom no-repeat; padding-top:15px; margin-bottom:15px;background-size: 100%;}
 .right .position h1{ float:left; width:180px; height:22px; line-height:22px; font-size:14px; text-indent:60px; color:#F6AE1D;}
 .right .position span{ display:inline-block; float:right; width:400px; height:22px; line-height:22px; text-align:right; color:#999; padding-right:50px;}
-.right .detail{ width:648px; height:1100px; padding:15px 50px;}
+.right .detail{ width:648px; height:1100px; padding:15px 110px;}
 .right .detail p{ width:100%; height:auto; line-height:22px; color:#666;}
 
 /*核心团队*/

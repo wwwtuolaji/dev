@@ -17,6 +17,8 @@ class OrderApp extends BackendApp
      */
     function index()
     {
+        $site=site_url();
+        $this->assign('site_url',$site);
         $search_options = array(
             'seller_name'   => Lang::get('store_name'),
             'buyer_name'   => Lang::get('buyer_name'),
@@ -155,6 +157,121 @@ class OrderApp extends BackendApp
         $this->assign('order', $order_info);
         $this->assign($order_detail['data']);
         $this->display('order.view.html');
+    }
+     /**
+     *    收到货款
+     *
+     *    @author    jjc
+     *    @param    none
+     *    @return    void
+     */
+    function received_pay()
+    {
+        list($order_id, $order_info)    = $this->_get_valid_order_info(ORDER_PENDING);
+        if (!$order_id)
+        {
+             $output=array("code"    =>1,
+                              "message" =>"该订单不存在",
+                              "data"    =>""
+                            );
+                echo json_encode($output);
+
+            return;
+        }
+        if (!IS_POST)
+        {
+            /*header('Content-Type:text/html;charset=' . CHARSET);
+            $this->assign('order', $order_info);
+            $this->display('seller_order.received_pay.html');*/
+        }
+        else
+        {
+            $model_order    =&  m('order');
+            $model_order->edit(intval($order_id), array('status' => ORDER_ACCEPTED, 'pay_time' => gmtime()));
+            if ($model_order->has_error())
+            {
+                $output=array("code"    =>2,
+                              "message" =>$model_order->get_error(),
+                              "data"    =>""
+                              );
+                echo json_encode($output);
+                return;
+            }
+            #TODO 发邮件通知
+            /* 记录订单操作日志 */
+            $order_log =& m('orderlog');
+            $order_log->add(array(
+                'order_id'  => $order_id,
+                'operator'  => addslashes($this->visitor->get('user_name')),
+                'order_status' => order_status($order_info['status']),
+                'changed_status' => order_status(ORDER_ACCEPTED),
+                'remark'    => $_POST['remark'],
+                'log_time'  => gmtime(),
+            ));
+
+            /* 发送给买家邮件，提示等待安排发货 */
+            $model_member =& m('member');
+            $buyer_info   = $model_member->get($order_info['buyer_id']);
+            $mail = get_mail('tobuyer_offline_pay_success_notify', array('order' => $order_info));
+            $this->_mailto($buyer_info['email'], addslashes($mail['subject']), addslashes($mail['message']));
+
+            $new_data = array(
+                'status'    => Lang::get('order_accepted'),
+                'actions'   => array(
+                    'cancel',
+                    'shipped'
+                ), //可以取消可以发货
+            );
+
+           $output=array("code"    =>0,
+                         "message" =>"订单确认成功",
+                         "data"    =>""
+                        );
+            echo json_encode($output);
+            return;
+            
+        }
+
+    }
+     /**
+     *    获取有效的订单信息
+     *
+     *    @author    jjc
+     *    @param     array $status
+     *    @param     string $ext
+     *    @return    array
+     */
+    function _get_valid_order_info($status, $ext = '')
+    {
+        $order_id = isset($_GET['order_id']) ? intval($_GET['order_id']) : 0;
+        if (!$order_id)
+        {
+
+            return array();
+        }
+        if (!is_array($status))
+        {
+            $status = array($status);
+        }
+
+        if ($ext)
+        {
+            $ext = ' AND ' . $ext;
+        }
+
+        $model_order    =&  m('order');
+        /* 只有已发货的货到付款订单可以收货 */
+        $order_info     = $model_order->get(array(
+            'conditions'    => "order_id={$order_id} AND status " . db_create_in($status) . $ext,
+        ));
+
+        if (empty($order_info))
+        {
+
+            return array();
+        }
+
+        return array($order_id, $order_info);
     }
 }
 ?>

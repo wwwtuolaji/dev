@@ -39,6 +39,8 @@ class PaynotifyApp extends MallbaseApp
 
         $model_payment =& m('payment');
         $payment_info  = $model_payment->get("payment_code='{$order_info['payment_code']}' AND store_id={$order_info['seller_id']}");
+        /*var_dump($payment_info);
+        die;*/
         if (empty($payment_info))
         {
             /* 没有指定的支付方式 */
@@ -48,6 +50,7 @@ class PaynotifyApp extends MallbaseApp
         }
 
         /* 调用相应的支付方式 */
+        //获得一个对应的支付方式的对象
         $payment = $this->_get_payment($order_info['payment_code'], $payment_info);
 
         /* 获取验证结果 */
@@ -59,7 +62,11 @@ class PaynotifyApp extends MallbaseApp
 
             return;
         }
-
+        //jjc 增加用户是否支付成功的字段，用于判断用户是否支付过
+        $db=& db();
+        $sql="update ecm_order set pay_have=1 where order_id =".$order_info['order_id'];
+        $db->query($sql);
+        
         #TODO 临时在此也改变订单状态为方便调试，实际发布时应把此段去掉，订单状态的改变以notify为准
         //$this->_change_order_status($order_id, $order_info['extension'], $notify_result);
 

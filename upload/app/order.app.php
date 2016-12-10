@@ -43,6 +43,9 @@ class OrderApp extends ShoppingbaseApp
 
         if (!IS_POST)
         {
+
+            /*var_dump($goods_info);
+            die;*/
             /* 根据商品类型获取对应订单类型 */
             $goods_type     =&  gt($goods_info['type']);
             $order_type     =&  ot($goods_info['otype']);
@@ -240,6 +243,9 @@ class OrderApp extends ShoppingbaseApp
                     'conditions'    => $model_groupbuy->getRealFields("groupbuy_log.user_id={$user_id} AND groupbuy_log.group_id={$group_id} AND groupbuy_log.order_id=0 AND this.state=" . GROUP_FINISHED),
                     'fields'    => 'store.store_id, store.store_name, goods.goods_id, goods.goods_name, goods.default_image, groupbuy_log.quantity, groupbuy_log.spec_quantity, this.spec_price',
                 ));
+                /*var_dump($groupbuy_info);团购没有开发，因为还没团购的商品无法测试*/
+                $this->show_warning("团购功能暂时有误！！");
+                die;
 
                 if (empty($groupbuy_info))
                 {
@@ -307,9 +313,16 @@ class OrderApp extends ShoppingbaseApp
 
                 $store_model =& m('store');
                 $store_info = $store_model->get($store_id);
-
                 foreach ($cart_items as $rec_id => $goods)
                 {
+                    /*判断是不是至尊会员*/
+                    $user_info=$this->visitor->get();
+                    if (in_array($user_info['member_level'], array(1)))
+                    {
+                        $str = "member_price_" . trim($user_info['member_level']);
+                        $goods['price']= $goods['member_price_1'];
+                    }
+
                     $return['quantity'] += $goods['quantity'];                      //商品总量
                     $return['amount']   += $goods['quantity'] * $goods['price'];    //商品总价
                     $cart_items[$rec_id]['subtotal']    =   $goods['quantity'] * $goods['price'];   //小计

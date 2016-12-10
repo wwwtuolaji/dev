@@ -10,7 +10,7 @@ class Best_goodsWidget extends BaseWidget
 {
     var $_name = 'best_goods';
     var $_ttl  = 1800;
-    var $_num  = 6;
+    var $_num  = 8;
 
     function _get_data()
     {

@@ -24,8 +24,8 @@ class Goods_module_1Widget extends BaseWidget
         if($data === false)
         {
             $recom_mod =& m('recommend');
-            $img_goods_list = $recom_mod->get_recommended_goods($this->options['img_recom_id'], 4, true, $this->options['img_cate_id']);
-            $txt_goods_list = $recom_mod->get_recommended_goods($this->options['txt_recom_id'], 8, true, $this->options['txt_cate_id']);
+            $img_goods_list = $recom_mod->get_recommended_goods($this->options['img_recom_id'], 6, true, $this->options['img_cate_id']);
+            $txt_goods_list = $recom_mod->get_recommended_goods($this->options['txt_recom_id'], 12, true, $this->options['txt_cate_id']);
             $cache_server->set($key, array(
                 'img_goods_list' => $img_goods_list,
                 'txt_goods_list' => $txt_goods_list,

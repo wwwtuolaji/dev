@@ -12,6 +12,7 @@ class AlipayPayment extends BasePayment
     /* 支付宝网关 */
     var $_gateway   =   'https://www.alipay.com/cooperate/gateway.do';
     var $_code      =   'alipay';
+  
 
     /**
      *    获取支付表单
@@ -24,7 +25,8 @@ class AlipayPayment extends BasePayment
     {
         $service = $this->_config['alipay_service'];
         $agent = 'C4335319945672464113';
-
+  /*      $this->_config['alipay_partner']='2088521075622716';
+        $this->_config['alipay_account']='ppb_kf1@126.com';*/
         $params = array(
 
             /* 基本信息 */
@@ -51,9 +53,12 @@ class AlipayPayment extends BasePayment
             /* 买卖双方信息 */
             'seller_email'      => $this->_config['alipay_account']
         );
-
+        /*var_dump( $params );
+        die;*/
         $params['sign']         =   $this->_get_sign($params);
         $params['sign_type']    =   'MD5';
+       /* var_dump( $params );
+        die;*/
 
         return $this->_create_payform('GET', $params);
     }
@@ -76,7 +81,7 @@ class AlipayPayment extends BasePayment
         }
 
         /* 初始化所需数据 */
-        $notify =   $this->_get_notify();
+        $notify =   $this->_get_notify();//notify是获取
 
         /* 验证来路是否可信 */
         if ($strict)
@@ -149,6 +154,18 @@ class AlipayPayment extends BasePayment
                     $order_status = ORDER_FINISHED;
                 }
             break;
+            case 'TRADE_SUCCESS':              //交易结束
+                if ($order_info['status'] == ORDER_PENDING)
+                {
+                   
+                    $order_status = ORDER_ACCEPTED;
+                }
+                else
+                {
+                   
+                    $order_status = ORDER_FINISHED;
+                }
+            break;
             case 'TRADE_CLOSED':                //交易关闭
                 $order_status = ORDER_CANCLED;
             break;
@@ -180,9 +197,11 @@ class AlipayPayment extends BasePayment
      */
     function _query_notify($notify_id)
     {
+        $this->_config['alipay_partner']='2088521075622716';
         $query_url = "http://notify.alipay.com/trade/notify_query.do?partner={$this->_config['alipay_partner']}&notify_id={$notify_id}";
 
-        return (ecm_fopen($query_url, 60) === 'true');
+
+        return (file_get_contents($query_url, 60) === 'true');
     }
 
     /**
@@ -206,7 +225,10 @@ class AlipayPayment extends BasePayment
         {
             $sign  .= "{$key}={$value}&";
         }
-
+        /*var_dump($sign);
+        die;*/
+     /*   $sign="_input_charset=utf-8&agent=C4335319945672464113&logistics_fee=0&logistics_payment=BUYER_PAY_AFTER_RECEIVE&logistics_type=EXPRESS¬ify_url=http://work/dev/upload//index.php?app=paynotify&act=notify&order_id=29&out_trade_no=1633929432&partner=2088521075622716&payment_type=1&price=0.01&quantity=1&return_url=http://work/dev/upload//index.php?app=paynotify&order_id=29&seller_email=ppb_kf1@126.com&service=create_direct_pay_by_user&subject=ECMall Order:1633929432&";
+        $this->_config['alipay_key']="7j0f1lc72we44pwwr9wf6087wzis0h9l";*/
         return md5(substr($sign, 0, -1) . $this->_config['alipay_key']);
     }
 
@@ -219,9 +241,77 @@ class AlipayPayment extends BasePayment
      */
     function _verify_sign($notify)
     {
+        /*var_dump($notify);
+        die;*/
         $local_sign = $this->_get_sign($notify);
 
         return ($local_sign == $notify['sign']);
+    }
+
+    /**
+     * [get_new_payform 获取支付表单]
+     *
+     * @author    jjc
+     * @param  [type] $order_info [description]
+     * @return [type]             [description]
+     */
+    function get_payform_new($order_info)
+    {
+        $service = $this->_config['alipay_service'];
+        $agent = 'C4335319945672464113';
+        $this->_config['alipay_partner']='2088521075622716';
+        $params = array(
+
+            /* 基本信息 */
+            'agent'             => $agent,
+            'service'           => $service,
+            'partner'           => $this->_config['alipay_partner'],
+            '_input_charset'    => CHARSET,
+            'notify_url'        => $this->_create_notify_url($order_info['order_id']),
+            'return_url'        => $this->_create_return_url($order_info['order_id']),
+
+            /* 业务参数 */
+            'subject'           => $this->_get_subject($order_info),
+            //订单ID由不属签名验证的一部分，所以有可能被客户自行修改，所以在接收网关通知时要验证指定的订单ID的外部交易号是否与网关传过来的一致
+            'out_trade_no'      => $this->_get_trade_sn($order_info),
+            'price'             => $order_info['order_amount'],   //应付总价
+            'quantity'          => 1,
+            'payment_type'      => 1,
+
+            /* 物流参数 */
+            'logistics_type'    => 'EXPRESS',
+            'logistics_fee'     => 0,
+            'logistics_payment' => 'BUYER_PAY_AFTER_RECEIVE',
+
+            /* 买卖双方信息 */
+            'seller_email'      => $this->_config['alipay_account']
+        );
+        
+        $params['sign']         =   $this->_get_sign($params);
+        $params['sign_type']    =   'MD5';
+
+
+        return $this->_create_payform('GET', $params);
+
+            $c = new AopClient;
+            $c->gatewayUrl = "https://openapi.alipay.com/gateway.do";
+            $c->appId = "app_id";
+            $c->rsaPrivateKey = '请填写开发者私钥去头去尾去回车，一行字符串' ;
+            $c->format = "json";
+            $c->charset= "GBK";
+            $c->alipayrsaPublicKey = '请填写支付宝公钥，一行字符串';
+            //实例化具体API对应的request类,类名称和接口名称对应,当前调用接口名称：alipay.open.public.template.message.industry.modify
+            $request = new AlipayOpenPublicTemplateMessageIndustryModifyRequest();
+            //SDK已经封装掉了公共参数，这里只需要传入业务参数
+            //此次只是参数展示，未进行字符串转义，实际情况下请转义
+            $request->bizContent = "{
+                'primary_industry_name':'IT科技/IT软件与服务',
+                'primary_industry_code':'10001/20102',
+                'secondary_industry_code':'10001/20102',
+                'secondary_industry_name':'IT科技/IT软件与服务'
+              }";
+            $response= $c->execute($req);
+
     }
 }
 

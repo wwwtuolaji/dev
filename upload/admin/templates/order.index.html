@@ -46,10 +46,11 @@ $(function(){
             <td width="15%"><span ectype="order_by" fieldname="order_sn">{$lang.order_sn}</span></td>
             <td width="15%"><span ectype="order_by" fieldname="add_time">{$lang.add_time}</span></td>
             <td width="10%"><span ectype="order_by" fieldname="buyer_name">{$lang.buyer_name}</span></td>
-            <td width="15%"><span ectype="order_by" fieldname="order_amount">{$lang.order_amount}</span></td>
+            <td width="10%"><span ectype="order_by" fieldname="order_amount">{$lang.order_amount}</span></td>
             <td>{$lang.payment_name}</td>
-            <td width="10%"><span ectype="order_by" fieldname="status">{$lang.status}</span></td>
-            <td width="10%">{$lang.handler}</td>
+            <td width="8%"><span ectype="order_by" fieldname="status">{$lang.status}</span></td>
+            <td width="8%">{$lang.handler}</td>
+            <td width="8%">确认收款</td>
         </tr>
         <!--{/if}-->
         <!--{foreach from=$orders item=order}-->
@@ -62,6 +63,16 @@ $(function(){
             <td>{$order.payment_name|escape|default:-}</td>
             <td>{$order.status|modifier:order_status}</td>
             <td><a href="index.php?app=order&amp;act=view&amp;id={$order.order_id}">{$lang.view}</a></td>
+            <td>
+                {if $order.status eq 11 && $order.pay_have eq 1}
+                <a href="javascript:void(0);" order_status="{$order.status}"class="confirm_click" order_id="{$order.order_id}" seller_id="{$order.order_sn|escape}"> 待确认<span style="color: red">(已支付)</span></a>
+                {elseif $order.status eq 11 && $order.pay_have eq 0}
+                <a href="javascript:void(0);" order_status="{$order.status}"class="confirm_click" order_id="{$order.order_id}" seller_id="{$order.order_sn|escape}"> 待确认</a>
+                {else}
+                     <a href="javascript:void(0);" order_status="{$order.status}"class="confirm_click" order_id="{$order.order_id}" seller_id="{$order.order_sn|escape}" disabled="disabled"style="text-decoration: none;color:#3D3A3A">{$order.status|modifier:order_status} </a>
+                {/if}
+                
+            </td>   
         </tr>
         <!--{foreachelse}-->
         <tr class="no_data">
@@ -77,3 +88,42 @@ $(function(){
     <div class="clear"></div>
 </div>
 {include file="footer.html"}
+<script type="text/javascript">
+    $(function(){
+        var site_url="{$site_url}";
+       
+        $(".confirm_click").click(function(event) {
+            if ($(this).attr("disabled")) {
+                return ;
+            }
+            var receive_url=site_url + "admin/index.php?app=order&act=received_pay&order_id=";
+            var order_id = $(this).attr("order_id");
+            var seller_id= $(this).attr("seller_id");
+            var a_obj=$(this);
+            receive_url=receive_url+order_id;
+            var content=  prompt("您将确认订单"+seller_id+"？备注信息：");
+            //如果不是取消就发送ajax请求
+            if (content!=null) {
+               $.ajax({
+                    url: receive_url,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {remark: content},
+                    success:function(data){
+                        if (data.code==0) {
+                            $(a_obj).attr("disabled", "disabled"); 
+                            $(a_obj).css("text-decoration","none");
+                            $(a_obj).css("color", "#4A4747"); 
+                            $(a_obj).html("已确认");
+
+                        }else{
+                            alert(data.message+",错误码是"+data.code);
+                           
+                        }
+
+                    }
+                })
+            }
+        })
+    })
+</script>

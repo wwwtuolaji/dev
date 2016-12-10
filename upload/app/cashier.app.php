@@ -133,8 +133,7 @@ class CashierApp extends ShoppingbaseApp
 
                 return;
             }
-
-            /* 生成支付URL或表单 */
+              
             $payment    = $this->_get_payment($order_info['payment_code'], $payment_info);
             $payment_form = $payment->get_payform($order_info);
 
@@ -156,7 +155,7 @@ class CashierApp extends ShoppingbaseApp
                     Lang::get('post_pay_message')
                 );
             }
-
+          
             /* 跳转到真实收银台 */
             $this->_config_seo('title', Lang::get('cashier'));
             $this->assign('payform', $payment_form);

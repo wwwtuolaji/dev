@@ -46,9 +46,9 @@ ul, ol { list-style-type:none; }
  * -------------------------------------------------------
  */
 
-#content { width: 1000px; margin: 0 auto; }
-#left { float: left; width: 208px; }
-#right { float: right; width: 780px; }
+#content { width: 1230px; margin: 0 auto; }
+#left { float: left; width: 296px; }
+#right { float: right; width: 900px; }
 
 .clear { clear: both; height: 0; font-size: 1px; }
 
@@ -89,7 +89,7 @@ ul, ol { list-style-type:none; }
  * -------------------------------------------------------
  */
 
-#head { width: 1000px; height: 110px; position: relative; margin: 0 auto; z-index: 99; }
+#head { width: 1230px; height: 110px; position: relative; margin: 0 auto; z-index: 99; }
 #head h1 { position: absolute; top: 15px; left: 0; }
 
 #subnav { position: absolute; top: 5px; right: 0; word-spacing: 3px; }
@@ -146,9 +146,9 @@ ul, ol { list-style-type:none; }
  * -------------------------------------------------------
  */
 
-#nav { width: 1000px; height: 153px; margin: 0 auto 10px; position: relative; }
-#nav .banner { width: 1000px; height: 120px; position: absolute; top: 0; left: 0; z-index: 1; }
-#nav ul { width: 1000px; height: 30px; position: absolute; bottom: 0; left: 0; z-index: 3; }
+#nav { width: 1230px; height: 153px; margin: 0 auto 10px; position: relative; }
+#nav .banner { width: 1230px; height: 120px; position: absolute; top: 0; left: 0; z-index: 1; }
+#nav ul { width: 1230px; height: 30px; position: absolute; bottom: 0; left: 0; z-index: 3; }
 #nav li { float: left; margin-right: 2px; }
 
 #nav .active { display: block; font-size: 14px; font-weight: bold; color: #fff; text-decoration: none; background: url(images/active.gif) no-repeat right top; }
@@ -161,22 +161,23 @@ ul, ol { list-style-type:none; }
 #nav .collection { width: 75px; padding-left: 30px; height: 22px; color: #3d8bd7; line-height: 22px; text-decoration: none; background: url(images/btn.gif) no-repeat 0 -40px; position: absolute; top: 2px; right: 0; }
 #nav .collection:hover { filter:alpha(opacity=60); -moz-opacity:0.6; }
 
-#nav .nav_bg { width: 1000px; height: 30px; border-bottom: 3px solid #ff8e00; background: #fff; position: absolute; bottom: 0; left: 0; z-index: 2; }
+#nav .nav_bg { width: 1230px; height: 30px; border-bottom: 3px solid #ff8e00; background: #fff; position: absolute; bottom: 0; left: 0; z-index: 2; }
 
-#left .user { width: 206px; border: 1px solid #ffe3a4; margin-bottom: 5px; }
-#left .user_photo { width: 206px; text-align: center; }
-#left .user_photo h2 { margin-top: 13px; color: #3d3f3e; font-size: 14px; }
+#left .user { width: 296px; border: 1px solid #ffe3a4; margin-bottom: 5px; }
+#left .user_photo { width: 296px; text-align: center; }
+#left .user_photo h2 { margin-top: 13px; color: #3d3f3e; font-size: 18px; }
 #left .photo { margin-top: 10px; }
 #left .user_photo p { margin-top: 6px; }
 #left .user_photo p a { color: #285bcc; }
 #left .user_photo p a:hover { color: red; }
 
-#left .user_data { color: #666; width: 189px; margin: 20px 0 0 17px; padding-bottom: 10px; }
+#left .user_data { color: #666; width: 189px; margin: 20px 0 0 50px; padding-bottom: 10px; }
 #left .user_data img { vertical-align:middle; }
 #left .user_data p { padding-bottom: 10px; }
 #left .user_data p .name { color: #258bbc; }
 #left .user_data p .name:hover { color: red; }
 
+.user .user_data p {font-size: 14px;word-spacing: 2px;letter-spacing: 2px; }
 .module_common { border: 1px solid #ffe3a4; margin-bottom: 5px; }
 
 .module_currency { margin-bottom: 5px; }
@@ -229,7 +230,7 @@ ul, ol { list-style-type:none; }
 .default h5 { font-size: 12px; }
 .default h6 { font-size: 10px; }
 
-.major .list { width: 750px; margin: 15px; overflow: hidden; }
+.major .list { width: 1000px; margin: 15px; overflow: hidden; }
 .major .list li { width: 187px; height: 250px; float: left; }
 .major .pic { width: 164px; margin: 0 auto; }
 .major .pic img { width: 150px; height: 150px; }
@@ -240,7 +241,7 @@ ul, ol { list-style-type:none; }
 .major h3 a:hover { color: #f60; text-decoration: underline; }
 .major p { width: 164px; color: #fe5504; font-weight: bold; font-size: 14px; text-align: center; }
 
-.group_major .list { width: 750px; margin: 15px; overflow: hidden; }
+.group_major .list { width: 1000px; margin: 15px; overflow: hidden; }
 .group_major .list li { width: 187px; height: 270px; float: left; }
 .group_major .pic { width: 164px; margin: 0 auto; }
 .group_major .pic img { width: 150px; height: 150px; }
@@ -258,7 +259,7 @@ ul, ol { list-style-type:none; }
 .major .more a { color: #285bcc; }
 .major .more a:hover { position: relative; top: 1px; }
 
-.general .list { width: 750px; margin: 15px; overflow: hidden; }
+.general .list { width: 1000px; margin: 15px; overflow: hidden; }
 .general .list li { width: 124px; height: 180px; float: left; float: left; }
 .general .pic { width: 102px; margin: 0 auto; }
 .general .pic img { width: 100px; height: 100px; }
@@ -426,7 +427,7 @@ ul, ol { list-style-type:none; }
 .fill_in_fun .btn_fun { padding-left: 60px; }
 .fill_in_fun .btn_fun input { border: 0; width: 75px; height: 29px; font-weight: bold; color: #c53800; background: url(images/enter_btn.gif) no-repeat; }
 
-.user_menu { width: 760px; height: 30px; padding-left: 20px; background: url(images/user_menu.gif) repeat-x 0 bottom; position: relative; }
+.user_menu { width: 1000px; height: 30px; padding-left: 20px; background: url(images/user_menu.gif) repeat-x 0 bottom; position: relative; }
 .user_menu li { float: left; margin-right: 4px; }
 
 .user_menu .ornament1 { position: absolute; }
@@ -438,7 +439,7 @@ ul, ol { list-style-type:none; }
 .user_menu .normal:hover { color: red; }
 .user_menu .normal span { display: block; padding: 8px 20px 8px 22px; background: url(images/user_menu_nav.gif) no-repeat left -150px; }
 
-.option_box { width: 740px; padding: 0 20px; margin-bottom: 10px; _overflow-x:auto; }
+.option_box { width: 900px; padding: 0 20px; margin-bottom: 10px; _overflow-x:auto; }
 
 .grade { border: 1px solid #fee1b9; background: #fffcf3; margin-top: 15px; }
 
@@ -523,7 +524,7 @@ ul, ol { list-style-type:none; }
  * -------------------------------------------------------
  */
 
-#footer { width: 1000px; margin: 0 auto; border-top: 3px solid #d5d2d2; text-align: center; color: #aaa; line-height: 20px; padding-bottom: 10px; }
+#footer { width: 1230px; margin: 0 auto; border-top: 3px solid #d5d2d2; text-align: center; color: #aaa; line-height: 20px; padding-bottom: 10px; }
 #footer p { color: #666; word-spacing: 5px; padding: 10px 0; }
 #footer a { color: #666; text-decoration: none; }
 #footer a:hover { text-decoration: underline; }
