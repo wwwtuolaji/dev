@@ -10,7 +10,7 @@ h1, h2, h3, h4, h5, h6 { font-size:14px;}
 img, table, td, th { border:0;}
 ul, ol { list-style-type:none;}
 body { font:12px Arial, "宋体", Verdana, sans-serif;background: url(images/content.gif) repeat-y;}
-html,body {padding: 0;margin: 0; overflow-x:hidden; overflow-y:auto; overflow: hidden;}
+html,body {padding: 0;margin: 0; overflow-x:hidden; overflow-y:auto;}
 
 /* 字体颜色 */
 .red {color:red;}
