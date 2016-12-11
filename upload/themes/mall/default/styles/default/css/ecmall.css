@@ -415,7 +415,7 @@ ul, ol { list-style-type:none; }
 
 .recommend .shop_assort dt a { display: block; padding-left: 20px; font-weight: bold; color: #fff; text-decoration: none; background: url(../images/ico.gif) no-repeat -38px -30px; }
 .recommend .shop_assort dt a:hover { text-decoration: underline; }
-.recommend .shop_assort dd a { display: block; width: 164px; height: 20px; padding-left: 15px; overflow: hidden; float: left; color: #666; text-decoration: none; background: url(../images/ico.gif) no-repeat -20px 2px; }
+.recommend .shop_assort dd a { font-size:18px; 	display: block; width: 164px; height: 28px; padding-left: 15px; overflow: hidden; float: left; color: #666; text-decoration: none; background: url(../images/ico.gif) no-repeat -20px 2px; }
 .recommend .shop_assort dd a:hover { color: #ff6000; text-decoration: underline; }
 
 .recommend .brand_assort { line-height: 20px; }
