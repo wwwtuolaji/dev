@@ -5,7 +5,7 @@ class ArticleApp extends MallbaseApp
 
     var $_article_mod;
     var $_acategory_mod;
-    var $_ACC; //系统文章cate_id数据
+    var $_ACC; //系统 文章cate_id数据
     var $_cate_ids; //当前分类及子孙分类cate_id
     function __construct()
     {
