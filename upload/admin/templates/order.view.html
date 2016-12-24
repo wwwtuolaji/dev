@@ -39,6 +39,14 @@
             <!--{if $order.postscript}-->
             <li><b>{$lang.postscript}:</b>{$order.postscript|escape}</li>
             <!--{/if}-->
+            <!--{if $alipay_tofac.log_time}-->
+            <li><b>平台向商户付款时间:</b>{$alipay_tofac.log_time}</li>
+            <!--{/if}-->
+             <!--{if $alipay_tofac.alipay_account}-->
+            <li><b>商户支付宝账户:</b>{$alipay_tofac.alipay_account}</li>
+            <!--{/if}-->
+            
+
         </ul>
         <div class="clear"></div>
     </div>

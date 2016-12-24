@@ -87,7 +87,47 @@ function setImagePreview2(avalue) {
     return true;
 }
 
-
+    //下面用于图片上传预览功能
+function setImagePreview3(avalue) {
+   
+    var docObj=document.getElementById("doc3");
+     
+    var imgObjPreview=document.getElementById("preview3");
+    if(docObj.files &&docObj.files[0])
+    {
+        //火狐下，直接设img属性
+        imgObjPreview.style.display = 'block';
+        imgObjPreview.style.width = '100%';
+        imgObjPreview.style.height = '80px';
+        //imgObjPreview.src = docObj.files[0].getAsDataURL();
+         
+        //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+        imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+    }
+    else
+    {
+        //IE下，使用滤镜
+        docObj.select();
+        var imgSrc = document.selection.createRange().text;
+        var localImagId = document.getElementById("localImag");
+        //必须设置初始大小
+        localImagId.style.width = "100%";
+        localImagId.style.height = "80px";
+        //图片异常的捕捉，防止用户修改后缀来伪造图片
+    try{
+        localImagId.style.filter="progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+        localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+    }
+    catch(e)
+    {
+        alert("您上传的图片格式不正确，请重新选择!");
+        return false;
+    }
+        imgObjPreview.style.display = 'none';
+        document.selection.empty();
+    }
+    return true;
+}
 
 
 //<!CDATA[
@@ -210,6 +250,17 @@ function drop_image(file_id)
 //]]>
 
 </script>
+<style type="text/css">
+    .banner_2{
+        width: 100%;
+        overflow: hidden;
+    }
+    .banner_2 img{
+        width: 100%;
+        height: 80px;
+    }
+    
+</style>
 {$editor_upload}
 {$build_editor}
 <div class="content">
@@ -240,6 +291,13 @@ function drop_image(file_id)
                             <span class="explain">{$lang.change_store_banner_des}</span>
                         </div>
                         <div class="clear"></div>
+                    </div>
+                    <div class="photo banner_2" >
+                        <div><img src="<!--{ if $store.store_banner neq ''}-->{$store.store_banner_2}<!--{else}-->themes/store/default/styles/default/store_new/images_new/banner2.jpg<!--{/if}-->" name="store_banner_2"id="preview3"></div>
+                            <b class="ie6hack">
+                                <div class="txt" >上传banner图片</div>
+                                <input  class="txt"  name="store_banner_2" type="file" id="doc3" onchange="javascript:setImagePreview3();"  ectype="store_banner_2"/>
+                            </b>
                     </div>
                     <div class="setup info shop">
 

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>贷款直通车</title>
+    <style type="text/css">
+    </style>
+    <script type="text/javascript" src="{res file=js/js_plugin/jquery-1.11.1.min.js}"></script>
+     <link rel="stylesheet" href="{res file=css/base.css}"/>
+     <link rel="stylesheet" href="{res file=css/loan.css}"/>
+</head>
+<body>
+
+    <div class="h">
+        <div class="w">
+         {include file=nav.html}
+      </div>
+  </div>
+<div class="main applymain">
+    <div class="wrap">
+        <!-- <div class="dk-bread"><a href="/">贷款首页</a><em class="sw">&gt;</em>贷款申请</div> -->
+        <div class="loan-apply clearfix">
+            <div class="hd">
+                <h3>免费申请</h3>
+                <i class="icon icon-cur"></i>
+                <span class="fr"><span class="c-blue">声明：</span>您填写的信息将只作为贷款产品推荐使用，不会以任何形式泄露给其他人员或机构</span>
+            </div>
+            <div class="bd">
+                <div class="step clearfix">
+                    <ul>
+                        <li class="current"><div class="step1 pngbg">1、基本信息</div></li>
+                        <li><div class="step2 pngbg">2、完善信息</div></li>
+                        <li><div class="step3 pngbg">3、申请成功</div></li>
+                    </ul>
+                </div>
+                <div class="apply-form fl">
+                    <form id="applyForm" method="POSt" action="/shenqing/">
+                        <div class="item">
+                            <div class="label">贷款金额：</div>
+                            <input maxlength="5" value="" onafterpaste="this.value=this.value.replace(/\D/g,'')" onkeyup="this.value=this.value.replace(/[^0-9|\.^]/g,'')" class="ui-input" data-error-tip="请输入贷款金额，例如：0.8" name="money" type="text">
+                            <div class="text">万元</div>
+                        </div>
+                        <div class="item">
+                            <div class="label">您的姓氏：</div>
+                            <input name="xin" value="" onafterpaste="this.value=this.value.replace(/[^\u4E00-\u9FA5]/g,'')" onchange="this.value=this.value.replace(/[^\u4E00-\u9FA5]/g,'')" maxlength="2" class="ui-input" data-error-tip="请输入1-2个汉字，例如：李、欧阳" type="text">
+                            <div style="float:left;line-height:40px;padding-left: 10px;" id="sex">
+                                <label><input value="1" name="sex" checked="checked" type="radio">先生</label>
+                                <label><input value="2" name="sex" type="radio">女士</label>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <div class="label">联系手机：</div>
+                            <input onkeyup="this.value=this.value.replace(/[^0-9^]/g,'')" name="phone" value="" maxlength="11" class="ui-input input-mobile" data-error-tip="请输入11位手机号码" type="text">
+                        </div>
+
+                        <div class="item">
+                            <div class="label">图形验证码：</div>
+                            <input name="authCode" maxlength="4" class="ui-input input-mobile" data-error-tip="请输入4位图形验证码" id="authCode" style="width:120px;" type="text">
+                            <img src="http://cq.edai.com/authImg/show/" class="getDemandAuthCode" style="margin-left:10px;float:left;height:34px;" alt="看不清？换一张" data-bd-imgshare-binded="1">
+                        </div>
+
+                        <div class="item">
+                            <div class="label">验&nbsp;证&nbsp;码：</div>
+                            <input disabled="disabled" name="smsCode" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="6" style="width:150px;" class="ui-input input-code disabled" data-error-tip="请输入验证码" type="text">
+                            <input name="getYzm" disabled="disabled" value="获取验证码" class="ui-btn btn-code disabled" id="sendYzm" type="button">
+                            <div id="notes" class="tip-code2"></div>
+                        </div>
+                        <div class="item">
+                            <div class="label"></div>
+                            <input name="tmpId" id="tmpid" value="" type="hidden">
+                            <input value="0" name="isUrl" id="isUrl" type="hidden">
+                            <input name="fromAnli" id="fromAnli" value="2" type="hidden">
+                            <input name="source" id="source" value="24" type="hidden">
+                            <input id="but_submit" class="ui-btn btn-orange btn-next" value="下一步" type="button">
+                        </div>
+                    </form>
+                </div>
+                <div class="intro fl">
+                    <ul>
+                        <li> <i class="icon icon-1"></i>
+                            <div class="text"><span class="f16 c-333">利率低</span><br>
+                                会员贷款利率低于小额市场利率的20%</div>
+                        </li>
+                        <li> <i class="icon icon-2"></i>
+                            <div class="text"><span class="f16 c-333">放贷快</span><br>
+                                与福元运通投资融资理财服务平台合作，使您最快拿到钱</div>
+                        </li>
+                        <li> <i class="icon icon-3"></i>
+                            <div class="text"><span class="f16 c-333">额度高</span><br>
+                                最高可获得上限为100万元的短期融资</div>
+                        </li>
+                        <li> <i class="icon icon-4"></i>
+                            <div class="text"><span class="f16 c-333">全保密</span><br>
+                                资料只作为贷款产品推荐使用，绝不会泄露给第三方</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>
+<script type="text/javascript">
+    /*更改导航栏选中*/
+    $(function(){
+       $(".nav li").attr("class","");  
+       $(".nav li:eq(5)").attr("class","center");  
+    });
+   
+</script>
+</body>
+</html>
+

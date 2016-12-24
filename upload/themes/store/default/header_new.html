@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base href="{$site_url}/" />
+<!-- Use IE7 mode -->
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7 charset={$charset}" />
+<meta http-equiv="Content-Type" content="text/html;charset={$charset}" />
+{$page_seo}
+
+<meta name="author" content="ecmall.shopex.cn" />
+<meta name="copyright" content="ShopEx Inc. All Rights Reserved" />
+<link href="{res file=shop.css}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="index.php?act=jslang"></script>
+<script type="text/javascript" src="{lib file=jquery.js}" charset="utf-8"></script>
+<script type="text/javascript" src="{lib file=ecmall.js}" charset="utf-8"></script>
+
+<script type="text/javascript">
+//<!CDATA[
+var SITE_URL = "{$site_url}";
+var REAL_SITE_URL = "{$real_site_url}";
+var PRICE_FORMAT = '{$price_format}';
+
+$(function(){
+    var span = $("#child_nav");
+    span.hover(function(){
+        $("#float_layer:not(:animated)").show();
+    }, function(){
+        $("#float_layer").hide();
+    });
+});
+//]]>
+</script>
+{$_head_tags}
+</head>
+
+<body>

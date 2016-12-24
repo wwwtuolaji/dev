@@ -1,0 +1,16 @@
+      <!--{if $store.store_banner}-->
+    <div class="qy_banner" style='height:128px;background:url("{$store.store_banner}") no-repeat center;'>
+    <!--{else}-->
+    <div class="qy_banner" style='height:128px;background:url("{res file=images/banner.jpg}") no-repeat center;'>
+     <!--{/if}-->
+    <a href="{url app=}"></a></div> <div class="qy_nav"> <ul>
+             <li><a href="{url app=store&id=$store.store_id}">{$lang.store_index}</a></li>
+        {if $store.functions.groupbuy and $store.enable_groupbuy}
+        <li><a href="{url app=store&act=groupbuy&id=$store.store_id}">{$lang.nav_groupbuy}</a></li>
+        {/if}
+           <!--{foreach from=$store.store_navs item=store_nav}-->
+        <li><a href="{url app=store&act=article&id=$store_nav.article_id}">{$store_nav.title|escape}</a></li>
+        <!--{/foreach}-->
+        <li><a href="{url app=store&act=credit&id=$store.store_id}">{$lang.credit_evaluation}</a></li>
+        </ul>
+    </div>

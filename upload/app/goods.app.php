@@ -44,7 +44,6 @@ class GoodsApp extends StorebaseApp
         {
             $this->assign('captcha', 1);
         }
-
         $this->assign('guest_comment_enable', Conf::get('guest_comment'));
         $this->display('goods.index.html');
     }
@@ -59,6 +58,7 @@ class GoodsApp extends StorebaseApp
             return;
         }
 
+
         $data = $this->_get_common_info($id);
         if ($data === false)
         {
@@ -68,6 +68,7 @@ class GoodsApp extends StorebaseApp
         {
             $this->_assign_common_info($data);
         }
+     
 
         /* 赋值商品评论 */
         $data = $this->_get_goods_comment($id, 10);
@@ -95,7 +96,7 @@ class GoodsApp extends StorebaseApp
         {
             $this->_assign_common_info($data);
         }
-
+        
         /* 赋值销售记录 */
         $data = $this->_get_sales_log($id, 10);
         $this->_assign_sales_log($data);
@@ -130,6 +131,7 @@ class GoodsApp extends StorebaseApp
             {
                 $this->assign('captcha', 1);
             }
+          
             $this->assign('guest_comment_enable', Conf::get('guest_comment'));
             /*赋值产品咨询*/
             $this->display('goods.qa.html');
@@ -285,33 +287,12 @@ class GoodsApp extends StorebaseApp
              //已经登陆判断会员级别
             $user_info=$this->visitor->get();
             foreach ($goods['_specs'] as $key => $value) {
-                if (in_array($user_info['member_level'], array(1))) {
+                if (in_array($user_info['member_level'], array(1,2,3,4))) {
                     $str="member_price_".trim($user_info['member_level']);
                     $goods['_specs'][$key]['member_price_show']=$goods['_specs'][$key][$str];  
                 }else{
                     $goods['_specs'][$key]['member_price_show']='false';  
                 }             
-            }
-            $record = & m('record');
-            $record_date=$record ->getrecord_by_goodsid($data['id'],$user_info['user_id']);
-            $now_time=time();
-            
-            if (empty($record_date['visit_date'])) {
-                $record_data=array('user_id'    =>$user_info['user_id'],
-                                   'visit_date' =>time(),
-                                   'goods_id'   =>$data['id']);
-                $record->add($record_data);
-            }else{
-                if ($now_time-$record_date['visit_date']>=1800) {
-                    $record_data=array('user_id'    =>$user_info['user_id'],
-                                   'visit_date' =>time(),
-                                   'goods_id'   =>$data['id']);
-                    $record->add($record_data);
-                   
-                }
-                $conditions="record_id=".$record_date['record_id'];
-                $record_data=array('visit_date' =>time());
-                $record->edit($conditions,$record_data);
             }
         }
         /*var_dump($goods);
@@ -337,11 +318,35 @@ class GoodsApp extends StorebaseApp
 
         /* 商品分享 */
         $this->assign('share', $data['share']);
+        //获取商品相关信息
+        if (!empty($_GET['id'])) {
+            $goods_id=$_GET['id'];
+            $db=&db();
+            //默认显示七天的时间
+            $now_date=date("Y-m-d");
+            $firstday = strtotime("$now_date -6 day");
+            $lastday = strtotime("$now_date");
+            $temp_start_time=date("Y-m-d",$firstday);
+            $temp_end_time=date("Y-m-d",$lastday);
+            $this->assign("temp_start_time",$temp_start_time);
+            $this->assign("temp_end_time",$temp_end_time);
 
+            $sql="select * from ecm_drogue where goods_id=$goods_id AND show_date>='".$firstday ."' AND show_date<='".$lastday . "'order by show_date asc";
+            $drogue=$db->getAll("$sql");   
+            if (empty($drogue)) {
+               $drogue="";
+            }else{
+            $drogue=json_encode($drogue); 
+              
+            }
+             $this->assign('drogue',$drogue);
+
+        }
+        
         $this->import_resource(array(
-            'script' => 'jquery.jqzoom.js',
+            'script' => 'jquery.jqzoom.js,jquery.plugins/jquery.validate.js,mlselection.js,My97DatePicker/WdatePicker.js,jquery-form.js,echart/build/dist/echarts.js',
             'style' => 'res:jqzoom.css'
-        ));
+        )); 
     }
 
     /* 取得浏览历史 */
@@ -548,8 +553,110 @@ class GoodsApp extends StorebaseApp
         $seo_info['description'] = sub_str(strip_tags($data['description']), 10, true);
         return $seo_info;
     }
-    function _insert_record($data){
-       $record = & m('record');
+    /**
+     * [get_goodsinfo 响应异步请求]
+     * @return [type] [description]
+     */
+    function get_goodsinfo(){
+        $id         =$_GET['id'];
+        if (empty($id)) {
+            $output=array(  "code"      =>1,
+                            "message"   =>"商品id为空，请检查",
+                            "data"      =>""
+                            );
+           echo  json_encode($output);
+        return;
+        }
+        if (empty($_GET['begin_unix'])||empty($_GET['end_unix'])) {
+            $output=array(  "code"      =>2,
+                            "message"   =>"时间选择异常，请检查",
+                            "data"      =>""
+                            );
+            echo  json_encode($output);
+            return;
+        } 
+        if (empty($_GET['serch_method'])) {
+          $_GET['serch_method']="day";  
+        }
+        if ($_GET['serch_method']=="day") {
+            //判断是否大于12天
+           /* if ($_GET['end_unix']-$_GET['begin_unix']>3600*24*12) {
+                $output=array(  "code"      =>3,
+                                "message"   =>"按天选择，不可超出12天!",
+                                "data"      =>""
+                                );
+                echo  json_encode($output);
+                return;            
+            }*/
+        }else{
+             //判断是否大于12个月
+                $end_unix_n=date('Y-m-d',$_GET['end_unix']);
+                $begin_unix_n=date('Y-m-d',$_GET['begin_unix']);
+                $date1 = explode("-",$end_unix_n);
+                $date2 = explode("-",$begin_unix_n);
+                $month = abs($date1[0]-$date2[0])*12+abs($date1[1]-$date2[1]);
+                if ($_GET['end_unix']-$_GET['begin_unix']>367*3600*24) {
+                    $output=array(  "code"      =>4,
+                                    "message"   =>"按月选择，不可超出12个月!",
+                                    "data"      =>""
+                                    );
+                   /* echo  json_encode($output);
+                    return;   */         
+                }
+            
+            }
+        $db = &db(); 
+        if ($_GET['serch_method']==="month") {
+            //按月显示设置日期显示样式
+            for ($i=0; $i <=$month;) { 
+                //1.获取每个月的平均值
+                $firstday_m = date('Y-m-01', $_GET['begin_unix']);
+                $firstday=strtotime("$firstday_m +$i month");
+                $firstday_m = date('Y-m-01', $firstday);
+                $lastday = date('Y-m-d', strtotime("$firstday_m +1 month -1 day"));
+                $lastday=strtotime("$lastday +$i month")+24*3600;
+                $sql="select * from ecm_drogue where goods_id=$id AND show_date>='".$firstday ."' AND show_date<=".$lastday ."group by show_date asc";
+                $goods_arr_s=$db->getall($sql);
+             
+                $ref_price_total=0;
+                $real_price_total=0;
+                $month_count=count($goods_arr_s);
+                if (empty($month_count)) {
+                    $month_count=1;
+                }
+                foreach ($goods_arr_s as $key_s => $value_s) {
+                    $ref_price_total  +=$value_s['ref_price'];
+                    $real_price_total +=$value_s['real_price'];
+                    //$type[]=$value_s['type'];
+                    $show_date = date('Y-m-01', $value_s['show_date']);
+                    $show_date=strtotime($show_date);
+                }
+                if (empty($ref_price_total)) {
+                    $ref_price_total=0;
+                }
+                if (empty($real_price_total)) {
+                    $real_price_total=0;
+                }
+                $save[$i]['show_date']=$firstday;
+                $save[$i]['ref_price']=floor($ref_price_total/$month_count);
+                $save[$i]['real_price']=floor($real_price_total/$month_count);
+                $i++;
+            }
+            $output=array( "code"      =>0,
+                           "message"   =>"请求成功",
+                           "data"      =>$save
+                        );
+            echo json_encode($output);
+            return;
+
+        }
+        $goods_arr=$db->getall("select * from ecm_drogue where goods_id=$id AND show_date>='".$_GET['begin_unix'] ."' AND show_date<='".$_GET['end_unix']."'group by show_date asc");
+        $output=array(  "code"      =>0,
+                        "message"   =>"请求成功",
+                        "data"      =>$goods_arr
+                            );
+        echo json_encode($output);
+        return;
     }
 }
 

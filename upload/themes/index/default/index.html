@@ -1,0 +1,777 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>福禄仓</title>
+    <link rel="stylesheet" href="{res file=css/base.css}"/>
+    <link rel="stylesheet" href="{res file=css/index.css}"/>
+    <link rel="stylesheet" href="{res file=css/cyfxb.css}"/>
+    <script type="text/javascript" src="{res file=js/js_plugin/jquery-1.11.1.min.js}"></script>
+    <script type="text/javascript" src="{res file=js/js_plugin/unslider.min.js}"></script>
+    <script type="text/javascript" src="{res file=js/index.js}"></script>
+    <script type="text/javascript" src="{res file=js/layer/layer.js}"></script>
+    <link rel="shortcut icon" href="{res file=images/bitbug_favicon.ico}"/>
+</head>
+<body>
+<div class="fulucang">
+    <div class="h">
+        <div class="w">
+           {include file=nav.html}
+            <div class="wq"></div>
+            <div class="box">
+                <div class="fl  box1">
+                {if empty($out_data.member_info)}
+                    <div class="ac user">
+                        
+                        <a href="{url app=member&act=login&ret_url=}{url app=index}">
+                            <button class="button user_login">登录</button>
+                        </a>
+                        <a href="{url app=member&act=register&ret_url=}{url app=index}">
+                            <button class="button user_reg">注册</button>
+                        </a>
+                    </div>
+                {else}
+                    
+                    <!--店主至尊会员-->
+                    {if $out_data.member_info.level eq 1}
+                     <div class="ac user" style="background:url({res file=images/ka/1.jpg});">
+                      <a class="logout"href="{url app=member&act=logout}"style="float:left;color:#fff;font-size: 16px;padding: 5px">[退出]</a>
+                        <div class="member_i">
+                            <ul>
+                                <li>
+                                    <span class="top_span">会员名称:{$out_data.member_info.name}</span>
+                                    <span>会员级别:店主至尊</span>
+                                    <span>会员卡号:{$out_data.member_info.card}</span>
+                                </li>
+                                <li>
+                                  <div  href="javascript:void(0)" class="trip_alert" id="trip_alert">
+                                    <dl>
+                                       <dt>至尊用户：西瓜红木</dt>
+                                       <dt>至尊卡号：ZZ00001231</dt>
+                                       <dd>申请使用您店主至尊的权限，点击确认或取消</dd>
+                                    </dl>
+                                    <button class="fl cancle">取消</button><button class="fl" id="enter">确定</button>
+                                    
+                                  </div>
+                              </li> 
+                            </ul>
+
+                        </div>
+                    </div> 
+                     <!--至尊会员-->
+                    {elseif $out_data.member_info.level eq 2}
+                     <div class="ac user" style="background:url({res file=images/ka/2.jpg});">
+                      <a class="logout"href="{url app=member&act=logout}"style="float:left;color:#fff;font-size: 16px;padding: 5px">[退出]</a>
+                        <div class="member_i">
+                            <ul>
+                                <li>
+                                    <span class="top_span">会员名称:{$out_data.member_info.name}</span>
+                                    <span>会员级别:至尊会员</span>
+                                    <span>会员卡号:{$out_data.member_info.card}</span>
+                                </li>
+                                <li>
+                                <a  href="javascript:void(0)" class="trip_alert" id="aplay_dz">点击申请临时店主至尊权限<span>(可查看进货价并可按进货价购买)</span></a>
+                                <a  href="javascript:void(0)" class="trip_alert" style="display: none">您已经拥有临时店主权限<span>(可查看进货价并可按进货价购买)</span></a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                     <!--金卡会员-->
+                    {elseif $out_data.member_info.level eq 3}
+
+                     <!--福禄卡会员-->
+                    {elseif $out_data.member_info.level eq 4}
+
+                    <!--不是会员-->
+                    {else}
+                        <div class="ac user" style="background">
+                         <a class="logout"href="{url app=member&act=logout}"style="float:left;color:#fff;font-size: 16px;padding: 5px">[退出]</a>
+                            <div class="not_member">
+                                <ul>
+                                    <li>
+                                        <span>会员名称:{$out_data.member_info.name}</span>
+                                    </li>
+                                    <li>
+                                        <a  href="javascript:void(0)" class="trip_alert">点击开通会员</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                        
+                    {/if}
+
+
+                {/if}
+                    <div class="new">
+                        <dl>
+                            <dt class="dt3">企业动态</dt>
+                            {foreach from=$out_data.notice item=notice_item}
+                            <dd>
+                                <a href="{url app=article&act=view&article_id=$notice_item.article_id}"><span style="float: left">&nbsp;{$notice_item.title}</span><span style="float: right">{$notice_item.add_time|date:Y-m-d}&nbsp;</span></a>
+                            </dd>
+                            {/foreach}
+                        </dl>
+                    </div>
+                    <div class="ecmall">
+                        <a href="{url}">
+                            <img src="{res file=images/ecmall.jpg}"></a>
+                    </div>
+                </div>
+                <div class="banner_outer">
+                    <div class="banner" id="b06">
+                        <!--start-->
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <img src="{res file=images/1.jpg}"></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <img src="{res file=images/2.jpg}"></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <img src="{res file=images/3.jpg}"></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <img src="{res file=images/4.jpg}"></a>
+                            </li>
+                        </ul>
+                        <a href="javascript:void(0);" class="unslider-arrow06 prev">
+                            <img class="arrow" id="al" src="{res file=images/arrowl.png}" alt="prev" width="20"
+                                 height="35"></a>
+
+                        <a href="javascript:void(0);" class="unslider-arrow06 next">
+                            <img class="arrow" id="ar" src="{res file=images/arrowr.png}" alt="next" width="20"
+                                 height="35"></a>
+                        <!--end-->
+
+                    </div>
+                </div>
+            </div>
+            <div class="wp"></div>
+            <div class="cmk">
+                <div class="mk_nav">
+                    <h3 class="h3f fl">
+                        <a href="">福禄仓茶业</a>
+                    </h3>
+                    <!--<ul>
+                        <li>
+                            <a href="javascript:void(0)">经纪人</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">资讯</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">茶仓</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">茶通</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">微克</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">零售</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">行情</a>
+                        </li>
+                    </ul>-->
+                </div>
+                <div class="cmk_inner">
+                    <div class="zfpm">
+                        <dl>
+                            <dt class="dt3">涨幅排名</dt>
+                        
+                          {foreach from=$out_data.drogue_arr.drogue_upmount item=foo}
+                            <dd>
+                                <a href="{url app=goods&id=$foo.goods_id}">
+                                    <span class="fl">{$foo.tea_name}</span>
+                                    
+                                    <span class="zfz fr" ><font >涨幅：</font>{$foo.percentage}%&uarr;</span>
+                                </a>
+                            </dd>
+                          {/foreach}
+                        </dl>
+                    </div>
+                    <div class="fl cyfxb">
+                        <div id="my_div">
+
+                            <div class="DhPriceBox">
+                                <div class="title">
+                                    <span class="titlel">茶叶风向标</span>
+                                    <span class="en">&nbsp;&nbsp;TEA OF DROGUE</span>
+										<span class="more">
+											<a href="category.php?id=36">&nbsp;&nbsp;更多&gt;&gt;</a>
+										</span>
+                                </div>
+                                <div class="blank"></div>
+                                <div class="dhbox">
+                                    <div class="dh_info f_l box_23 clearfix ml8">
+                                        <div class="sec_title mb_line">
+                                            <a href="category.php?id=5">当年茶</a>
+                                        </div>
+                                        <div class="dh_pbox dh_title">
+                                            <ul>
+                                                <li>
+                                                    <p class="tit f_l">品名</p>
+                                                    <p class="price f_l">参考价</p>
+                                                    <p class="u_price f_l">升跌</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div id="scrollDiv" class="dh_pbox">
+                                            <ul style="margin-top: -100px;" id="scrollDiv_ul">
+                                                {foreach from=$out_data.drogue_arr.drogue_a  item=foo}
+                                                <li>
+                                                    <p class="tit f_l">
+                                                        <a href="{url app=goods&id=$foo.goods_id}" target="_blank" title="{$foo.tea_name}">{$foo.tea_name}</a>
+                                                    </p>
+                                                    {if $foo.status eq 0}
+                                                    <p class="price f_l">￥{$foo.real_price}</p>
+                                                    <p class="u_price f_l">
+                                                        <span class="green">降￥{$foo.fluctuate_price}</span>
+                                                    </p>
+                                                    <p class="u_rate f_l">
+                                                        <span class="green">↓{$foo.percentage}%</span>
+                                                    </p>
+                                                    {else}
+                                                    <p class="price f_l">￥{$foo.real_price}</p>
+                                                    <p class="u_price f_l">
+                                                        <span class="red">升￥{$foo.fluctuate_price}</span>
+                                                    </p>
+                                                    <p class="u_rate f_l">
+                                                        <span class="red">↑{$foo.percentage}%</span>
+                                                    </p>
+                                                    {/if}
+                                                </li>
+                                                {/foreach}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="dh_info box_23  f_l clearfix">
+                                        <div class="sec_title mb_line">
+                                            <a href="category.php?id=6">新茶</a>
+                                        </div>
+                                        <div class="dh_pbox dh_title">
+                                            <ul>
+                                                <li>
+                                                    <p class="tit f_l">品名</p>
+                                                    <p class="price f_l">参考价</p>
+                                                    <p class="u_price f_l">升跌</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div id="scrollDiv1" class="dh_pbox">
+                                            <ul style="margin-top: -75px;" id="scrollDiv1_ul">
+                                             {foreach from=$out_data.drogue_arr.drogue_b  item=foo}
+                                                <li>
+                                                    <p class="tit f_l">
+                                                        <a href="{url app=goods&id=$foo.goods_id}" target="_blank" title="{$foo.tea_name}">{$foo.tea_name}</a>
+                                                    </p>
+                                                    {if $foo.status eq 0}
+                                                    <p class="price f_l">￥{$foo.real_price}</p>
+                                                    <p class="u_price f_l">
+                                                        <span class="green">降￥{$foo.fluctuate_price}</span>
+                                                    </p>
+                                                    <p class="u_rate f_l">
+                                                        <span class="green">↓{$foo.percentage}%</span>
+                                                    </p>
+                                                    {else}
+                                                    <p class="price f_l">￥{$foo.real_price}</p>
+                                                    <p class="u_price f_l">
+                                                        <span class="red">升￥{$foo.fluctuate_price}</span>
+                                                    </p>
+                                                    <p class="u_rate f_l">
+                                                        <span class="red">↑{$foo.percentage}%</span>
+                                                    </p>
+                                                    {/if}
+                                                </li>
+                                            {/foreach}
+                                            {foreach from=$out_data.drogue_arr.drogue_b  item=foo}
+                                                <li>
+                                                    <p class="tit f_l">
+                                                        <a href="{url app=goods&id=$foo.goods_id}" target="_blank" title="{$foo.tea_name}">{$foo.tea_name}</a>
+                                                    </p>
+                                                    {if $foo.status eq 0}
+                                                    <p class="price f_l">￥{$foo.real_price}</p>
+                                                    <p class="u_price f_l">
+                                                        <span class="green">降￥{$foo.fluctuate_price}</span>
+                                                    </p>
+                                                    <p class="u_rate f_l">
+                                                        <span class="green">↓{$foo.percentage}%</span>
+                                                    </p>
+                                                    {else}
+                                                    <p class="price f_l">￥{$foo.real_price}</p>
+                                                    <p class="u_price f_l">
+                                                        <span class="red">升￥{$foo.fluctuate_price}</span>
+                                                    </p>
+                                                    <p class="u_rate f_l">
+                                                        <span class="red">↑{$foo.percentage}%</span>
+                                                    </p>
+                                                    {/if}
+                                                </li>
+                                            {/foreach}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="dh_info box_23 f_l clearfix">
+                                        <div class="sec_title mb_line">
+                                            <a href="category.php?id=7">中期茶</a>
+                                        </div>
+                                        <div class="dh_pbox dh_title">
+                                            <ul>
+                                                <li>
+                                                    <p class="tit f_l">品名</p>
+                                                    <p class="price f_l">参考价</p>
+                                                    <p class="u_price f_l">升跌</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div id="scrollDiv2" class="dh_pbox">
+                                            <ul style="margin-top: 0px;" id="scrollDiv2_ul">
+                                             {foreach from=$out_data.drogue_arr.drogue_c  item=foo}
+                                                <li>
+                                                    <p class="tit f_l">
+                                                        <a href="{url app=goods&id=$foo.goods_id}" target="_blank" title="{$foo.tea_name}">{$foo.tea_name}</a>
+                                                    </p>
+                                                    {if $foo.status eq 0}
+                                                    <p class="price f_l">￥{$foo.real_price}</p>
+                                                    <p class="u_price f_l">
+                                                        <span class="green">降￥{$foo.fluctuate_price}</span>
+                                                    </p>
+                                                    <p class="u_rate f_l">
+                                                        <span class="green">↓{$foo.percentage}%</span>
+                                                    </p>
+                                                    {else}
+                                                    <p class="price f_l">￥{$foo.real_price}</p>
+                                                    <p class="u_price f_l">
+                                                        <span class="red">升￥{$foo.fluctuate_price}</span>
+                                                    </p>
+                                                    <p class="u_rate f_l">
+                                                        <span class="red">↑{$foo.percentage}%</span>
+                                                    </p>
+                                                    {/if}
+                                                </li>
+                                                 {/foreach}
+                                                 {foreach from=$out_data.drogue_arr.drogue_c  item=foo}
+                                                 <li>
+                                                    <p class="tit f_l">
+                                                        <a href="{url app=goods&id=$foo.goods_id}" target="_blank" title="{$foo.tea_name}">{$foo.tea_name}</a>
+                                                    </p>
+                                                    {if $foo.status eq 0}
+                                                    <p class="price f_l">￥{$foo.real_price}</p>
+                                                    <p class="u_price f_l">
+                                                        <span class="green">降￥{$foo.fluctuate_price}</span>
+                                                    </p>
+                                                    <p class="u_rate f_l">
+                                                        <span class="green">↓{$foo.percentage}%</span>
+                                                    </p>
+                                                    {else}
+                                                    <p class="price f_l">￥{$foo.real_price}</p>
+                                                    <p class="u_price f_l">
+                                                        <span class="red">升￥{$foo.fluctuate_price}</span>
+                                                    </p>
+                                                    <p class="u_rate f_l">
+                                                        <span class="red">↑{$foo.percentage}%</span>
+                                                    </p>
+                                                    {/if}
+                                                </li>
+                                                {/foreach}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="blank"></div>
+                                </div>
+                                <script type="text/javascript">
+                                    scrollDivObj = document.getElementById("scrollDiv_ul");
+                                    countNum = 0;
+                                    var stoping;
+                                    var test = "";
+                                    stoping = setInterval("moveDivObj(scrollDivObj)", 2000);
+                                    function moveDivObj(scrollDivObj) {
+                                        countNum--;
+                                        countNum -= 24;
+                                        //获取li的个数
+                                        var li_count = scrollDivObj.getElementsByTagName('li').length;
+                                        countNumS = countNum * -1;
+                                        if (countNumS >= (li_count - 2) * 12) {
+                                            scrollDivObj.style.marginTop = 0 + "px";
+                                            countNum = 0;
+                                            clearInterval(stoping);
+                                            setTimeout(function () {
+                                                stoping = setInterval("moveDivObj(scrollDivObj)", 2000);
+                                            }, 5000);
+                                        }
+                                        scrollDivObj.style.marginTop = countNum + "px";
+                                        //alert(cc);
+                                    }
+                                    /* //鼠标放上事件监听
+                                     scrollDivObj.onmouseover=function(){
+                                     clearInterval(stoping);
+                                     }*/
+                                    scrollDiv1_ul = document.getElementById("scrollDiv1_ul");
+                                    setTimeout(function () {
+                                        stoping1 = setInterval("moveDivObj1(scrollDiv1_ul)", 2000)
+                                    }, 3000);
+                                    function moveDivObj1(scrollDiv1_ul) {
+                                        countNum--;
+                                        countNum -= 24;
+                                        //获取li的个数
+                                        var li_count = scrollDiv1_ul.getElementsByTagName('li').length;
+                                        countNumS = countNum * -1;
+                                        if (countNumS >= (li_count - 2) * 12) {
+                                            scrollDiv1_ul.style.marginTop = 0 + "px";
+                                            countNum = 0;
+                                            clearInterval(stoping1);
+                                            setTimeout(function () {
+                                                stoping1 = setInterval("moveDivObj1(scrollDiv1_ul)", 2000)
+                                            }, 5000);
+                                        }
+                                        scrollDiv1_ul.style.marginTop = countNum + "px";
+                                        //alert(cc);
+                                    }
+
+                                    scrollDiv2_ul = document.getElementById("scrollDiv2_ul");
+                                    setTimeout(function () {
+                                        stoping2 = setInterval("moveDivObj2(scrollDiv2_ul)", 2000)
+                                    }, 5000);
+                                    function moveDivObj2(scrollDiv2_ul) {
+                                        countNum--;
+                                        countNum -= 24;
+                                        //获取li的个数
+                                        var li_count = scrollDiv2_ul.getElementsByTagName('li').length;
+                                        countNumS = countNum * -1;
+                                        if (countNumS >= (li_count - 2) * 12) {
+                                            scrollDiv2_ul.style.marginTop = 0 + "px";
+                                            countNum = 0;
+                                            clearInterval(stoping2);
+                                            setTimeout(function () {
+                                                stoping2 = setInterval("moveDivObj2(scrollDiv2_ul)", 2000)
+                                            }, 5000);
+                                        }
+                                        scrollDiv2_ul.style.marginTop = countNum + "px";
+                                        //alert(cc);
+                                    }
+                                </script>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="jyxx">
+                        <dl>
+                            <dt class="dt3">新品上市</dt>
+                            {foreach from=$out_data.goods_new item=foo}
+                            <dd>
+                                <a href="{url app=goods&id=$foo.goods_id}"><img src="{$foo.default_image}" >
+                                    <span >{$foo.goods_name}</span></a><font>{$foo.price}</font>
+                                
+                            </dd>
+                            {/foreach}
+                            
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <!--福禄仓自营企业-->
+            <div class="zymk">
+                <div class="mk_nav">
+                    <h3 class="h3f fl">
+                        <a href="">福禄仓自营企业</a>
+                    </h3>
+                    <ul>
+                        <li>
+                            <a href="javascript:void(0)">酒业公司</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">鑫源红木</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">珠宝公司</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">紫砂厂</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">茶业公司</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">企业家中心</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="zymk_iner">
+                    <div class="fl qyjzx_box">
+                        <dl>
+                            <dt class="qyjzx">
+                                <a href="javascript:void(0)">企业家中心</a>
+                            </dt>
+                            <dd>
+                                <a href="javascript:void(0)">
+                                    <img src="{res file=images/qyjzx.jpg}" alt=""></a>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="zyqy">
+                        <ul class="box1">
+                            <li>
+                                <a href="index.php?app=store&id=6">
+                                    <img src="{res file=images/l_11.jpg}" alt=""></a>
+                                <h4>
+                                    <a href="index.php?app=store&id=6">福禄仓茶叶</a>
+                                </h4>
+                            </li>
+                            <li>
+                                <a href="index.php?app=store&id=3">
+                                    <img src="{res file=images/l_15.jpg}" alt=""></a>
+                                <h4>
+                                    <a href="index.php?app=store&id=3">福禄仓紫砂</a>
+                                </h4>
+                            </li>
+                            <li>
+                                <a href="index.php?app=store&id=2">
+                                    <img src="{res file=images/l_12.jpg}" alt=""></a>
+                                <h4>
+                                    <a href="index.php?app=store&id=2">福禄仓鑫源红木</a>
+                                </h4>
+                            </li>
+                        </ul>
+                        <ul class="box2">
+                            <li>
+                                <a href="index.php?app=store&id=8">
+                                    <img src="{res file=images/l_14.jpg}" alt=""></a>
+                                <h4>
+                                    <a href="index.php?app=store&id=8">福禄仓珠宝</a>
+                                </h4>
+                            </li>
+                            <li>
+                                <a href="index.php?app=store&id=4">
+                                    <img src="{res file=images/l_13.jpg}" alt=""></a>
+                                <h4>
+                                    <a href="index.php?app=store&id=4">福禄仓酒业</a>
+                                </h4>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--福禄仓会员企业平台-->
+            <div class="hyqy">
+                <div class="mk_nav">
+                    <h3 class="h3f fl">
+                        <a href="">福禄仓会员企业平台</a>
+                    </h3>
+                    <ul>
+                        <li>
+                            <a href="index.php?app=index&act=enterprise">更多 >></a>
+                        </li>
+                        <li>
+                        <!--     <a href="javascript:void(0)">企业分类</a>
+                                                </li>
+                                                <li>
+                        <a href="javascript:void(0)">企业分类</a>
+                                                </li>
+                                                <li>
+                        <a href="javascript:void(0)">企业分类</a>
+                                                </li>
+                                                <li>
+                        <a href="javascript:void(0)">企业分类</a>
+                                                </li>
+                                                <li>
+                        <a href="javascript:void(0)">企业分类</a>
+                                                </li> -->
+                    </ul>
+                </div>
+                <div class="hyqy_inner">
+                    <ul>
+                    {foreach from=$out_data.store_arr item=store}
+                        <li>
+                            <a href="{url app=store&id=$store.store_id}">
+                                <img src="{res file=images/hyqy.jpg}" alt=""></i>
+                            </a>
+                            <h4>
+                                <a href="{url app=store&id=$store.store_id}">{$store.store_name}</a>
+                            </h4>
+                        </li>
+                     {/foreach}
+                    </ul>
+                </div>
+                <!-- <div class="hyqy_inner">
+                    <ul>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <img src="{res file=images/hyqy.jpg}" alt=""></i>
+                            </a>
+                            <h4>
+                                <a href="javascript:void(0)">会员企业名称</a>
+                            </h4>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <img src="{res file=images/hyqy.jpg}" alt=""></i>
+                            </a>
+                            <h4>
+                                <a href="javascript:void(0)">会员企业名称</a>
+                            </h4>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <img src="{res file=images/hyqy.jpg}" alt=""></i>
+                            </a>
+                            <h4>
+                                <a href="javascript:void(0)">会员企业名称</a>
+                            </h4>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <img src="{res file=images/hyqy.jpg}" alt=""></i>
+                            </a>
+                            <h4>
+                                <a href="javascript:void(0)">会员企业名称</a>
+                            </h4>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <img src="{res file=images/hyqy.jpg}" alt=""></i>
+                            </a>
+                            <h4>
+                                <a href="javascript:void(0)">会员企业名称</a>
+                            </h4>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <img src="{res file=images/hyqy.jpg}" alt=""></i>
+                            </a>
+                            <h4>
+                                <a href="javascript:void(0)">会员企业名称</a>
+                            </h4>
+                        </li>
+                    </ul>
+                </div> -->
+            </div>
+            <div class="banner1">
+                <a href="javascript:void(0)">
+                    <img src="{res file=images/banner1.jpg}" alt=""></a>
+            </div>
+            <!--福禄仓企业资质-->
+            <div class="qyzz">
+                <div class="qyzz_inner">
+                    <div class="mk_nav">
+                        <h3 class="h3f fl">
+                            <a href="">福禄仓企业资质</a>
+                        </h3>
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0)">更多资质</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="qyzz_box">
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <img src="{res file=images/zz.jpg}" alt=""></i>
+                                </a>
+                                <h4>
+                                    <a href="javascript:void(0)">企业资质名称</a>
+                                </h4>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <img src="{res file=images/zz.jpg}" alt=""></i>
+                                </a>
+                                <h4>
+                                    <a href="javascript:void(0)">企业资质名称</a>
+                                </h4>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <img src="{res file=images/zz.jpg}" alt=""></i>
+                                </a>
+                                <h4>
+                                    <a href="javascript:void(0)">企业资质名称</a>
+                                </h4>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <img src="{res file=images/zz.jpg}" alt=""></i>
+                                </a>
+                                <h4>
+                                    <a href="javascript:void(0)">企业资质名称</a>
+                                </h4>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <img src="{res file=images/zz.jpg}" alt=""></i>
+                                </a>
+                                <h4>
+                                    <a href="javascript:void(0)">企业资质名称</a>
+                                </h4>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <img src="{res file=images/zz.jpg}" alt=""></i>
+                                </a>
+                                <h4>
+                                    <a href="javascript:void(0)">企业资质名称</a>
+                                </h4>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <img src="{res file=images/zz.jpg}" alt=""></i>
+                                </a>
+                                <h4>
+                                    <a href="javascript:void(0)">企业资质名称</a>
+                                </h4>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="banner2">
+                    <img src="{res file=images/hydk.jpg}" alt=""></div>
+
+            </div>
+            <!--底部-->
+            {include file="footer.html" }
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#enter').on('click',function () {
+        //prompt层
+        layer.prompt({
+            title: '请输入店主至尊卡号',
+            formType: 0 //prompt风格，支持0-2
+        }, function(pass){
+            layer.prompt({title: '请输入店主至尊密码', formType: 1}, function(text){
+                /*layer.msg('演示完毕！您的口令：'+ pass +' 您最后写下了：'+ text);*/
+                layer.msg("消息已经发送给至尊会员！感谢您的配合");
+                $("#trip_alert").css({
+                    display: 'none',
+                });;
+            });
+        });
+    });
+      $('#aplay_dz').on('click',function () {
+        //prompt层
+        layer.prompt({
+            title: '请输入要申请店主至尊卡号',
+            formType: 0 //prompt风格，支持0-2
+        }, function(pass){
+                /*layer.msg('演示完毕！您的口令：'+ pass +' 您最后写下了：'+ text);*/
+                layer.msg("消息已经发送给店主至尊会员！请您耐心等待");
+                $("#trip_alert").css({
+                    display: 'none',
+                }); 
+            
+        });
+    });
+    
+</script>
+</body>
+</html>

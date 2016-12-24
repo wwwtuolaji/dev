@@ -19,6 +19,8 @@ class My_paymentApp extends StoreadminbaseApp
         $payments      = $model_payment->get_builtin($white_list);
 
         $installed     = $model_payment->get_installed($this->visitor->get('manage_store'));
+        $site_url=site_url();
+        $this->assign('site_url',$site_url);
         foreach ($payments as $key => $value)
         {
             foreach ($installed as $installed_payment)
@@ -62,6 +64,7 @@ class My_paymentApp extends StoreadminbaseApp
         $this->_config_seo('title', Lang::get('member_center') . ' - ' . Lang::get('my_payment'));
         header("Content-Type:text/html;charset=" . CHARSET);
         $this->display('my_payment.index.html');
+
     }
 
     /**
@@ -142,6 +145,14 @@ class My_paymentApp extends StoreadminbaseApp
 
     function config()
     {
+        if (!$this->visitor->has_login)
+        {
+                //未登录
+            echo "登录信息已经过期请重新登录！";
+            return;
+        }
+       
+ 
         $payment_id =   isset($_GET['payment_id']) ? intval($_GET['payment_id']) : 0;
         if (!$payment_id)
         {
@@ -259,6 +270,49 @@ class My_paymentApp extends StoreadminbaseApp
 
         return $arr;
     }
-}
+    /**
+     * [send_alipay_sms 发送阿里短信息]
+     * @return [type] [code]
+     */
+    function send_alipay_sms(){
+         //已经登陆
+        $user_id=$this->visitor->get('user_id');
+        $db=&db();
+        $sql="select user_id,phone_mob from ecm_member where user_id=$user_id";
+        $user_info=$db->getrow($sql);
+        $this->assign('user_info', $user_info);
+        $mt_rand=mt_rand(100000,999999);
+        $_SESSION[$user_info['user_id'].'_'.$user_info['phone_mob']]=$mt_rand;
+        include(ROOT_PATH . '/includes/sms_send/sms_function.php');
+        $content = '您的验证码为：111111，请及时完成注册，如非本人操作请忽略。【福禄仓投资集团】';
+        $send_result=send_sms($content,$phone,$type='post');
+        $send_result_=explode("&", $send_result);
+        foreach ($send_result_ as $key => $value) {
+            $temp=explode("=",$value);
+            $result[$temp[0]]=$temp[1];
+        }
+         echo json_encode($result);
+    }
+    function check_code(){
+        $user_id=$this->visitor->get('user_id');
+        $db=&db();
+        $sql="select user_id,phone_mob from ecm_member where user_id=$user_id";
+        $user_info=$db->getrow($sql);
+        $mt_rand=$_SESSION[$user_info['user_id'].'_'.$user_info['phone_mob']];
+        if ($_GET['code']==$mt_rand) {
+            $output=array(
+                'code'=>0,
+                'message'=>'验证成功',
+                'data'=>$mt_rand
+                );
+        }else{
+             $output=array(
+                'code'=>1,
+                'message'=>'验证码输入错误',
+                'data'=>''
+                ); 
+        }
+        echo json_encode($output);
 
-?>
+    }
+}

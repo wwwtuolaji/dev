@@ -94,6 +94,8 @@ class BaseModel extends Object
      */
     function get($params)
     {
+        /*var_dump($params);
+        die;*/
         $data = $this->find($params);
         if (!is_array($data))
         {

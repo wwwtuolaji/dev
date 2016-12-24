@@ -1,6 +1,64 @@
-{include file=header.html}
 
-{include file=top.html}
+{include file=header_new.html}
+{include file=top_nav.html}
+<div id="head">
+    <h1 title="{$site_title|escape}"><a href="index.php"><img src="{$site_logo}" alt="ECMall" /></a></h1>
+    <div id="topbtn">
+        <div class="topbtn1"></div>
+        <div class="topbtn2"></div>
+        <span id="child_nav">
+            <a href="{url app=member}" class="user">{$lang.member_center}</a>
+            <ul id="float_layer">
+                <div id="adorn1"></div>
+                <div id="adorn2"></div>
+                <!--{if $visitor.store_id}-->
+                <li><a href="{url app=my_goods}">{$lang.my_goods}</a></li>
+                <li><a href="{url app=seller_order}">{$lang.order_manage}</a></li>
+                <li><a href="{url app=my_qa}">{$lang.my_qa}</a></li>
+                <!--{else}-->
+                <li><a href="{url app=buyer_order}">{$lang.my_order}</a></li>
+                <li><a href="{url app=buyer_groupbuy}">{$lang.my_groupbuy}</a></li>
+                <li><a href="{url app=my_question}">{$lang.my_question}</a></li>
+                <!--{/if}-->
+            </ul>
+        </span>
+        <span>|</span>
+        <a href="{url app=category}">{$lang.i_want_buy}</a> <span>|</span>
+        <a href="{url app=my_goods&act=add}">{$lang.i_want_sell}</a>
+    </div>
+
+    <div id="path">
+        {$lang.curlocal}:
+        <!--{foreach from=$_curlocal item=lnk}-->
+        <!--{if $lnk.url}-->
+        <a href="{$lnk.url}">{$lnk.text|escape}</a> <span>&#8250;</span>
+        <!--{else}-->
+        {$lnk.text|escape}
+        <!--{/if}-->
+        <!--{/foreach}-->
+    </div>
+
+    <div id="search">
+        <form id="" name="" method="get" action="index.php">
+            <div class="input">
+                <div class="input1"></div>
+                <div class="input2"></div>
+                <select name="act" class="select1">
+                <option value="index">{$lang.search_goods}</option>
+                <option value="store">{$lang.search_store}</option>
+                <option value="groupbuy">{$lang.search_groupbuy}</option>
+                </select>
+                <input type="hidden" name="app" value="search" />
+                <input type="text" class="search334" name="keyword" />
+            </div>
+            <input class="search_btn" type="submit" value="" />
+        </form>
+    </div>
+</div>
+
+{include file=top_new.html}
+
+
 <div id="content">
     <div id="left">
         {include file=left.html}

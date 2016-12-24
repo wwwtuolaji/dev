@@ -32,7 +32,8 @@ class StoreApp extends StorebaseApp
         $this->_config_seo('title', $store['store_name'] . ' - ' . Conf::get('site_title'));
         /* 配置seo信息 */
         $this->_config_seo($this->_get_seo_info($store));
-        $this->display('store.index.html');
+        //$this->display('store.index.html');
+        $this->display('store_new.index.html');
     }
 
     function search()

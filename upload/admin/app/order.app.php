@@ -96,7 +96,7 @@ class OrderApp extends BackendApp
         $this->assign('search_options', $search_options);
         $this->assign('page_info', $page);          //将分页信息传递给视图，用于形成分页条
         $this->assign('orders', $orders);
-        $this->import_resource(array('script' => 'inline_edit.js,jquery.ui/jquery.ui.js,jquery.ui/i18n/' . i18n_code() . '.js',
+        $this->import_resource(array('script' => 'inline_edit.js,jquery.ui/jquery.ui.js,layer/layer.js,jquery.ui/i18n/' . i18n_code() . '.js',
                                       'style'=> 'jquery.ui/themes/ui-lightness/jquery.ui.css'));
         $this->display('order.index.html');
     }
@@ -154,6 +154,20 @@ class OrderApp extends BackendApp
                 $order_detail['data']['goods_list'][$key]['goods_image'] = SITE_URL . '/' . $goods['goods_image'];
             }
         }
+        $db=&db();
+        $query="select * from ecm_order_tofac where order_id='$order_id' limit 1";
+        $tofac=$db->getrow($query);
+                //获取当前支付账号信息
+            /*{s:14:"alipay_account";s:6:"111112";s:10:"alipay_key";s:0:"";s:14:"alipay_partner";s:0:"";s:14:"alipay_service";s:21:"trade_create_by_buyer";s:5:"pcode";s:0:"";s:8:"sms_code";s:0:"";}*/
+        $payment=& m('payment');
+        $payment_info= $payment->get(array("store_id = {$order_info['seller_id']}")
+                    );
+        preg_match('/s:14:"alipay_account";s:\d+:"([\w?@]+)"/i', $payment_info['config'], $matches);
+        $alipay_account=$matches[1];
+        $tofac['alipay_account']=$alipay_account;
+        $tofac['log_time']=date("Y-m-d H:i:s",$tofac['log_time']);
+        $this->assign('alipay_tofac',$tofac);
+        
         $this->assign('order', $order_info);
         $this->assign($order_detail['data']);
         $this->display('order.view.html');
@@ -183,6 +197,7 @@ class OrderApp extends BackendApp
             /*header('Content-Type:text/html;charset=' . CHARSET);
             $this->assign('order', $order_info);
             $this->display('seller_order.received_pay.html');*/
+            return;
         }
         else
         {
@@ -272,6 +287,42 @@ class OrderApp extends BackendApp
         }
 
         return array($order_id, $order_info);
+    }
+    function confirm_pay_tofac(){
+        //数据准备
+        $order_id   =$_GET['order_id'];
+        if (empty($order_id)) {
+              $output=array(
+                            'code'=>3,
+                            'message'=>'参数异常',
+                            'data'=>"",
+                            );
+               echo json_encode($output);
+               return;
+        }
+        $operator   =$this->visitor->get('user_name');
+        $remark     =$_POST['remark'];
+        $log_time   =time();
+        $db=&db();
+        $insert="insert into ecm_order_tofac values(null,'$order_id','$operator','$remark','$log_time')";
+        $result=$db->query($insert);
+        //修改订单的状态
+        $update="update ecm_order set pay_to_fac=1 where order_id=$order_id";
+        $db->query($update);
+        if ($result) {
+            $output=array(
+                            'code'=>0,
+                            'message'=>'请求成功',
+                            'data'=>"",
+                            );
+        }else{
+            $output=array(
+                            'code'=>1,
+                            'message'=>'请求失败',
+                            'data'=>"",
+                            );
+        }
+        echo json_encode($output);
     }
 }
 ?>

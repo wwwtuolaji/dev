@@ -84,6 +84,7 @@ class BaseApp extends Object
     function display($n)
     {
         $this->_init_view();
+        //var_dump($n);
         $this->_view->display($n);
     }
 

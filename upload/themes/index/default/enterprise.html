@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>会员企业平台</title>
+	<script type="text/javascript" src="{res file=js/js_plugin/jquery-1.11.1.min.js}"></script>
+	<script type="text/javascript" src="{res file=js/js_plugin/unslider.min.js}"></script>
+	<script type="text/javascript" src="{res file=js/index.js}"></script>
+	<link rel="stylesheet" href="{res file=css/base.css}"/>
+	<link rel="stylesheet" href="{res file=css/loan.css}"/>
+	<style>
+        .master_con .w{
+            overflow: hidden;
+        }
+        .l_nav{
+            background-color: #808080;
+            width:190px;
+        }
+        .l_nav li{
+           float:left;
+            width:190px;
+
+        }
+        .l_nav a{
+            font:100 16px/30px '';
+            color: #fff;
+            display: block;
+            width:190px;
+        }
+        .l_nav li :hover{
+            background-color: #999395;
+        }
+        .l_nav .gang{
+            font:100 20px/30px '';
+            margin:auto 2px;
+        }
+        /*有半部分*/
+        .choose_notice{
+            display: inline-block;
+            font:800 21px/65px "";
+            width:110px;
+            color: #000;
+            text-align: center;
+        }
+        .top_nav{
+            margin-top:5px;
+        }
+        .top_nav button{
+            font:100 20px/30px '';
+            color:#000;
+            padding:1px 10px;
+            border-radius: 5px;
+        }
+        /*小三角*/
+        .top_nav button {
+            padding: 0 25px 0 10px;
+            position: relative;
+            cursor: pointer;
+        }
+        .top_nav button i {
+            font: 400 20px/30px "simsun";
+            height: 15px;
+            overflow: hidden;
+            position: absolute;
+            right: 0;
+            top: 13px;
+            width: 20px;
+        }
+        .top_nav button s {
+            left: 0;
+            position: absolute;
+            text-decoration: none;
+            top: -15px;
+        }
+        span.da_l{
+            font: 800 20px/40px "";
+            margin:auto 10px;
+        }
+        .serch_r{
+		width:520px;
+		line-height: 30px;
+		margin-right: 30px;
+	}
+	.serch_r .serch_l{
+		font-size: 16px;
+		color:#000;
+		height: 23px;
+		line-height: 70px;
+		margin-top:5px;
+	}
+	.serch_r input{
+		margin-left: 20px;
+
+	}
+	.out_btn{
+		
+		margin-left: 20px;
+		background-color:#454242; 
+		width: 400px; 
+		display: inline-block;
+		margin-top: 10px;
+		height: 45px; 
+		position: relative;
+	}
+	.serch_r .out_btn input {
+		position: absolute;
+		/* margin:2px,5px; */
+		padding: 3px;
+		 border-radius: 5px;
+		width: 388px;
+		margin-left: 5px;
+		margin-top:5px;
+		/* height: 35px; */
+		font: 100 16px/28px "";
+		color:#454242; 	
+	}
+	.serch_but{
+		width: 80px;
+		height: 35px;
+		border:solid 1px #000;
+		border-radius: 5px;
+		margin: 15px auto; 
+		line-height: 35px;
+		text-align: center;
+		background: #fff;
+		font-size: 17px;
+		cursor: pointer;
+	}
+	/*会员列表相关内容*/
+	.enterprise_list{
+		width: 100%
+
+	}
+	.enterprise_list ul{
+		width: 1000px;
+		overflow: hidden;
+	}
+	.enterprise_list li{
+		float: left;
+	}
+	.enterprise_list li div{
+		width: 230px;
+		height: 280px;
+		border:solid 1px black;
+		margin: 10px;
+		background-color: #808080;
+	}
+	.enterprise_list .photo_list{
+
+		margin:10px auto;
+		width: 200px;
+		height: 200px;
+	}
+	.photo_list img{
+		width: 100%;
+		height: 100%;
+	}
+	.enterprise_list p,.enterprise_list a{
+		font-size: 16px;
+		text-align: center;
+		color: #fff;
+	}
+	.place{
+		 position: relative; 
+
+	}
+	/* 省市下拉框css */
+	.drop_down {
+		top:22px;
+		left:1px;
+		z-index: 1000;
+	    position: absolute;
+	    background-color: #F5F5F5;
+	    display: none; 
+	    width: 414px;	
+	}
+	.place  .drop_down li{
+		float: left;
+		text-align: center;
+		width: 80px;
+		cursor: pointer;
+	    font-size: 12px;
+	    line-height: 25px;
+	    color:#000;
+	}
+	.place  .drop_down li:hover{
+		background-color: #666;
+	}
+	
+    </style>
+<body>
+	<div class="h">
+		<div class="w">{include file=nav.html}</div>
+	</div>
+
+	<div class="master_con">
+		<div class="w">
+			<div class="fl l_nav">
+				<ul>
+					<li>
+						<a href="javascript:void(0);">家用电器</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">
+							手机
+							<span class="gang">/</span>
+							运营商
+							<span class="gang">/</span>
+							数码
+						</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">家装/家具</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">
+							个性化妆
+							<span class="gang">/</span>
+							清洁用品
+							<span class="gang">/</span>
+							宠物
+						</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">
+							鞋服
+							<span class="gang">/</span>
+							箱包
+							<span class="gang">/</span>
+							珠宝奢侈
+						</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">
+							汽车
+							<span class="gang">/</span>
+							汽车用品
+						</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">
+							母婴
+							<span class="gang">/</span>
+							玩具乐器
+						</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">
+							食品
+							<span class="gang">/</span>
+							酒类
+							<span class="gang">/</span>
+							生鲜
+							<span class="gang">/</span>
+							特产
+						</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">
+							机票
+							<span class="gang">/</span>
+							酒店
+							<span class="gang">/</span>
+							旅游生活
+						</a>
+					</li>
+				</ul>
+
+			</div>
+			<div class="fl r_con">
+				<!--头部div-->
+				<div class="top_nav">
+					<span class="choose_notice">区域选择</span>
+					<span class="da_l">></span>
+					<span class="place">
+						<button>
+							省份 <i><s>◇</s></i> 
+						</button>
+						<ul class="drop_down">
+							<li>上海市</li>
+							<li>河北省</li>
+							<li>广州省</li>
+							<li>河南省</li>
+							<li>上海市</li>
+							<li>河北省</li>
+							<li>广州省</li>
+							<li>河南省</li>
+							<li>上海市</li>
+							<li>河北省</li>
+							<li>广州省</li>
+							<li>河南省</li>
+						</ul>	
+					</span>
+					<span class="da_l">></span>
+					<span class="place">
+					<button>
+						城市 <i><s>◇</s></i> 
+					</button>
+
+					<ul class="drop_down">
+							<li>保定</li>
+							<li>唐山</li>
+							<li>石家庄</li>
+							<li>邢台</li>
+							<li>廊坊</li>
+							<li>承德</li>
+							
+						</ul>	
+					</span>
+					<span class="da_l">></span>
+					<span class="place">
+					<button>
+						地区
+						<i>
+							<s>◇</s>
+						</i>
+					</button>
+					<ul class="drop_down">
+							<li>海淀区</li>
+							<li>门头沟</li>
+							<li>朝阳</li>
+							<li>石景山</li>
+							<li>大兴区</li>
+							<li>玄武区</li>
+							
+						</ul>	
+					</span>
+					<div class="fr serch_r">
+						<span class="out_btn">
+							<input type="text" value="请输入内容" onfocus="javascript:if(this.value=='请输入内容')this.value='';"></span>
+						<div class="fr serch_but">查找</div>
+					</div>
+				</div>
+				<div class="enterprise_list">
+					<ul>
+						{foreach from=$out_data.store_arr item=store}
+						<li>
+							<div>
+								<div class="photo_list">
+									<a href="{url app=store&id=$store.store_id}">
+										<img src="{res file=images/hyqy.jpg} "></a>
+								</div>
+								<p><a href="{url app=store&id=$store.store_id}">{$store.store_name}</a></p>
+								</div>
+						</li>
+						 {/foreach}
+					</ul>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(".place").hover(function() {
+		var ul_obj=$(this).children('ul');
+		ul_obj.show();
+		}, function() {
+			var ul_obj=$(this).children('ul');
+			ul_obj.hide();
+		});
+		  /*更改导航栏选中*/
+	    $(function(){
+	       $(".nav li").attr("class","");  
+	       $(".nav li:eq(3)").attr("class","center");  
+	    });
+   
+	</script>
+</body>
+</html>

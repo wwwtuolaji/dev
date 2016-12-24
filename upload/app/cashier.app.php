@@ -133,10 +133,16 @@ class CashierApp extends ShoppingbaseApp
 
                 return;
             }
-              
+            //替换config配置数据a:5:{s:14:"alipay_account";s:6:"111112";s:10:"alipay_key";s:0:"";s:14:"alipay_partner";s:0:"";s:14:"alipay_service";s:21:"trade_create_by_buyer";s:5:"pcode";s:0:"";}
+            //替换支付宝配置信息
+            $payment_info['config']='a:5:{s:14:"alipay_account";s:15:"ppb_kf1@126.com";s:10:"alipay_key";s:32:"7j0f1lc72we44pwwr9wf6087wzis0h9l";s:14:"alipay_partner";s:16:"2088521075622716";s:14:"alipay_service";s:25:"create_direct_pay_by_user";s:5:"pcode";s:0:"";}';
+          /*  $a=json_decode($payment_info['config']);
+            var_dump($a);*/
+        
             $payment    = $this->_get_payment($order_info['payment_code'], $payment_info);
             $payment_form = $payment->get_payform($order_info);
-
+            /*var_dump($payment_info);
+            die;*/
             /* 货到付款，则显示提示页面 */
             if ($payment_info['payment_code'] == 'cod')
             {

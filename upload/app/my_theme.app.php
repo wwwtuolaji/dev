@@ -93,6 +93,8 @@ class My_themeApp extends StoreadminbaseApp
 
         /* 获取待选主题列表 */
         $model_grade =& m('sgrade');
+        /* var_dump($store_info );
+        die;*/
         $grade_info  =  $model_grade->get($store_info['sgrade']);
         $skins = explode(',', $grade_info['skins']);
         $themes = array();
@@ -101,7 +103,7 @@ class My_themeApp extends StoreadminbaseApp
             list($template_name, $style_name) = explode('|', $skin);
             $themes[$skin] = array('template_name' => $template_name, 'style_name' => $style_name);
         }
-
+            
         return array(
             'curr_template_name' => $curr_template_name,
             'curr_style_name'    => $curr_style_name,

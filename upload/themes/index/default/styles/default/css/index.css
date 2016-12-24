@@ -1,0 +1,510 @@
+
+/* jjjjjjj */
+        .h{
+    
+            height:1400px;
+            background:url("../images/bg2.jpg") no-repeat;
+            margin: 0 auto;
+        }
+
+        .box{
+            overflow: hidden;
+        }
+        .box1{
+            margin-right: 5px;
+        }
+        .user{
+            width: 280px;
+            height: 160px;
+            background: url(../images/user.jpg);
+            position: relative;
+        }
+        .user button {
+            display: block;
+            font: 700 20px/40px "";
+            color: #fff;
+            cursor:pointer;
+        }
+     
+        .user_login{
+            position: absolute;
+            top: 100px;
+            left: 30px;
+        }
+        .user_reg{
+            position: absolute;
+            top: 100px;
+            left: 150px;
+        }
+        .new{
+            width: 280px;
+            height: 140px;
+        }
+        .new dd{
+            border-bottom: 1px dashed #dddddd;
+        }
+        .new dd a{
+            font-size: 15px;
+            line-height: 25px;
+            color: #000;
+            margin-left:8px;
+        }
+        .new dd a:hover{
+            color: #ff0000;
+        }
+        .banner_outer{
+            float: left;
+            width: 945px;
+            height: 420px; 
+        }
+        .banner{
+            float: left;
+             width: 945px;
+              height: 420px; 
+            position: relative;
+        }
+        .banner img{
+            width: 945px;
+            height: 420px;
+        }
+        .banner #ar{
+
+            width: 25px;
+            height:35px;
+        }
+        .banner #al{
+            width: 25px;
+            height:35px;
+        }
+        .cmk{
+            overflow: hidden;
+        }
+
+        .zfpm{
+            float: left;
+            width: 274px;
+            border: 3px solid #707070;
+        }
+        .zfpm dt{
+            padding-top: 1px;
+        }
+        .zfpm dd{
+            height: 29px;
+            border-bottom: 1px dashed #606060;
+        }
+        .zfpm dd a{
+            width: 280px;
+            font-size: 15px;
+            line-height: 29px;
+            color: #000;
+            padding:5px;
+        }
+        .zfpm dd .fl{
+
+        }
+        .zfpm dl a:hover{
+            color: red;
+        }
+        .zfpm dl .zfz{
+            color: #ff0000;
+            width: 100px;
+        }
+        .zfpm .zfz font{
+            color: #000;
+            text-align: left;
+
+        }
+        /*.cyfxb img{*/
+            /*width: 750px;*/
+            /*height: 330px;*/
+        /*}*/
+        .cyfxb{
+            width: 750px;
+            height: 330px;
+        }
+        .jyxx{
+            float: left;
+            width: 188px;
+            border: 3px solid #606060;
+            margin-left: 5px;
+        }
+        .jyxx dt{
+            margin-top: 1px;
+        }
+        .jyxx dd{
+            margin-top: 8px;
+            border-bottom: 1px dashed #606060;
+        }
+      
+        .jyxx dd span{
+            font-size:12px;
+            line-height: 14px;
+            text-align: left;
+            display: inline-block;
+            float: left;  
+            height: 50px;
+            width: 84px;
+            margin-left: 10px;
+        }
+        .jyxx font{
+            height: 30px;
+            width: 84px;
+            color:red;
+            font:100 15px/40px "";
+            margin-bottom: 0px;
+            text-align: center;
+            margin: 0px 10px;
+        }
+        .jyxx dd a{
+            color: #000;
+        }
+        .jyxx dd a:hover{
+            color: red;
+        }
+        .jyxx dd .sell{
+            width: 15px;
+            height: 18px;
+            color: #fff;
+            background: red;
+            margin-left: 10px;
+
+        }
+        .jyxx dd .buy{
+            width: 15px;
+            height: 17px;
+            color: #fff;
+            background: #00aa00;
+            margin-left: 10px;
+        }
+        .jyxx img{
+            height: 80px;
+            margin: 5px 1px;
+            display: inline-block;
+            float: left;  
+        }
+
+         .zymk{
+             overflow: hidden;
+         }
+        .qyjzx{
+            float: left;
+            width:800px;
+            height:40px;
+            background: #aa0000;
+        }
+        .qyjzx a{
+            color: #fff;
+            font:700 20px/40px "";
+            padding-left:1em;
+        }
+        .zyqy{
+            float: left;
+            margin-left:5px;
+        }
+        .zyqy ul{
+            text-align: center;
+        }
+        .zyqy .box1{
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .zyqy .box1 li{
+            float: left;
+            width:140px;
+        }
+        .zyqy .box1 img{
+            width:130px;
+            height:160px;
+        }
+        .zyqy h4 a{
+            display: block;
+            margin:0 auto;
+            color: #fff;
+            font:400 16px/30px "";
+            background-color: #aa0000;
+
+        }
+        .zyqy .box1 h4 a{
+            width:130px;
+            height:30px;
+        }
+        .zyqy .box2 li{
+            float: left;
+            width:210px;
+        }
+        .zyqy .box2 img{
+            width:200px;
+            height:170px;
+        }
+        .zyqy .box2 h4 a{
+            width:200px;
+            height:30px;
+        }
+        .hyqy_inner ul{
+            text-align: center;
+        }
+        .hyqy_inner li{
+            float: left;
+            width:205px;
+            margin-bottom:5px;
+        }
+        .hyqy_inner img{
+            width:194px;
+            height:170px;
+
+        }
+        .hyqy_inner h4 a{
+            display: block;
+            width:194px;
+            height:30px;
+            color: #fff;
+            font:400 16px/30px "";
+            background: #aa0000;
+            margin:0 auto;
+        }
+        .banner1 img{
+            width:1220px;
+            margin:5px 5px;
+        }
+        .qyzz{
+            overflow: hidden;
+        }
+        .qyzz_inner{
+            float: left;
+            width:920px;
+        }
+        .qyzz_box li{
+            float: left;
+            margin-left:10px;
+        }
+        .qyzz_box li img{
+            width:120px;
+        }
+        .qyzz_box li h4 a{
+            display: block;
+            width:120px;
+            height:30px;
+            font:400 16px/30px "";
+            text-align: center;
+        }
+        .qyzz .banner2{
+            float: left;
+        }
+        .qyzz .banner2 img{
+            width:300px;
+            height:240px;
+            margin:5px;
+        }
+        /* 轮播图css控制 */
+            .banner ul li {
+    float: left;
+}
+.banner li {
+    list-style: none;
+}
+
+.banner ul li {
+    float: left;
+}
+
+
+#b06 .dots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+}
+
+#b06 .dots li {
+
+    display: inline-block;
+
+    width: 10px;
+
+    height: 10px;
+
+    margin: 0 4px;
+
+    text-indent: -999em;
+
+    border: 2px solid #fff;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    opacity: .4;
+
+    -webkit-transition: background .5s, opacity .5s;
+
+    -moz-transition: background .5s, opacity .5s;
+
+    transition: background .5s, opacity .5s;
+
+}
+
+
+
+#b06 .dots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+    margin-left: 50%;
+}
+
+#b06 .dots li {
+
+    display: inline-block;
+
+    width: 10px;
+
+    height: 10px;
+
+    margin: 0 4px;
+
+    text-indent: -999em;
+
+    border: 2px solid #fff;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    opacity: .4;
+
+    -webkit-transition: background .5s, opacity .5s;
+
+    -moz-transition: background .5s, opacity .5s;
+
+    transition: background .5s, opacity .5s;
+
+}
+
+#b06 .dots li.active {
+
+    background: #fff;
+
+    opacity: 1;
+
+}
+
+ #b06 .arrow {
+    position: absolute;
+    top: 200px;
+}
+ #b06 #al {
+    left: 30px;
+    top: 50%;
+}
+
+#b06 #ar {
+    right: 30px;
+    top: 50%;
+} 
+/* 不同用户登陆显示不同的人css控制 */
+
+.not_member{
+
+         width: 100%;
+         height:100%;   
+}
+.not_member li{
+    float: left;
+    width: 278px;
+    margin-bottom: 0px;
+}
+.not_member li span{
+    display: block;
+    width: 278px;
+    height: 20px;
+    font: 200 18px/20px "";
+    color:#000;
+    text-align: left;
+    margin:90px 25px 10px;
+}
+.not_member .trip_alert{
+    display: block;
+    width: 280px;
+    height: 40px;
+    background: #BF1000;
+    font: 100 16px/40px "";
+    color:#fff;
+    /* cursor: pointer; */
+}
+.trip_alert:hover{
+    background: #900;
+}
+/* 店主至尊 */
+
+
+.member_i{
+
+         width: 100%;
+         height:100%;  
+        float: left;
+}
+.member_i ul{
+    overflow: hidden;
+
+}
+.member_i li{
+    float: left;
+    width: 278px;
+    margin-bottom: 0px;
+}
+.member_i li span{
+    display: block;
+    width: 278px;
+    height: 25px;
+    font: 200 16px/25px "";
+    color:#fff;
+    text-align: left;
+    margin:0px 25px 0px;
+}
+.member_i li .top_span{
+    margin-top: 50px;
+}
+.member_i .trip_alert{
+    border: solid 1px #807979;
+    width: 279px;
+    height: 83px;
+    background: #fff;
+    font: 100 16px/40px "";
+    color:#000;
+    margin-top: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    /* cursor: pointer; */
+}
+.member_i li dt,.member_i li dd{
+    text-align: left;
+     font: 100 11px/14px ""; 
+     margin-left: 30px;
+}
+.member_i li button{
+    width: 139px;
+    color: #1A50A9;
+    border-radius: 3px;
+}
+.member_i li .cancle{
+    border-right: 1px solid #807979;
+
+}
+.member_i li a.trip_alert{
+    display: block;
+    width: 280px;
+    height: 50px;
+    background: #BF1000;
+    font: 100 16px/30px "";
+    color:#fff;
+}
+.member_i li a.trip_alert span{
+    font: 100 11px/11px "";
+    margin:0;
+    text-align: center;
+}
+
+ .logout :hover{
+    color: red;
+ }

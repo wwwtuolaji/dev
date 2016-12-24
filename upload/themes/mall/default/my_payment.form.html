@@ -10,7 +10,7 @@ $(function(){
 </ul>
 <div class="eject_con">
     <div class="info_table_wrap">
-        <form method="post" action="index.php?app=my_payment&amp;act={$smarty.get.act}&amp;code={$smarty.get.code}&amp;payment_id={$smarty.get.payment_id}" target="my_payment">
+        <form method="post" id="form" action="index.php?app=my_payment&amp;act={$smarty.get.act}&amp;code={$smarty.get.code}&amp;payment_id={$smarty.get.payment_id}" target="my_payment">
         <ul class="info_table">
             <li>
                 <h4>{$lang.payment_name}:</h4>
@@ -74,10 +74,114 @@ $(function(){
                 <h4>{$lang.payment_pcode}:</h4>
                 <p><input type="text" name="config[pcode]" value="{$config.pcode}" size="3" class="text" /><span>{$lang.pcode_desc}</span></p>
             </li>
-            <!--{/if}-->
-           
+            <li >
+                <h4>手机验证码：</h4>
+                <p><input id="sms_con"type="text" name="config[sms_code]"  maxlength='6'size="6" class="text" placeholder=""/><span id="sms_code_span"class="sms_code_span" style="display: inline-block;border:solid 1px ; margin-left: 25px; padding:5px;text-align: center; cursor: pointer; background-color: #BDBCBC;color: #fff;">点击获取验证码</span><span id="trip">请用注册的手机号接收</span></p>
+            </li>
+            <!--{/if}--> 
         </ul>
-        <div class="submit"><input type="submit" class="btn" value="{$lang.submit}" /></div>
+        <div class="submit" style="display:none"><input type="submit" class="btn" value="{$lang.submit}" /></div>
         </form>
     </div>
 </div>
+   <script type="text/javascript">
+   var n;
+   var s;
+   var obj;
+   var _status=true;//点击状态
+   var _count=3;
+   var html_con;//原始内容
+   var site_url='{$site_url}';
+   var validate_code=false;
+       $("#sms_code_span").live('click', function(event) {
+            if (_count<=0) {
+                alert("您已经超出获取短信条目，请刷新重试！");
+                return;
+            }
+            html_con=$(this).html();
+            if (_status==true&&_count>0) {
+                obj=$(this);
+                _status=false;
+                s=60;
+                //发送验证码到后台
+               $.ajax({
+                   url: site_url+'?app=my_payment&act=send_alipay_sms',
+                   type: 'GET',
+                   dataType: 'json',
+                   data: {},
+                   success:function(data){
+                        if (data.result!=0) {
+                            alert(data.message+data.result);
+                            clearInterval(n);
+                             _status=true;
+                            obj.html(html_con);
+                            obj.css({
+                                 'background-color': '#BDBCBC'
+                             });
+                            return;
+                        }
+
+                       /* $(".submit").css({
+                            display: 'block'
+                        });*/
+                   }
+               });
+                n=setInterval("change_sms()",1000);
+                _count--;
+            }
+        });
+       function change_sms(){
+             s--;  
+             obj.html("请"+s+"秒重新获取");
+             obj.css({
+                 'background-color': '#D44141'
+             });
+             if (s==1) {
+                 obj.attr("disabled", "false");
+                 clearInterval(n);
+                 _status=true;
+                 obj.html(html_con);
+                 obj.css({
+                 'background-color': '#BDBCBC'
+             });
+            }
+        }
+       $("#sms_con").live('keydown', function(event) {
+           var con_=$(this).val().length;
+            if(con_==5) {
+                //输入完毕发送ajax请求;
+                  $.ajax({
+                   url: site_url+'?app=my_payment&act=check_code',
+                   type: 'GET',
+                   dataType: 'json',
+                   data: {code},
+                   success:function(data){
+                        if (data.code!=0) {
+                            alert(data.message+data.code);
+                            return;
+                        }
+                    //验证成功
+                        alert("验证成功"+data.data);
+                        $(".submit").css({
+                            display: 'block'
+                        });
+                        validate_code=true;
+                   }
+               });
+            }
+           
+       });
+
+       $(function(){
+
+          $("form").submit(function(e){
+            if (validate_code) {
+
+            }
+            e.preventDefault();  
+            alert("手机验证码输入有误！请检查！");
+            
+          });
+       })
+
+   </script>

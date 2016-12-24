@@ -1103,6 +1103,30 @@ class MessageBase extends MallbaseApp {};
 /* 实现模块基础类接口 */
 class BaseModule  extends FrontendApp {};
 
+/**
+ *    
+ *
+ *    @author    jjc
+ *    @usage    none
+ */
+class IndexbaseApp extends FrontendApp
+{
+     function _config_view()
+    {
+        //echo "string";
+        $this->_init_view();
+        parent::_config_view();
+        $template_name = $this->_get_template_name();
+        $style_name    = $this->_get_style_name();
+
+        $this->_view->template_dir = ROOT_PATH . "/themes/index/{$template_name}";
+        $this->_view->compile_dir  = ROOT_PATH . "/temp/compiled/index/{$template_name}";
+        $this->_view->res_base     = SITE_URL . "/themes/index/{$template_name}/styles/{$style_name}";
+        $this->assign("res_base",$this->_view->res_base);
+    }
+
+}
+/*设置index*/
 /* 消息处理器 */
 require(ROOT_PATH . '/eccore/controller/message.base.php');
 

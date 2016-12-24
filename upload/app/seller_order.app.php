@@ -695,6 +695,8 @@ class Seller_orderApp extends StoreadminbaseApp
         $this->assign('type', $_GET['type']);
         $this->assign('orders', $orders);
         $this->assign('page_info', $page);
+       /* var_dump($orders);
+        die;*/
     }
     /*三级菜单*/
     function _get_member_submenu()

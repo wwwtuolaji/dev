@@ -125,7 +125,18 @@ class My_storeApp extends StoreadminbaseApp
                         unlink($store['store_banner']);
                     }
                 }
+                if($store['store_banner_2'] != '' && $data['store_banner_2'] != '')
+                {
+                    $store_banner_old = pathinfo($store['store_banner_2']);
+                    $store_banner_new = pathinfo($data['store_banner_2']);
+                    if($store_banner_old['extension'] != $store_banner_new['extension'])
+                    {
+                        unlink($store['store_banner_2']);
+                    }
+                }
             }
+            /*var_dump($data);
+            die;*/
             
             $data = array_merge($data, array(
                 'store_name' => $_POST['store_name'],
@@ -143,6 +154,7 @@ class My_storeApp extends StoreadminbaseApp
             $this->_store_mod->edit($this->_store_id, $data);
 
             $this->show_message('edit_ok');
+            return;
         }
     }
 
@@ -180,7 +192,6 @@ class My_storeApp extends StoreadminbaseApp
         import('uploader.lib');
         $data      = array();
         /* store_logo */
-      
         $file = $_FILES['store_logo'];   
         if ($file['error'] == UPLOAD_ERR_OK && $file !='')
         {
@@ -203,7 +214,7 @@ class My_storeApp extends StoreadminbaseApp
         {
             $uploader = new Uploader();
             $uploader->allowed_type(IMAGE_FILE_TYPE);
-            $uploader->allowed_size(SIZE_STORE_BANNER); // 200KB
+            $uploader->allowed_size(SIZE_STORE_BANNER); // 1M
             $uploader->addFile($file);
             if ($uploader->file_info() === false)
             {
@@ -213,7 +224,23 @@ class My_storeApp extends StoreadminbaseApp
             $uploader->root_dir(ROOT_PATH);
             $data['store_banner'] = $uploader->save('data/files/store_' . $this->_store_id . '/other', 'store_banner');
         }
-
+        /*store_banner_2*/
+        $file = $_FILES['store_banner_2'];
+        if ($file['error'] == UPLOAD_ERR_OK && $file !='')
+        {
+            /*var_dump($file);*/
+            $uploader = new Uploader();
+            $uploader->allowed_type(IMAGE_FILE_TYPE);
+            $uploader->allowed_size(SIZE_GOODS_IMAGE); // 1M
+            $uploader->addFile($file);
+            if ($uploader->file_info() === false)
+            {
+                $this->show_warning($uploader->get_error());
+                return false;
+            }
+            $uploader->root_dir(ROOT_PATH);
+            $data['store_banner_2'] = $uploader->save('data/files/store_' . $this->_store_id . '/other', 'store_banner_2');
+        }
         return $data;
     }
         /* 异步删除附件 */
