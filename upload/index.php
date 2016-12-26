@@ -8,7 +8,7 @@ ecm_define(ROOT_PATH . '/data/config.inc.php');
 
 /* 启动ECMall */
 ECMall::startup(array(
-    'default_app'   =>  'default',
+    'default_app'   =>  'index',
     'default_act'   =>  'index',
     'app_root'      =>  ROOT_PATH . '/app',
     'external_libs' =>  array(
