@@ -1,0 +1,132 @@
+@charset "UTF-8";
+/*css 初始化 */
+html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img, div{ margin:0; padding:0;text-indent: 0;}
+fieldset, img,input,button { border:none; padding:0;margin:0;outline-style:none; }
+ul, ol { list-style:none; }
+input { padding-top:0; padding-bottom:0; font-family: "SimSun","宋体";}
+select, input { vertical-align:middle;}
+select, input, textarea { font-size:12px; margin:0; }
+textarea { resize:none; } /*防止拖动*/
+img {border:0;	vertical-align:middle; }  /*  去掉图片低测默认的3像素空白缝隙*/
+table { border-collapse:collapse; }
+body {
+    font:12px/150% "Microsoft Yahei",Arial,Verdana,"\5b8b\4f53";
+    color:#666;
+    background:#fff
+}
+.clearfix:before,.clearfix:after {
+    content:"";
+    display:table;
+}
+.clearfix:after{clear:both;}
+.clearfix{
+    *zoom:1;/*IE/7/6*/
+}
+a {color:#666; text-decoration:none; }
+a:hover{color:#C81623;}
+h1,h2,h3,h4,h5,h6 {text-decoration:none;font-weight:normal;font-size:100%;}
+s,i,em{font-style:normal;text-decoration:none;}
+.col-red{color: #C81623!important;}
+
+/*公共类*/
+.w {  /*版心 提取 */
+    width: 1230px;margin:0 auto;
+    background-color: #fff;
+}
+.h{
+    width:1900px;
+    height:1400px;
+    background:url("../images/bg2.jpg") no-repeat;
+    margin: 0 auto;
+}
+.fl {
+    float:left
+}
+.fr {
+    float:right
+}
+.al {
+    text-align:left
+}
+.ac {
+    text-align:center
+}
+.ar {
+    text-align:right
+}
+.hide {
+    display:none
+}
+.wq{
+    height:5px;
+}
+.button{
+    width: 100px;
+    border-radius: 6px;
+    background: #bf1000;
+}
+.dt3{
+    font:700 16px/20px "";
+    color: #000;
+    border-bottom: 1px solid #dddddd;
+    padding-left: 1em;
+}
+
+/*非首页导航栏*/
+.f_inner_c{
+    height:30px;
+    background: #F0F0F0;
+    border:1px solid #ddd;
+
+}
+.f_user li{
+    float: left;
+    margin-left:20px;
+}
+.f_user li a{
+    height:30px;
+    font: 200 16px/30px "";
+}
+.f_nav{
+    float: right;
+}
+.f_nav li{
+    height:20px;
+    float: left;
+    line-height:20px;
+    margin:0 10px;
+}
+.f_nav li a{
+    height:30px;
+    font: 200 16px/30px "";
+
+}
+.f_inner_c .spacer{
+    width:1px;
+    height:10px;
+    background-color: #666;
+    margin-top:10px;
+    }
+
+.
+
+.
+/*尾部内容*/
+.footer{
+    height:200px;
+    background: #a0a0a0;
+    position: relative;
+}
+.footer_logo{
+    width:287px;
+    height:60px;
+    position: absolute;
+    top:50%;
+    left:50%;
+    margin-top: -30px;
+    margin-left:-143px;
+}
+.footer_logo img{
+    width:287px;
+    height:60px;
+}

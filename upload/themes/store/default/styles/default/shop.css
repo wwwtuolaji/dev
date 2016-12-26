@@ -46,9 +46,9 @@ ul, ol { list-style-type:none; }
  * -------------------------------------------------------
  */
 
-#content { width: 1230px; margin: 0 auto; }
-#left { float: left; width: 296px; }
-#right { float: right; width: 900px; }
+#content { width: 1230px; margin: 5px auto; }
+#left { float: left; width: 250px; }
+#right { float: right; width: 950px; }
 
 .clear { clear: both; height: 0; font-size: 1px; }
 
@@ -163,8 +163,8 @@ ul, ol { list-style-type:none; }
 
 #nav .nav_bg { width: 1230px; height: 30px; border-bottom: 3px solid #ff8e00; background: #fff; position: absolute; bottom: 0; left: 0; z-index: 2; }
 
-#left .user { width: 296px; border: 1px solid #ffe3a4; margin-bottom: 5px; }
-#left .user_photo { width: 296px; text-align: center; }
+#left .user { width: 250px; border: 1px solid #aaa; margin-bottom: 5px; }
+#left .user_photo { width: 250px; text-align: center; }
 #left .user_photo h2 { margin-top: 13px; color: #3d3f3e; font-size: 18px; }
 #left .photo { margin-top: 10px; }
 #left .user_photo p { margin-top: 6px; }
@@ -178,20 +178,20 @@ ul, ol { list-style-type:none; }
 #left .user_data p .name:hover { color: red; }
 
 .user .user_data p {font-size: 14px;word-spacing: 2px;letter-spacing: 2px; }
-.module_common { border: 1px solid #ffe3a4; margin-bottom: 5px; }
+.module_common { border: 1px solid #aaa; margin-bottom: 5px; }
 
 .module_currency { margin-bottom: 5px; }
 
-.veins1 { background: url(images/veins.gif) repeat-x 0 0; }
+.veins1 { background-color: #C00}
 .veins1 .ico2 { color: #fff; }
-.veins2 { background: url(images/veins.gif) repeat-x 0 -37px; }
+.veins2 { background-color: #C00 }
 .veins2 .ico2 { color: #3d3f3e; }
 
 .common_title { height: 27px; line-height: 25px; position: relative; }
 .common_title .ornament1 {}
 .common_title .ornament2 {}
 .common_title .ico1 {}
-.common_title .ico2 { padding-left: 10px; margin-left: 13px; font-size: 12px; background: url(images/ico.gif) no-repeat 0 -138px; }
+.common_title .ico2 { color:#fff;padding-left: 10px; margin-left: 13px; font-size: 12px; background: url(images/ico.gif) no-repeat 0 -138px; }
 
 .message_link { color: #fff; position: absolute; top: 0px; right: 10px; word-spacing: 5px; }
 .message_link a { color: #fff; text-decoration: none; font-size: 12px; }
