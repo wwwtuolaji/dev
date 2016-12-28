@@ -100,6 +100,12 @@
             padding:5px;
         }
         .zfpm dd .fl{
+            display:inline-block;
+            overflow:hidden;
+            text-overflow:ellipsis;
+             -o-text-overflow:ellipsis;
+             white-space:nowrap;
+             width:30px;
 
         }
         .zfpm dl a:hover{
@@ -455,7 +461,7 @@
 }
 .member_i li span{
     display: block;
-    width: 278px;
+    width: 245px;
     height: 25px;
     font: 200 16px/25px "";
     color:#fff;
@@ -508,3 +514,14 @@
  .logout :hover{
     color: red;
  }
+ .member_i li span a{
+    border: solid 1px #fff;
+    background-color: #fff;
+    color: #000;
+    padding: 1px;
+    cursor: pointer;
+    border-radius: 5px;
+ }
+  .member_i li span a:hover{
+    color:red;
+  }
