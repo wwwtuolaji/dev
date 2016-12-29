@@ -170,7 +170,7 @@ class PaynotifyApp extends MallbaseApp
         echo "111111111111";
         var_dump($notify_result);
         echo "111111111111";
-        die;
+        /*die;*/
         $order_type->respond_notify($order_id, $notify_result);    //响应通知
     }
 }
