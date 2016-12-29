@@ -124,6 +124,10 @@ $(function(){
           <option value="3" {if $user.member_level eq 3}selected{/if}>{$lang.member_level_3}</option>
           <option value="4" {if $user.member_level eq 4}selected{/if}>{$lang.member_level_4}</option>
           <option value="5" {if $user.member_level eq 5}selected{/if}>未知会员</option>
+          <option value="100" {if $user.member_level eq 100}selected{/if}>集团董事</option>
+          <option value="101" {if $user.member_level eq 101}selected{/if}>集团总经理</option>
+          <option value="102" {if $user.member_level eq 102}selected{/if}>集团店长</option>
+
         </select>
           <!--{if $user.user_id} -->        
           <!-- {/if} -->        </td>

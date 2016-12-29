@@ -525,3 +525,11 @@
   .member_i li span a:hover{
     color:red;
   }
+
+  #top_banner{
+    background:url("../images/banner.jpg") center center no-repeat;
+    height: 600px;
+    width: 1230px;
+    display: none;
+
+  }

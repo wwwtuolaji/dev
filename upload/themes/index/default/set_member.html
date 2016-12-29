@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>福禄仓</title>
+    <link rel="stylesheet" href="{res file=css/base.css}"/>
+    <link rel="stylesheet" href="{res file=css/cyfxb.css}"/>
+    <script type="text/javascript" src="{res file=js/js_plugin/jquery-1.11.1.min.js}"></script>
+    <script type="text/javascript" src="{res file=js/layer/layer.js}"></script>
+    <link rel="shortcut icon" href="{res file=images/bitbug_favicon.ico}"/>
+    <link rel="stylesheet" type="text/css" href="{res file=css/set_member.css}">
+</head>
+<body>
+<div class="fulucang">
+    <div class="h">
+        <div class="w">
+            {include file=nav.html}
+            <div class="logo_top">
+
+                <img src="{res file=images/logo_2.png}"></div>
+            <form method="post" action="index.php?app=index&act=set_member">
+                <div class="content">
+                    <div class="inner_content">
+                        <div class="inner_content_top">
+                            <div class="fl one">
+                                <span>用户名 *:</span>
+                                <input name="user_name" placeholder="用于注册的用户名" type="text" id="user"/> <i>用户名不存在</i>
+                            </div>
+                            <div class="fl one">
+                                <span>外卡号码 *:</span>
+                                <input name="member_card_num" id="outer_number" type="text" placeholder="卡外部的号码"/> <i>卡不符合规范请检查</i>
+                            </div>
+                            <div class="fl one">
+                                <span>办卡类型 *:</span>
+                                <select name="member_level">
+                                    <option value="-1">-请选择-</option>
+                                    <option value="1">店主至尊卡</option>
+                                    <option value="2">至尊卡</option>
+                                    <option value="3">金卡</option>
+                                    <option value="4">福禄卡</option>
+                                </select>
+                                <i>卡的类型不能为空</i>
+                            </div>
+                            <div class="fl one">
+                                <span>内卡号码 *:</span>
+                                <input name="inner_card_num" type="text" id="inner_number" placeholder="请将卡放置感应区"/>
+                                <i>卡不符合规范请检查</i>
+                            </div>
+                            <div class="fl one">
+                                <span>联系电话 *:</span>
+                                <input placeholder="请输入11位手机号码" name="phone_mob" id="phone_number" type="text"/>
+                                <i>联系电话不符合规范</i>
+                            </div>
+                            <div class="fl one">
+                                <span>手机验证码 *:</span>
+                                <input placeholder="请输入4位手机验证码" id="phone_code" type="text"/>
+                                <i>验证码不符合规范</i>
+                            </div>
+                            <div class="fl one">
+                                <span>会员姓名 *:</span>
+                                <input name="real_name" id="member_name" type="text"/>
+                                <i>会员姓名不能为空</i>
+                            </div>
+                            <div class="fl one">
+                                <span>QQ号:</span>
+                                <input name="im_qq" type="text"/>
+                            </div>
+                            <div class="fl one">
+                                <span>会员企业名称:</span>
+                                <input name="card_store_name" type="text"/>
+                            </div>
+                            <div class="fl one" style="display: none">
+                                <input name="user_id" type="text"/>
+
+                            </div>
+
+                        </div>
+                        <input name="" id="confirm" type="button" value="立即开通"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    var site_url = "{$site_url}";
+    var status_card = false;
+    $(function () {
+        /*更改导航栏选中*/
+        $(".nav li").attr("class", "");
+
+
+        $("#user").on('blur', function (event) {
+
+            serchUsername();
+        });
+        /*回归大自然*/
+        $("input").on('keydown', function (event) {
+
+            $(this).css({
+                border: '1px solid #bab3b3'
+            });
+            $(this).next().css("display", "none");
+
+        });
+
+        function serchUsername(change_data=true) {
+            var user_name = $("#user").val();
+            if (user_name == "") {
+                layer.open({
+                    type: 0,
+                    title: '警告！',
+                    area: '300px;',
+                    shade: [0.8, '#393D49'],
+                    shadeClose: false,
+                    closeBtn: 1,//layer提供了两种风格的关闭按钮，可通过配置1和2来展示，如果不显示，则closeBtn: 0
+                    shift: 2,//我们的出场动画全部采用CSS3目前shift可支持的动画类型有0-6
+                    icon: 2,
+                    yes: function (index) {
+                        $("#user").focus();
+
+                        layer.close(index);
+                        return false;
+                    },
+                    content: '用户名不能为空'
+                });
+                return;
+
+            }
+            $.ajax({
+                url: site_url + 'index.php?app=index&act=serch_username',
+                type: 'GET',
+                dataType: 'json',
+                data: {user_name: user_name},
+                success: function (outdata) {
+                    if (outdata.code != 0) {
+                        $("#user").css({
+                            border: '1px solid red'
+                        });
+                        $("#user").next().html(outdata.message)
+                        show_warring($("#user"));
+                        return false;
+                    }
+                    $(this).css({
+                        border: '1px solid #bab3b3'
+                    });
+                    $(this).next().css("display", "none");
+
+                    //分配数据
+
+                    if (change_data) {
+                        for (var key in outdata.data) {
+                            $("[name='" + key + "']").val(outdata.data[key]);
+                        }
+                     /*   $("input[name='member_level']").*/
+                        if (outdata.data.inner_card_num) {
+                            status_card = true;
+                        }
+                    }
+
+                    return true;
+
+                }
+            });
+        }
+
+        $(".one input").not("#user").focus(function () {
+           var change_data = false;
+            serchUsername(change_data);
+        });
+        /*外部卡*/
+        $("#outer_number").on("blur", function () {
+            check_outer_number();
+        });
+        /*内部卡*/
+        $("#inner_number").on("blur", function () {
+            check_inner_number();
+        });
+        /*手机号码*/
+        $("#phone_number").on("blur", function () {
+            check_phone_number();
+            if (check_phone_number()) {
+                //发送手机验证码
+                layer.msg('手机验证码已发送！注意查收', {icon: 1}, {time: 5});
+
+            }
+        });
+        $("#member_name").on("blur", function () {
+            check_member_name();
+        });
+
+        function show_warring(obj) {
+            obj.focus();
+            obj.next().css("display", "inline-block");
+
+        }
+
+        /*手机号码*/
+        $("#phone_code").on("blur", function () {
+            check_phone_code();
+
+        });
+        function check_phone_code() {
+            var out_length = $("#phone_code").val();
+            if (out_length.length != 4) {
+                show_warring($("#phone_code"));
+                return false;
+            }
+            return true;
+        }
+
+        /*检查内容信息*/
+        function check_outer_number() {
+            var out_length = $("#outer_number").val();
+            if (out_length.length != 10) {
+                $("#outer_number").next().html("卡不符合规范请检查");
+                show_warring($("#outer_number"));
+                return false;
+            }
+            //获取user_id
+            user_id = $("input[name='user_id']").val();
+            if (!user_id) {
+                $("#outer_number").next().html("请优先填写用户名！");
+                show_warring($("#outer_number"));
+                return false;
+            }
+            $.ajax({
+                url: site_url + '?app=index&act=check_outer_number',
+                type: 'GET',
+                dataType: 'json',
+                data: {user_id: user_id, outer_number: out_length},
+                success: function (outdata) {
+                    if (outdata.code != 0) {
+                        $("#outer_number").next().html(outdata.message);
+                        show_warring($("#outer_number"));
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            });
+
+
+            //发送ajax请求检测新添加的是否
+            return true;
+        }
+
+        /*检查内容信息*/
+        function check_inner_number() {
+            var out_length = $("#inner_number").val();
+            if (out_length.length != 10) {
+                $("#inner_number").next().html("卡不符合规范请检查");
+                show_warring($("#inner_number"));
+                return false;
+            }
+            //获取user_id
+            user_id = $("input[name='user_id']").val();
+            if (!user_id) {
+                $("#inner_number").next().html("请优先填写用户名！");
+                show_warring($("#inner_number"));
+                return false;
+            }
+            $.ajax({
+                url: site_url + '?app=index&act=check_inner_number',
+                type: 'GET',
+                dataType: 'json',
+                data: {user_id: user_id, inner_number: out_length},
+                success: function (outdata) {
+                    if (outdata.code != 0) {
+                        $("#inner_number").next().html(outdata.message);
+                        show_warring($("#inner_number"));
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            });
+            return true;
+        }
+
+        /*检查页面内容*/
+        function check_phone_number() {
+            var out_length = $("#phone_number").val();
+            if (out_length.length != 11) {
+                show_warring($("#phone_number"));
+                return false;
+            }
+            return true;
+        }
+
+        /*检查页面内容*/
+        function check_member_name() {
+            var out_length = $("#member_name").val();
+            if (out_length.length < 1) {
+                show_warring($("#member_name"));
+                return false;
+            }
+            return true;
+        }
+
+        function check_card() {
+
+        }
+
+        var sub_status = true;
+        $("#confirm").on('click', function (event) {
+            if (sub_status == false) {
+                return;
+            }
+            if (check_phone_code() == true && check_outer_number() == true && check_inner_number() == true && check_phone_number() == true && check_member_name() == true) {
+                sub_status = false;
+                if (status_card) {
+                    layer.confirm('该用户卡号信息之前存在，是否要替换升级？', {
+                        btn: ['确定', '取消'] //按钮
+                    }, function () {
+                        $("form").submit();
+                        return;
+                    }, function () {
+                        return;
+                    });
+                    return;
+                }
+
+                $("form").submit();
+                return;
+
+            } else {
+                return;
+
+            }
+
+        });
+
+    });
+
+</script>

@@ -19,6 +19,8 @@
         <div class="w">
            {include file=nav.html}
             <div class="wq"></div>
+            <div id="top_banner" class="w">
+            </div> 
             <div class="box">
                 <div class="fl  box1">
                 {if empty($out_data.member_info)}
@@ -80,10 +82,84 @@
                     </div>
                      <!--金卡会员-->
                     {elseif $out_data.member_info.level eq 3}
+                    <div class="ac user" style="background:url({res file=images/ka/3.jpg});">
+                      <a class="logout"href="{url app=member&act=logout}"style="float:left;color:#fff;font-size: 16px;padding: 5px">[退出]</a>
+                        <div class="member_i">
+                            <ul>
+                                <li>
+                                    <span class="top_span">会员名称:{$out_data.member_info.name}</span>
+                                    <span>会员级别:金卡会员</span>
+                                    <span>会员卡号:{$out_data.member_info.card}</span>
+                                </li>
+                            </ul>
 
+                        </div>
+                    </div>
                      <!--福禄卡会员-->
                     {elseif $out_data.member_info.level eq 4}
+                    <div class="ac user" style="background:url({res file=images/ka/4.jpg});">
+                      <a class="logout"href="{url app=member&act=logout}"style="float:left;color:#fff;font-size: 16px;padding: 5px">[退出]</a>
+                        <div class="member_i">
+                            <ul>
+                                <li>
+                                    <span class="top_span">会员名称:{$out_data.member_info.name}</span>
+                                    <span>会员级别:福禄卡会员</span>
+                                    <span>会员卡号:{$out_data.member_info.card}</span>
+                                </li>
+                            </ul>
 
+                        </div>
+                    </div>
+
+                     <!--集团董事长-->
+                    {elseif $out_data.member_info.level eq 100}
+                    <div class="ac user" style="background:url({res file=images/ka/4.jpg});">
+                            <a class="logout"href="{url app=member&act=logout}"style="float:left;color:#fff;font-size: 16px;padding: 5px">[退出]</a>
+                        <div class="member_i">
+                            <ul>
+                                <li>
+                                    <span class="top_span">内部员工:{$out_data.member_info.name}</span>
+                                    <span>员工级别:集团董事长</span>
+                                    <span>员工编号:{$out_data.member_info.card}</span>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div> 
+                        
+                     <!--集团总经理-->
+                    {elseif $out_data.member_info.level eq 101}
+                    <div class="ac user" style="background:url({res file=images/ka/4.jpg});">
+                            <a class="logout"href="{url app=member&act=logout}"style="float:left;color:#fff;font-size: 16px;padding: 5px">[退出]</a>
+                        <div class="member_i">
+                            <ul>
+                                <li>
+                                    <span class="top_span">内部员工:{$out_data.member_info.name}</span>
+                                    <span>员工级别:总经理</span>
+                                    <span>员工编号:{$out_data.member_info.card}<a class="fr" href="index.php?app=index&act=set_member">开通会员</a></span>
+                                </li>
+                            </ul>
+
+                        </div>
+                     </div>
+
+
+                     <!--集团店长-->
+                    {elseif $out_data.member_info.level eq 102}
+                         <div class="ac user" style="background:url({res file=images/ka/4.jpg});">
+                            <a class="logout"href="{url app=member&act=logout}"style="float:left;color:#fff;font-size: 16px;padding: 5px">[退出]</a>
+                        <div class="member_i">
+                            <ul>
+                                <li>
+                                    <span class="top_span">内部员工:{$out_data.member_info.name}</span>
+                                    <span>员工级别:内部集团店长</span>
+                                    <span>员工编号:{$out_data.member_info.card}<i class="fr">点击设置会员</i></span>
+                                </li>
+                            </ul>
+
+                        </div>
+                     </div>
+                        
                     <!--不是会员-->
                     {else}
                         <div class="ac user" style="background">
@@ -740,8 +816,39 @@
             {include file="footer.html" }
         </div>
     </div>
+    <!-- -->
 </div>
 <script type="text/javascript">
+    $(
+        function(){
+            $("#top_banner").slideDown("0"); 
+              setTimeout("hide_banner()", 5000);     
+        });
+     var sti;
+     function hide_banner(){
+        /*sti=setInterval("substract_height()",1);*/
+        $('#top_banner').slideUp("0");
+        
+     }
+    /* function substact_i(){
+        stii=setInterval("substract_height()",2);
+     }
+    function substract_height(){
+        substact_i();
+           jname= $('#top_banner').css("height");
+           jname= parseInt(jname);
+           if (jname>0) {
+              jname--;
+            $('#top_banner').css("height",jname+"px");
+            return;
+           }else{
+             $('#top_banner').remove();
+             clearInterval(sti);
+             clearInterval(stii);
+           }  
+          
+    }*/
+
     $('#enter').on('click',function () {
         //prompt层
         layer.prompt({
@@ -773,5 +880,11 @@
     });
     
 </script>
+
+
+
+    
+
+
 </body>
 </html>
