@@ -69,7 +69,7 @@ class PaynotifyApp extends MallbaseApp
         
         #TODO 临时在此也改变订单状态为方便调试，实际发布时应把此段去掉，订单状态的改变以notify为准
         //$this->_change_order_status($order_id, $order_info['extension'], $notify_result);
-
+        die;
         /* 只有支付时会使用到return_url，所以这里显示的信息是支付成功的提示信息 */
         $this->_curlocal(LANG::get('pay_successed'));
         $this->assign('order', $order_info);
