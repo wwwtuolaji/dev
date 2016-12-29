@@ -64,7 +64,8 @@ class PaynotifyApp extends MallbaseApp
         }
         //jjc 增加用户是否支付成功的字段，用于判断用户是否支付过
         $db=& db();
-        $sql="update ecm_order set pay_have=1 where order_id =".$order_info['order_id'];
+        $sql="update ecm_order set pay_have='1',status='11' where order_id =".$order_info['order_id'];
+
         $db->query($sql);
         
         #TODO 临时在此也改变订单状态为方便调试，实际发布时应把此段去掉，订单状态的改变以notify为准
