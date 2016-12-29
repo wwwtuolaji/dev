@@ -48,7 +48,7 @@ class PaynotifyApp extends MallbaseApp
 
             return;
         }
-        
+
         /* 调用相应的支付方式 */
         //获得一个对应的支付方式的对象
         $payment = $this->_get_payment($order_info['payment_code'], $payment_info);
@@ -132,6 +132,8 @@ class PaynotifyApp extends MallbaseApp
             $payment->verify_result(false);
             return;
         }
+        var_dump($notify_result);
+        die;
 
         //改变订单状态
         $this->_change_order_status($order_id, $order_info['extension'], $notify_result);
