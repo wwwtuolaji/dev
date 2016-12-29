@@ -39,7 +39,7 @@ class PaynotifyApp extends MallbaseApp
 
         $model_payment =& m('payment');
         $payment_info  = $model_payment->get("payment_code='{$order_info['payment_code']}' AND store_id={$order_info['seller_id']}");
-       /* var_dump($payment_info);
+        /*var_dump($payment_info);
         die;*/
         if (empty($payment_info))
         {
@@ -68,8 +68,7 @@ class PaynotifyApp extends MallbaseApp
         $db->query($sql);
         
         #TODO 临时在此也改变订单状态为方便调试，实际发布时应把此段去掉，订单状态的改变以notify为准
-        $this->_change_order_status($order_id, $order_info['extension'], $notify_result);
-        die;
+        //$this->_change_order_status($order_id, $order_info['extension'], $notify_result);
         /* 只有支付时会使用到return_url，所以这里显示的信息是支付成功的提示信息 */
         $this->_curlocal(LANG::get('pay_successed'));
         $this->assign('order', $order_info);
@@ -164,13 +163,6 @@ class PaynotifyApp extends MallbaseApp
     {
         /* 将验证结果传递给订单类型处理 */
         $order_type  =& ot($order_type);
-        var_dump($order_id);
-        echo "111111111111";
-        var_dump($order_type);
-        echo "111111111111";
-        var_dump($notify_result);
-        echo "111111111111";
-        /*die;*/
         $order_type->respond_notify($order_id, $notify_result);    //响应通知
     }
 }
