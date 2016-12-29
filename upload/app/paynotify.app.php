@@ -39,8 +39,8 @@ class PaynotifyApp extends MallbaseApp
 
         $model_payment =& m('payment');
         $payment_info  = $model_payment->get("payment_code='{$order_info['payment_code']}' AND store_id={$order_info['seller_id']}");
-        /*var_dump($payment_info);
-        die;*/
+        var_dump($payment_info);
+        die;
         if (empty($payment_info))
         {
             /* 没有指定的支付方式 */
@@ -48,7 +48,7 @@ class PaynotifyApp extends MallbaseApp
 
             return;
         }
-
+        
         /* 调用相应的支付方式 */
         //获得一个对应的支付方式的对象
         $payment = $this->_get_payment($order_info['payment_code'], $payment_info);
