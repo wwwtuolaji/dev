@@ -226,6 +226,12 @@ class IndexApp extends IndexbaseApp
     /*设置会员录入*/
     function set_member()
     {
+        /*权限检查*/
+        $result=$this->rbac_check();
+        if (!$result) {
+             $this->show_warning('没有权限！请联系管理员！');
+        }
+
         if (IS_POST) {
             $current_user_id = $this->visitor->get('user_id');
             $user_id = $_POST['user_id'];
@@ -256,6 +262,17 @@ class IndexApp extends IndexbaseApp
         }
 
 
+    }
+    /**
+     * [rbac_check 权限检查]
+     * @return [bool] []
+     */
+    function rbac_check(){
+        $visitor=$this->visitor->get();
+        if ($visitor['member_level']>=100) {
+            return ture;
+        }
+            return false;
     }
 
     /*响应ajax请求*/
