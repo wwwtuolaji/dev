@@ -246,6 +246,188 @@ class GoodsApp extends BackendApp
                 'back_list', 'index.php?app=goods&page=' . $ret_page);
         }
     }
+
+
+        /*参考价格编辑*/
+    function edit_price()
+    {  
+        $id = empty($_GET['id']) ? 0 : intval($_GET['id']);
+        if (!$id)
+        {
+            $this->show_warning('id 不存在请重新编辑');
+            return;
+        }
+        $drogue_model=&m('drogue');
+        $db=&db();
+        if (!IS_POST)
+        {    
+            $page = $this->_get_page(20);
+            //1.获取当前表单的内容
+            $page_limit=$page['limit'];
+            $goods_arr= $drogue_model->get_drogue_arr($id,$page_limit);
+            $page['item_count'] = $drogue_model->get_drogue_count_by_store_id($id);
+            $this->_format_page($page);
+             $this->assign('page_info', $page);
+            $first=true;
+ 
+            if ($goods_arr) {
+                foreach ($goods_arr as $key => $value) {
+                    if ($first===true) {
+                        $date=$value['show_date']-(3600*24);
+                        $pre_sql="select real_price from ecm_drogue where goods_id='$id' and show_date ='" .$date ."'order by show_date asc";
+                        $value['ref_price']=$db->getone($pre_sql);
+                        $goods_arr[$key]['ref_price']=$value['ref_price'];
+                    }else{
+                        $value['ref_price']=0;
+                    }
+                        $first=true;  
+                         $goods_arr[$key]['show_date']=date('Y/m/d',$value['show_date']);
+                    if (empty($value['real_price'])||$value['real_price']=="0.00") {
+                       $goods_arr[$key]['real_price']="0.00";
+                       $goods_arr[$key]['show_date']="";
+                    }elseif (empty($value['ref_price'])||$value['ref_price']=="0.00") {
+                        $goods_arr[$key]['ref_price']="0.00";
+                        $goods_arr[$key]['percent']="";
+                    }else{
+                      
+                       $number=($value['real_price']-$value['ref_price'])/$value['ref_price']*100;
+                       $goods_arr[$key]['percent']=number_format($number, 2, '.', '');  
+                    }
+                     
+                }
+            }
+            $this->assign('goods_arr',$goods_arr);
+            /* 导入jQuery的表单验证插件 */
+            $this->import_resource(array(
+                        'script' => 'jquery.plugins/jquery.validate.js,mlselection.js,My97DatePicker/WdatePicker.js,jquery-form.js'
+                    ));
+            /*$this->headtag('<script type="text/javascript" src="{lib file=mlselection.js}"></script>');*/
+            $this->assign('enabled_subdomain', ENABLED_SUBDOMAIN);
+            $this->display('goods.edit_price.html');
+        }else{ 
+
+            foreach ($_POST['show_date'] as $key => $value) {
+                $_POST['show_date'][$key]=strtotime($value);
+            } 
+            foreach ($_POST as $key => $value) {
+                if (is_array($value)) {
+                   foreach ($value as $kk => $vv) {
+                        $arr[$kk][$key]=trim($vv);
+                        $arr[$kk]['goods_id']=$id;
+                    }
+                }
+            }
+            /*var_dump($arr);
+            die;*/
+            //查询当前时间的id是否存在，否则就视为添加
+            foreach($arr as $key =>$arrlist){
+                if (empty($arrlist['show_date'])) {
+                    continue;
+                }
+                $query_con="select id from ecm_drogue where goods_id='{$arrlist['goods_id']}' and show_date=". $arrlist['show_date'];
+                $db=&db();
+                $res=$db->getone($query_con);
+                if ($res) {
+                    # 存在
+                    $drogue_model->edit($res,$arrlist);
+                }else{
+                    #不存在
+                   $drogue_model->add($arrlist); 
+                }
+
+            }
+            $this->show_message('插入成功',
+                'back_list', 'index.php?app=goods&act=edit_price&id=' . $id);
+                return;
+           
+           /* dump($drogue);*/
+          /*  if ($res) {
+                echo "chenggong";
+            }else{
+                echo "shibai";
+            }
+            var_dump($res);
+            die;*/
+             /*$con_str="";
+            foreach ($arr as $key => $value) {
+                $column_arrs=array_keys($value);
+                $column_arr=implode(",",$column_arrs);
+                $con_str .="('".implode("','",$value) ."'),";
+            }
+            $key_str=substr($column_arr, 0);
+            $key_str .=") values";
+            $sql="insert into ecm_drogue(" . $key_str . $con_str;
+            $sql=substr($sql, 0, -1);
+            $db = &db(); 
+            //先删除当前id的内容
+            $del="delete from ecm_drogue where goods_id='$id'";
+            $result=$db->query($del);
+            $result=$db->query($sql);
+            if ($result) {
+                $this->show_message('插入成功',
+                'back_list', 'index.php?app=goods&act=edit_price&id=' . $id);
+                return;
+            }else{
+                $this->show_warning('数据格式错误请检查!!');
+                return;
+            }*/
+
+        }
+
+    }
+
+    /**
+     * [delete_drogue 响应ajax请求]
+     * @return [type] [description]
+     */
+    function delete_drogue()
+    {
+        $db=&db();
+        if ($_POST['del_id']) {
+          $del="delete from ecm_drogue where id=".$_POST['del_id'];
+          $res=$db->query($del);
+          if ($res) {
+               $output=array("code"=>0,
+                             "message"=>"删除成功",
+                             "data"=>"");  
+          }else{
+               $output=array("code"=>3,
+                             "message"=>"业务异常",
+                             "data"=>"");    
+          }
+        }else{
+          $output=array("code"=>1,
+                             "message"=>"删除失败",
+                             "data"=>"");  
+        }
+        
+        echo json_encode($output);
+    }
+
+    function get_excel_example(){
+        header("Content-type:application/vnd.ms-excel");
+        header("Content-Disposition:attachment;filename=drogue_data.xls");
+        //输出内容如下： 
+        echo   "当年1/新茶2/中期3"."\t"; 
+        echo   "日期"."\t"; 
+        echo   "价格"."\t"; 
+        echo   "\n"; 
+        echo   "1"."\t"; 
+        echo   "2015/10/1"."\t"; 
+        echo   "232"."\t"; 
+        echo   "\n"; 
+        echo   "1"."\t"; 
+        echo   "2015/10/2"."\t"; 
+        echo   "232"."\t"; 
+        echo   "\n"; 
+        echo   "1"."\t"; 
+        echo   "2015/10/3"."\t"; 
+        echo   "232"."\t"; 
+        echo   "\n"; 
+        echo   "1"."\t"; 
+        echo   "2015/10/4"."\t"; 
+        echo   "232"."\t"; 
+    }
 }
 
 ?>

@@ -666,6 +666,67 @@ class StoreApp extends BackendApp
 
         return $tree->getOptions();
     }
+        /*解析excel内容*/
+    function get_file()
+    {
+        require(ROOT_PATH .'/includes/file_up.php');
+        $up = new FileUpload();
+        //设置属性(上传的位置， 大小， 类型， 名是是否要随机生成)
+        $up -> set("path", ROOT_PATH ."/temp/excels/");
+        $up -> set("maxsize", 200000);
+        $up -> set("allowtype", array("xls"));
+        $up -> set("israndname", false);
+        //使用对象中的upload方法， 就可以上传文件， 方法需要传一个上传表单的名子 pic, 如果成功返回true, 失败返回false
+        $str=time();
+        $str .="_rd_";
+        $str .=mt_rand(0,100);   
+        if($up -> upload("file")) {
+            //获取上传后文件名子      
+            $destination=ROOT_PATH ."/temp/excels/" . $up->getFileName();    
+            require(ROOT_PATH .'/includes/PHPExcel/Classes/PHPExcel/IOFactory.php');
+            $reader = PHPExcel_IOFactory::createReader('Excel5'); //
+            $PHPExcel = $reader->load($destination); 
+            $sheet = $PHPExcel->getSheet(0);
+            $highestRow = $sheet->getHighestRow(); // 
+            $highestColumm = $sheet->getHighestColumn(); // 
+            for ($row = 1; $row <= $highestRow; $row++){            
+                for ($column = 'A'; $column<= $highestColumm; $column++) {
+                    if ($row==1) {
+                        //获取到第一列的值
+                        $title[] = $sheet-> getCell($column.$row)->getValue();
+                        continue;
+                    }
+                    $dataset[] = $sheet->getCell($column.$row)->getValue();
+                    /*echo $column.$row.":".$sheet->getCell($column.$row)->getValue()." <br /> ";*/
+                    $arr[$column.$row]=$sheet->getCell($column.$row)->getValue();
+                    //设置标题下面数组，方便数据库中数据插入
+                    $group[$row][]=$sheet->getCell($column.$row)->getValue();
+                }              
+            }
+            //连接数据库分配数据库内容
+            $listArr['title']=$title;
+            $listArr['group']=$group;
+            $listArr['arrAll']=$arr;
+            $output=array(  'code'       => 0,
+                            'message'    => "请求成功",
+                            'data'       => $listArr,
+                        );
+        
+            echo json_encode($output);
+            return;
+
+        } else {
+            $message= $up->getErrorMsg();
+            $message=iconv("GB2312","UTF-8//IGNORE",$message) ;
+            $output=array(  'code'        => 1,
+                            'message'     =>"$message",
+                            'data'        =>"",
+                         );
+            echo json_encode($output);
+            return;
+        }     
+    }
+
 }
 
 ?>
