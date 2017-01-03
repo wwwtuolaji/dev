@@ -1,0 +1,384 @@
+{include file="header.html"}
+<script type="text/javascript"></script>
+<style>
+      <style type="text/css">
+    * {
+        margin:0;
+        padding:0;
+    }
+    body {
+        font:14px Verdana, Arial, Geneva, sans-serif;
+        color:#404040;
+        background:#fff;
+    }
+    img {
+        border-style:none;
+    }
+    .main{
+        width:300px;
+        height:60px;
+        position:absolute;
+        left:50%;
+        top:50%;
+        margin-left:-150px;
+        margin-top:-30px;
+    }
+    .box{
+        margin-top: 30px;
+        margin-right: 90px;
+        position:relative;
+        float:right;
+    }
+    input.uploadFile{
+        position:absolute;
+        right:0px;
+        top:0px;
+        opacity:0;
+        filter:alpha(opacity=0);
+        cursor:pointer;
+        width:276px;
+        height:36px;
+        overflow: hidden;
+    }
+    input.textbox{
+        float:right;
+        padding:5px;
+        color:#999;
+        height:24px;
+        line-height:24px;
+        border:1px #ccc solid;
+        width:200px;
+        margin-right:4px;
+    }
+    a.link{
+        float:right;
+        display:inline-block;
+        padding:4px 16px;
+        color:#fff;
+        font:14px "Microsoft YaHei", Verdana, Geneva, sans-serif;
+        cursor:pointer;
+        background-color:#0099ff;
+        line-height:28px;
+        text-decoration:none;
+    }
+    .fr{
+      display: inline-block;
+      float: right;
+      margin-right: 20px;
+    }
+    .fr a{
+      text-decoration: none;
+      line-height: 100px;
+      border: solid 1px #D8B014;
+      padding: 8px;
+      background-color: #D8B014;
+      color: #fff;
+    }
+</style>
+</style>
+
+<div id="rightTop">
+<p>茶叶价格添加</p>
+
+</div>
+<div class="info">
+<form method="post" name="form1"enctype="multipart/form-data" id="store_form">
+  <table class="infoTable" id="tab">
+
+     <tr>
+      <th id="nianfen"style="width: 60px" class="paddingT15" >茶叶年份:</th>
+      <td style="width: 60px"class="paddingT15 wordSpacing5">
+        <select class="infoTableInput2" name="type[]">
+          <option value="0" >当年茶</option>
+          <option value="1" >新茶</option>
+          <option value="2" >中期茶</option>
+        </select>
+      </td>
+      <th style="width: 60px" class="paddingT15">日期:</th>
+      <td  style="width: 60px"class="paddingT15 wordSpacing5">
+        <input class="infoTableInput2"onFocus="WdatePicker({dateFmt:'yyyy/MM/dd'})" name="show_date[]" type="text" id="store_name" onchange="change_date(this)" value="" />
+      </td>
+      <th style="width: 60px" class="paddingT15">参考价格:</th>
+      <td style="width: 60px"class="paddingT15 wordSpacing5">
+        <input onchange="get_num(this)"title="ref_0" class="infoTableInput2" name="ref_price[]" type="text" id="owner_name" value="" onkeyup="str_up(this)" disabled="true" onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')" maxlength="9"/>
+      </td> 
+      <th style="width: 60px" class="paddingT15" >实际价格:</th>
+      <td style="width: 60px" class="paddingT15 wordSpacing5">
+        <input  onchange="get_nums(this)" onkeyup="str_up(this)"  onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')" class="infoTableInput2" name="real_price[]" type="text" id="owner_card" value="" title="rel_0"/>
+      </td>
+      <th style="width: 120px" class="paddingT15" title="bilv_0">比率:%</th>
+      <th style="width: 60px" class="paddingT15">
+       
+        <input id="add_row" style="width: 60px" type="button" value="添加">
+       
+      </th>
+    </tr>
+
+    {foreach from=$goods_arr item=goods name=name}
+    <tr>
+      <th id="nianfen"style="width: 60px" class="paddingT15" >茶叶年份:</th>
+      <td style="width: 60px"class="paddingT15 wordSpacing5">
+        <select class="infoTableInput2" name="type[]">
+          <option value="0" {if $goods.type eq '0'}selected{/if}>当年茶</option>
+          <option value="1" {if $goods.type eq '1'}selected{/if}>新茶</option>
+          <option value="2" {if $goods.type eq '2'}selected{/if}>中期茶</option>
+        </select>
+      </td>
+      <th style="width: 60px" class="paddingT15">日期:</th>
+      <td  style="width: 60px"class="paddingT15 wordSpacing5">
+        <input class="infoTableInput2"onFocus="WdatePicker({dateFmt:'yyyy/MM/dd'});" name="show_date[]" type="text" id="store_name"onchange="change_date(this)"  value="{$goods.show_date|escape}"readonly="readonly"/>
+      </td>
+      <th style="width: 60px" class="paddingT15">参考价格:</th>
+      <td style="width: 60px"class="paddingT15 wordSpacing5">
+        <input disabled="true" onchange="get_num(this)"title="ref_{$smarty.foreach.name.iteration}" class="infoTableInput2" name="ref_price[]" type="text" id="owner_name" value="{$goods.ref_price}" onkeyup="str_up(this)"  onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')" maxlength="9"/>
+      </td>
+      <th style="width: 60px" class="paddingT15" >实际价格:</th>
+      <td style="width: 60px" class="paddingT15 wordSpacing5">
+        <input  onchange="get_nums(this)" onkeyup="str_up(this)"  onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')" class="infoTableInput2" name="real_price[]" type="text" id="owner_card" value="{$goods.real_price}" title="rel_{$smarty.foreach.name.iteration}"/>
+      </td>
+      <th style="width: 120px" class="paddingT15" title="bilv_{$smarty.foreach.name.iteration}">比率: {$goods.percent} %</th>
+      <th style="width: 60px" class="paddingT15">
+       
+        <input id="rm_row" style="width: 60px" type="button" value="删除" del_id="{$goods.id}">
+      </th>
+    </tr>
+    {/foreach}
+ 
+  </table>
+  <p class="position2" style="margin-top: 30px;">
+                  {include file=page_bottom.html}
+  </p>
+  <div style="margin-top:50px;margin-left: 30px" class="ptb20">
+    <input class="formbtn" type="submit" name="Submit" value="{$lang.submit}" />
+    <input class="formbtn" onclick="reset_span()" type="reset" name="Reset" value="{$lang.reset}" />
+  </div>
+
+</form>
+<form name="form2" id="ajaxForm"action="?app=store&amp;act=get_file" method="post" enctype="multipart/form-data" >
+  <div class="fr">
+      <a href="index.php?app=goods&act=get_excel_example">点击下载导入样式</a>
+  </div>
+  <div class="box">
+    <a href="javascript:void(0);"  class="link">使用Excel导入</a>
+    <input type="file" class="uploadFile" name="file" id="getFile" />
+  </div>
+</form>
+</div>
+<script type="text/javascript">
+ /* function reset_span(){
+     $('[title='+next_span+']').html("比率: "+result+" %");
+  }*/
+    /**内容改变时触发该函数*/
+    function change_date(obj){
+          if (obj.value!="") {
+               var date =  new Date(obj.value); 
+               var time_str = date.getTime();
+               time_str=time_str-3600*24;
+               time_str=set_time(time_str);
+               time_str= $.trim(time_str);
+               pre_but=$("input[value="+time_str+"]");
+               pref_obj=pre_but.parent().next().next().next().next().children();
+               current_pref_obj=$(obj).parent().next().next().children();
+               current_pref_obj.val(pref_obj.val());
+               /*var show_node=obj.parentNode;
+               console.log(show_node.nextSbiling.nextSbiling);*/
+
+               
+          }
+      }
+    $(function(){
+      var click_num=1000;
+        $('#add_row').live("click",function(event) {
+          click_num++;
+          var trHTML='<tr> <th id="nianfen"style="width: 60px" class="paddingT15" >茶叶年份:</th> <td style="width: 60px"class="paddingT15 wordSpacing5"> <select class="infoTableInput2" name="type[]"> <option value="0">当年茶</option> <option value="1">新茶</option> <option value="2">中期茶</option> </select> </td> <th style="width: 60px" class="paddingT15">日期:</th> <td  style="width: 60px"class="paddingT15 wordSpacing5"><input class="infoTableInput2"onFocus="WdatePicker({dateFmt:'+"'"+'yyyy/MM/dd'+"'"+'})" name="show_date[]" type="text" id="store_name" value="{$store.store_name|escape}"onchange="change_date(this)"readonly="readonly"/>   </td> <th style="width: 60px" class="paddingT15">参考价格:</th> <td style="width: 60px"class="paddingT15 wordSpacing5"><input disabled="true" onchange="get_num(this)"title="ref_'+click_num+'" class="infoTableInput2" name="ref_price[]" type="text" id="owner_name" value="" onkeyup="str_up(this)"  onafterpaste="this.value=this.value.replace(/[^\d.]/g,\'\')" maxlength="9"/></td> <th style="width: 60px" class="paddingT15" >实际价格:</th> <td style="width: 60px" class="paddingT15 wordSpacing5"><input  onchange="get_nums(this)" onkeyup="str_up(this)"  onafterpaste="this.value=this.value.replace(/[^\d.]/g,\'\')" class="infoTableInput2" name="real_price[]" type="text" id="owner_card" value="" title="rel_'+click_num+'"/></td> <th style="width: 120px" class="paddingT15" title="bilv_'+click_num+'">比率:  %</th> <th style="width: 60px" class="paddingT15"><input id="rm_row" style="width: 60px" type="button" value="删除"></th> </tr>';
+            $(this).parent().parent().after(trHTML);
+            
+        });
+        
+    });
+    $('#rm_row').live("click",function(event) {
+          var confirm_res= confirm("确定要移除吗？");
+          if (confirm_res) {
+              $(this).parent().parent().remove(); 
+              del_id=$(this).attr("del_id");           
+
+              if (del_id) {
+                  $.ajax({
+                  url: '{$site_url}'+'admin/index.php?app=goods&act=delete_drogue&id={$smarty.get.id}',
+                  type: 'POST',
+                  dataType: 'json',
+                  data: {del_id: del_id},
+                  success:function(result){
+                    if (result.code!=0) {
+                      alert(result.message);
+                    }
+                  }
+                })              
+              }
+          }
+        });
+    function get_num(obj){
+      ref=$(obj).val();
+      //1.获取title属性
+     /* console.log($(obj).attr("title"));*/
+      nu=getNum($(obj).attr("title"));
+      //2.拼接下个元素的title
+      next_title="rel_"+nu;
+      next_span="bilv_"+nu;
+      //3.获取当前行的值
+      $('[title='+next_title+']').val();
+      /*console.log( $('[title='+next_title+']').val());*/
+      //4.设置比率
+      var result=0;
+      if ($('[title='+next_title+']').val()=="") {
+        real=0;
+      }else{
+        real=$('[title='+next_title+']').val();
+      }
+      if (ref == null || ref == undefined || ref == '') { 
+            ref=0;
+      } 
+       if (ref==0) {
+        alert("参考价格不能为空");
+        $('[title='+next_span+']').html("比率: %");
+      }else{
+        result=jisuan(ref,real);
+        //5.显示比率
+        $('[title='+next_span+']').html("比率: "+result+" %");
+      }
+      
+    }
+    function get_nums(obj){
+      real=$(obj).val();
+      //1.获取title属性
+      /*console.log($(obj).attr("title"));*/
+      nu=getNum($(obj).attr("title"));
+      //2.拼接下个元素的title
+      next_title="ref_"+nu;
+      next_span="bilv_"+nu;
+      //3.获取当前行的值
+      $('[title='+next_title+']').val();
+     /* console.log( $('[title='+next_title+']').val());*/
+      //4.设置比率
+      var result=0;
+      if ($('[title='+next_title+']').val()=="") {
+        ref=0;
+      }else{
+        ref=$('[title='+next_title+']').val();
+      }
+      if (ref == null || ref == undefined || ref == '') { 
+         ref=0;
+      } 
+      if (ref==0) {
+          alert("没有找到比当前时间小一天的时间，超出时间计算范围,不能计算比例是否继续？");
+          $('[title='+next_span+']').html("比率: %");
+      }else{
+        result=jisuan(ref,real);
+      //5.显示比率
+      $('[title='+next_span+']').html("比率: "+result+" %");
+      }
+      
+    }
+
+    function getNum(text){
+       var value = text.replace(/[^0-9]/ig,"");
+      return value;
+    }
+
+    function jisuan(ref,real){
+      ref=parseFloat(ref);
+      real=parseFloat(real);
+      result=(real-ref)/ref;
+      result=result*100;
+      result=result.toFixed(2);
+      return result;
+    }
+    function str_up(obj){
+      obj.value=obj.value.replace(/[^\d.]/g,'');
+    }
+
+ $(function(){
+  $("#getFile").change(function(event) {
+    var options = {           
+      success: showResponse,      //提交后的回调函数  
+      dataType: "json",  
+      timeout: 3000 ,               //限制请求的时间，当请求大于3秒后，跳出请求  
+    } 
+    $("#ajaxForm").ajaxSubmit(options);
+    return false;
+  });
+
+});
+  function showResponse(responseText, statusText){  
+   /* console.log(responseText);*/
+    if (responseText.code==1) {
+      alert(responseText.message);
+      return;
+    }
+    /*//标题抓取
+    $.each(responseText.title, function(index, val) {
+    str+="<th>"+val+"</th>";
+    });
+    str+="</tr>"*/
+    //移除当前也面的内容
+    $("#tab").find("tr").remove();  
+    //数据表内容抓取,是一个二维数组对象
+    var choice=true;
+    var pan=false;
+    $.each(responseText.data.group,function(gindex,gval){
+      /*console.log(gval);*/
+      //alert(gval[1]);
+      //数据处理
+      if (choice) {
+         btn_toggle_id="add_row";
+         btn_show="添加"
+         choice=false;
+      }else{
+         btn_toggle_id="rm_row";
+         btn_show="删除"
+      }
+      
+      var trHTML='<tr> <th id="nianfen"style="width: 60px" class="paddingT15" >茶叶年份:</th> <td style="width: 60px"class="paddingT15 wordSpacing5"> <select class="infoTableInput2" title="opt_'+gindex+'" name="type[]"> <option value="0">当年茶</option> <option value="1">新茶</option> <option value="2">中期茶</option> </select> </td> <th style="width: 60px" class="paddingT15">日期:</th> <td  style="width: 60px"class="paddingT15 wordSpacing5"><input  class="infoTableInput2" title="time_'+gindex+'" onFocus="WdatePicker({dateFmt:'+"'"+'yyyy/MM/dd'+"'"+'})" name="show_date[]" type="text" id="store_name" value="{$store.store_name|escape}"onchange="change_date(this)"readonly="readonly"/>   </td> <th style="width: 60px" class="paddingT15">参考价格:</th> <td style="width: 60px"class="paddingT15 wordSpacing5"><input disabled="true" onchange="get_num(this)"title="ref_'+gindex+'" class="infoTableInput2" name="ref_price[]" type="text" id="owner_name" value="" onkeyup="str_up(this)"  onafterpaste="this.value=this.value.replace(/[^\d.]/g,\'\')" maxlength="9"/></td> <th style="width: 60px" class="paddingT15" >实际价格:</th> <td style="width: 60px" class="paddingT15 wordSpacing5"><input  onchange="get_nums(this)" onkeyup="str_up(this)"  onafterpaste="this.value=this.value.replace(/[^\d.]/g,\'\')" class="infoTableInput2" name="real_price[]" type="text" id="owner_card" value="" title="rel_'+gindex+'"/></td> <th style="width: 120px" class="paddingT15" title="bilv_'+gindex+'">比率:  %</th> <th style="width: 60px" class="paddingT15"><input id="'+btn_toggle_id+'" style="width: 60px" type="button" value="'+btn_show+'"></th> </tr>';
+          $("#tab").append(trHTML);
+        //1.设置选择框
+        $('[title=opt_'+gindex+']').val(gval[0]).attr("selected",true);
+        //2.设置日期
+          date_temp=(gval[1]-25569)*3600*1000*24;
+          _date=set_time(date_temp);
+         $('[title=time_'+gindex+']').val(_date);
+         
+         //3.设置参考价格;
+         if (pan===true) {
+          $('[title=ref_'+gindex+']').val(responseText.data.group[gindex-1][2]);
+        }else{
+           $('[title=ref_'+gindex+']').val();
+        }
+        pan=true;
+          //3.设置实际价格
+         //$('[title=rel_'+gindex+']').val(gval[3]);
+         //因为参考价格改成了上个月的价格，所以需要调整
+         
+         $('[title=rel_'+gindex+']').val(gval[2]);
+         get_nums($('[title=rel_'+gindex+']'));
+         gindex++;
+    });
+       
+  }
+   function set_time(_date){
+      var date = new Date(_date);
+      Y = date.getFullYear() + '/';
+      M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '/';
+      D = date.getDate() ;
+      h = date.getHours() + ':';
+      m = date.getMinutes() + ':';
+      s = date.getSeconds();
+      /*console.log(D);*/
+      if (D.toString().length===1) {
+        D="0"+D;
+      }
+      return Y+M+D;
+    }
+  
+
+</script>
+{include file="footer.html"}

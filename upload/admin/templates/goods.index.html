@@ -58,7 +58,8 @@ $(function(){
       <td><span ectype="order_by" fieldname="cate_id">{$lang.gcategory}</span></td>
       <td class="table-center"><span ectype="order_by" fieldname="if_show">{$lang.if_show}</span></td>
       <td class="table-center"><span ectype="order_by" fieldname="closed">{$lang.close}</span></td>
-      <td><span ectype="order_by" fieldname="views">{$lang.views}</span></td>
+       <td><span ectype="order_by" fieldname="views">{$lang.views}</span></td>
+      <td><span ectype="edit_price" fieldname="edit_price">价格风向标</span></td>
       <td>{$lang.handler}</td>
     </tr>
     <!--{/if}-->
@@ -75,6 +76,7 @@ $(function(){
       <td class="table-center"><!-- {if $goods.if_show} --><img src="{res file=style/images/positive_enabled.gif}" /><!--{else}--><img src="{res file=style/images/positive_disabled.gif}" /><!-- {/if} --></td>
       <td class="table-center"><!-- {if $goods.closed} --><img src="{res file=style/images/negative_enabled.gif}" ectype="inline_edit" fieldname="closed" fieldid="{$goods.goods_id}" fieldvalue="1" title="{$lang.editable}"/><!--{else}--><img src="{res file=style/images/negative_disabled.gif}" ectype="inline_edit" fieldname="closed" fieldid="{$goods.goods_id}" fieldvalue="0" title="{$lang.editable}"/><!-- {/if} --></td>
       <td>{$goods.views|default:0}</td>
+      <td><a target="" href="{$site_url}/admin/index.php?app=goods&amp;act=edit_price&amp;id={$goods.goods_id}">点击编辑</a></td>
       <td><a target="_blank" href="{$site_url}/index.php?app=goods&amp;id={$goods.goods_id}">{$lang.view}</a></td>
     </tr>
     <!--{foreachelse}-->
