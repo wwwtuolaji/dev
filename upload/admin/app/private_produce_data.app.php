@@ -171,7 +171,7 @@ class Private_produce_dataApp extends BackendApp
         foreach ($cate_arr as $key => $value) {
             //组装sql
             $sql_value="";
-            for ($i=$time; $i < time(); ) { 
+       
                 //$num++
                $ref_price_mt= mt_rand(-20,40);
 
@@ -200,12 +200,12 @@ class Private_produce_dataApp extends BackendApp
                 $cha=$this->randomFloat($value['price']*(-0.015)+($value['price']*$n),$value['price']*0.025+($value['price']*$n)); 
                 $cha=number_format($cha,2);
                 $price=$value['price']+$cha;
-                $sql_value .="('". $value['goods_id'] ."','" . $price ."','".$type."','". $i ."'),";               
+                $sql_value .="('". $value['goods_id'] ."','" . $price ."','".$type."','". $time ."'),";               
                 /* $ta=date("Y-m-d",$i);
                 echo "$ta =>".$value['price'] ."<br/>"; */  
                 //$i是时间戳
-                $i+=24*3600;
-            }
+                
+            
             $sql_value2=$column . $sql_value;
             $sql_value2=substr($sql_value2, 0, -1);
             $sql_r[]=$sql_value2 ;
