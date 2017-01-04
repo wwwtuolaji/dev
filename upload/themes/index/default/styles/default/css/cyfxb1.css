@@ -1,0 +1,184 @@
+/*茶叶风向标*/
+.sec_title {
+    background: #f8f8f8 none repeat scroll 0 0;
+    font-size: 13px;
+    font-weight: bold;
+    height: 33px;
+    line-height: 33px;
+}
+.mb_line {
+    border-bottom: 1px solid #e5e5e5;
+}
+.sec_title a {
+    color: #d20001;
+    padding-left: 14px;
+}
+.sec_title {
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 33px;
+}
+#NewsDhPriceBox .dhbox {
+    width: 1230px;
+}
+.DhPriceBox .dhbox {
+    width: 1230px;
+}
+.clearfix::after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+#NewsDhPriceBox .dhbox .dh_info {
+    margin-right: 11px;
+    width: 394px;
+}
+.DhPriceBox .dhbox .dh_info {
+    display: inline;
+    height: 283px;
+    margin-right: 5px;
+    overflow: hidden;
+    width: 400px;
+}
+.DhPriceBox .dhbox .ml8{
+    margin-left:8px;
+}
+.box_23 {
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+}
+#NewsDhPriceBox .dh_pbox li .tit {
+    overflow: hidden;
+    width: 150px;
+}
+.dh_pbox li .tit {
+    overflow: hidden;
+    width: 150px;
+}
+.dh_pbox li {
+    line-height: 20px;
+}
+
+#NewsDhPriceBox .dh_pbox li .price {
+    overflow: hidden;
+    width: 85px;
+}
+.dh_pbox li .price {
+    overflow: hidden;
+    width: 75px;
+}
+#NewsDhPriceBox .dh_pbox li .u_price {
+    overflow: hidden;
+    width: 80px;
+}
+.dh_pbox li .u_price {
+    overflow: hidden;
+    width: 80px;
+}
+.dh_pbox li p {
+    white-space: nowrap;
+}
+.f_l {
+    float: left;
+}
+.dh_pbox li a:hover {
+    color: #ff0000;
+    text-decoration: underline;
+}
+.dh_pbox li a {
+    color: #333;
+    text-decoration: none;
+}
+
+#indexbox .DhPriceBox {
+    height: 400px;
+    overflow: hidden;
+}
+#NewsDhPriceBox {
+    overflow: hidden;
+    width: 1230px;
+}
+.DhPriceBox {
+    overflow: hidden;
+    width: 1230px;
+}
+#NewsDhPriceBox .dh_pbox li .price {
+    overflow: hidden;
+    width: 88px;
+}
+.dh_pbox li .price {
+    overflow: hidden;
+    width: 80px;
+}
+.dh_pbox li a {
+    color: #333;
+    text-decoration: none;
+}
+.dh_pbox li .tit {
+    overflow: hidden;
+    width: 180px;
+    overflow: hidden; /*自动隐藏文字*/
+    text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+    white-space: nowrap;/*强制不换行*/
+}
+.dh_info {
+    margin-right: 20px;
+}
+#NewsDhPriceBox .dhbox .dh_pbox {
+    width: 370px;
+}
+#scrollDiv, #scrollDiv1, #scrollDiv2 {
+    clear: both;
+    height: 320px;
+    overflow: hidden;
+    width: 400px;
+}
+.DhPriceBox .dhbox .dh_pbox {
+    width: 400px;
+}
+span.red {
+    color: #e60012;
+    font-family: Verdana,Geneva,sans-serif;
+}
+
+span.green {
+    color: #009944;
+    font-family: Verdana,Geneva,sans-serif;
+}
+
+.tit{
+    width: 200px;
+
+}
+.DhPriceBox span.titlel {
+
+    font-family: "微软雅黑",arail;
+    font-size: 18px;
+    font-weight: bold;
+    height: 35px;
+    left: 0;
+    line-height: 29px;
+    padding-left: 2px;
+
+    top: 0;
+}
+
+.DhPriceBox span.en {
+    color: #d20001;
+
+    font-family: Verdana,Geneva,sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    left: 85px;
+
+    top: 1px;
+}
+
+.blank {
+    clear: both;
+    font-size: 0;
+    height: 10px;
+    line-height: 10px;
+}

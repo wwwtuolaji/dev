@@ -1,0 +1,364 @@
+/*中部导航栏*/
+.inner_c{
+    height: 30px;
+    background: #bf1000;
+    margin:0 auto;
+}
+.nav ul li{
+    float: left;
+    width: 140px;
+}
+.nav ul li a{
+    display: block;
+    width: 140px;
+    height: 30px;
+    color: #fff;
+    text-align: center;
+    font:700 16px/30px "simsun";
+}
+.nav ul li a:hover{
+    background: #990d00;
+}
+.nav ul .center{
+    background: #990d00;
+}
+/*模块导航*/
+.mk-nav{
+    height:40px;
+    border-bottom:2px solid #707070;
+    margin:5px;
+}
+.mk-nav .h3f a{
+    display: block;
+    font:700 20px/30px "simsun";
+    color: #111;
+    border:none;
+    padding:8px;
+}
+.mk-nav li{
+    float: right;
+    width:80px;
+    padding-top:13px;
+}
+.mk-nav li a{
+    display: block;
+    font:400 15px/20px "simsun";
+    text-align: center;
+}
+/*底部样式*/
+.footer{
+    height:200px;
+    background: #a0a0a0;
+    position: relative;
+    margin-top:5px;
+}
+.footer_logo{
+    width:287px;
+    height:60px;
+    position: absolute;
+    top:50%;
+    left:50%;
+    margin-top: -30px;
+    margin-left:-143px;
+}
+.footer_logo img{
+    width:287px;
+    height:60px;
+}
+
+/*LOGO 搜索栏*/
+.headwrap{
+    position: relative;
+    margin-top: 5px;
+    overflow: hidden;
+}
+#search {
+    bottom: 10px;
+    position: absolute;
+    right: 0;
+}
+.input {
+    background: rgba(0, 0, 0, 0) url("../images/input.gif") repeat scroll 0 0;
+    float: left;
+    height: 29px;
+    margin-right: 6px;
+    padding: 5px 0 0 10px;
+    position: relative;
+    width: 434px;
+}
+.input1 {
+    background: rgba(0, 0, 0, 0) url("../images/input.gif") no-repeat scroll 0 -70px;
+    height: 34px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 2px;
+}
+.input2 {
+    background: rgba(0, 0, 0, 0) url("../images/input.gif") no-repeat scroll 0 -35px;
+    height: 34px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 2px;
+}
+.select1 {
+    margin-right: 2px;
+    padding: 2px;
+}
+.search334 {
+    padding: 2px;
+    width: 334px;
+    border:1px solid #ddd;
+}
+.search_btn {
+    background: rgba(0, 0, 0, 0) url("../images/search_btn.gif") no-repeat scroll 0 0;
+    border: 0 none;
+    float: left;
+    height: 34px;
+    width: 71px;
+}
+/*分类菜单*/
+.tea-inner{
+    overflow: hidden;
+}
+.tea-box{
+    float: left;
+}
+.tea-menu{
+    width: 220px;
+    border:2px solid #eee;
+}
+.tea-menu dl{
+
+    overflow: hidden;
+    border-bottom: 1px dashed #eee;
+    margin-left:10px;
+}
+.tea-menu dt{
+    font:700 16px/20px "Microsoft Yahei";
+    color: #000;
+    margin:10px 5px;
+}
+.tea-menu dd {
+    float: left;
+    width: 60px;
+    font:100 14px/20px "simsun";
+    -ms-text-align-last: right;
+    margin:0 5px;
+
+}
+.tea-banner1{
+    width:220px;
+    height:300px;
+    background:url("../images/tea_1.jpg");
+    margin-top:5px;
+}
+/*分类菜单*/
+.tea-inner{
+    overflow: hidden;
+}
+.tea-box{
+    float: left;
+}
+.tea-menu{
+    width: 220px;
+    border:2px solid #eee;
+}
+.tea-menu dl{
+
+    overflow: hidden;
+    border-bottom: 1px dashed #eee;
+    margin-left:10px;
+}
+.tea-menu dt{
+    font:700 16px/20px "Microsoft Yahei";
+    color: #000;
+    margin:10px 5px;
+}
+.tea-menu dd {
+    float: left;
+    width: 60px;
+    font:100 14px/20px "simsun";
+    -ms-text-align-last: right;
+    margin:0 5px;
+
+}
+.tea-banner1{
+    width:220px;
+    height:300px;
+    background:url("../images/tea_1.jpg");
+    margin-top:5px;
+}
+
+
+ /*轮播图*/
+        .banner-1{
+            float: left;
+            width: 1000px;
+            height: 490px;
+            background:url("../images/banner.jpg")no-repeat ;
+            margin: 0 2px;
+        }
+        /*新品、批发*/
+
+        .tmk-inner ul{
+            text-align: center;
+        }
+        .tmk-inner li{
+            float: left;
+            width:205px;
+            margin-bottom:10px;
+        }
+        .tmk-inner img{
+            width:190px;
+            height:200px;
+
+        }
+        .tmk-inner h4 a{
+            display: block;
+            width:190px;
+            height:30px;
+            color: #fff;
+            font:400 16px/30px "Microsoft Yahei";
+            background: #aa0000;
+            margin:0 auto;
+        }
+        .tea-new{
+            overflow: hidden;
+        }
+        .tea-wholesale{
+            overflow: hidden;
+        }
+        .tea-cyfxb{
+            overflow: hidden;
+        }
+        /*中部通栏广告样式*/
+        .tea-banner2{
+            height: 60px;
+            background:url("../images/banner1.jpg");
+            margin:5px 0;
+        }
+        /*批发广告部分样式*/
+        .tmk-inner .tmk-banner{
+            width: 410px;
+            height: 230px;
+        }
+        .tmk-banner img{
+            width: 400px;
+            height: 230px;
+        }
+        /*评论分享*/
+        .tmk-comments{
+            margin-left:10px;
+        }
+        .tmk-comments li{
+            float: left;
+            width: 310px;
+            height: 110px;
+        }
+        .tmk-comments dt{
+            float: left;
+        }
+        .tmk-comments dt img{
+            width: 80px;
+            height:80px;
+        }
+        .tmk-comments dd{
+            float: left;
+            width: 200px;
+            height: 100px;
+            margin: 10px;
+        }
+        .tea-wholesale{
+            overflow: hidden;
+        }
+        /*经纪人*/
+        .tmk-broker{
+            margin-left:10px;
+        }
+        .tmk-broker dl{
+            float: left;
+            width: 400px;
+            height: 220px;
+        }
+        .tmk-broker h5{
+            width:100px;
+            height:26px;
+            color: #fff;
+            text-align: center;
+            font:400 16px/26px "Microsoft Yahei";
+            background: #a00;
+            margin-bottom:5px;
+        }
+        .tmk-broker dt{
+            float: left;
+        }
+        .tmk-broker dt img{
+            width: 160px;
+            height:200px;
+        }
+        .tmk-broker dd{
+            float: left;
+            font:100 16px/20px "simsun";
+            width: 200px;
+            height: 100px;
+            margin: 10px;
+        }
+        .tea-broker{
+            overflow: hidden;
+            margin-bottom:5px;
+        }
+
+        /*
+ * -------------------------------------------------------
+ * ******************** head.css *************************
+ * -------------------------------------------------------
+ */
+
+#head { width: 1230px; height: 110px; position: relative; margin: 0 auto; z-index: 99; }
+#head h1 { position: absolute; top: 15px; left: 0; }
+
+#subnav { position: absolute; top: 5px; right: 0; word-spacing: 3px; }
+#subnav p { float: left; padding-left: 20px; }
+#subnav a { color: #666; }
+#subnav a:hover { color: red; }
+
+#subnav span { float: left; color: #c0c0c0; padding: 0 8px; }
+#subnav b { color: #ff5301; }
+#subnav .shopping { height: 15px; line-height: 15px; float: left; padding-left: 22px; background: url(../images/ico.gif) 0 0; }
+#subnav .favorite { height: 15px; line-height: 15px; float: left; padding-left: 20px; background: url(../images/ico.gif) 0 -27px; }
+#subnav .note { height: 15px; line-height: 15px; float: left; padding-left: 20px; background: url(../images/ico.gif) 0 -51px; }
+#subnav .help { height: 15px; line-height: 15px; float: left; padding-left: 20px; background: url(../images/ico.gif) 0 -75px; }
+.user_defined { float: left; }
+
+#topbtn { position: absolute; top: 32px; right: 0; z-index: 100; width: 212px; height: 21px; background: url(../images/topbtn.gif); line-height: 21px; text-align: center; word-spacing: 2px; }
+.topbtn1 { position: absolute; top: 0; left: 0; width: 3px; height: 21px; background: url(../images/topbtn.gif) no-repeat 0 -44px; }
+.topbtn2 { position: absolute; top: 0; right: 0; width: 3px; height: 21px; background: url(../images/topbtn.gif) no-repeat 0 -22px; }
+#topbtn a { color: #000; text-decoration: none; }
+#topbtn a:hover { color: red; }
+#topbtn span { color: #c0c0c0; }
+#topbtn .user { padding-right: 14px; background: url(../images/ico.gif) no-repeat 50px -106px; position: relative; z-index: 2; }
+#path { position: absolute; bottom: 10px; left: 0; color: #000; }
+#path a { color: #285bcc; text-decoration: none; }
+#path a:hover { text-decoration: underline; }
+#path span { font-size: 18px; position: relative; top: 1px; padding-right: 3px; color: #285bcc; }
+#search { position: absolute; bottom: 10px; right: 0; }
+.input { float: left; background: url(../images/input.gif); width: 434px; height: 29px; padding: 5px 0 0 10px; position: relative; margin-right: 6px; }
+.input1 { width: 2px; height: 34px; background: url(../images/input.gif) no-repeat 0 -70px; position: absolute; top: 0; left: 0; }
+.input2 { width: 2px; height: 34px; background: url(../images/input.gif) no-repeat 0 -35px; position: absolute; top: 0; right: 0; }
+.select1 { padding: 2px; margin-right: 2px; }
+.search334 { width: 334px; padding: 2px; +padding: 2px 2px 0; }
+.search_btn { float: left; background: url(../images/search_btn.gif) no-repeat; border: 0; width: 71px; height: 34px; }
+
+#float_layer { position: absolute; top: 21px; right: 117px; width: 95px; line-height: 20px; background: url(../images/float_layer.gif) repeat-y -95px 0; z-index: 1; display: none; }
+#float_layer a { text-decoration: none; color: #333; }
+#float_layer a:hover { text-decoration: underline; }
+#float_layer #adorn1 { width: 95px; height: 3px; overflow: hidden; background: url(../images/float_layer.gif) no-repeat 0 0; position: absolute; bottom: -3px; left: 0; }
+#float_layer #adorn2 { width: 94px; height: 3px; overflow: hidden; background: url(../images/float_layer.gif) no-repeat right 0; position: absolute; top: -3px; left: 0; }
+
+/*
+ * -------------------------------------------------------
+ * ******************** end head.css *********************
+ * -------------------------------------------------------
+ */

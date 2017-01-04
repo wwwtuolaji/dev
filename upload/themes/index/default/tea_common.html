@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>茶通首页</title>
+    <link   rel="stylesheet" href="{res file=css/base.css}"/>
+    <link   rel="stylesheet" href="{res file=css/cyfxb1.css}"/>
+    <link   rel="stylesheet" href="{res file=css/tea.css}"/>
+    <script type="text/javascript" src="{res file=js/js_plugin/jquery-1.11.1.min.js}"></script>
+    <link   rel="shortcuticon" href="{res file=img/bitbug_favicon.ico}"/>
+
+</head>
+<body>
+    <!--顶部非主业导航栏-->
+  
+    <div class="f_inner_c">
+        <div class="w">
+            <dai class="f_user">
+                <ul>
+                {if empty($out_data.user_name)}
+                    <li><a href="{url app=member&act=login&ret_url=}{url app=tea}">登录</a></li>
+                    <li class="spacer"></li>
+                    <li><a href="{url app=member&act=register&ret_url=}{url app=tea}">注册</a></li>
+                {else}
+                    <li><a href="javascript:;">你好！{$out_data.user_name}</a></li>
+                {/if}
+                </ul>
+            </dai>
+            <div class="f_nav">
+                <ul>
+                    <li class="f_center"><a href="{url app=index}">首页</a></li>
+                     <li class="spacer"></li>
+                    <li><a href="{url app=default}">福禄仓商城</a></li>
+                    <li class="spacer"></li>
+                    <li><a href="{url app=index&act=tea}">福禄仓茶叶</a></li>
+                    <li class="spacer"></li>
+                    <li><a href="{url app=index&act=leisure}">企业活动中心</a></li>
+                    <li class="spacer"></li>
+                    <li><a href="{url app=index&act=enterprise}">会员企业平台</a></li>
+                     <li class="spacer"></li>
+                    <li><a href="{url app=about&act=recruit}">股权招募</a></li>
+                    <li class="spacer"></li>
+                    <li><a href="{url app=about&act=loan}">会员贷款直通车</a></li>
+                    <li class="spacer"></li>
+                    <li><a href="{url app=about}">关于我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  
+<div id="head">
+    <h1 title="{$site_title|escape}">
+        <a href="index.php">
+            <img src="{$site_logo}" alt="ECMall" />
+        </a>
+    </h1>
+    <div id="topbtn">
+        <div class="topbtn1"></div>
+        <div class="topbtn2"></div>
+        <span id="child_nav">
+            <a href="{url app=member}" class="user">{$lang.member_center}</a>
+            <ul id="float_layer">
+                <div id="adorn1"></div>
+                <div id="adorn2"></div>
+                <!--{if $visitor.store_id}-->
+                <li>
+                    <a href="{url app=my_goods}">{$lang.my_goods}</a>
+                </li>
+                <li>
+                    <a href="{url app=seller_order}">{$lang.order_manage}</a>
+                </li>
+                <li>
+                    <a href="{url app=my_qa}">{$lang.my_qa}</a>
+                </li>
+                <!--{else}-->
+                <li>
+                    <a href="{url app=buyer_order}">{$lang.my_order}</a>
+                </li>
+                <li>
+                    <a href="{url app=buyer_groupbuy}">{$lang.my_groupbuy}</a>
+                </li>
+                <li>
+                    <a href="{url app=my_question}">{$lang.my_question}</a>
+                </li>
+                <!--{/if}--> </ul>
+        </span>
+        <span>|</span>
+        <a href="{url app=category}">{$lang.i_want_buy}</a>
+        <span>|</span>
+        <a href="{url app=my_goods&act=add}">{$lang.i_want_sell}</a>
+    </div>
+
+    <div id="path">
+        {$lang.curlocal}:
+        <!--{foreach from=$_curlocal item=lnk}-->
+        <!--{if $lnk.url}-->
+        <a href="{$lnk.url}">{$lnk.text|escape}</a>
+        <span>&#8250;</span>
+        <!--{else}-->
+        {$lnk.text|escape}
+        <!--{/if}-->
+        <!--{/foreach}--> </div>
+
+    <div id="search">
+        <form id="" name="" method="get" action="index.php">
+            <div class="input">
+                <div class="input1"></div>
+                <div class="input2"></div>
+                <select name="act" class="select1">
+                    <option value="index">{$lang.search_goods}</option>
+                    <option value="store">{$lang.search_store}</option>
+                    <option value="groupbuy">{$lang.search_groupbuy}</option>
+                </select>
+                <input type="hidden" name="app" value="search" />
+                <input type="text" class="search334" name="keyword" />
+            </div>
+            <input class="search_btn" type="submit" value="" />
+        </form>
+    </div>
+</div>
+
+<!--中部导航栏-->
+<div class="w">
+    <div class="inner_c"  style="margin: 5px 0;">
+        <div class="nav">
+            <ul>
+                <li class="center">
+                    <a href="#">首页</a>
+                </li>
+                <li>
+                    <a href="#">行情</a>
+                </li>
+                <li>
+                    <a href="#">零售</a>
+                </li>
+                <li>
+                    <a href="#">批发</a>
+                </li>
+                <li>
+                    <a href="#">微克</a>
+                </li>
+                <li>
+                    <a href="#">茶叶资讯</a>
+                </li>
+                <li>
+                    <a href="#">经纪人</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
