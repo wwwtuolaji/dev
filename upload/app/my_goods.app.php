@@ -90,7 +90,6 @@ class My_goodsApp extends StoreadminbaseApp
         //$this->import_resource(array('script' => 'utils.js'));
         $this->_config_seo('title', Lang::get('member_center') . ' - ' . Lang::get('my_goods'));
         $this->assign('goods_ids', implode(',', array_keys($all_goods)));
-        
         $store_mod  =& m('store');
         $store = $store_mod->get_info($this->_store_id);
         $this->assign('store', $store);
@@ -556,8 +555,15 @@ class My_goodsApp extends StoreadminbaseApp
             {
                 $goods_url = SITE_URL . '/' . url('app=goods&id=' . $goods_info['goods_id']);
                 $feed_images = array();
+                //判断是否为自定义的图片路径
+                if (strstr( $goods_info['default_image'], 'http:')) {
+                    $img_url=$goods_info['default_image'];         
+                }else{
+                    $img_url=SITE_URL . '/' . $goods_info['default_image'];   
+                }
+                
                 $feed_images[] = array(
-                    'url'   => SITE_URL . '/' . $goods_info['default_image'],
+                    'url'   => $img_url,
                     'link'  => $goods_url,
                 );
                 $this->send_feed('goods_created', array(
@@ -592,7 +598,8 @@ class My_goodsApp extends StoreadminbaseApp
                 return;
             }
             $goods['tags'] = trim($goods['tags'], ',');
-        
+            //分配store_id
+            $this->assign('store_id',$this->_store_id);
             $this->assign('goods', $goods);
             /* 取到商品关联的图片 */
             $uploadedfiles = $this->_uploadedfile_mod->find(array(
@@ -601,6 +608,7 @@ class My_goodsApp extends StoreadminbaseApp
                 'join'       => 'belongs_to_goodsimage',
                 'order' => 'add_time ASC'
             ));
+            
             $default_goods_images = array(); // 默认商品图片
             $other_goods_images = array(); // 其他商品图片
             $desc_images = array(); // 描述图片
@@ -608,6 +616,16 @@ class My_goodsApp extends StoreadminbaseApp
             {
                    $goods_images
             }*/
+
+            //1.先取出自定义的图片表信息内容
+            if (!empty($id)) {
+               $sql_img="select * from ecm_goods_image_r where goods_id='$id'";
+               $db=& db();
+               $img_arr=$db->getall($sql_img);
+            }
+           /* var_dump($uploadedfiles);
+            die;*/
+            
             foreach ($uploadedfiles as $key => $uploadedfile)
             {
                 if ($uploadedfile['goods_id'] == null)
@@ -626,10 +644,20 @@ class My_goodsApp extends StoreadminbaseApp
                     }
                 }
             }
-
+            if (!empty($img_arr)) {
+                foreach ($img_arr as $key => $img_value) {
+                    //上面的数组没有，进行自定义的数组查询
+                    $img_value['custom']=true;
+                    if (empty($default_goods_images) && !empty($goods['default_image']) && ($img_value['thumbnail'] == $goods['default_image'])) {
+                        $default_goods_images[] = $img_value;
+                    }else{
+                        //当前的key 要跟上面的key区分避免覆盖
+                        $other_goods_images[]=$img_value;  
+                    }
+                }
+            }
             $this->assign('goods_images', array_merge($default_goods_images, $other_goods_images));
             $this->assign('desc_images', $desc_images);
-
             /* 取得商品分类 */
             $this->assign('mgcategories', $this->_get_mgcategory_options(0)); // 商城分类第一级
             $this->assign('sgcategories', $this->_get_sgcategory_options());  // 店铺分类
@@ -704,8 +732,7 @@ class My_goodsApp extends StoreadminbaseApp
         }
         else
         {
-            /*var_dump($_POST);
-            die;*/
+            
             /* 取得数据 */
             $data = $this->_get_post_data($id);
 
@@ -715,6 +742,8 @@ class My_goodsApp extends StoreadminbaseApp
                 $this->show_warning($this->get_error());
                 return;
             }
+           /* var_dump($data);
+            die;*/
             /* 保存商品 */
             if (!$this->_save_post_data($data, $id))
             {
@@ -1547,6 +1576,14 @@ class My_goodsApp extends StoreadminbaseApp
             $this->json_result($id);
             return;
         }
+        $db=& db();
+        $file_id=$_GET['id'];
+        $sql="delete from ecm_goods_image_r where file_id='$file_id'";
+        $uploadedfile_r=$db->query($sql);
+        if($uploadedfile_r){
+            $this->json_result($id);
+            return;
+        }
         $this->json_error(Lang::get('no_image_droped'));
     }
 
@@ -1678,9 +1715,9 @@ class My_goodsApp extends StoreadminbaseApp
                 $file = array(
                     'name'            => $files['name'][$key],
                     'type'            => $files['type'][$key],
-                    'tmp_name'  => $files['tmp_name'][$key],
+                    'tmp_name'        => $files['tmp_name'][$key],
                     'size'            => $files['size'][$key],
-                    'error'        => $files['error'][$key]
+                    'error'           => $files['error'][$key]
                 );
                 $uploader->addFile($file);
                 if (!$uploader->file_info())
@@ -2197,6 +2234,17 @@ class My_goodsApp extends StoreadminbaseApp
             $this->_image_mod->edit("goods_id = $goods_id", array('sort_order' => 255));
             $this->_image_mod->edit("goods_id = $goods_id AND file_id = '{$data[goods_file_id][0]}'", array('sort_order' => 1));
         }
+        /*设置jjc自定义的默认图片*/
+        if(empty($default_image))
+        {
+            $db=&db();
+            $sql_get_img="select * from ecm_goods_image_r where file_id='" . $data['goods_file_id'][0] . "'";
+            $default_image =$db->getrow($sql_get_img);
+            $up="update ecm_goods_image_r set sort_order=255 where goods_id = $goods_id";
+            $up_r="update ecm_goods_image_r set sort_order=1 where goods_id ='$goods_id' and file_id='" . $data['goods_file_id'][0] . "'";
+            $db->query($up);
+            $db->query($up_r);
+        }
 
         $this->_goods_mod->edit($goods_id, array(
             'default_image' => $default_image ? $default_image['thumbnail'] : '',
@@ -2458,6 +2506,211 @@ class My_goodsApp extends StoreadminbaseApp
     {
         return abs(floatval($price));
     }
+    /**
+     * [save_img 保存上传时的图片]
+     * @return [type] [description]
+     */
+    function save_img()
+    {
+        //保存图片
+        if (isset($_POST)) {
+            $goods_id =$_POST['goods_id'];
+            $image_url=$_POST['image_url'];
+            $thumbnail=$_POST['thumbnail'];
+            $sort_order=$_POST['sort_order'];
+            $file_id=$_POST['file_id'];
+            $db= &db();
+            if(empty($goods_id)){
+                //提前生成即将要添加的数组id
+                $sql_id="select max(goods_id) from ecm_goods";
+                $goods_id_temp=$db->getone($sql_id);
+                $goods_id=$goods_id_temp+1;
+            }
+            $sql="insert into ecm_goods_image_r values (null,'$goods_id','$image_url','$thumbnail','$sort_order','$file_id')";
+            $result=$db->query($sql);
+            if ($result) {
+                $output=array(
+                'code'=>0,
+                'content'=>"请求成功",
+                'data'=>"",
+                );
+            }else{
+                 $output=array(
+                'code'=>2,
+                'content'=>"请求失败",
+                'data'=>"",
+                );
+            }
+        }else{
+            $output=array(
+                'code'=>1,
+                'content'=>"请求失败",
+                'data'=>"",
+                );
+        }
+        $output=json_encode($output);
+        echo $output;
+    }
+    /**
+     * [save_store_img 商店保存]
+     * @return [type] [description]
+     */
+    function save_store_img()
+    {    
+        $store_id =$_POST['store_id'];
+        $file_name=$_POST['file_name'];
+        $file_type=$this->_return_mimetype($file_name);
+        $image_url=$_POST['image_url'];
+        $belong   =$_POST['belong'];
+        $file_size=$_POST['size'] ? $_POST['size']:0;
+        $item_id  =$_POST['goods_id'];
+        if (empty($store_id)||empty($item_id)||empty($image_url)) {
+            $output=array(
+                'code'=>1,
+                'content'=>"参数异常",
+                'data'=>"",
+                );
+
+        }else{
+            //保存商品描述图片
+            $data = array(
+                'store_id'  => $store_id,
+                'file_type' => $file_type,
+                'file_size' => $file_size,
+                'file_name' => $file_name,
+                'file_path' => $image_url,
+                'belong'    => $belong,
+                'item_id'   => $item_id,
+                'add_time'  => gmtime(),
+            );
+            $mod_uploadedfile = &m('uploadedfile');
+            $file_id = $mod_uploadedfile->add($data);
+            if ($file_id) {
+                $output=array(
+                'code'=>0,
+                'content'=>"请求成功",
+                'data'=>"$file_id",
+                );
+            }else{
+                 $output=array(
+                'code'=>3,
+                'content'=>"业务异常",
+                'data'=>"$file_id",
+                );
+            }
+        }
+        echo json_encode($output);    
+    }
+    /**
+     * [_return_mimetype 返回文件类型]
+     * @param  [type] $filename [description]
+     * @return [type]           [description]
+     */
+    function _return_mimetype($filename)
+    {
+        preg_match("|\.([a-z0-9]{2,4})$|i", $filename, $fileSuffix);
+        switch(strtolower($fileSuffix[1]))
+        {
+            case "js" :
+                return "application/x-javascript";
+
+            case "json" :
+                return "application/json";
+
+            case "jpg" :
+            case "jpeg" :
+            case "jpe" :
+                return "image/jpeg";
+
+            case "png" :
+            case "gif" :
+            case "bmp" :
+            case "tiff" :
+                return "image/".strtolower($fileSuffix[1]);
+
+            case "css" :
+                return "text/css";
+
+            case "xml" :
+                return "application/xml";
+
+            case "doc" :
+            case "docx" :
+                return "application/msword";
+
+            case "xls" :
+            case "xlt" :
+            case "xlm" :
+            case "xld" :
+            case "xla" :
+            case "xlc" :
+            case "xlw" :
+            case "xll" :
+                return "application/vnd.ms-excel";
+
+            case "ppt" :
+            case "pps" :
+                return "application/vnd.ms-powerpoint";
+
+            case "rtf" :
+                return "application/rtf";
+
+            case "pdf" :
+                return "application/pdf";
+
+            case "html" :
+            case "htm" :
+            case "php" :
+                return "text/html";
+
+            case "txt" :
+                return "text/plain";
+
+            case "mpeg" :
+            case "mpg" :
+            case "mpe" :
+                return "video/mpeg";
+
+            case "mp3" :
+                return "audio/mpeg3";
+
+            case "wav" :
+                return "audio/wav";
+
+            case "aiff" :
+            case "aif" :
+                return "audio/aiff";
+
+            case "avi" :
+                return "video/msvideo";
+
+            case "wmv" :
+                return "video/x-ms-wmv";
+
+            case "mov" :
+                return "video/quicktime";
+
+            case "rar" :
+                return "application/x-rar-compressed";
+
+            case "zip" :
+            return "application/zip";
+
+            case "tar" :
+                return "application/x-tar";
+
+            case "swf" :
+                return "application/x-shockwave-flash";
+
+            default :
+            if(function_exists("mime_content_type"))
+            {
+                $fileSuffix = mime_content_type($filename);
+            }
+            return "unknown/" . trim($fileSuffix[0], ".");
+        }
+    }
 }
 
-?>
+
+

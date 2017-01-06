@@ -84,8 +84,8 @@ $(function(){
                     <!--{foreach from=$goods_list item=goods name=_goods_f}-->
                     <tr class="line<!--{if $smarty.foreach._goods_f.last}--> last_line<!--{/if}-->" ectype="table_item" idvalue="{$goods.goods_id}">
                         <td width="25" class="align2"><input type="checkbox" class="checkitem" value="{$goods.goods_id}"/></td>
-                        <td width="50" class="align2"><a href="{url app=goods&id=$goods.goods_id}" target="_blank"><img src="{$site_url}/{$goods.default_image}" width="50" height="50"  /></a></td>
-                        {if $store.enable_radar}
+                        <td width="50" class="align2"><a href="{url app=goods&id=$goods.goods_id}" target="_blank">
+                        <img src="{if strstr($goods.default_image,'http:')}{$goods.default_image}{else}{$site_url}/{$goods.default_image} {/if}" width="50" height="50"  /></a></td> {if $store.enable_radar}
                         <td width="50"  align="center"><span id="r{$goods.goods_id}" class="radar_product_point" radar_price="{$goods.price}" radar_product_id='{$goods.goods_id}' radar_brand="{$goods.brand}"  radar_catname="{$goods.cat_name}" radar_sn="{$goods.goods_sn}" radar_keyword="" radar_name="{$goods.goods_name}"></span></td>
                         {/if}
                         <td width="160" align="align2">

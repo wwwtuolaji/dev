@@ -773,8 +773,7 @@ body { font-size: 12px; font-family: Arial, Verdana, sans-serif; }
 .upload_wrap { padding: 8px 0 8px 8px; border-left:1px solid #ACBFE5; border-right:1px solid #ACBFE5; }
 .upload_wrap ul { width: 282px; height: 28px; overflow:hidden; }
 .upload_wrap li { float: left; margin-right: 6px; display: inline; line-height: 28px; font-weight: bold; color: #3f3d3e; cursor: pointer; }
-.upload_wrap .btn1 { width: 86px; height: 28px; text-align: center; background: url(../images/member/btn.gif) no-repeat 0 -803px; overflow:hidden; }
-.upload_wrap .btn2 { width: 79px; height: 28px; padding-left: 10px; background: url(../images/member/btn.gif) no-repeat 0 -837px; overflow:hidden; }
+
 .upload_file {padding: 8px 0 6px;}
 .upload_txt { color: #9d9d9d; line-height: 18px; }
 .upload_txt span { color: #656565; }

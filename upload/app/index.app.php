@@ -362,4 +362,19 @@ class IndexApp extends IndexbaseApp
         echo json_encode($out_data);
     }
 
+    function tea()
+    {
+        //获取登录信息
+        $user_name=$this->visitor->get('user_name');
+        $out_data['user_name']=$user_name;
+        $drogue_arr = $this->_get_data();
+        $out_data['drogue_arr'] = $drogue_arr;
+        $this->assign("out_data", $out_data);
+        $this->_curlocal('福禄仓茶叶', 'index.php?app=index&act=tea  ','茶商首页');
+           /* $this->_curitem('my_store');
+            $this->_curmenu('my_store');*/
+        $this->display("tea.html");
+
+    }
+
 }

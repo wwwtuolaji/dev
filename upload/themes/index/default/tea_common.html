@@ -6,9 +6,13 @@
     <link   rel="stylesheet" href="{res file=css/base.css}"/>
     <link   rel="stylesheet" href="{res file=css/cyfxb1.css}"/>
     <link   rel="stylesheet" href="{res file=css/tea.css}"/>
+    <link   rel="stylesheet" href="{res file=css/ecmall.css}"/>
     <script type="text/javascript" src="{res file=js/js_plugin/jquery-1.11.1.min.js}"></script>
+    <script type="text/javascript" src="{lib file=jquery.slides.min.js}"></script>
+    <script type="text/javascript" src="{lib file=jquery.js}" charset="utf-8"></script>
+ 
     <link   rel="shortcuticon" href="{res file=img/bitbug_favicon.ico}"/>
-
+    <!--<editmode></editmode>-->
 </head>
 <body>
     <!--顶部非主业导航栏-->
@@ -17,10 +21,10 @@
         <div class="w">
             <dai class="f_user">
                 <ul>
-                {if empty($out_data.user_name)}
-                    <li><a href="{url app=member&act=login&ret_url=}{url app=tea}">登录</a></li>
+                {if $out_data.user_name eq '游客'}
+                    <li><a href="{url app=member&act=login&ret_url=}{url app=index&act=tea}">登录</a></li>
                     <li class="spacer"></li>
-                    <li><a href="{url app=member&act=register&ret_url=}{url app=tea}">注册</a></li>
+                    <li><a href="{url app=member&act=register&ret_url=}{url app=index&act=tea}">注册</a></li>
                 {else}
                     <li><a href="javascript:;">你好！{$out_data.user_name}</a></li>
                 {/if}

@@ -281,6 +281,127 @@ return array (
       1 => '_widget_393',
     ),
   ),
+  'tmp' => 
+  array (
+    '_widget_878' => 
+    array (
+      'options' => 
+      array (
+        0 => 
+        array (
+          'ad_image_url' => 'data/files/mall/template/201610141013383227.jpg',
+          'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=1',
+        ),
+        1 => 
+        array (
+          'ad_image_url' => 'data/files/mall/template/201701041715552300.jpg',
+          'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=3',
+        ),
+        2 => 
+        array (
+          'ad_image_url' => 'data/files/mall/template/201610141013386656.jpg',
+          'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=49',
+        ),
+        3 => 
+        array (
+          'ad_image_url' => 'data/files/mall/template/201610141013387228.jpg',
+          'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=35',
+        ),
+        4 => 
+        array (
+          'ad_image_url' => 'data/files/mall/template/201610141013387800.jpg',
+          'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=19',
+        ),
+      ),
+    ),
+    '_widget_993' => 
+    array (
+      'options' => 
+      array (
+        0 => 
+        array (
+          'ad_image_url' => 'data/files/mall/template/201701042227078523.jpg',
+          'ad_link_url' => '',
+        ),
+        1 => 
+        array (
+          'ad_image_url' => 'data/files/mall/template/201701042227079296.jpeg',
+          'ad_link_url' => '',
+        ),
+        2 => 
+        array (
+          'ad_image_url' => 'data/files/mall/template/201701042227076325.jpeg',
+          'ad_link_url' => '',
+        ),
+      ),
+    ),
+    '_widget_488' => 
+    array (
+      'options' => 
+      array (
+        0 => 
+        array (
+          'ad_image_url' => 'data/files/mall/template/201701042229527146.jpg',
+          'ad_link_url' => '',
+        ),
+      ),
+    ),
+    '_widget_302' => 
+    array (
+      'options' => 
+      array (
+        0 => 
+        array (
+          'ad_image_url' => 'data/files/mall/template/201701042232287370.jpg',
+          'ad_link_url' => '',
+        ),
+      ),
+    ),
+    '_widget_243' => 
+    array (
+      'options' => 
+      array (
+        0 => 
+        array (
+          'ad_image_url' => 'data/files/mall/template/201701042233554703.jpg',
+          'ad_link_url' => '',
+        ),
+      ),
+    ),
+    '_widget_995' => 
+    array (
+      'options' => 
+      array (
+        0 => 
+        array (
+          'ad_image_url' => 'data/files/mall/template/201701042238145648.jpeg',
+          'ad_link_url' => '',
+        ),
+      ),
+    ),
+    '_widget_712' => 
+    array (
+      'options' => 
+      array (
+        0 => 
+        array (
+          'ad_image_url' => 'data/files/mall/template/201701042239149997.jpg',
+          'ad_link_url' => '',
+        ),
+      ),
+    ),
+    '_widget_729' => 
+    array (
+      'options' => 
+      array (
+        0 => 
+        array (
+          'ad_image_url' => 'data/files/mall/template/201701042240595124.jpg',
+          'ad_link_url' => '',
+        ),
+      ),
+    ),
+  ),
 );
 
 ?>

@@ -274,9 +274,16 @@ function order_action_result(action, order_id, rzt)
 
 /* 把图片插入编辑器 */
 function insert_editor(file_name, path)
-{
-    tinyMCE.execCommand('mceInsertContent', false,
+{   
+    alert(path);
+        if(path.indexOf("ttp:") > 0 ){
+          tinyMCE.execCommand('mceInsertContent', false,
+        '<img src="'+ path + '" alt="'+ file_name + '">');  
+        }else{
+              tinyMCE.execCommand('mceInsertContent', false,
         '<img src="'+ SITE_URL +'/' + path + '" alt="'+ file_name + '">');
+        }
+  
 }
 
 function trigger_uploader(){
