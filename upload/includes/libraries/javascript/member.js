@@ -275,7 +275,6 @@ function order_action_result(action, order_id, rzt)
 /* 把图片插入编辑器 */
 function insert_editor(file_name, path)
 {   
-    alert(path);
         if(path.indexOf("ttp:") > 0 ){
           tinyMCE.execCommand('mceInsertContent', false,
         '<img src="'+ path + '" alt="'+ file_name + '">');  
