@@ -726,7 +726,9 @@ $(function(){
 </script>
 <script type="text/javascript">
 var prec_interval;
+{if !empty($store_id)}
 var store_id={$store_id};
+{/if}
 function dong(temp_num) {      
     $('.progressbar').each(function(){
       var t = $(this),
