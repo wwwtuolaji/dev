@@ -465,6 +465,7 @@ class My_goodsApp extends StoreadminbaseApp
              /* 取得商品分类 */
              $this->assign('mgcategories', $this->_get_mgcategory_options(0)); // 商城分类第一级
              $this->assign('sgcategories', $this->_get_sgcategory_options());  // 店铺分类
+             $this->assign('store_id',$this->_store_id);
 
              /* 当前页面信息 */
              $this->_curlocal(LANG::get('member_center'), 'index.php?app=member',
