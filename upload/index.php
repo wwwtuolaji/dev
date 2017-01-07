@@ -18,7 +18,7 @@ ECMall::startup(array(
         ROOT_PATH . '/includes/plugin.base.php',
         ROOT_PATH . '/app/frontend.base.php',
         ROOT_PATH . '/includes/subdomain.inc.php',
-        ROOT_PATH . '/includes/qiniu/autoload.php',
+        /*ROOT_PATH . '/includes/qiniu/autoload.php',*/
     ),
 ));
 ?>
