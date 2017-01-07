@@ -213,6 +213,7 @@ class GoodsApp extends StorebaseApp
         $key = 'page_of_goods_' . $id;
         $data = $cache_server->get($key);
         $cached = true;
+
         if ($data === false)
         {
             $cached = false;
@@ -250,6 +251,22 @@ class GoodsApp extends StorebaseApp
         {
             $this->set_store($data['goods']['store_id']);
         }
+        //@jjc 在images数组中加入修改后的图片
+         if (!empty($id)) {
+               $sql_img="select * from ecm_goods_image_r where goods_id='$id'";
+               $db=& db();
+               $img_arr=$db->getall($sql_img);
+            }
+             foreach ($img_arr as $key => $img_value) {
+                    //上面的数组没有，进行自定义的数组查询
+                    $img_value['custom']=true;
+                    if (empty($default_goods_images) && !empty($goods['default_image']) && ($img_value['thumbnail'] == $goods['default_image'])) {
+                        $default_goods_images[] = $img_value;
+                    }else{
+                        //当前的key 要跟上面的key区分避免覆盖
+                        $data['goods']['_images'][]=$img_value;  
+                    }
+                }
 
         return $data;
     }
