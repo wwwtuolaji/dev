@@ -18,6 +18,7 @@ class IndexApp extends IndexbaseApp
             //已经登陆
             $user_info = $this->visitor->get();
             //过滤前台分配数据
+            $member_info['user_id'] = $user_info['user_id'];
             $member_info['level'] = $user_info['member_level'];
             $member_info['card'] = $user_info['member_card_num'];
             $member_info['name'] = $user_info['user_name'];
