@@ -98,7 +98,7 @@ function check($str,$v)
 class ECMall
 {
     /* 启动 */
-    function startup($config = array())
+    static function startup($config = array())
     {
         /* 加载初始化文件 */
         require(ROOT_PATH . '/eccore/controller/app.base.php');     //基础控制器类
@@ -117,10 +117,10 @@ class ECMall
             $_GET   = addslashes_deep($_GET);
             $_POST  = addslashes_deep($_POST);
             $_COOKIE= addslashes_deep($_COOKIE);
-	  if ( $_FILES) 
+	  /*if ( $_FILES) 
             {
 	            $_FILES = addslashes_deep($_FILES);
-            }
+            }*/
         }
 	 
 	  if(isset($_GET['id']) && !empty($_GET['id']))
