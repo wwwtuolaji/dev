@@ -6,7 +6,7 @@ return array(
     'author'    => 'jjc',
     'website'   => '',
     'version'   => '1.0',
-    'desc'      => '循环展示最多6个图片广告，图片广告在后台设置',
+    'desc'      => '用于茶通主页面的轮播图',
     'configurable'  => true,
 );
 

@@ -3,12 +3,12 @@
 return array (
   'widgets' => 
   array (
-    '_widget_863' => 
+    '_widget_469' => 
     array (
       'name' => 'image_ad',
       'options' => 
       array (
-        'ad_image_url' => 'data/files/mall/template/201610201637321012.jpg',
+        'ad_image_url' => 'data/files/mall/template/201701110931233172.jpg',
         'ad_link_url' => '',
       ),
     ),
@@ -17,7 +17,7 @@ return array (
   array (
     'right' => 
     array (
-      0 => '_widget_863',
+      0 => '_widget_469',
     ),
   ),
 );

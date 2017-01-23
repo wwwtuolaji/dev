@@ -1,0 +1,55 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>经纪人</p>
+  <ul class="subnav">
+    <!--{if $smarty.get.wait_verify}-->
+    <li><a class="btn1" href="index.php?app=agent">{$lang.manage}</a></li>
+    <!--{else}-->
+    <li><span>{$lang.manage}</span></li>
+    <!--{/if}-->
+    <li><a class="btn1" href="index.php?app=agent&amp;act=add">{$lang.add}</a></li>
+    
+  </ul>
+</div>
+<div class="mrightTop">
+
+  <div class="fontr">{include file=page.top.html} </div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td width="20" class="firstCell">&nbsp;</td>
+      <td>序号</td>
+      <td><span ectype="order_by" fieldname="store_name">姓名</span></td>
+      <td><span ectype="order_by" fieldname="sgrade">电话</span></td>
+      <td class=""><span ectype="order_by" fieldname="add_time">微信号</span></td>
+      <td class=""><span ectype="order_by" fieldname="add_time">qq号</span></td>
+      <td class=""><span ectype="order_by" fieldname="state">邮箱地址</span></td>
+      <td class=""><span ectype="order_by" fieldname="sort_order">头像地址</span></td>
+      <td class="handler">操作</td>
+    </tr>
+    <!--{foreach from=$ecm_agent item=agent name=name}-->
+    <tr class="tatr2">
+      <td class="firstCell">&nbsp;</td>
+      <td>{$smarty.foreach.name.iteration}</td>
+      <td>{$agent.agent_name|escape} </td>
+       <td>{$agent.agent_phone}</td>
+      <td>{$agent.agent_wechat}</td>
+      <td>{$agent.agent_qq|escape}</td>
+      <td>{$agent.agent_email}</td>
+      <td class=""><img style="width: 50px;height: 50px; border: solid 1px #666" src="{$agent.agent_default_image}" id="show_img"></td>
+      
+      <td class="handler">
+ 
+        <a href="index.php?app=agent&amp;act=edit&amp;agent_id={$agent.agent_id}">{$lang.edit}</a> | <a href="javascript:drop_confirm('{$lang.drop_confirm}', 'index.php?app=agent&amp;act=drop&amp;agent_id={$agent.agent_id}');">{$lang.drop}</a> 
+        </td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data">
+      <td colspan="12">{$lang.no_data}</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+  
+</div>
+{include file="footer.html"}

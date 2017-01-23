@@ -3,70 +3,158 @@
 return array (
   'widgets' => 
   array (
-    '_widget_275' => 
+    '_widget_271' => 
     array (
-      'name' => 'four_image_ads',
+      'name' => 'image_ad',
       'options' => 
       array (
-        'ad1_image_url' => '',
-        'ad1_link_url' => '',
-        'ad2_image_url' => 'data/files/mall/template/201701041744478661.jpg',
-        'ad2_link_url' => '',
-        'ad3_image_url' => 'data/files/mall/template/201701041744476238.jpg',
-        'ad3_link_url' => '',
-        'ad4_image_url' => 'data/files/mall/template/201701041744475296.jpg',
-        'ad4_link_url' => '',
-        'ad5_image_url' => 'data/files/mall/template/201701041744473211.jpg',
-        'ad5_link_url' => '',
+        'ad_image_url' => 'data/files/mall/template/201701111402183204.jpg',
+        'ad_link_url' => '',
       ),
     ),
-  ),
-  'config' => 
-  array (
-    'cycle_image' => 
+    '_widget_689' => 
     array (
-      0 => '_widget_275',
+      'name' => 'newbest_goods',
+      'options' => NULL,
     ),
-  ),
-  'tmp' => 
-  array (
-    '_widget_587' => 
+    '_widget_113' => 
     array (
+      'name' => 'slide_image',
       'options' => 
       array (
         0 => 
         array (
-          'ad_image_url' => 'data/files/mall/template/201701050941019482.jpg',
+          'ad_image_url' => 'data/files/mall/template/201701111002027250.jpeg',
           'ad_link_url' => '',
         ),
         1 => 
         array (
-          'ad_image_url' => 'data/files/mall/template/201701050941204527.jpg',
+          'ad_image_url' => 'data/files/mall/template/201701111453438542.jpg',
+          'ad_link_url' => '',
+        ),
+        2 => 
+        array (
+          'ad_image_url' => 'data/files/mall/template/201701111453431827.jpg',
           'ad_link_url' => '',
         ),
       ),
     ),
-    '_widget_437' => 
+    '_widget_421' => 
     array (
+      'name' => 'newbest_goods',
+      'options' => NULL,
+    ),
+    '_widget_782' => 
+    array (
+      'name' => 'newbest_goods',
       'options' => 
       array (
-        0 => 
+        'title_content' => '中国好商品',
+        'img_recom_id' => '6',
+        'img_cate_id' => 0,
+      ),
+    ),
+    '_widget_954' => 
+    array (
+      'name' => 'newbest_goods',
+      'options' => 
+      array (
+        'title_content' => '好茶',
+        'img_recom_id' => '7',
+        'img_cate_id' => 0,
+      ),
+    ),
+    '_widget_921' => 
+    array (
+      'name' => 'image_ad',
+      'options' => 
+      array (
+        'ad_image_url' => 'data/files/mall/template/201701121119563930.jpg',
+        'ad_link_url' => '',
+      ),
+    ),
+    '_widget_992' => 
+    array (
+      'name' => 'betterslide_image',
+      'options' => 
+      array (
+        'slide_src' => 
         array (
-          'ad_image_url' => 'data/files/mall/template/201701051005464286.jpg',
-          'ad_link_url' => '',
+          0 => 
+          array (
+            'ad_image_url' => 'data/files/mall/template/201701161528001355.jpg',
+            'ad_link_url' => '444',
+          ),
+          1 => 
+          array (
+            'ad_image_url' => 'data/files/mall/template/201701161528438018.jpg',
+            'ad_link_url' => '',
+          ),
+        ),
+        'slide_outer' => 
+        array (
+          'title_content' => '中国好商品',
+          'img_recom_id' => '5',
+          'img_cate_id' => 0,
+          'ad_image_url' => 
+          array (
+            0 => 'data/files/mall/template/201701161528001355.jpg',
+            1 => 'data/files/mall/template/201701161528438018.jpg',
+          ),
+          'ad_link_url' => 
+          array (
+            0 => '444',
+            1 => '',
+          ),
         ),
       ),
     ),
-    '_widget_981' => 
+    '_widget_902' => 
     array (
-      'options' => 
-      array (
-        0 => 
-        array (
-          'ad_image_url' => 'data/files/mall/template/201701051013061578.jpg',
-          'ad_link_url' => '',
-        ),
-      ),
+      'name' => 'comment_share',
+      'options' => NULL,
+    ),
+    '_widget_400' => 
+    array (
+      'name' => 'agent_list',
+      'options' => NULL,
+    ),
+  ),
+  'config' => 
+  array (
+    'banner_1' => 
+    array (
+      0 => '_widget_271',
+      1 => '_widget_689',
+    ),
+    'slide_image' => 
+    array (
+      0 => '_widget_113',
+      1 => '_widget_421',
+    ),
+    'newbest_goods' => 
+    array (
+      0 => '_widget_782',
+    ),
+    'newbest_goods2' => 
+    array (
+      0 => '_widget_954',
+    ),
+    'goods_banner_2' => 
+    array (
+      0 => '_widget_921',
+    ),
+    'better_slider' => 
+    array (
+      0 => '_widget_992',
+    ),
+    'comment_share' => 
+    array (
+      0 => '_widget_902',
+    ),
+    'agent_list' => 
+    array (
+      0 => '_widget_400',
     ),
   ),
 );

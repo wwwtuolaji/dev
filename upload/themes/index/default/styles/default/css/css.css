@@ -1,0 +1,134 @@
+/* 茶通的轮播图css样式 */
+.w-slider {
+    width: 998px;
+    height: 489px;
+    position: relative;
+    overflow: hidden;
+}
+.slider {
+    width: 998px;
+    height: 489px;
+
+}
+.slider-main {
+    width: 620px;
+    height: 489px;
+}
+.slider-main-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 998px;
+    height: 489px;
+}
+.slider-main-img img {
+    width: 100%;
+}
+.slider-ctrl {
+    text-align: center;
+    padding-top: 5px;
+}
+.slider-ctrl-con {
+    width: 24px;
+    height: 20px;
+    display:inline-block;
+    background:url(../images/icon.png) no-repeat -24px -782px;
+    margin: 0 5px;
+    cursor: pointer;
+    text-indent: -20em;
+    overflow: hidden;
+}
+.current {
+    background-position: -24px -762px;
+}
+.slider-ctrl-prev,
+.slider-ctrl-next {
+    position: absolute;
+    top: 50%;
+    margin-top: -35px;
+    margin: 20px;
+    background:url(../images/icon.png) no-repeat 6px top;
+    width: 30px;
+    height: 35px;
+    opacity: 0.8;
+    cursor: pointer;
+}
+.slider-ctrl-prev {
+    left: 0;
+}
+.slider-ctrl-next {
+    right: 0;
+    background-position: -6px -44px;
+}
+/* end！！！！！！！！！！！！！！ */
+
+/* better 轮播图css控制 */
+/* 茶通的轮播图css样式 */
+.betterw-slider {
+    width: 410px;
+    height: 489px;
+    position: relative;
+    overflow: hidden;
+}
+.betterslider {
+    width: 410px;
+    height: 489px;
+
+}
+.betterslider-main {
+    width: 620px;
+    height: 489px;
+}
+.betterslider-main-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 410px;
+    height: 489px;
+}
+.betterslider-main-img img {
+    width: 100%;
+}
+.betterslider-ctrl {
+    text-align: center;
+    padding-top: 5px;
+}
+.betterslider-ctrl-con {
+    width: 24px;
+    height: 20px;
+    display:inline-block;
+    background:url(../images/icon.png) no-repeat -24px -782px;
+    margin: 0 5px;
+    cursor: pointer;
+    text-indent: -20em;
+    overflow: hidden;
+}
+.bettercurrent {
+    background-position: -24px -762px;
+}
+.betterslider-ctrl-prev,
+.betterslider-ctrl-next {
+    position: absolute;
+    top: 50%;
+    margin-top: -35px;
+    margin: 20px;
+    background:url(../images/icon.png) no-repeat 6px top;
+    width: 30px;
+    height: 35px;
+    opacity: 0.8;
+    cursor: pointer;
+}
+.betterslider-ctrl-prev {
+    left: 0;
+}
+.betterslider-ctrl-next {
+    right: 0;
+    background-position: -6px -44px;
+}
+
+
+
+
+
+
+

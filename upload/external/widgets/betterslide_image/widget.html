@@ -1,0 +1,251 @@
+
+     <div class="mk-nav">
+         <h3 class="h3f fl">
+             <a href="">{$widget_data.slide_outer.title_content}</a>
+         </h3>
+         <ul >
+             <li>
+                 <a href="#">更多>></a>
+             </li>
+         </ul>
+     </div>
+     <div class="tmk-inner">
+         <ul>   
+             <!--数据循环--> 
+             <!--{foreach from=$widget_data.slide_outer item=goods key=k }--> 
+             {if $k neq 'title_content'}
+                 {if $k eq '2'}
+                     <li class="tmk-banner">
+                 <!--{if !$widget_data.slide_src}--> 
+                 <div style="padding:10px; text-align:center;">{$widget_data.slide_src}请配置</div>
+                 <!--{/if}--> 
+                 <!--start--> 
+                 <div class="betterw-slider" id="betterjs_slider">
+                     <div class="betterslider">
+                         <div class="betterslider-main" id="betterslider_main_block">
+                             <!--{if !$widget_data.slide_src}--> 
+                             <div class="betterslider-main-img">
+                                 <a href="#">
+                                     <img src="http://n.sinaimg.cn/sports/20170106/YokQ-fxzkfuk2468686.jpg" alt=""/> 
+                                 </a>
+                             </div>
+                             <!--{/if}--> 
+                             <!-- {foreach from=$widget_data.slide_src item=image name=fe_image} --> 
+                             <!-- {if $smarty.foreach.fe_image.first} --> 
+                             <div class="betterslider-main-img">
+                                 <a href="{$image.ad_link_url}">
+                                     <img src="{$image.ad_image_url}"/> 
+                                 </a>
+                             </div>
+                             <!-- {else} --> 
+                             <div class="betterslider-main-img">
+                                 <a href="{$image.ad_link_url}">
+                                     <img src="{$image.ad_image_url}"/> 
+                                 </a>
+                             </div>
+                             <!-- {/if} --> 
+                             <!-- {/foreach} --> </div>
+                     </div>
+                     <div class="betterslider-ctrl" id="betterslider_ctrl">
+                         <span class="betterslider-ctrl-prev"></span>
+                         <span class="betterslider-ctrl-next"></span>
+                     </div>
+                 </div>
+                 <!--end--> 
+                <!--  <a href="#">
+                    <img src="{res file=images/bys.jpg}" alt=""></a> -->
+             </li>
+                 {/if}
+             <li>
+                 
+                     <a href="{url app=goods&id=$goods.goods_id}" target="_blank">
+                         <img src="{$goods.default_image}" /> 
+                     </a>
+                 
+                 <h4>
+                     <a href="{url app=goods&id=$goods.goods_id}" target="_blank" title="{$goods.goods_name|escape}">{$goods.goods_name|escape}</a>
+                 </h4>
+             </li>
+             {/if}
+             <!--{/foreach}--> 
+         </ul>
+     </div>
+
+
+ <script type="text/javascript">
+      
+         
+        // 多个属性运动框架  添加回调函数
+        function betteranimate(obj,json,fn) {  // 给谁    json
+            clearInterval(obj.bettertimer);
+            obj.bettertimer = setInterval(function() {
+                var flag = true;  // 用来判断是否停止定时器   一定写到遍历的外面
+                for(var attr in json){   // attr  属性     json[attr]  值
+                    //开始遍历 json
+                    // 计算步长    用 target 位置 减去当前的位置  除以 10
+                    // console.log(attr);
+                    var bettercurrent = 0;
+                    if(attr == "opacity")
+                    {
+                        bettercurrent = Math.round(parseInt(bettergetStyle(obj,attr)*100)) || 0;
+                        console.log(bettercurrent);
+                    }
+                    else
+                    {
+                        bettercurrent = parseInt(bettergetStyle(obj,attr)); // 数值
+                    }
+                    // console.log(bettercurrent);
+                    // 目标位置就是  属性值
+                    var step = ( json[attr] - bettercurrent) / 10;  // 步长  用目标位置 - 现在的位置 / 10
+                    step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                    //判断透明度
+                    if(attr == "opacity")  // 判断用户有没有输入 opacity
+                    {
+                        if("opacity" in obj.style)  // 判断 我们浏览器是否支持opacity
+                        {
+                            // obj.style.opacity
+                            obj.style.opacity = (bettercurrent + step) /100;
+                        }
+                        else
+                        {  // obj.style.filter = alpha(opacity = 30)
+                            obj.style.filter = "alpha(opacity = "+(bettercurrent + step)* 10+")";
+
+                        }
+                    }
+                    else if(attr == "zIndex")
+                    {
+                        obj.style.zIndex = json[attr];
+                    }
+                    else
+                    {
+                        obj.style[attr] = bettercurrent  + step + "px" ;
+                    }
+
+                    if(bettercurrent != json[attr])  // 只要其中一个不满足条件 就不应该停止定时器  这句一定遍历里面
+                    {
+                        flag =  false;
+                    }
+                }
+                if(flag)  // 用于判断定时器的条件
+                {
+                    clearInterval(obj.bettertimer);
+                    //alert("ok了");
+                    if(fn)   // 很简单   当定时器停止了。 动画就结束了  如果有回调，就应该执行回调
+                    {
+                        fn(); // 函数名 +  （）  调用函数  执行函数
+                    }
+                }
+            },10)
+        }
+        function bettergetStyle(obj,attr) {  //  谁的      那个属性
+            if(obj.currentStyle)  // ie 等
+            {
+                return obj.currentStyle[attr];  // 返回传递过来的某个属性
+            }
+            else
+            {
+                return window.getComputedStyle(obj,null)[attr];  // w3c 浏览器
+            }
+        }
+            // 获取元素
+            function $f(id) {return document.getElementById(id);}
+            var betterjs_slider = $f("betterjs_slider");  // 获取最大盒子
+            var betterslider_main_block = $f("betterslider_main_block");  // 滚动图片的父亲
+            var betterimgs = betterslider_main_block.children;  // 获得所有的图片组 需要滚动的部分
+            var betterslider_ctrl = $f("betterslider_ctrl");  // 获得 控制span 的 父盒子
+            // 操作元素
+            // 生成小span
+            for(var i=0;i<betterimgs.length; i++) {
+
+                var span = document.createElement("span");// 创建 span
+                span.className = "betterslider-ctrl-con"; // 添加类名
+                span.innerHTML = betterimgs.length-i;  //  6 - 0     6 - 1   // 实现 倒序 的方式插入
+                betterslider_ctrl.insertBefore(span,betterslider_ctrl.children[1]);  // 再 父亲 倒数第二个盒子的前面插入
+            }
+            // 下面的第一个小span  是默认的蓝色
+            var betterspans = betterslider_ctrl.children;   // 得到所有的 span
+            betterspans[1].setAttribute("class","betterslider-ctrl-con bettercurrent");  // 两个类名
+
+            var betterscrollWidth = betterjs_slider.clientWidth; // 得到大盒子的宽度 也就是  后面动画走的距离  310
+            //  刚开始，按道理   第一张图片 留下   其余的人走到 310 的位置上
+            for(var i = 1; i<betterimgs.length; i++) { // 从1 开始 因为第一张不需要计算
+
+                betterimgs[i].style.left =  betterscrollWidth + "px";  // 其他人 先右移动到 310 的位置
+            }
+            // 遍历三个按钮
+             // betterspans 是 8个按钮 他们都是 span
+            var betteriNow = 0; //  用来 控制播放张数
+            for(var k in betterspans){   //   k  是索引号  betterspans[k]    betterspans[0]  第一个span
+                betterspans[k].onclick = function() {
+                    // alert(this.innerHTML);
+                    if(this.className == "betterslider-ctrl-prev"){ // 判断当前点击的这个按钮是不是 prev
+                        // alert("您点击了左侧按钮");
+                        //  当我们左侧点击时候， 当前的这张图片 先慢慢的走到右边  上一张 一定先快速走到左侧 （-310）的位置，然后慢慢的走到舞台中
+                        betteranimate(betterimgs[betteriNow],{left: betterscrollWidth});
+                        --betteriNow < 0 ?  betteriNow = betterimgs.length - 1 : betteriNow;
+                        betterimgs[betteriNow].style.left = -betterscrollWidth + "px";
+                        betteranimate(betterimgs[betteriNow],{left: 0});
+                        bettersetSquare();
+                    }
+                    else if(this.className == "betterslider-ctrl-next") {  // 右侧按钮开始
+                        betterautoplay();
+                    }
+                    else {
+                        // alert("您点击了下面的span");
+                        // 我们首先要知道我们点击是第几张图片  --- 获得当前的索引号
+                        // alert(this.innerHTML);
+                        var betterthat = this.innerHTML - 1;
+                        // console.log(typeof betterthat);
+                        if(betterthat > betteriNow) {
+                              // 做法等同于 右侧按钮
+                            betteranimate(betterimgs[betteriNow],{left: -betterscrollWidth});  // 当前的这张慢慢的走出去 左侧
+                            betterimgs[betterthat].style.left = betterscrollWidth + "px"; // 点击的那个索引号 快速走到右侧  310
+                        }
+                        else if(betterthat < betteriNow) {
+                            // 做法等同于 左侧按钮
+                            betteranimate(betterimgs[betteriNow],{left: betterscrollWidth});
+                            betterimgs[betterthat].style.left = -betterscrollWidth + "px";
+                        }
+                        betteriNow = betterthat;  // 给当前的索引号
+                        betteranimate(betterimgs[betteriNow],{left: 0});
+                        /*比如 已经播放到 第4张    我点击了 第2张   把 2 给  betterinow
+                        下一次播放，应该播放第3张*/
+                       // betteranimate(betterimgs[betteriNow],{left: 0});
+                        bettersetSquare();
+                    }
+                }
+            }
+            //  一个可以控制 播放span 的 函数   当前
+            function bettersetSquare() {
+               //  清除所有的span bettercurrent   留下 满足需要的拿一个
+                for(var i=1;i<betterspans.length-1;i++){   //  8个span   我们要 1-6  不要 7  索引号
+                    betterspans[i].className = "betterslider-ctrl-con";
+                }
+                betterspans[betteriNow+1].className = "betterslider-ctrl-con bettercurrent";  // 记住 + 1
+            }
+            // 定时器开始  其实， 定时器就是  右侧按钮
+            var bettertimer = null;
+            bettertimer = setInterval(betterautoplay,2000);  // 开启定时器
+            function betterautoplay() {
+                //  当我们点击时候， 当前的这张图片 先慢慢的走到左边  下一张 一定先快速走到右侧 （310）的位置，然后慢慢的走到舞台中
+                // alert("您点击了右侧按钮");
+                //betteriNow == 0
+                betteranimate(betterimgs[betteriNow],{left: -betterscrollWidth});
+                // 当前的那个图片 慢慢的走到 -betterscrollWidth 位置
+                // 变成1   先 ++   ++betteriNow  先自加  后 运算
+                ++betteriNow > betterimgs.length -1 ?  betteriNow = 0 : betteriNow;
+                betterimgs[betteriNow].style.left = betterscrollWidth + "px";  // 立马执行  快速走到右侧
+                betteranimate(betterimgs[betteriNow],{left: 0}); // 下一张走的 0 的位置  慢慢走过来
+                bettersetSquare();  // 调用square
+            }
+            //鼠标经过清除定时器
+            betterjs_slider.onmouseover = function() {
+                clearInterval(bettertimer);
+            }
+            betterjs_slider.onmouseout = function() {
+                clearInterval(bettertimer);  // 要执行定时器 先清除定时器
+                bettertimer = setInterval(betterautoplay,2000);  // 开启定时器
+            }
+        
+       
+    </script>

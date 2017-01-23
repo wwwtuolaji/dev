@@ -1,0 +1,32 @@
+ <div class="mk-nav">
+     <h3 class="h3f fl">
+         <a href="">评论分享</a>
+     </h3>
+     <ul >
+         <li>
+             <a href="javascript:;;">>></a>
+         </li>
+     </ul>
+ </div>
+ <div class="tmk-comments">
+     {foreach from=$widget_data item=comment}
+     <dl>
+         <dt>
+             <a href="?app=goods&act=comments&id={$comment.goods_id}">
+                 <img src="{$comment.default_image}" alt=""></a>
+         </dt>
+         <dd>   
+             <a href="?app=goods&act=comments&id={$comment.goods_id}" style="display:inline-block; overflow:hidden; text-overflow:ellipsis; -o-text-overflow:ellipsis; white-space:nowrap; width:150px;">
+                 {$comment.goods_name}
+                 </a>
+                <a href="?app=goods&act=comments&id={$comment.goods_id}" > 
+                 <span class="level_{$comment.evaluation}"></span>
+                </a>
+             <p>
+                 {if empty($comment.comment)}暂无评论{else}{$comment.comment}{/if}
+             </p>
+         </dd>
+
+     </dl>
+     {/foreach}
+ </div>

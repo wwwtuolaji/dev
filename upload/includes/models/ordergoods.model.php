@@ -13,7 +13,7 @@ class OrdergoodsModel extends BaseModel
             'type'          => BELONGS_TO,
             'foreign_key'   => 'order_id',
             'reverse'       => 'has_ordergoods',
-        ),
+        )
     );
 }
 

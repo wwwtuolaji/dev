@@ -208,6 +208,18 @@ return array(
             ),
         ),
     ),
+     // 扩展
+    'teashop' => array(
+        'text'      => '茶通',
+        'default'   => 'agent',
+        'children'  => array(
+            'agent' => array(
+                'text'  => '经纪人管理',
+                'url'   => 'index.php?app=agent',
+            ),
+          
+        ),
+    ),
 );
 
 ?>

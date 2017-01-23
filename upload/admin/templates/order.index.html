@@ -113,10 +113,10 @@ $(function(){
                     data: {remark: content},
                     success:function(data){
                         if (data.code==0) {
-                            $(a_obj).attr("disabled", "disabled"); 
-                            $(a_obj).css("text-decoration","none");
-                            $(a_obj).css("color", "#4A4747"); 
-                            $(a_obj).html("待发货");
+                            a_obj.attr("disabled", "disabled"); 
+                            a_obj.css("text-decoration","none");
+                            a_obj.css("color", "#4A4747"); 
+                            a_obj.html("待发货");
 
                         }else{
                             alert(data.message+",错误码是"+data.code);

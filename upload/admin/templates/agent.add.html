@@ -1,0 +1,166 @@
+{include file="header.html"}
+<script type="text/javascript" src="index.php?act=jslang"></script>
+<script type="text/javascript">
+</script>
+<style type="text/css">
+  
+  .up_img{
+    width: 50px;
+    height: 80px;
+  }
+  .up_img #upimg{
+    height: 26px;
+    width: 147px;
+  }
+</style>
+<script type="text/javascript">var  uptoken_url="<?php echo $this->_var['site_url']; ?>admin/?app=uptoken&act=uptoken";</script>
+<script type="text/javascript" src="{lib file=upload/jquery.min.js}"></script>
+<script type="text/javascript" src="{lib file=upload/plupload/plupload.full.min.js}"></script>
+<script type="text/javascript" src="{lib file=upload/qiniu.js}"></script>
+
+<div id="rightTop">
+  <p>经纪人</p>
+  <ul class="subnav">
+    <!--{if $smarty.get.wait_verify}-->
+    <li><a class="btn1" href="index.php?app=agent">{$lang.manage}</a></li>
+    <!--{else}-->
+    <!--{/if}-->
+    <li><a class="btn1" href="index.php?app=agent">{$lang.manage}</a></li>
+    <li><span><!--{if $smarty.get.act eq 'edit'}-->编辑<input type="hidden" name="agent_id" id="agent_id" value="{$agent.agent_id}">{else}{$lang.add}{/if}</span></li>
+  </ul>
+</div>
+<div class="info">
+  <form method="post" enctype="multipart/form-data" id="agent_form" action="index.php?app=agent&act=add">
+    <table class="infoTable">
+     
+      <tr>
+        <th class="paddingT15">姓名:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" name="agent_name" type="text" id="owner_name" value="{$agent.agent_name|escape}" /></td>
+      </tr>
+    
+      <tr>
+        <th class="paddingT15">微信号:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" name="agent_wechat" type="text" id="agent_wechat" value="{$agent.agent_wechat|escape}" /></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">Email:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" name="agent_email" type="text" id="agent_email" value="{$agent.agent_email|escape}" /></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">QQ:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" name="agent_qq" type="text" id="agent_qq" value="{$agent.agent_qq|escape}" /></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">电话:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" name="agent_phone" type="text" id="agent_phone" value="{$agent.agent_phone|escape}"/>        </td>
+      </tr>
+
+      <tr class="up_img" id="container_drop">
+        <th class="paddingT15"> 头像:</th>
+        <td class="paddingT15 wordSpacing5" id="up_img">
+        <input class="infoTableInput2"  type="file" id="upimg" value="">
+        <img style="width: 50px;height: 50px; border: solid 1px #666" src="{$agent.agent_default_image}" id="show_img">
+        <input type="hidden" name="agent_default_image" id="agent_default_image" value="{$agent.agent_default_image}">
+        
+        </td>
+      </tr>
+       <tr>
+        <th class="paddingT15">个人简介:</th>
+        <td class="paddingT15 wordSpacing5"><textarea name="agent_desc">{$agent.agent_desc}</textarea></td>
+      </tr>
+    <!--{if $smarty.get.act eq 'edit'}--><input type="hidden" name="agent_id" id="agent_id" value="{$agent.agent_id}">{/if}
+      
+      <tr>
+        <th></th>
+        <td class="ptb20"><input class="formbtn" type="submit"  value="{$lang.submit}" />
+          <input class="formbtn" type="reset"  value="{$lang.reset}" /></td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+<script type="text/javascript">
+        //引入Plupload 、qiniu.js
+       
+          var temp_num=0;
+          var img_arr=new Array();
+          var uploader = Qiniu.uploader({
+                              runtimes: 'html5,flash,html4',    //上传模式,依次退化
+                              browse_button: 'upimg',       //上传选择的点选按钮，**必需**
+                              uptoken_url: uptoken_url,            //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
+                              // uptoken : '<Your upload token>', //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
+                              unique_names: true,
+                              // unique_names: true, // 默认 false，key为文件名。若开启该选项，SDK为自动生成上传成功后的key（文件名）。
+                              // save_key: true,   // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK会忽略对key的处理
+                              domain: 'http://oflmvdj34.bkt.clouddn.com/',   //bucket 域名，下载资源时用到，**必需**
+                              get_new_uptoken: false,  //设置上传文件的时候是否每次都重新获取新的token
+                              container: 'up_img',           //上传区域DOM ID，默认是browser_button的父元素，
+                              max_file_size: '100mb',           //最大文件体积限制
+                              flash_swf_url: 'js/plupload/Moxie.swf',  //引入flash,相对路径
+                              max_retries: 3,                   //上传失败最大重试次数
+                              dragdrop: true,                   //开启可拖曳上传
+                              drop_element: 'container_drop',        //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
+                              chunk_size: '4mb',                //分块上传时，每片的体积
+                              auto_start: true,                 //选择文件后自动上传，若关闭需要自己绑定事件触发上传
+                              init: {
+                                  'FilesAdded': function(up, files) {
+                                      plupload.each(files, function(file) {
+                                          // 文件添加进队列后,处理相关的事情
+                                      
+                                      });
+                                  },
+                                  'BeforeUpload': function(up, file) {
+                                     var chunk_size = plupload.parseSize(this.getOption('chunk_size'));
+                                         // 每个文件上传前,处理相关的事情
+                                  },
+                                  'UploadProgress': function(up, file) {
+                                     
+                                         // 每个文件上传时,处理相关的事情
+                                  },
+                                  'FileUploaded': function(up, file, info) {
+                                         // 每个文件上传成功后,处理相关的事情
+                                         // 其中 info 是文件上传成功后，服务端返回的json，形式如
+                                         // {
+                                         //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+                                         //    "key": "gogopher.jpg"
+                                         //  }
+                                         // 参考http://developer.qiniu.com/docs/v6/api/overview/up/response/simple-response.html
+
+                                         var domain = up.getOption('domain');
+                                         var resInfo = JSON.parse(info);
+                                          sourceLink = domain + resInfo.key;//获取上传成功后的文件的Url
+                                          $("#show_img").attr("src",sourceLink);
+                                          $("#agent_default_image").val(sourceLink);
+                            
+                                        
+                                  },
+                                  'Error': function(up, err, errTip) {
+                                      //var temp=up.getFile();
+                                     $.each(up.files,function(i,n){
+                                        
+                                        produceError(n.id);
+                                     })
+                                      
+                                      
+                                      alert(errTip);
+
+                                         //上传出错时,处理相关的事情
+                                  },
+                                  'UploadComplete': function() {
+                                         //队列文件处理完毕后,处理相关的事情
+                                  },
+                                  'Key': function(up, file) {
+                                      // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                                      // 该配置必须要在 unique_names: false , save_key: false 时才生效
+                                      var key = "";
+                                      // do something with key here
+                                      return key;
+                                  }
+                              }
+                          });
+   
+                        // domain 为七牛空间（bucket)对应的域名，选择某个空间后，可通过"空间设置->基本设置->域名设置"查看获取
+
+                        // uploader 为一个plupload对象，继承了所有plupload的方法，参考http://plupload.com/docs
+</script>
+{include file="footer.html"}

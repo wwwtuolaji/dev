@@ -1,0 +1,28 @@
+ <!--新产品-->
+    <div class="tea-new">
+        <div class="mk-nav">
+            <h3 class="h3f fl">
+                <a href="">{$widget_data.title_content}</a> 
+            </h3>
+            <ul >
+                <li>
+                    <a href="index.php?app=search&cate_id=1">更多>></a>
+                </li>
+            </ul>
+        </div>
+        <div class="tmk-inner">
+            <ul>
+             
+                 <!--{foreach from=$widget_data item=goods key=k}-->
+                    {if $k neq 'title_content'}
+                    <li>
+                        <p><a href="{url app=goods&id=$goods.goods_id}" target="_blank"><img src="{$goods.default_image}" width="100" height="100" /></a></p>
+                        <h4><a href="{url app=goods&id=$goods.goods_id}" target="_blank" title="{$goods.goods_name|escape}">{$goods.goods_name|escape}</a></h4>
+                    </li>
+                    {/if}
+                <!--{/foreach}-->
+
+            
+            </ul>
+        </div>
+    </div>

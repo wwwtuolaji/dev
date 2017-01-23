@@ -20,6 +20,7 @@ ECMall::startup(array(
         ROOT_PATH . '/includes/ecapp.base.php',
         ROOT_PATH . '/includes/plugin.base.php',
         APP_ROOT . '/app/backend.base.php',
+        ROOT_PATH . '/includes/qiniu/autoload.php',
     ),
 ));
 

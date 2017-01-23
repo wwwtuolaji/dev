@@ -1,6 +1,7 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
+    <base href="{$site_url}/" />
     <meta charset="UTF-8">
     <title>茶通首页</title>
     <link   rel="stylesheet" href="{res file=css/base.css}"/>
@@ -10,13 +11,13 @@
     <script type="text/javascript" src="{res file=js/js_plugin/jquery-1.11.1.min.js}"></script>
     <script type="text/javascript" src="{lib file=jquery.slides.min.js}"></script>
     <script type="text/javascript" src="{lib file=jquery.js}" charset="utf-8"></script>
- 
+    <link rel="stylesheet" href="{res file=css/css.css}"/>
     <link   rel="shortcuticon" href="{res file=img/bitbug_favicon.ico}"/>
+
     <!--<editmode></editmode>-->
 </head>
 <body>
     <!--顶部非主业导航栏-->
-  
     <div class="f_inner_c">
         <div class="w">
             <dai class="f_user">
@@ -129,10 +130,10 @@
         <div class="nav">
             <ul>
                 <li class="center">
-                    <a href="#">首页</a>
+                    <a href="?app=index&act=tea">首页</a>
                 </li>
                 <li>
-                    <a href="#">行情</a>
+                    <a href="?app=index&act=market">行情</a>
                 </li>
                 <li>
                     <a href="#">零售</a>

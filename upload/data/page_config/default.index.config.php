@@ -289,28 +289,13 @@ return array (
       array (
         0 => 
         array (
-          'ad_image_url' => 'data/files/mall/template/201610141013383227.jpg',
+          'ad_image_url' => 'data/files/mall/template/201701111144375677.jpg',
           'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=1',
         ),
         1 => 
         array (
-          'ad_image_url' => 'data/files/mall/template/201701041715552300.jpg',
-          'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=3',
-        ),
-        2 => 
-        array (
-          'ad_image_url' => 'data/files/mall/template/201610141013386656.jpg',
-          'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=49',
-        ),
-        3 => 
-        array (
-          'ad_image_url' => 'data/files/mall/template/201610141013387228.jpg',
-          'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=35',
-        ),
-        4 => 
-        array (
-          'ad_image_url' => 'data/files/mall/template/201610141013387800.jpg',
-          'ad_link_url' => 'http://fulucang.cc/index.php?app=search&cate_id=19',
+          'ad_image_url' => 'data/files/mall/template/201701111317225878.jpeg',
+          'ad_link_url' => '',
         ),
       ),
     ),
@@ -399,6 +384,14 @@ return array (
           'ad_image_url' => 'data/files/mall/template/201701042240595124.jpg',
           'ad_link_url' => '',
         ),
+      ),
+    ),
+    '_widget_661' => 
+    array (
+      'options' => 
+      array (
+        'img_recom_id' => '2',
+        'img_cate_id' => 0,
       ),
     ),
   ),

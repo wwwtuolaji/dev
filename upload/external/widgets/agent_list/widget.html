@@ -1,0 +1,36 @@
+<style type="text/css">
+    
+     .tmk-broker a p{
+        width: 260px;
+    }
+</style>
+        <div class="mk-nav">
+                <h3 class="h3f fl">
+                    <a href="">茶叶经纪人</a>
+                </h3>
+                <ul >
+                    <li>
+                        <a href="#">更多>></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tmk-broker">
+            {foreach from=$widget_data item=agent}
+                <dl>
+                    <dt>
+                        <a href="#">
+                            <img src="{$agent.agent_default_image}" alt=""></a>
+                    </dt>
+                    <dd>
+                        <h5>经纪人信息</h5>
+                        <a href="">
+                            <p>姓&emsp;名:{$agent.agent_name}</p>
+                            <p>微信号:{$agent.agent_wechat}</p>
+                            <p>Email :{$agent.agent_email}</p>
+                            <p>电&emsp;话:{$agent.agent_phone}</p>
+                        </a>
+                    </dd>
+                </dl>
+             {/foreach}
+                
+            </div>
