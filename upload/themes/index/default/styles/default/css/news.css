@@ -1,0 +1,54 @@
+  /*<!--直击报道-->*/
+        .new-bm{
+            float: left;
+            width: 600px;
+            border:2px solid #aaa;
+        }
+        .new-nav{
+            height:27px;
+            background: #eee;
+        }
+        .bm-inner ul{
+            float: left;
+            margin: 5px;
+        }
+        .bm-inner li{
+            width: 400px;
+            border-bottom:1px dashed #888;
+        }
+        .bm-inner ul a{
+            font:100 18px/30px "simsun";
+        }
+        /*最新资讯*/
+       .new-zx{
+            float: left;
+            width: 280px;
+            border:2px solid #aaa;
+            margin:0 5px;
+        }
+        .new-zx .bm-inner li{
+            width: 260px;
+            border-bottom:1px dashed #888;
+        }
+        /*新品速度、经典点评*/
+        .new-xp{
+            float: left;
+            width: 890px;
+            border:2px solid #aaa;
+            margin:5px 0px 0px;
+        }
+        .new-xp .bm-inner li{
+            width: 270px;
+        }
+        /*每天行情、一周走势*/
+        .new2{
+            width: 900px;
+            margin:5px 0;
+        }
+        .new2 .new-zx{
+            width: 440px;
+            margin:0 5px 0 0;
+        }
+        .new2 .bm-inner li{
+            width: 420px;
+        }
