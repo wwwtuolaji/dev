@@ -1,0 +1,135 @@
+{include file=tea_common.html}
+<style>
+        /*经纪人*/
+        .tmk-broker{
+            margin-left:10px;
+        }
+        .tmk-broker dl{
+            float: left;
+            width: 480px;
+            height: 220px;
+        }
+        .tmk-broker h5{
+            width:100px;
+            height:26px;
+            color: #fff;
+            text-align: center;
+            font:400 16px/26px "Microsoft Yahei";
+            background: #a00;
+            margin-bottom:5px;
+        }
+        .tmk-broker dt{
+            float: left;
+        }
+        .tmk-broker dt img{
+            width: 160px;
+            height:200px;
+        }
+        .tmk-broker dd{
+            float: left;
+            font:100 16px/20px "simsun";
+            width: 2 0px;
+            height: 100px;
+            margin: 10px;
+        }
+        .tea-broker{
+            overflow: hidden;
+            margin-bottom:5px;
+        }
+    </style>
+<link   rel="stylesheet" href="{res file=css/agent.css}"/>
+<!--左侧菜单-->
+<div class="w" style="overflow: hidden;">
+    <!--分类菜单-->
+    <div class="tea-inner" style="float: left;">
+        <div class="tea-box" >
+            <div class="tea-menu">
+                <dl>
+                    <dt>行情参考</dt>
+                    <dd>
+                        <a href="#">当年</a>
+                    </dd>
+                    <dd>
+                        <a href="#">新茶</a>
+                    </dd>
+                    <dd>
+                        <a href="#">中期</a>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>批发</dt>
+                    <dd>
+                        <a href="#">七彩云南</a>
+                    </dd>
+                    <dd>
+                        <a href="#">庆丰祥</a>
+                    </dd>
+                    <dd>
+                        <a href="#">滇红茶</a>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>零售</dt>
+                    <dd>
+                        <a href="#">整片</a>
+                    </dd>
+                    <dd>
+                        <a href="#">微克</a>
+                    </dd>
+                    <dd>
+                        <a href="#">散茶</a>
+                    </dd>
+                </dl>
+
+            </div>
+            <div class="tea-banner1" area="banner_1" widget_type="area">
+
+             <a href="#">
+                    <!--{widgets page=tea area=banner_1}--> </a>
+ 
+            </div>
+
+        </div>
+    </div>
+    <!--右侧内容-->
+    <div class="fr agent_r">
+        <div class="tea-broker" >
+            <div class="mk-nav">
+                <h3 class="h3f fl">
+                    <a href="">茶叶经纪人</a>
+                </h3>
+            </div>
+            <div class="tmk-broker">
+                <div style="float: left;">
+                    {foreach from=$agent_info item=agent}
+                    <dl style="float: left;">
+                        <dt>
+                            <a href="#">
+                                <img src="{$agent.agent_default_image}" alt="" ></a>
+                        </dt>
+                        <dd>
+                            <h5>经纪人信息</h5>
+                            <a href="">
+                                <p>姓&emsp;名:{$agent.agent_name}</p>
+                                <p>微信号:{$agent.agent_wechat}</p>
+                                <p>Email :{$agent.agent_email}</p>
+                                <p>电&emsp;话:{$agent.agent_phone}</p>
+                            </a>
+                        </dd>
+                    </dl>
+                    {/foreach}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--底部-->
+{include file="footer.html" }
+<script type="text/javascript">
+    $(function(){
+        $(".nav li").attr("class","");
+        $(".nav li a:contains(经纪人)").attr("class","center");
+      
+    })
+</script>

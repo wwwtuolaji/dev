@@ -985,4 +985,22 @@ class IndexApp extends IndexbaseApp
         return $tea_id;
     }
 
+    function agent(){
+        $user_name=$this->visitor->get('user_name');
+        $out_data['user_name']=$user_name;
+        $this->assign("out_data", $out_data);
+        $db=db();
+        $sql="select * from ecm_agent";
+        $arr=$db->getall($sql);
+        $this->assign('agent_info',$arr);
+        $this->_curlocal('福禄仓茶叶', 'index.php?app=index&act=tea','经纪人');
+        $this->display("agent.html");
+    }
+    function news(){
+        $drogue_arr = $this->_get_data();
+        $out_data['drogue_arr'] = $drogue_arr;
+        $this->assign("out_data", $out_data);
+        $this->display('news.html');
+    }
+
 }
