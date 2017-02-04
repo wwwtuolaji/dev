@@ -32,6 +32,9 @@ class GoodsproApp extends StorebaseApp
         $time=$time-3600*24;
         $n=date("m");
         $n=$n-1;
+        if($n==1){
+          $n=2;
+        }
         //判断有没有跨月
         $column="insert into ecm_drogue (goods_id,real_price,type,show_date) values";
          
