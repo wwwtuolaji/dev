@@ -29,10 +29,10 @@ class GoodsproApp extends StorebaseApp
         $days=31*6;
         $seria=date("Y-m-d");
         $time=strtotime("$seria");
-        $time=$time-3600*24;
+        /*$time=$time-3600*24;*/
         $n=date("m");
         $n=$n-1;
-        if($n==1){
+        if ($n==1) {
           $n=2;
         }
         //判断有没有跨月
@@ -56,8 +56,10 @@ class GoodsproApp extends StorebaseApp
                    # code...
                }
                 echo "$type";
-                $cha=$this->randomFloat($value['price']*(-0.015)+($value['price']*$n),$value['price']*0.025+($value['price']*$n)); 
+                $cha=$this->randomFloat($value['price']*-0.025*$n,$value['price']*0.035*$n); 
                 $cha=number_format($cha,2);
+              /*  var_dump($cha);
+                die;*/
                 $price=$value['price']+$cha;
                 $sql_value .="('". $value['goods_id'] ."','" . $price ."','".$type."','". $time ."'),";               
             $sql_value2=$column . $sql_value;
