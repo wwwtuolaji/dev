@@ -1,0 +1,361 @@
+  /*交易申请*/
+        .transaction{
+             margin: 5px auto;
+            width: 1230px;
+            overflow: hidden;
+
+        }
+        .buysell{
+            width: 220px;
+            height: 300px;
+            border:1px solid #aaa;
+            background:#ddd;
+        }
+
+        .transaction h3{
+            font:700 20px/30px "Microsoft Yahei";
+            text-align: center;
+
+        }
+        .transaction form{
+            font: 400 16px/25px 'Microsoft Yahei';
+            margin-left: 10px;
+        }
+        .transaction form label{
+            cursor: pointer;
+        }
+        /*持仓情况*/
+        .chicang{
+            /*float: left;*/
+            width: 765px;
+            height: 30px;
+            background: #ddd;
+        }
+        .chicang li{
+            float: left;
+            margin:0 20px;
+        }
+        .chicang li a{
+            cursor:pointer;
+            width: 130px;
+            font: 700 20px/30px "Microsoft YaHei";
+            text-align: center;
+        }
+        .chicang li a:hover{
+            background: #aaa;
+            color: #666;
+        }
+        .chicang .center-jy{
+            background: #aaa;
+        }
+        .mingxi{
+            width: 765px;
+            height: 24px;
+            background: #eee;
+        }
+
+        .mingxi li{
+            float: left;
+            font:400 16px/24px "Microsoft YaHei";
+            margin:0 22px;
+            text-align: center;
+        }
+        .mingxi li.mingxi-produce{
+            margin:0 50px;
+        }
+        /* 调整茶叶风向标的css样式 */
+       #my_div .DhPriceBox{
+            width: 1000px;
+       }
+        #my_div .DhPriceBox .dhbox{
+            width: 1000px;
+        }
+        #my_div .dh_pbox li .tit{
+            width:120px;
+        }
+        #my_div .DhPriceBox .dhbox .dh_info{
+            width: 324px;
+         }
+        .tea-box .tea-banner1{
+            height: 350px;
+         }
+        .tran_in{
+            font: 400 15px/24px "Microsoft YaHei";
+        }
+        .transaction_des{
+              border:1px solid #aaa;
+              width: 990px;
+              overflow: hidden;
+              margin:5px auto;
+        }
+        .transaction_des .top_tit{
+            background-color: #ddd;
+            width:990px;
+        }
+        .transaction_des .top_tit span{
+          font: 700 20px/30px "Microsoft Yahei";
+        }
+        .tit_des{
+            width: 990px;
+            background: #eee none repeat scroll 0 0;
+            overflow: hidden;
+        }
+        .transaction_con ul li.first{
+            margin-left: 30px;
+        }
+        .transaction_con ul li{
+            margin-right: 70px;
+            float: left;
+            font: 400 16px/24px "Microsoft YaHei";
+        }
+        .trans_bot_con{
+            width: 100%;
+            overflow: hidden;
+        }
+        .trans_bot_con ul li{
+            margin: 0;
+            text-align: center;
+           
+             font: 400 16px/30px "Microsoft YaHei";
+             cursor: pointer;
+
+        }
+        .trans_bot_con ul li.tra{
+            width: 90px;
+
+        }
+        .trans_bot_con ul li.tra_sn{
+            width: 150px;
+
+        }
+        .trans_bot_con ul li.tra_name{
+            text-align: left;
+            width: 250px;
+
+        }
+         .trans_bot_con ul li.tra_price{
+            text-align: left;
+            width: 160px;
+
+        }
+        .trans_bot_con ul li.tra_num{
+            text-align: left;
+            width: 60px;
+
+        }
+        .trans_bot_con ul li.tra_time{
+            text-align: center;
+            width: 210px;
+
+        }
+       .transaction_con ul .top_tra_price{
+            margin-left: 70px;
+        }
+        #submit_aply{
+            cursor: pointer;
+        }
+        #submit_aply:hover{
+            color: red;
+        }
+       .mingxi_bot  ul li ul li{
+            float: left;
+            font: 100 13px/22px "Microsoft YaHei";
+            cursor: pointer;
+            
+       }
+       .mingxi_bot  ul li ul li.mingxi_name{
+        text-align: left;
+        display:inline-block;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        -o-text-overflow:ellipsis;
+        white-space:nowrap;
+        width:140px;
+       }
+       .mingxi_date{
+            width: 65px;
+            text-align: center;
+       }
+       .mingxi_num{
+        margin-left: 30px;
+            width: 50px;
+             text-align: left;
+       }
+        .mingxi_price_warehouse{
+             margin-left: 18px;
+            width: 65px;
+            text-align: left;
+        }
+        .mingxi_price_pre{
+            margin-left: 44px;
+            width: 65px;
+            text-align: left;
+        }
+        .mingxi_price_current{
+           margin-left: 44px;
+            width: 65px;
+            text-align: left; 
+        }
+        .mingxi_price_range{
+           margin-left: 50px;
+            width: 65px;
+            text-align: left;  
+        }
+
+#produce_con td{
+    width: 140px;
+    margin-left: 20px;
+    font:100 14px/20px 'Microsoft YaHei';
+  /*  border: 1px solid #57B1D2;  */
+   text-align: center;
+
+}
+#produce_con td.tea_name{
+    width: 485px;
+       text-align: left;
+}
+#produce_con tr:hover{
+    background-color: #D17575;
+    cursor: pointer;
+    color:#fff;
+}
+.final_table{
+    width: 50px;
+    height: 50px;
+    text-align: right;
+}
+#produce_con .final_table:hover{
+    background-color:#fff;
+    cursor: auto;
+}
+.final_table button{
+    margin: auto 10px;
+    font:100 14px/20px 'Microsoft YaHei';
+    padding: 3px 8px;
+    cursor: pointer;
+
+}
+.final_table button:hover{
+    cursor: pointer;
+    background: #D17575;
+    color: #fff;
+}
+.procduce{
+    float: left;
+    width: 765px;
+}
+.tea_serch_tit{
+    font:400 16px/30px 'Microsoft YaHei';
+    text-align: center;
+    display:inline-block;
+    width: 730px;
+}
+#close_produce{
+    font:400 12px/20px 'Microsoft YaHei';
+    border: 1px solid #E1DCDC; 
+}
+#close_produce_re{
+    font:400 12px/20px 'Microsoft YaHei';
+    border: 1px solid #E1DCDC; 
+    margin-right: 9px;
+}
+#close_produce:hover{
+    cursor: pointer;
+    background: #e1dcdc;
+    color: #fff; 
+}
+#close_produce_re:hover{
+    cursor: pointer;
+    background: #e1dcdc;
+    color: #fff; 
+}
+
+.baidu_echars{
+    width: 520px;
+    height: 300px;
+    overflow: hidden;
+    border: 1px solid #E1DCDC; 
+}
+#prodece_info{
+   border: 1px solid #E1DCDC; 
+   height: 300px;
+   overflow: hidden;
+}
+.transaction_info{  
+    float: left;
+}
+.transaction_info table{
+    margin-right: ;
+    /* border: solid 1px red; */
+    margin: 3px;
+}
+.transaction_info table td{
+    width: 40px;
+    height: 29px;
+  /*   border: 1px solid red;  */
+    font:700 16px/20px "宋体";
+
+}
+.transaction_info table .first_tit{
+    width: 17px;
+    text-align: center;
+    font:700 16px/20px "宋体";
+    border-right: 1px solid #E1DCDC; 
+
+    /*  border:  */
+}
+.transaction_info table .cent_dian{
+    color: red;
+    width: 95px;
+    text-align: right;
+}
+.transaction_info table .final_dian{
+    color: #15EDCE;
+     text-align: right; 
+     
+     width: 45px;
+}
+.transaction_info table .ge td{
+    height: 0px;
+    width: 0px;
+
+}
+.transaction_info table .ge td span{
+    display: block;
+    height: 0px;
+    width: 233px;
+    border: 1px solid #E1DCDC; 
+    border-right: none;
+    border-top: none;
+    z-index: 2;
+
+}
+.search_price_drogue{
+     margin-top:-20px;
+}
+.search_price_drogue input{
+    border: 1px solid #a0a0a0;
+    padding: 2px;
+    border-radius: 3px;
+}
+.transaction_info table .order_dian{
+    text-align: center;
+    width: 31px;
+}
+.share_price{
+    width: 220px;
+    height: 300px;
+    border: 1px solid #47C2F3;
+    background: #fff;
+    margin-right: 10px;
+}
+.share_price ul li{
+    height: 
+}
+.share_price ul li span{
+    font: 200 16px/30px "宋体";
+    color: #a00;
+}
+.share_des{
+    margin-left: 16px;
+}

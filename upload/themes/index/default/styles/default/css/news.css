@@ -3,6 +3,7 @@
             float: left;
             width: 600px;
             border:2px solid #aaa;
+            height:253px;
         }
         .new-nav{
             height:27px;
@@ -51,4 +52,7 @@
         }
         .new2 .bm-inner li{
             width: 420px;
+        }
+        ul li{
+            cursor: pointer;
         }
