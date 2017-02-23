@@ -14,7 +14,8 @@ return array(
     'index' => '首页',
     'recommend_new' => '最新商品',
     'gcategory' => '商品分类页',
-    'tea'       =>'茶通商业网'
+    'tea'       =>'茶通首页',
+    'tea_news'       =>'茶叶资讯'
 );
 
 ?>

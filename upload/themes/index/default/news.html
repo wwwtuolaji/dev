@@ -2,30 +2,16 @@
 {include file=tea_common.html}
   <link   rel="stylesheet" href="{res file=css/news.css}"/>
 <!--<分类栏-->
-<div class="w" style="overflow: hidden;">
+<div class="w" style="overflow: hidden;" >
+
 <div class="new1" style="width: 900px; float: left;">
     <!--直击报道-->
-<div class="tea-memu">
-    <div class="new-bm">
-        <div class="new-nav">
-            <span style="font:200 16px/27px 'Microsoft Yahei'; float: left; margin-left: 10px;">直击报道</span>
-            <span style="font:200 16px/27px 'Microsoft Yahei';float: right;">更多>></span>
-        </div>
-        <div class="bm-inner">
-            <div style="float: left;"><img src="images/bl3.jpg" alt="" style="width: 180px;height: 215px;margin: 5px;"></div>
-            <ul>
-                <li><a><span>企业家茶会所</span><span style="float: right;">2016-09-17</span></a></li>
-                <li><a><span>企业家茶会所</span><span style="float: right;">2016-09-17</span></a></li>
-                <li><a><span>企业家茶会所</span><span style="float: right;">2016-09-17</span></a></li>
-                <li><a><span>企业家茶会所</span><span style="float: right;">2016-09-17</span></a></li>
-                <li><a><span>企业家茶会所</span><span style="float: right;">2016-09-17</span></a></li>
-                <li><a><span>企业家茶会所</span><span style="float: right;">2016-09-17</span></a></li>
-                <li><a><span>企业家茶会所</span><span style="float: right;">2016-09-17</span></a></li>
-            </ul>
-
-        </div>
+<div class="tea-memu" >
+ <div class="new-bm" area="baodao" widget_type="area">
+         <!--{widgets page=tea_news area=baodao}--> 
     </div>
 </div>
+
     <!--最新资讯-->
     <div class="tea-zx">
         <div class="new-zx">
@@ -55,14 +41,14 @@
                 <span style="font:200 16px/27px 'Microsoft Yahei';float: right;">更多>></span>
             </div>
             <div class="bm-inner">
-                <div style="float: left;"><img src="images/bl3.jpg" alt="" style="width: 150px;height: 160px;margin: 5px;"></div>
+                <div style="float: left;"><img src="{res file=images/bl3.jpg}" alt="" style="width: 150px;height: 160px;margin: 5px;"></div>
                 <ul style="float: left;">
                     <li><a>企业家茶会所</a></li>
                     <li><a>更多>></a></li>
                 </ul>
             </div>
             <div class="bm-inner">
-                <div style="float: left;"><img src="images/bl3.jpg" alt="" style="width: 150px;height: 160px;margin: 5px;"></div>
+                <div style="float: left;"><img src="{res file=images/bl3.jpg}" alt="" style="width: 150px;height: 160px;margin: 5px;"></div>
                 <ul style="float: left;">
                     <li><a>企业家茶会所</a></li>
                     <li><a>更多>></a></li>
@@ -78,14 +64,14 @@
                 <span style="font:200 16px/27px 'Microsoft Yahei';float: right;">更多>></span>
             </div>
             <div class="bm-inner">
-                <div style="float: left;"><img src="images/bl3.jpg" alt="" style="width: 150px;height: 160px;margin: 5px;"></div>
+                <div style="float: left;"><img src="{res file=images/bl3.jpg}" alt="" style="width: 150px;height: 160px;margin: 5px;"></div>
                 <ul style="float: left;">
                     <li><a>企业家茶会所</a></li>
                     <li><a>更多>></a></li>
                 </ul>
             </div>
             <div class="bm-inner">
-                <div style="float: left;"><img src="images/bl3.jpg" alt="" style="width: 150px;height: 160px;margin: 5px;"></div>
+                <div style="float: left;"><img src="{res file=images/bl3.jpg}" alt="" style="width: 150px;height: 160px;margin: 5px;"></div>
                 <ul style="float: left;">
                     <li><a>企业家茶会所</a></li>
                     <li><a>更多>></a></li>
@@ -208,6 +194,11 @@
 <div class="w">
 <!--底部-->
 {include file="footer.html" }
-</div>
-</body>
-</html>
+
+<script type="text/javascript">
+    $(function(){
+        $(".nav li").attr("class","");
+        $(".nav li a:contains(茶叶资讯)").attr("class","center");
+      
+    })
+</script>

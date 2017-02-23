@@ -53,15 +53,24 @@
             height: 24px;
             background: #eee;
         }
+        #mingxi .mingxi-produce{
+            margin:0 35px;
+        }
 
         .mingxi li{
+            float: left;
+            font:400 16px/24px "Microsoft YaHei";
+            margin:0 20px;
+            text-align: center;
+        }
+        .mingxi .agent_bot li{
             float: left;
             font:400 16px/24px "Microsoft YaHei";
             margin:0 22px;
             text-align: center;
         }
-        .mingxi li.mingxi-produce{
-            margin:0 50px;
+        #agent .agent .mingxi-produce{
+            margin:0 40px 0 45px;
         }
         /* 调整茶叶风向标的css样式 */
        #my_div .DhPriceBox{
@@ -157,6 +166,23 @@
         #submit_aply:hover{
             color: red;
         }
+        .agent_bot  ul li ul li{
+            float: left;
+            font: 100 13px/22px "Microsoft YaHei";
+            cursor: pointer;
+            
+       }
+        .agent_bot  ul li ul li.mingxi_name{
+        text-align: left;
+        display:inline-block;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        -o-text-overflow:ellipsis;
+        white-space:nowrap;
+        width:134px;
+       }
+
+
        .mingxi_bot  ul li ul li{
             float: left;
             font: 100 13px/22px "Microsoft YaHei";
@@ -164,13 +190,13 @@
             
        }
        .mingxi_bot  ul li ul li.mingxi_name{
-        text-align: left;
+        text-align: center;
         display:inline-block;
         overflow:hidden;
         text-overflow:ellipsis;
         -o-text-overflow:ellipsis;
         white-space:nowrap;
-        width:140px;
+        width:110px;
        }
        .mingxi_date{
             width: 65px;
@@ -188,7 +214,7 @@
         }
         .mingxi_price_pre{
             margin-left: 44px;
-            width: 65px;
+            width: 30px;
             text-align: left;
         }
         .mingxi_price_current{
@@ -197,7 +223,7 @@
             text-align: left; 
         }
         .mingxi_price_range{
-           margin-left: 50px;
+           margin-left: 1px;
             width: 65px;
             text-align: left;  
         }
@@ -358,4 +384,89 @@
 }
 .share_des{
     margin-left: 16px;
+}
+
+#agent .agent li{
+    margin: 0 29px;
+}
+.agent_bot .mingxi_date{
+    text-align: left;
+    width: 70px;
+    margin-left: 5px;
+}
+.agent_bot .mingxi_num{
+    margin: 0;
+}
+#agent .agent .agent_nianfen{   
+    margin:0 16px;
+}
+#agent .agent .agent_count{
+    margin: 0 20px;
+}
+#agent .agent .mingxi_price_warehouse{
+    width: 88px;
+}
+#agent .agent  .mingxi_price_pre{
+    margin: 0;
+}
+#agent .agent .agent_buy{
+    margin: 0 15px 0 40px;
+}
+#agent .agent .agent_date{
+    margin: 0 35px;
+}
+.agent_price_current{
+    margin: 0;
+    width: 127px;
+    text-align: right;
+}
+.mingxi_price_total{
+    margin:0 5px;
+    width: 116px;
+}
+#agent .agent_bot .mingxi_price_warehouse{
+    width: 88px;
+}
+#agent .agent_bot .mingxi_price_pre{
+    margin: 0;
+}
+.agent_bot{
+    height: 245px;
+    overflow: auto;
+}
+.agent_cancel{
+    margin-left: 40px;
+}
+.agent_cancel button{
+    font:100 13px/18px "Microsoft YaHei";
+}
+.agent_cancel button:hover{
+    cursor: pointer;
+    background: #DC2E2E;
+    color: #fff;
+}
+#mingxi .mingxi_price_warehouse{
+    margin-left: 24px;
+    width: 103px;
+    
+}
+#mingxi .mingxi_price_pre{
+     margin-left: 5px;
+    width: 110px;
+}
+#mingxi .mingxi_price_current{
+    margin-left: 0px;
+    width: 100px;
+}
+.mingxi_sell_btn {
+    text-align: center;
+}
+.mingxi_bot ul li ul .mingxi_sell_btn{
+    text-align: center;
+    width: 98px;
+}
+.mingxi_bot ul li ul .mingxi_sell_btn :hover{
+    cursor: pointer;
+    color:#fff;
+    background: #DC2E2E;
 }

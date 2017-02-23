@@ -1,0 +1,48 @@
+{include file=tea_common.html}
+<style type="text/css">
+	.flush{
+		border: 2px solid #aaa;
+		    height: 230px;
+		    margin: 50px auto;
+		    width: 400px;
+	}
+	.flush img{
+		  display: block;
+		    float: left;
+		    margin-left: -30px;
+		    margin-top: -10px;
+		    width: 100px;
+		    z-index: 1;
+	}
+	.flush h2{
+		float: left;
+		font: 800 48px/230px "宋体";
+		color: #E39136;
+		 width: 280px;
+		 text-align: center;
+		/* margin-top: 50%;*/
+		}
+	.out_w{
+		width: 1220px;
+		border: 2px solid #aaa;
+		margin: 0px auto;
+
+	}
+</style>
+<div class="w">
+<div class='out_w'>
+	<div class="flush">
+		<img src="{res file='images/cuo.jpg'}"}><h2>{$message}</h2>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+function to_history(){
+	/*alert();*/
+	history.go(-1);
+
+}
+setTimeout("to_history()", 1000);
+</script>
+{include file="footer.html" }
+

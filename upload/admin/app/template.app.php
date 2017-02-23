@@ -313,7 +313,8 @@ class TemplateApp extends BackendApp
         return array(
             'index' => $real_site_url . '/index.php?app=default',
             'gcategory' => $real_site_url . '/index.php?app=category',
-            'tea'   =>$real_site_url . '/index.php?app=index&act=tea'
+            'tea'   =>$real_site_url . '/index.php?app=index&act=tea',
+            'tea_news'=>$real_site_url . '/index.php?app=index&act=news',
         );
     }
 }

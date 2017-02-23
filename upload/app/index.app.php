@@ -228,9 +228,9 @@ class IndexApp extends IndexbaseApp
     function set_member()
     {
         /*权限检查*/
-        $result=$this->rbac_check();
+        $result = $this->rbac_check();
         if (!$result) {
-             $this->show_warning('没有权限！请联系管理员！');
+            $this->show_warning('没有权限！请联系管理员！');
         }
 
         if (IS_POST) {
@@ -253,10 +253,8 @@ class IndexApp extends IndexbaseApp
                 $this->show_warning('编辑异常');
                 return;
             }
-            $this->show_message('编辑成功',
-                'edit_again', 'index.php?app=index&act=set_member',
-                 'back_list', 'index.php?app=index'
-            );
+            $this->show_message('编辑成功');
+            return;
 
         } else {
             $this->display("set_member.html");
@@ -264,16 +262,18 @@ class IndexApp extends IndexbaseApp
 
 
     }
+
     /**
      * [rbac_check 权限检查]
      * @return [bool] []
      */
-    function rbac_check(){
-        $visitor=$this->visitor->get();
-        if ($visitor['member_level']>=100) {
+    function rbac_check()
+    {
+        $visitor = $this->visitor->get();
+        if ($visitor['member_level'] >= 100) {
             return ture;
         }
-            return false;
+        return false;
     }
 
     /*响应ajax请求*/
@@ -330,7 +330,7 @@ class IndexApp extends IndexbaseApp
             }
         }
         echo json_encode($out_data);
-    } 
+    }
 
     function check_inner_number()
     {
@@ -366,104 +366,102 @@ class IndexApp extends IndexbaseApp
     function tea()
     {
         //获取登录信息
-        $user_name=$this->visitor->get('user_name');
-        $out_data['user_name']=$user_name;
+        $user_name = $this->visitor->get('user_name');
+        $out_data['user_name'] = $user_name;
         $drogue_arr = $this->_get_data();
         $out_data['drogue_arr'] = $drogue_arr;
         $this->assign("out_data", $out_data);
-        $this->_curlocal('福禄仓茶叶', 'index.php?app=index&act=tea  ','茶商首页');
+        $this->_curlocal('福禄仓茶叶', 'index.php?app=index&act=tea  ', '茶商首页');
         /* $this->_curitem('my_store');
             $this->_curmenu('my_store');*/
         $this->display("tea.html");
 
     }
+
     function market()
-    {    
-        $user_name=$this->visitor->get('user_name');
-        $out_data['user_name']=$user_name;
+    {
+        $user_name = $this->visitor->get('user_name');
+        $out_data['user_name'] = $user_name;
         $this->assign("out_data", $out_data);
-        $this->_curlocal('福禄仓茶叶', 'index.php?app=index&act=tea','行情参考');
-        $cate_id=$_GET['cate_id'];
-        if(empty($cate_id)){
-            $cate_id=1;
+        $this->_curlocal('福禄仓茶叶', 'index.php?app=index&act=tea', '行情参考');
+        $cate_id = $_GET['cate_id'];
+        if (empty($cate_id)) {
+            $cate_id = 1;
         }
         if (empty($_GET['page'])) {
-          $limit='25';
-        }else{
-          $limit='25';  
+            $limit = '25';
+        } else {
+            $limit = '25';
         }
-        $gcategory_mod  =& bm('gcategory');
-        $layer   = $gcategory_mod->get_layer($cate_id, true); 
+        $gcategory_mod =& bm('gcategory');
+        $layer = $gcategory_mod->get_layer($cate_id, true);
         /* 商品展示方式 */
         $display_mode = ecm_getcookie('goodsDisplayMode');
-        if (empty($display_mode) || !in_array($display_mode, array('list', 'squares')))
-        {
+        if (empty($display_mode) || !in_array($display_mode, array('list', 'squares'))) {
             $display_mode = 'squares'; // 默认格子方式
         }
-        $this->assign('display_mode', $display_mode); 
-        $goods=array();
+        $this->assign('display_mode', $display_mode);
+        $goods = array();
         //获取要查询的分页的参数数目
-        $goods_count=$this->_get_goods_list_count($cate_id,$_GET['brand'],$layer);
+        $goods_count = $this->_get_goods_list_count($cate_id, $_GET['brand'], $layer);
         //配置分页信息
         $page = $this->_get_page(15);
         $page['item_count'] = $goods_count;
         $this->_format_page($page);
         $this->assign('page_info', $page);
         /*获取相关的产品*/
-        $goods_list=$this->_get_goods_list($cate_id,$_GET['brand'],$layer,$page['limit']);
-        $this->assign('goods_list',$goods_list);
+        $goods_list = $this->_get_goods_list($cate_id, $_GET['brand'], $layer, $page['limit']);
+        $this->assign('goods_list', $goods_list);
         //1.先获取茶叶的顶级分类
-        $db = db();  
-        $choose=array();
-        if($layer==1){
-        //茶叶分类
-        $category=$db->getall("select cate_id, cate_name from ecm_gcategory where parent_id=1 and cate_name ='普洱熟茶' or cate_name ='普洱生茶'");
-        // 取出茶叶品牌
-         $brands=$this->_get_brands($cate_id);
-        $this->assign('categories', $category);
+        $db = db();
+        $choose = array();
+        if ($layer == 1) {
+            //茶叶分类
+            $category = $db->getall("select cate_id, cate_name from ecm_gcategory where parent_id=1 and cate_name ='普洱熟茶' or cate_name ='普洱生茶'");
+            // 取出茶叶品牌
+            $brands = $this->_get_brands($cate_id);
+            $this->assign('categories', $category);
 
-        }else{
-              $cate_name=$db->getone("select cate_name from ecm_gcategory where cate_id=$cate_id");
-            
+        } else {
+            $cate_name = $db->getone("select cate_name from ecm_gcategory where cate_id=$cate_id");
+
             //茶页就3个等级，直接取出下个等级的东西
-            if ($layer==2) {
-                $category=$db->getall("select cate_id, cate_name from ecm_gcategory where parent_id=$cate_id");
+            if ($layer == 2) {
+                $category = $db->getall("select cate_id, cate_name from ecm_gcategory where parent_id=$cate_id");
                 $this->assign('categories', $category);
-                $brands=$this->_get_brands($cate_id);
-                $choose['category'][]=array("cate_id"=>$cate_id,"cate_name"=>$cate_name);
+                $brands = $this->_get_brands($cate_id);
+                $choose['category'][] = array("cate_id" => $cate_id, "cate_name" => $cate_name);
                 //设置该分类被选中
-            }else{
+            } else {
                 //第三级需要获取第二级选中的名字和id
-                $cate_parent="select cate_name,cate_id from ecm_gcategory where cate_id=(select parent_id from ecm_gcategory where cate_id=$cate_id)";
-                $parent_cate=$db->getrow($cate_parent);
-                $choose['category'][]=$parent_cate;
-                $choose['category'][]=array("cate_id"=>$cate_id,"cate_name"=>$cate_name);
+                $cate_parent = "select cate_name,cate_id from ecm_gcategory where cate_id=(select parent_id from ecm_gcategory where cate_id=$cate_id)";
+                $parent_cate = $db->getrow($cate_parent);
+                $choose['category'][] = $parent_cate;
+                $choose['category'][] = array("cate_id" => $cate_id, "cate_name" => $cate_name);
                 /*随便取一个分类的内容*/
-                $category=$db->getall("select cate_id, cate_name from ecm_gcategory where parent_id=42");
+                $category = $db->getall("select cate_id, cate_name from ecm_gcategory where parent_id=42");
                 $this->assign('categories', $category);
-                $this->assign('category_limit',true);
+                $this->assign('category_limit', true);
             }
-            
+
         }
-       
-        
+
+
         //dump($choose);
-         $this->assign("layer",$layer);
-        $this->assign("choose",$choose);
+        $this->assign("layer", $layer);
+        $this->assign("choose", $choose);
         // 查询参数
         $param = $this->_get_query_param();
-        if (empty($param))
-        {
+        if (empty($param)) {
             header('Location: index.php?app=tea');
             exit;
         }
-        if (isset($param['cate_id']) && $param['layer'] === false)
-        {
+        if (isset($param['cate_id']) && $param['layer'] === false) {
             $this->show_warning('no_such_category');
             return;
         }
-        $this->assign("brands",$brands);
-         
+        $this->assign("brands", $brands);
+
         /*$stats = $this->_get_group_by_info($param, ENABLE_SEARCH_CACHE);
         var_dump($stats['by_brand']);
         //获取品牌相关分类
@@ -473,65 +471,6 @@ class IndexApp extends IndexbaseApp
         $this->assign('categories', $stats['by_category']);*/
         $this->display("market.html");
     }
-       /**
-     * [_get_goods_list 获取商品列表]
-     * @param  [type] $cate_id [上级和当前的id]
-     * @param  [type] $brand   [品牌，为空为所有]
-     * @return [type]          [description]
-     */
-     function _get_goods_list_count($cate_id,$brand,$layer){
-        //dump($layer);
-            if ($layer==1) {
-                 $db=db();
-                $sql="select * from ecm_gcategory";
-                $categorys= $db->getall($sql);
-                $tea_id_arr=$this->_tree($categorys,$cate_id);
-                $tea_id_str=implode($tea_id_arr, ",");
-                /*dump($tea_id_str);*/
-                if (empty($tea_id_str)) {
-                    return array();
-                }
-                if (empty($_GET['brand'])) {
-                    $goods="select count(*) from ecm_goods where  brand <> '' and cate_id in ($tea_id_str)";
-                }else{
-                    $goods="select count(*) from ecm_goods where cate_id in ($tea_id_str) and brand='".$_GET['brand']."'";
-                }
-                
-                $result=$db->getone($goods);
-               
-            }elseif ($layer==2) {
-                $db=db();
-                $sql="select * from ecm_gcategory";
-                $categorys= $db->getall($sql);
-                $tea_id_arr=$this->_tree($categorys,$cate_id);
-                $tea_id_str=implode($tea_id_arr, ",");
-                /*dump($tea_id_str);*/
-                if (empty($tea_id_str)) {
-                    return array();
-                }
-                if (empty($_GET['brand'])) {
-                    $goods="select count(*) from ecm_goods where  brand <> '' and cate_id in ($tea_id_str)";
-                }else{
-                    $goods="select count(*) from ecm_goods where cate_id in ($tea_id_str) and brand='".$_GET['brand']."'";
-                }
-                $result=$db->getone($goods);
-               
-            }else{
-                $db=db();
-                $sql="select * from ecm_gcategory";
-                $categorys= $db->getall($sql);
-                if (empty($_GET['brand'])) {
-                    $goods="select count(*) from ecm_goods where  brand <> '' and cate_id ='".$_GET['cate_id']."'";
-                }else{
-                    $goods="select count(*) from ecm_goods where cate_id =".$_GET['cate_id']. " and brand='".$_GET['brand']."'";
-                }
-                
-                $result=$db->getone($goods);
-                
-            }
-            return $result;     
-
-     }
 
     /**
      * [_get_goods_list 获取商品列表]
@@ -539,64 +478,126 @@ class IndexApp extends IndexbaseApp
      * @param  [type] $brand   [品牌，为空为所有]
      * @return [type]          [description]
      */
-     function _get_goods_list($cate_id,$brand,$layer,$limit){
-            //dump($layer);
-            if ($layer==1) {
-                 $db=db();
-                $sql="select * from ecm_gcategory";
-                $categorys= $db->getall($sql);
-                $tea_id_arr=$this->_tree($categorys,$cate_id);
-                $tea_id_str=implode($tea_id_arr, ",");
-                /*dump($tea_id_str);*/
-                if (empty($tea_id_str)) {
-                    return array();
-                }
-                if (empty($_GET['brand'])) {
-                    $goods="select * from ecm_goods where  brand <> '' and cate_id in ($tea_id_str) limit ".$limit;
-                }else{
-                    $goods="select * from ecm_goods where cate_id in ($tea_id_str) and brand='".$_GET['brand']."'limit ".$limit;
-                }
-                
-                $result=$db->getall($goods);
-               
-            }elseif ($layer==2) {
-                $db=db();
-                $sql="select * from ecm_gcategory";
-                $categorys= $db->getall($sql);
-                $tea_id_arr=$this->_tree($categorys,$cate_id);
-                $tea_id_str=implode($tea_id_arr, ",");
-                /*dump($tea_id_str);*/
-                if (empty($tea_id_str)) {
-                    return array();
-                }
-                if (empty($_GET['brand'])) {
-                    $goods="select * from ecm_goods where  brand <> '' and cate_id in ($tea_id_str)limit ".$limit;
-                }else{
-                    $goods="select * from ecm_goods where cate_id in ($tea_id_str) and brand='".$_GET['brand']."'limit ".$limit;
-                }
-                $result=$db->getall($goods);
-               
-            }else{
-                $db=db();
-                $sql="select * from ecm_gcategory";
-                $categorys= $db->getall($sql);
-                if (empty($_GET['brand'])) {
-                    $goods="select * from ecm_goods where  brand <> '' and cate_id ='".$_GET['cate_id']."'limit ".$limit;
-                }else{
-                    $goods="select * from ecm_goods where cate_id =".$_GET['cate_id']. " and brand='".$_GET['brand']."'limit ".$limit;
-                }
-                
-                $result=$db->getall($goods);
-                
+    function _get_goods_list_count($cate_id, $brand, $layer)
+    {
+        //dump($layer);
+        if ($layer == 1) {
+            $db = db();
+            $sql = "select * from ecm_gcategory";
+            $categorys = $db->getall($sql);
+            $tea_id_arr = $this->_tree($categorys, $cate_id);
+            $tea_id_str = implode($tea_id_arr, ",");
+            /*dump($tea_id_str);*/
+            if (empty($tea_id_str)) {
+                return array();
             }
-            return $result;     
+            if (empty($_GET['brand'])) {
+                $goods = "select count(*) from ecm_goods where  brand <> '' and cate_id in ($tea_id_str)";
+            } else {
+                $goods = "select count(*) from ecm_goods where cate_id in ($tea_id_str) and brand='" . $_GET['brand'] . "'";
+            }
 
-     }
-     /**
+            $result = $db->getone($goods);
+
+        } elseif ($layer == 2) {
+            $db = db();
+            $sql = "select * from ecm_gcategory";
+            $categorys = $db->getall($sql);
+            $tea_id_arr = $this->_tree($categorys, $cate_id);
+            $tea_id_str = implode($tea_id_arr, ",");
+            /*dump($tea_id_str);*/
+            if (empty($tea_id_str)) {
+                return array();
+            }
+            if (empty($_GET['brand'])) {
+                $goods = "select count(*) from ecm_goods where  brand <> '' and cate_id in ($tea_id_str)";
+            } else {
+                $goods = "select count(*) from ecm_goods where cate_id in ($tea_id_str) and brand='" . $_GET['brand'] . "'";
+            }
+            $result = $db->getone($goods);
+
+        } else {
+            $db = db();
+            $sql = "select * from ecm_gcategory";
+            $categorys = $db->getall($sql);
+            if (empty($_GET['brand'])) {
+                $goods = "select count(*) from ecm_goods where  brand <> '' and cate_id ='" . $_GET['cate_id'] . "'";
+            } else {
+                $goods = "select count(*) from ecm_goods where cate_id =" . $_GET['cate_id'] . " and brand='" . $_GET['brand'] . "'";
+            }
+
+            $result = $db->getone($goods);
+
+        }
+        return $result;
+    }
+
+    /**
+     * [_get_goods_list 获取商品列表]
+     * @param  [type] $cate_id [上级和当前的id]
+     * @param  [type] $brand   [品牌，为空为所有]
+     * @return [type]          [description]
+     */
+    function _get_goods_list($cate_id, $brand, $layer, $limit)
+    {
+        //dump($layer);
+        if ($layer == 1) {
+            $db = db();
+            $sql = "select * from ecm_gcategory";
+            $categorys = $db->getall($sql);
+            $tea_id_arr = $this->_tree($categorys, $cate_id);
+            $tea_id_str = implode($tea_id_arr, ",");
+            /*dump($tea_id_str);*/
+            if (empty($tea_id_str)) {
+                return array();
+            }
+            if (empty($_GET['brand'])) {
+                $goods = "select * from ecm_goods where  brand <> '' and cate_id in ($tea_id_str) limit " . $limit;
+            } else {
+                $goods = "select * from ecm_goods where cate_id in ($tea_id_str) and brand='" . $_GET['brand'] . "'limit " . $limit;
+            }
+
+            $result = $db->getall($goods);
+
+        } elseif ($layer == 2) {
+            $db = db();
+            $sql = "select * from ecm_gcategory";
+            $categorys = $db->getall($sql);
+            $tea_id_arr = $this->_tree($categorys, $cate_id);
+            $tea_id_str = implode($tea_id_arr, ",");
+            /*dump($tea_id_str);*/
+            if (empty($tea_id_str)) {
+                return array();
+            }
+            if (empty($_GET['brand'])) {
+                $goods = "select * from ecm_goods where  brand <> '' and cate_id in ($tea_id_str)limit " . $limit;
+            } else {
+                $goods = "select * from ecm_goods where cate_id in ($tea_id_str) and brand='" . $_GET['brand'] . "'limit " . $limit;
+            }
+            $result = $db->getall($goods);
+
+        } else {
+            $db = db();
+            $sql = "select * from ecm_gcategory";
+            $categorys = $db->getall($sql);
+            if (empty($_GET['brand'])) {
+                $goods = "select * from ecm_goods where  brand <> '' and cate_id ='" . $_GET['cate_id'] . "'limit " . $limit;
+            } else {
+                $goods = "select * from ecm_goods where cate_id =" . $_GET['cate_id'] . " and brand='" . $_GET['brand'] . "'limit " . $limit;
+            }
+
+            $result = $db->getall($goods);
+
+        }
+        return $result;
+
+    }
+
+    /**
      * 根据查询条件取得分组统计信息
      *
-     * @param   array   $param  查询参数（参加函数_get_query_param的返回值说明）
-     * @param   bool    $cached 是否缓存
+     * @param   array $param 查询参数（参加函数_get_query_param的返回值说明）
+     * @param   bool $cached 是否缓存
      * @return  array(
      *              'total_count' => 10,
      *              'by_category' => array(id => array('cate_id' => 1, 'cate_name' => 'haha', 'count' => 10))
@@ -609,21 +610,19 @@ class IndexApp extends IndexbaseApp
     {
         $data = false;
 
-        if ($cached)
-        {
+        if ($cached) {
             $cache_server =& cache_server();
             $key = 'group_by_info_' . var_export($param, true);
             $data = $cache_server->get($key);
         }
 
-        if ($data === false)
-        {
+        if ($data === false) {
             $data = array(
                 'total_count' => 0,
                 'by_category' => array(),
-                'by_brand'    => array(),
-                'by_region'   => array(),
-                'by_price'    => array()
+                'by_brand' => array(),
+                'by_region' => array(),
+                'by_price' => array()
             );
 
             $goods_mod =& m('goods');
@@ -632,36 +631,29 @@ class IndexApp extends IndexbaseApp
             $conditions = $this->_get_goods_conditions($param);
             $sql = "SELECT COUNT(*) FROM {$table} WHERE" . $conditions;
             $total_count = $goods_mod->getOne($sql);
-            if ($total_count > 0)
-            {
+            if ($total_count > 0) {
                 $data['total_count'] = $total_count;
                 /* 按分类统计 */
                 $cate_id = isset($param['cate_id']) ? $param['cate_id'] : 0;
                 $sql = "";
-                if ($cate_id > 0)
-                {
+                if ($cate_id > 0) {
                     $layer = $param['layer'];
-                    if ($layer < 4)
-                    {
+                    if ($layer < 4) {
                         $sql = "SELECT g.cate_id_" . ($layer + 1) . " AS id, COUNT(*) AS count FROM {$table} WHERE" . $conditions . " AND g.cate_id_" . ($layer + 1) . " > 0 GROUP BY g.cate_id_" . ($layer + 1) . " ORDER BY count DESC";
                     }
-                }
-                else
-                {
+                } else {
                     $sql = "SELECT g.cate_id_1 AS id, COUNT(*) AS count FROM {$table} WHERE" . $conditions . " AND g.cate_id_1 > 0 GROUP BY g.cate_id_1 ORDER BY count DESC";
                 }
 
-                if ($sql)
-                {
+                if ($sql) {
                     $category_mod =& bm('gcategory');
                     $children = $category_mod->get_children($cate_id, true);
                     $res = $goods_mod->db->query($sql);
-                    while ($row = $goods_mod->db->fetchRow($res))
-                    {
+                    while ($row = $goods_mod->db->fetchRow($res)) {
                         $data['by_category'][$row['id']] = array(
-                            'cate_id'   => $row['id'],
+                            'cate_id' => $row['id'],
                             'cate_name' => $children[$row['id']]['cate_name'],
-                            'count'     => $row['count']
+                            'count' => $row['count']
                         );
                     }
                 }
@@ -669,31 +661,27 @@ class IndexApp extends IndexbaseApp
                 /* 按品牌统计 */
                 $sql = "SELECT g.brand, COUNT(*) AS count FROM {$table} WHERE" . $conditions . " AND g.brand > '' GROUP BY g.brand ORDER BY count DESC";
                 $by_brands = $goods_mod->db->getAllWithIndex($sql, 'brand');
-                
+
                 /* 滤去未通过商城审核的品牌 */
-                if ($by_brands)
-                {
+                if ($by_brands) {
                     $m_brand = &m('brand');
                     $brand_conditions = db_create_in(addslashes_deep(array_keys($by_brands)), 'brand_name');
                     $brands_verified = $m_brand->getCol("SELECT brand_name FROM {$m_brand->table} WHERE " . $brand_conditions . ' AND if_show=1');
-                    foreach ($by_brands as $k => $v)
-                    {
-                        if (!in_array($k, $brands_verified))
-                        {
+                    foreach ($by_brands as $k => $v) {
+                        if (!in_array($k, $brands_verified)) {
                             unset($by_brands[$k]);
                         }
                     }
                 }
                 $data['by_brand'] = $by_brands;
-                
-                
+
+
                 /* 按地区统计 */
                 $sql = "SELECT s.region_id, s.region_name, COUNT(*) AS count FROM {$table} WHERE" . $conditions . " AND s.region_id > 0 GROUP BY s.region_id ORDER BY count DESC";
                 $data['by_region'] = $goods_mod->getAll($sql);
 
                 /* 按价格统计 */
-                if ($total_count > NUM_PER_PAGE)
-                {
+                if ($total_count > NUM_PER_PAGE) {
                     $sql = "SELECT MIN(g.price) AS min, MAX(g.price) AS max FROM {$table} WHERE" . $conditions;
                     $row = $goods_mod->getRow($sql);
                     $min = $row['min'];
@@ -701,19 +689,17 @@ class IndexApp extends IndexbaseApp
                     $step = max(ceil(($max - $min) / PRICE_INTERVAL_NUM), MIN_STAT_STEP);
                     $sql = "SELECT FLOOR((g.price - '$min') / '$step') AS i, count(*) AS count FROM {$table} WHERE " . $conditions . " GROUP BY i ORDER BY i";
                     $res = $goods_mod->db->query($sql);
-                    while ($row = $goods_mod->db->fetchRow($res))
-                    {
+                    while ($row = $goods_mod->db->fetchRow($res)) {
                         $data['by_price'][] = array(
                             'count' => $row['count'],
-                            'min'   => $min + $row['i'] * $step,
-                            'max'   => $min + ($row['i'] + 1) * $step,
+                            'min' => $min + $row['i'] * $step,
+                            'max' => $min + ($row['i'] + 1) * $step,
                         );
                     }
                 }
             }
 
-            if ($cached)
-            {
+            if ($cached) {
                 $cache_server->set($key, $data, SEARCH_CACHE_TTL);
             }
         }
@@ -721,34 +707,29 @@ class IndexApp extends IndexbaseApp
         return $data;
     }
 
-     /**
+    /**
      * 取得查询条件语句
      *
-     * @param   array   $param  查询参数（参加函数_get_query_param的返回值说明）
+     * @param   array $param 查询参数（参加函数_get_query_param的返回值说明）
      * @return  string  where语句
      */
     function _get_goods_conditions($param)
     {
         /* 组成查询条件 */
         $conditions = " g.if_show = 1 AND g.closed = 0 AND s.state = 1"; // 上架且没有被禁售，店铺是开启状态,
-        if (isset($param['keyword']))
-        {
+        if (isset($param['keyword'])) {
             $conditions .= $this->_get_conditions_by_keyword($param['keyword'], ENABLE_SEARCH_CACHE);
         }
-        if (isset($param['cate_id']))
-        {
+        if (isset($param['cate_id'])) {
             $conditions .= " AND g.cate_id_{$param['layer']} = '" . $param['cate_id'] . "'";
         }
-        if (isset($param['brand']))
-        {
+        if (isset($param['brand'])) {
             $conditions .= " AND g.brand = '" . $param['brand'] . "'";
         }
-        if (isset($param['region_id']))
-        {
+        if (isset($param['region_id'])) {
             $conditions .= " AND s.region_id = '" . $param['region_id'] . "'";
         }
-        if (isset($param['price']))
-        {
+        if (isset($param['price'])) {
             $min = $param['price']['min'];
             $max = $param['price']['max'];
             $min > 0 && $conditions .= " AND g.price >= '$min'";
@@ -758,11 +739,11 @@ class IndexApp extends IndexbaseApp
         return $conditions;
     }
 
-       /**
+    /**
      * 根据关键词取得查询条件（可能是like，也可能是in）
      *
-     * @param   array       $keyword    关键词
-     * @param   bool        $cached     是否缓存
+     * @param   array $keyword 关键词
+     * @param   bool $cached 是否缓存
      * @return  string      " AND (0)"
      *                      " AND (goods_name LIKE '%a%' AND goods_name LIKE '%b%')"
      *                      " AND (goods_id IN (1,2,3))"
@@ -771,19 +752,16 @@ class IndexApp extends IndexbaseApp
     {
         $conditions = false;
 
-        if ($cached)
-        {
+        if ($cached) {
             $cache_server =& cache_server();
             $key1 = 'query_conditions_of_keyword_' . join("\t", $keyword);
             $conditions = $cache_server->get($key1);
         }
 
-        if ($conditions === false)
-        {
+        if ($conditions === false) {
             /* 组成查询条件 */
             $conditions = array();
-            foreach ($keyword as $word)
-            {
+            foreach ($keyword as $word) {
                 $conditions[] = "g.goods_name LIKE '%{$word}%'";
             }
             $conditions = join(' AND ', $conditions);
@@ -792,46 +770,38 @@ class IndexApp extends IndexbaseApp
             $goods_mod =& m('goods');
             $sql = "SELECT COUNT(*) FROM {$goods_mod->table} g WHERE " . $conditions;
             $current_count = $goods_mod->getOne($sql);
-            if ($current_count > 0)
-            {
-                if ($current_count < MAX_ID_NUM_OF_IN)
-                {
+            if ($current_count > 0) {
+                if ($current_count < MAX_ID_NUM_OF_IN) {
                     /* 取得商品表记录总数 */
                     $cache_server =& cache_server();
                     $key2 = 'record_count_of_goods';
                     $total_count = $cache_server->get($key2);
-                    if ($total_count === false)
-                    {
+                    if ($total_count === false) {
                         $sql = "SELECT COUNT(*) FROM {$goods_mod->table}";
                         $total_count = $goods_mod->getOne($sql);
                         $cache_server->set($key2, $total_count, SEARCH_CACHE_TTL);
                     }
 
                     /* 不满足条件，返回like */
-                    if (($current_count / $total_count) < MAX_HIT_RATE)
-                    {
+                    if (($current_count / $total_count) < MAX_HIT_RATE) {
                         /* 取得满足条件的商品id */
                         $sql = "SELECT goods_id FROM {$goods_mod->table} g WHERE " . $conditions;
                         $ids = $goods_mod->getCol($sql);
                         $conditions = 'g.goods_id' . db_create_in($ids);
                     }
                 }
-            }
-            else
-            {
+            } else {
                 /* 没有满足条件的记录，返回0 */
                 $conditions = "0";
             }
 
-            if ($cached)
-            {
+            if ($cached) {
                 $cache_server->set($key1, $conditions, SEARCH_CACHE_TTL);
             }
         }
 
         return ' AND (' . $conditions . ')';
     }
-
 
 
     /**
@@ -849,56 +819,49 @@ class IndexApp extends IndexbaseApp
     function _get_query_param()
     {
         static $res = null;
-        if ($res === null)
-        {
+        if ($res === null) {
             $res = array();
-    
+
             // keyword
             $keyword = isset($_GET['keyword']) ? trim($_GET['keyword']) : '';
-            if ($keyword != '')
-            {
+            if ($keyword != '') {
                 //$keyword = preg_split("/[\s," . Lang::get('comma') . Lang::get('whitespace') . "]+/", $keyword);
-                $tmp = str_replace(array(Lang::get('comma'),Lang::get('whitespace'),' '),',', $keyword);
-                $keyword = explode(',',$tmp);
+                $tmp = str_replace(array(Lang::get('comma'), Lang::get('whitespace'), ' '), ',', $keyword);
+                $keyword = explode(',', $tmp);
                 sort($keyword);
                 $res['keyword'] = $keyword;
             }
             //@jjc  cate_id为空就为1，只能显示茶叶因为茶叶就是1
             if (empty($_GET['cate_id'])) {
-                $_GET['cate_id']=1;
+                $_GET['cate_id'] = 1;
             }
             // cate_id
-            if (isset($_GET['cate_id']) && intval($_GET['cate_id']) > 0)
-            {
+            if (isset($_GET['cate_id']) && intval($_GET['cate_id']) > 0) {
                 $res['cate_id'] = $cate_id = intval($_GET['cate_id']);
-                $gcategory_mod  =& bm('gcategory');
-                $res['layer']   = $gcategory_mod->get_layer($cate_id, true);
+                $gcategory_mod =& bm('gcategory');
+                $res['layer'] = $gcategory_mod->get_layer($cate_id, true);
             }
-    
+
             // brand
-            if (isset($_GET['brand']))
-            {
+            if (isset($_GET['brand'])) {
                 $brand = trim($_GET['brand']);
                 $res['brand'] = $brand;
             }
-    
+
             // region_id
-            if (isset($_GET['region_id']) && intval($_GET['region_id']) > 0)
-            {
+            if (isset($_GET['region_id']) && intval($_GET['region_id']) > 0) {
                 $res['region_id'] = intval($_GET['region_id']);
             }
-    
+
             // price
-            if (isset($_GET['price']))
-            {
+            if (isset($_GET['price'])) {
                 $arr = explode('-', $_GET['price']);
                 $min = abs(floatval($arr[0]));
                 $max = abs(floatval($arr[1]));
-                if ($min * $max > 0 && $min > $max)
-                {
+                if ($min * $max > 0 && $min > $max) {
                     list($min, $max) = array($max, $min);
                 }
-    
+
                 $res['price'] = array(
                     'min' => $min,
                     'max' => $max
@@ -909,23 +872,20 @@ class IndexApp extends IndexbaseApp
         return $res;
     }
 
-     /**
+    /**
      * 取得过滤条件
      */
     function _get_filter($param)
     {
         static $filters = null;
-        if ($filters === null)
-        {
+        if ($filters === null) {
             $filters = array();
-            if (isset($param['keyword']))
-            {
+            if (isset($param['keyword'])) {
                 $keyword = join(' ', $param['keyword']);
                 $filters['keyword'] = array('key' => 'keyword', 'name' => LANG::get('keyword'), 'value' => $keyword);
             }
             isset($param['brand']) && $filters['brand'] = array('key' => 'brand', 'name' => LANG::get('brand'), 'value' => $param['brand']);
-            if (isset($param['region_id']))
-            {
+            if (isset($param['region_id'])) {
                 // todo 从地区缓存中取
                 $region_mod =& m('region');
                 $row = $region_mod->get(array(
@@ -934,73 +894,649 @@ class IndexApp extends IndexbaseApp
                 ));
                 $filters['region_id'] = array('key' => 'region_id', 'name' => LANG::get('region'), 'value' => $row['region_name']);
             }
-            if (isset($param['price']))
-            {
+            if (isset($param['price'])) {
                 $min = $param['price']['min'];
                 $max = $param['price']['max'];
-                if ($min <= 0)
-                {
+                if ($min <= 0) {
                     $filters['price'] = array('key' => 'price', 'name' => LANG::get('price'), 'value' => LANG::get('le') . ' ' . price_format($max));
-                }
-                elseif ($max <= 0)
-                {
+                } elseif ($max <= 0) {
                     $filters['price'] = array('key' => 'price', 'name' => LANG::get('price'), 'value' => LANG::get('ge') . ' ' . price_format($min));
-                }
-                else
-                {
+                } else {
                     $filters['price'] = array('key' => 'price', 'name' => LANG::get('price'), 'value' => price_format($min) . ' - ' . price_format($max));
                 }
             }
         }
-            
+
 
         return $filters;
     }
 
     /*获取品牌信息*/
-    function _get_brands($cate_id){
+    function _get_brands($cate_id)
+    {
         //1.首先获取1级分类下的所有品牌
-        $db=&db();
-        $sql="select * from ecm_gcategory";
-        $categorys= $db->getall($sql);
-        $tea_id_arr=$this->_tree($categorys,$cate_id);
-        $tea_id_str=implode($tea_id_arr, ",");
-       
-        $brand="select cate_id,brand from ecm_goods where  brand <> '' and cate_id in ($tea_id_str) group by brand ";
-        $brands=$db->getall($brand);
-        $brands=array_filter($brands);
+        $db =& db();
+        $sql = "select * from ecm_gcategory";
+        $categorys = $db->getall($sql);
+        $tea_id_arr = $this->_tree($categorys, $cate_id);
+        $tea_id_str = implode($tea_id_arr, ",");
+
+        $brand = "select cate_id,brand from ecm_goods where  brand <> '' and cate_id in ($tea_id_str) group by brand ";
+        $brands = $db->getall($brand);
+        $brands = array_filter($brands);
         /*$new_brand=array_unique($brands);*/
         return $brands;
-      
+
     }
-     //取出顶级为茶的所有商品类
-    function _tree($goods_categorys,$parent_id){
-        static $tea_id=array();
+
+    //取出顶级为茶的所有商品类
+    function _tree($goods_categorys, $parent_id)
+    {
+        static $tea_id = array();
         foreach ($goods_categorys as $goods_category) {
-            if ($goods_category['parent_id']==$parent_id) {
-                $tea_id[]=$goods_category['cate_id'];
-                $this->_tree($goods_categorys,$goods_category['cate_id']);
+            if ($goods_category['parent_id'] == $parent_id) {
+                $tea_id[] = $goods_category['cate_id'];
+                $this->_tree($goods_categorys, $goods_category['cate_id']);
             }
         }
         return $tea_id;
     }
 
-    function agent(){
-        $user_name=$this->visitor->get('user_name');
-        $out_data['user_name']=$user_name;
+    function agent()
+    {
+        $user_name = $this->visitor->get('user_name');
+        $out_data['user_name'] = $user_name;
         $this->assign("out_data", $out_data);
-        $db=db();
-        $sql="select * from ecm_agent";
-        $arr=$db->getall($sql);
-        $this->assign('agent_info',$arr);
-        $this->_curlocal('福禄仓茶叶', 'index.php?app=index&act=tea','经纪人');
+        $db = db();
+        $sql = "select * from ecm_agent";
+        $arr = $db->getall($sql);
+        $this->assign('agent_info', $arr);
+        $this->_curlocal('福禄仓茶叶', 'index.php?app=index&act=tea', '经纪人');
         $this->display("agent.html");
     }
-    function news(){
+
+    function news()
+    {
+        $user_name = $this->visitor->get('user_name');
+        $out_data['user_name'] = $user_name;
+        $this->assign("out_data", $out_data);
         $drogue_arr = $this->_get_data();
         $out_data['drogue_arr'] = $drogue_arr;
         $this->assign("out_data", $out_data);
+        $this->_curlocal('福禄仓茶叶', 'index.php?app=index&act=tea', '茶叶资讯');
         $this->display('news.html');
     }
+
+    function transaction()
+    {
+        $transaction_mod =& m('transaction');
+        if ($_POST) {
+            if ($arr = $this->_check_is_empty($_POST)) {
+                //数据正常
+                extract($arr);
+                if (strchr($tea_type, '新')) {
+                    $tea_type = 1;
+                } elseif (strchr($tea_type, '当')) {
+                    $tea_type = 0;
+                } elseif (strchr($tea_type, '中')) {
+                    $tea_type = 2;
+                }
+
+                if ($fruit == 1) {
+                    //买
+                    $transaction_status = 0;
+                    //校验支付密码
+                    $result = $this->check_pwd($confirm_pwd);
+                    if (!$result) {
+                        echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                        $this->show_warning('支付密码错误，请重新提交表单');
+                        return;
+                    }
+
+                } else {
+                    $transaction_status = 1;
+                }
+                $user_id = $this->visitor->get('user_id');
+
+                $arr = array('goods_id' => $goods_id,
+                    'goods_type' => $tea_type,
+                    'transaction_status' => $transaction_status,
+                    'goods_name' => $goods_name,
+                    'transaction_price' => $transaction_price,
+                    'transaction_count' => $transaction_count,
+                    'user_id' => $user_id,
+                    'transaction_time' => time(),
+                    'transaction_from_sn' => -1,
+                    'date_format' => date('Y-m-d', time()),
+                    'have_transaction' => 0,
+                );
+                $transaction = $transaction_mod->add($arr);
+                if ($transaction) {
+                    echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                    $this->show_message('添加成功',
+                        'edit_again', 'index.php?app=index&act=transaction',
+                        'back_list', 'index.php?app=tea'
+                    );
+                } else {
+                    dump($transaction_mod);
+                }
+            } else {
+                $this->show_warning('数据异常,请重新提交');
+            }
+        }
+        $user_info = $this->visitor->get();
+        //持仓明细相关信息
+        $particulars=$transaction_mod ->get_warehouse($user_info['user_id']);
+        $this->assign('particulars',$particulars);
+        if ($user_info['member_level'] != 1) {
+            $this->flush_html('没有权限', 0);
+            die;
+        }
+
+        $agent_transaction = $this->_get_agent_transaction($user_info['user_id']);
+        /*dump($agent_transaction);*/
+        if (!empty($agent_transaction)) {
+            foreach ($agent_transaction as $key => $agent) {
+                # code...
+                if ($agent['goods_type'] == 2) {
+                    $agent_transaction[$key]['type_des'] = '中期茶';
+                } else if ($agent['goods_type'] == 1) {
+                    $agent_transaction[$key]['type_des'] = '新茶';
+                } else {
+                    $agent_transaction[$key]['type_des'] = '当年茶';
+                }
+                $agent_transaction[$key]['total_count'] = $agent['transaction_price'] * $agent['transaction_count'];
+                if ($agent['transaction_status'] == 1) {
+                    $agent_transaction[$key]['status_des'] = '卖';
+                } else {
+                    $agent_transaction[$key]['status_des'] = '买';
+                }
+                $agent_transaction[$key]['format_time'] = date('Y-m-d H:i', $agent['transaction_time']);
+            }
+        }
+        $this->assign('agent_transaction', $agent_transaction);
+        $user_name = $this->visitor->get('user_name');
+        $out_data['user_name'] = $user_name;
+        $drogue_arr = $this->_get_data();
+        $out_data['drogue_arr'] = $drogue_arr;
+        $this->assign("out_data", $out_data);
+        $this->import_resource(array(
+            'script' => 'My97DatePicker/WdatePicker.js,jquery-form.js,echart/build/dist/echarts.js',
+        ));
+        $this->get_drogue_info_echarts();
+        $this->_curlocal('福禄仓茶叶', 'index.php?app=index&act=tea', '茶叶交易');
+        $this->display('transaction.html');
+    }
+
+    /**获取用户的买卖交易记录*/
+    function _get_agent_transaction($user_id)
+    {
+        $transaction_mod =& m('transaction');
+        $transaction = $transaction_mod->find(array('conditions' => "user_id='$user_id'and transaction_count>0 and  transaction_status>-1"));
+        return $transaction;
+
+    }
+
+    /**检查数组是否为空*/
+    function _check_is_empty($arr)
+    {
+        foreach ($arr as $key => $value) {
+            if (empty($value)) {
+                return false;
+            }
+            $arr[$key] = trim($value);
+
+            $arr[$key] = stripslashes($value);
+
+            $arr[$key] = htmlspecialchars($value);
+        }
+        return $arr;
+    }
+
+    /**
+     * [get_tea_goods 响应ajax请求获取]
+     * @return [array] [茶叶id，茶叶name]
+     */
+    function get_tea_goods()
+    {
+        if (empty($_POST['tea_name']) && $_POST['tea_name'] == '') {
+            $out_data = array('code' => 1,
+                'message' => '搜索内容为空',
+                'data' => $goods_data);
+            echo json_encode($out_data);
+            return;
+        }
+        $tea_name = $_POST['tea_name'];
+        $db = db();
+        //设置缓存避免频繁请求
+        if (empty($_SESSION['temp_arr'])) {
+            $sql = "select * from ecm_gcategory where cate_name<>'茶珍' and cate_name<>'袋泡茶'";
+            $categorys = $db->getall($sql);
+            $cate_id = 1;
+            $tea_id_arr = $this->_tree($categorys, $cate_id);
+
+            $tea_id_arr = implode($tea_id_arr, ",");
+            $sql = "select goods_id,goods_name,ecm_goods.cate_id from ecm_goods inner join ecm_gcategory on ecm_goods.cate_id=ecm_gcategory.cate_id where  ecm_goods.cate_id in ($tea_id_arr)";
+            $tea_arr = $db->getall($sql);
+            $_SESSION['temp_arr'] = $tea_arr;
+        }
+        foreach ($_SESSION['temp_arr'] as $key => $goods) {
+            if (strchr($goods['goods_name'], $tea_name) !== false) {
+                if (in_array($goods['cate_id'], array(84, 86, 87, 88, 89, 90, 91, 92, 93, 94, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111))) {
+                    //中期茶中 期茶2010年之前        
+                    $goods['type'] = 2;
+                    $goods['type_des'] = '中期茶';
+                } else if (in_array($goods['cate_id'], array(95, 96, 97, 98, 99, 112, 113, 114, 115, 116))) {
+                    //新茶  新茶包含2010-2014
+                    $goods['type'] = 1;
+                    $goods['type_des'] = '新茶';
+                } else {
+                    # code...
+                    $goods['type'] = 0;
+                    $goods['type_des'] = '当年茶';
+                }
+                $goods_data[] = $goods;
+            }
+
+        }
+        $out_data = array('code' => 0,
+            'message' => '请求成功',
+            'data' => $goods_data);
+        echo json_encode($out_data);
+
+    }
+
+    /**
+     * [get_drogue_by_id 响应ajax请求]
+     * @return [Array] [price]
+     */
+    function get_drogue_by_id()
+    {
+        if (empty($_GET['goods_id'])) {
+            $out_data = array('code' => 1,
+                'message' => '参数异常',
+                'data' => '');
+        } else {
+            $transaction_mod=& m('transaction');
+            $goods_id = $_GET['goods_id'];
+            $db = db();
+            $sql = "select real_price from ecm_drogue where goods_id='$goods_id' order by show_date desc limit 1";
+            //市场价格
+            $temp['real_price'] = $db->getone($sql);
+            //获取开盘价格：开盘价：第一笔成交价为开盘价，如果没有成交记录就取默认的记录
+            $transaction = $this->_get_kaipan_price($goods_id);
+            $temp['kai_pan_price'] = $transaction['transaction_price'];
+            if ($transaction['have_transaction'] > 0) {
+                //获取卖的需要交易的数量
+                $count_sql = "select sum(transaction_count) as transaction_count from ecm_transaction where goods_id='$goods_id' and transaction_status=1 and have_transaction =0";
+                $temp['transaction_count'] = $db->getone($count_sql);
+                $temp['new_price'] = $transaction['new_price'];
+                $get_max_price = "select max(transaction_price) as transaction_price from ecm_transaction where goods_id='$goods_id'and have_transaction >0";
+                $temp['max_price'] = $db->getone($get_max_price);
+                $get_min_price = "select min(transaction_price) as transaction_price from ecm_transaction where goods_id='$goods_id'and have_transaction >0";
+                $temp['min_price'] = $db->getone($get_min_price);
+                //涨幅： （现价-开盘价）/开盘价的百分比
+                $temp['zhangfu_price'] = ($transaction['new_price'] - $transaction['transaction_price']) / $transaction['transaction_price'];
+                $temp['zhangfu_price'] = round($temp['zhangfu_price'], 2);
+                $temp['zhangdie_price'] = $transaction['new_price'] - $transaction['transaction_price'];
+                //涨停价，跌停价以昨日收盘价上下浮动10%
+                $zhangting_arr = $transaction_mod->_get_zhang_ting($goods_id, $transaction['transaction_time']);
+                $temp['zhangting_price'] = $zhangting_arr['zhangting'];
+                $temp['dieting_price'] = $zhangting_arr['dieting'];
+                //昨日收盘价：
+                $temp['shoupan_price'] = $zhangting_arr['shoupan'];
+            } else {
+                $temp['transaction_count'] = $transaction['transaction_count'];
+                $temp['new_price'] = '--';
+                $temp['max_price'] = '--';
+                $temp['min_price'] = '--';
+                $temp['zhangfu_price'] = '--';
+                $temp['zhangdie_price'] = '--';
+                $temp['zhangting_price'] = $transaction['transaction_price'] * 1.1;
+                $temp['dieting_price'] = $transaction['transaction_price'] * 0.9;
+                $temp['shoupan_price'] = $transaction['transaction_price'];
+            }
+            $limit_arr = $this->_situation_for_trasztion($goods_id);
+            $temp['sell_pan'] = $limit_arr['sell'];
+            $temp['buy_pan'] = $limit_arr['buy'];
+            if ($temp['real_price'] === false) {
+                $out_data == array('code' => 2,
+                    'message' => '该产品已下架',
+                    'data' => '');
+            } else {
+                $out_data = array('code' => 0,
+                    'message' => '请求成功',
+                    'data' => $temp);
+            }
+        }
+        echo json_encode($out_data);
+    }
+
+    /**
+     * [_situation_for_trasztion 获取交易情况]
+     * @param  [type] $goods_id [description]
+     * @return [type]           [description]
+     */
+    function _situation_for_trasztion($goods_id)
+    {
+        //1.没有交易过的，获取买的价格最高的前5名
+        $db = db();
+        $get_mai = "select transaction_price,transaction_count from ecm_transaction where goods_id='$goods_id' and transaction_status=0 and have_transaction=0 order by transaction_price desc limit 5";
+        $out_data['buy'] = $db->getall($get_mai);
+        $buy_count = count($out_data['buy']);
+        $while = 5 - $buy_count;
+        for ($i = 0; $i < $while; $i++) {
+            $out_data['buy'][] = array('transaction_price' => '--', 'transaction_count' => '--');
+        }
+
+        //2.没有交易过的，获取卖的价格最低的前5名
+        $get_sell_mai = "select transaction_price,transaction_count from ecm_transaction where goods_id='$goods_id' and transaction_status=1 and have_transaction=0 order by transaction_price asc limit 5";
+        $out_data['sell'] = $db->getall($get_sell_mai);
+        $sell_count = count($out_data['sell']);
+        $while = 5 - $sell_count;
+        for ($i = 0; $i < $while; $i++) {
+            array_unshift($out_data['sell'], array('transaction_price' => '--', 'transaction_count' => '--'));
+        }
+        return $out_data;
+    }
+
+   
+
+    /**
+     * [_get_kaipan_price description]
+     * @return [type] [description]
+     */
+    function _get_kaipan_price($goods_id)
+    {
+        //获取开盘价格：开盘价：第一笔成交价为开盘价，如果没有成交记录就取默认的记录
+        if (empty($goods_id)) {
+            return false;
+        }
+        $db = db();
+        $get_kaipan = "select * from ecm_transaction where goods_id='$goods_id' and have_transaction >0 order by transaction_sn limit 1";
+        $transaction = $db->getrow($get_kaipan);
+        //是否有交易记录
+        if (empty($transaction['transaction_time'])) {
+            $get_from_init = "select price as transaction_price,stock as transaction_count from ecm_goods_spec where goods_id='$goods_id' limit 1";
+            $transaction = $db->getrow($get_from_init);
+            $transaction['have_transaction'] = 0;
+        } else {
+            //如果有交易记录就取出当前天的最开始的价格，即是开盘价格
+            $cur_day = date('Y-m-d', $transaction['transaction_time']);
+            $begin_time = strtotime($cur_day);
+            $end_time = $begin_time + (3600 * 24);
+            //最新价格
+            $new_price = $transaction['transaction_price'];
+            $get_kaipan_to = "select * from ecm_transaction where goods_id='$goods_id'and transaction_time > '$begin_time' and transaction_time < '$end_time' have_transaction >0 order by transaction_sn limit 1";
+            //重新定义交易信息获取当天的开盘价格
+            $transaction = $db->getrow($get_kaipan_to);
+            $transaction['new_price'] = $new_price;
+        }
+        return $transaction;
+    }
+
+    function get_drogue_info_echarts()
+    {
+        $_GET['id'] = 480;
+        if (!empty($_GET['id'])) {
+            $goods_id = $_GET['id'];
+            $db =& db();
+            //默认显示七天的时间
+            $now_date = date("Y-m-d");
+            $firstday = strtotime("$now_date -6 day");
+            $lastday = strtotime("$now_date");
+            $temp_start_time = date("Y-m-d", $firstday);
+            $temp_end_time = date("Y-m-d", $lastday);
+            $this->assign("temp_start_time", $temp_start_time);
+            $this->assign("temp_end_time", $temp_end_time);
+
+            $sql = "select * from ecm_drogue where goods_id=$goods_id AND show_date>='" . $firstday . "' AND show_date<='" . $lastday . "'order by show_date asc";
+            $drogue = $db->getAll("$sql");
+            if (empty($drogue)) {
+                $drogue = "";
+            } else {
+                $drogue = json_encode($drogue);
+
+            }
+            $this->assign('drogue', $drogue);
+
+        }
+    }
+
+    /**
+     * [produce_share_tea 初始化炒茶的数据]
+     * @return [type] [description]
+     */
+    function produce_share_tea()
+    {dump('禁止访问！');
+        //1.获取需要超差的id
+        $sql = 'select goods_id from ecm_drogue group by goods_id';
+        $db = db();
+        $data_col = $db->getcol($sql);
+        //2.获取数据插入到需要用于炒茶的表中
+        foreach ($data_col as $key => $goods) {
+            $get_cur_id = "select goods_id from ecm_share_tea where goods_id='$goods'";
+            $get_cur_row = $db->getrow($get_cur_id);
+            if (empty($get_cur_row)) {
+                $insert = "insert into ecm_share_tea (goods_id,store_id,type,goods_name,description,cate_id,cate_name,brand,spec_qty,spec_name_1,spec_name_2,if_show,closed,close_reason,add_time,last_update,default_spec,default_image,recommended,cate_id_1,cate_id_2,cate_id_3,cate_id_4,price,tags,member_price_1,member_price_2,member_price_3,member_price_4)select * from ecm_goods where goods_id='$goods'";
+                $db->query($insert);
+                $insert_spec = "insert into ecm_share_spec (spec_id,goods_id,spec_1,spec_2,color_rgb,price,stock,sku,member_price_1,member_price_2,member_price_3,member_price_4) select * from ecm_goods_spec where goods_id='$goods'";
+                $db->query($insert_spec);
+
+            }
+        }
+        //插入到茶叶交易表
+        $get_share_tea = 'select * from ecm_share_tea inner join ecm_share_spec on ecm_share_tea.goods_id=ecm_share_spec.goods_id';
+        $share_teas = $db->getall($get_share_tea);
+        foreach ($share_teas as $key => $share_tea) {
+            $time = time();
+            $date_format = date('Y-m-d', $time);
+            if ($share_tea['have_create_tra'] < 1) {
+                if (in_array($share_tea['cate_id'], array(84, 86, 87, 88, 89, 90, 91, 92, 93, 94, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111))) {
+                    //中期茶中 期茶2010年之前        
+                    $share_tea['type'] = 2;
+                    $share_tea['type_des'] = '中期茶';
+                } else if (in_array($share_tea['cate_id'], array(95, 96, 97, 98, 99, 112, 113, 114, 115, 116))) {
+                    //新茶  新茶包含2010-2014
+                    $share_tea['type'] = 1;
+                    $share_tea['type_des'] = '新茶';
+                } else {
+                    # code...
+                    $share_tea['type'] = 0;
+                    $share_tea['type_des'] = '当年茶';
+                }
+                $insert_tra = "insert into ecm_transaction(transaction_sn,goods_id,goods_name,transaction_price,transaction_count,transaction_time,transaction_from_sn,user_id,transaction_status,goods_type,sell_persentage,date_format,have_transaction) values(null,{$share_tea['goods_id']},'{$share_tea['goods_name']}',{$share_tea['price']},{$share_tea['stock']},$time,-1,-1,1,{$share_tea['type']},0.9,'$date_format',0)";
+                $db->query($insert_tra);
+            }
+        }
+    }
+
+    function insert_system_tea()
+    {
+      /* dump('禁止访问！');*/
+        $db=db();
+        $sql='select goods_id,stock,price from ecm_share_spec';
+        $goods_arr=$db->getall($sql);
+        foreach ($goods_arr as $key => $goods) {
+            $price=$goods['stock']*$goods['price'];
+            $insert="insert into ecm_own_warehouse values (null,-1,{$goods['goods_id']},{$goods['stock']},$price)";
+            echo "$insert<br/>";
+            $db->query($insert);
+        }
+
+    }
+
+    /**
+     * [get_goods_name 获取商品名称]
+     * @return [type] [description]
+     */
+    function get_goods_name()
+    {
+        if (empty($_POST['goods_id'])) {
+            $out_data = array('code' => 1,
+                'message' => '参数异常,刷新页面重试',
+                'data' => '');
+        } else {
+            $db = db();
+            $sql = 'select goods_name from ecm_goods where goods_id=' . $_POST['goods_id'];
+            $goods_name = $db->getone($sql);
+            $out_data = array('code' => 0,
+                'message' => '请求成功',
+                'data' => $goods_name);
+        }
+        echo json_encode($out_data);
+    }
+
+    /**
+     * [check_pwd 校验输入的验证码]
+     * @return [boolean] [description]
+     */
+    function check_pwd($pwd)
+    {
+        $db = db();
+        $user_id = $this->visitor->get('user_id');
+        $check = "select pay_pwd from ecm_member where user_id='$user_id'";
+        $pay_pwd = $db->getone($check);
+        $pwd = md5($pwd);
+        if ($pay_pwd === $pwd) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * [for_ajax_pwd 检查密码]
+     * @return [type] [description]
+     */
+    function for_ajax_pwd()
+    {
+        if (empty($_POST['pay_pwd'])) {
+            $out_data = array('code' => 1,
+                'message' => '支付密码不能为空',
+                'data' => ''
+            );
+            echo json_encode($out_data);
+            return;
+        }
+        $user_id = $this->visitor->get('user_id');
+        if (empty($user_id)) {
+            $out_data = array('code' => 2,
+                'message' => '当前用户信息没有获取到，请重新登陆',
+                'data' => ''
+            );
+            echo json_encode($out_data);
+            return;
+        }
+        if (empty($_SESSION["user_pwd_count_$user_id"])) {
+            $_SESSION["user_pwd_count_$user_id"] = 0;
+        }
+        if ($_SESSION["user_pwd_count_$user_id"] >= 4) {
+            $out_data = array('code' => 3,
+                'message' => '您已经超出密码验证次数！',
+                'data' => ''
+            );
+            echo json_encode($out_data);
+            return;
+        }
+        $result = $this->check_pwd($_POST['pay_pwd']);
+        if ($result) {
+
+            //验证user_money
+            $user_money = $this->get_user_count();
+            /*echo "";*/
+            if ($_POST['user_money'] > $user_money) {
+                $out_data = array('code' => 6,
+                    'message' => "余额不足,当前余额为$user_money",
+                    'data' => ''
+                );
+
+            } else {
+                $out_data = array('code' => 0,
+                    'message' => '请求成功',
+                    'data' => $user_money
+                );
+            }
+            echo json_encode($out_data);
+            return;
+        } else {
+            $_SESSION["user_pwd_count_$user_id"]++;
+            $cha = 3 - $_SESSION["user_pwd_count_$user_id"];
+            $out_data = array('code' => 5,
+                'message' => "密码错误,剩余($cha)次!",
+                'data' => ''
+            );
+            echo json_encode($out_data);
+            return;
+        }
+
+    }
+
+    /**获取当前用户的余额*/
+    function get_user_count()
+    {
+        $db = db();
+        $user_id = $this->visitor->get('user_id');
+        $use_money = "select use_money from ecm_member where user_id='$user_id'";
+        $use_money = $db->getone($use_money);
+        return $use_money;
+    }
+
+    /**
+     * [flush_html 刷新当前的html]
+     * @return [type] [description]
+     */
+    function flush_html($message, $status = 1)
+    {
+        if ($status === 1) {
+            $img = 'dui.jpg';
+        } else {
+            $img = 'cuo.jpg';
+        }
+        if (empty($message)) {
+            $message = '请求成功';
+        }
+        $this->assign('img', $img);
+        $this->assign('message', $message);
+        $this->display('flush.html');
+    }
+
+    /**取消代理*/
+    function cancel_agent()
+    {
+        $transaction_sn = $_POST['transaction_sn'];
+        $goods_count = $_POST['goods_count'];
+        /*  dump($transaction_sn);*/
+        /*$transaction_sn=67;*/
+        if (empty($transaction_sn)) {
+            $out_data = array('code' => 1,
+                'message' => '参数异常',
+                'data' => '');
+        } else {
+            $transaction_sn = intval($transaction_sn);
+            $transaction_mod =& m('transaction');
+            $tran_result = $transaction_mod->cancel_agent_mod($transaction_sn, $goods_count);
+            if ($tran_result) {
+                $out_data = array('code' => 0,
+                    'message' => '请求成功',
+                    'data' => '');
+            } else {
+                $out_data = array('code' => 2,
+                    'message' => '该交易已经成交无法撤回',
+                    'data' => $transaction_sn);
+            }
+
+        }
+        echo json_encode($out_data);
+    }
+
+    /**刷新当前当前用户交易状态*/
+    function transaction_produce($user_id)
+    {
+        $transaction_mod =& m('transaction');
+        $transaction = $this->_get_agent_transaction($user_id);
+        $transaction_mod->transaction_produce_mod($transaction);
+    }
+  
+
 
 }
