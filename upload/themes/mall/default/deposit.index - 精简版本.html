@@ -1,0 +1,24 @@
+{include file=member.header.html}
+<style type="text/css">
+.user_name { position: relative; bottom: 18px; margin-left:5px; }
+
+</style>
+<div class="content">
+    <div class="totline"></div><div class="botline"></div>
+    {include file=member.menu.html}
+    <div id="right">
+        {include file=member.submenu.html}
+        <div class="wrap">
+            <div class="public table">
+             
+                <div class="member_no_records padding6">{$lang.no_records}{$lang.$smarty.get.act}</div>
+            </div>
+           
+        </div>
+    </div>
+    
+</div>
+<div class="clear"></div>
+<iframe id='iframe_post' name="iframe_post" frameborder="0" width="0" height="0">
+</iframe>
+{include file=footer.html}

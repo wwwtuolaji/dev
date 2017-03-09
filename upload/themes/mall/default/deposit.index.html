@@ -1,0 +1,632 @@
+{include file=member.header.html}
+<style type="text/css">
+.user_name { position: relative; bottom: 18px; margin-left:5px; }
+
+/* 账户余额css */
+
+.deposit-account .account-info {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+}
+
+.deposit-account h1 {
+    color: #4d4d4d;
+    float: left;
+}
+
+.deposit-account .explain {
+    color: #999999;
+    float: left;
+    margin-left: 14px;
+}
+
+.deposit-account .account-info .explain em {
+    color: #439600;
+    font-style: normal;
+}
+
+.deposit-account .account-info .explain a {
+    color: #999999;
+    display: inline-block;
+    font-family: Tahoma,Geneva,sans-serif;
+    margin-left: 10px;
+    text-decoration: none;
+    color:red;
+}
+
+.deposit-account .account-info .action {
+    float: right;
+    text-align: right;
+}
+
+.deposit-account .account-info .action h2 {
+    color: #666;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.deposit-account .account-info .action a {
+    color: #0088cc;
+    margin-left: 6px;
+    margin-right: 5px;
+    text-decoration: none;
+}
+
+.deposit-account .account-info .balanceNum {
+    clear: both;
+    color: #808080;
+    padding-top: 10px;
+}
+
+.deposit-account .account-info .balanceNum b {
+    color: #0088cc;
+    font-weight: normal;
+}
+
+.deposit-account .account-info .balanceNum em {
+    color: #4c4c4c;
+    display: inline-block;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: bold;
+    margin-right: 3px;
+}
+
+.deposit-account .account-info .balanceBtn {
+    margin-top: 15px;
+}
+
+.btn-alipay {
+    background-position: 0 -355px;
+    color: #fff;
+    margin-right: 10px;
+    position: relative;
+}
+
+.btn-alipay span, .btn-alipay input {
+    background-position: right -503px;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 0 22px;
+}
+
+.btn-alipay span, .btn-alipay input {
+    background-position: right -503px;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 0 22px;
+}
+.btn-alipay, .btn-alipay span, .btn-alipay input {
+   
+    /* background-color: #F89A0A; */
+    background-color: #B5AAAA;
+    border: 0 none;
+    cursor: pointer;
+    display: inline-block;
+    height: 31px;
+    line-height: 31px;
+    overflow: hidden;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 2px;
+}
+#first_btn span{
+  background-color: #F89A0A;  
+}
+/*  */
+
+.btn-alipay-white {
+    background-position: 0 -429px;
+    color: #666;
+}
+.btn-alipay {
+    background-position: 0 -355px;
+    color: #fff;
+    margin-right: 10px;
+    position: relative;
+}
+/* 最近交易记录 */
+
+.tradelist {
+    margin-bottom: 30px;
+}
+
+.clearfix::after {
+    clear: both;
+    content: " ";
+    display: block;
+    height: 0;
+    overflow: hidden;
+}
+
+.tradelist .title {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.deposit-account h1 {
+    color: #4d4d4d;
+    float: left;
+}
+
+.tradelist .subtit {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: #eff0f1 none repeat scroll 0 0;
+    border-color: #ddd #ddd -moz-use-text-color;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 1px 1px 0;
+}
+
+
+.tradelist li {
+    float: left;
+    padding: 5px 0;
+    width: 95px;
+}
+
+.tradelist li.info {
+    width: 155px;
+    margin-left: 5px;
+}
+
+.tradelist li.tradeNo {
+    font-family: Tahoma,Geneva,sans-serif;
+    overflow-wrap: break-word;
+    padding-right: 7px;
+    width: 145px;
+    word-break: break-all;
+}
+
+.tradelist li.party {
+    text-align: center;
+    width: 120px;
+}
+.tradelist li {
+    float: left;
+    padding: 5px 0;
+    width: 95px;
+}
+
+.tradelist li.detail {
+    text-align: center;
+    width: 35px;
+}
+.tradelist li {
+    float: left;
+    padding: 5px 0;
+    width: 95px;
+}
+
+.price {
+    font-family: Tahoma,Geneva,sans-serif;
+}
+.f60 {
+    color: #f60;
+}
+
+.price {
+    font-family: Tahoma,Geneva,sans-serif;
+}
+.green {
+    color: #1bb974;
+}
+
+.gray {
+    color: #999;
+}
+
+.tradelist a {
+    color: #0077ff;
+    text-decoration: none;
+}
+
+.tradelist .list-more {
+    height: 30px;
+    line-height: 30px;
+    padding-right: 20px;
+    text-align: right;
+}
+.tradelist ul {
+    border-bottom: 1px solid #ddd;
+    padding: 0 5px;
+    width: 830px;
+}
+ul, ol {
+    list-style: outside none none;
+}
+.tradelist .list {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: -moz-use-text-color #ddd #ddd;
+    border-image: none;
+    border-style: none solid solid;
+    border-width: 0 1px 1px;
+}
+/* 添加银行卡部分 */
+
+.deposit-account h1 {
+    color: #4d4d4d;
+    float: left;
+}
+
+.deposit-account .explain {
+    color: #999999;
+    float: left;
+    margin-left: 14px;
+}
+
+.bank-info .action {
+    float: left;
+    margin-left: 30px;
+}
+.bank-info .cards {
+    clear: both;
+    padding-top: 10px;
+    width: 700px;
+}
+
+
+.bank-info .card {
+    float: left;
+    height: 100px;
+    margin-right: 30px;
+    text-align: center;
+    width: 192px;
+    margin-top: 20px;
+    border-radius: 5px;
+    border: 1px solid #E3E5E8;
+}
+
+.bank-info .card h2 {
+    color: #999;
+    font-size: 12px;
+    font-weight: normal;
+    height: 25px;
+    line-height: 25px;
+   background-color: #ECF0F4;
+    overflow: hidden;
+    width: 100%;
+    
+      border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.bank-info .card .number {
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+    height: 45px;
+    line-height: 40px;
+    margin-left: 10px;
+    overflow: hidden;
+    width: 175px;
+}
+
+.bank-info .card .credit {
+    background-color: #F3F1DC;
+    color: #E59E4A;
+
+}
+.bank-info .card .card-type {
+    border-radius: 3px;
+    float: left;
+    height: 19px;
+    margin-left: 15px;
+    width: 48px;
+
+}
+
+.bank-info .card .card-handle {
+    float: right;
+    line-height: 20px;
+    margin-right: 15px;
+}
+
+.bank-info a {
+    color: #0088cc;
+    text-decoration: none;
+}
+
+.bank-info .card .debit {
+    background-color: #DBE9F2;
+    color:#2D79BA;
+}
+.add-card a{
+    width: 100%;
+    height: 100%;
+    display: block;
+    text-align: center;
+}
+.cards .add-card h1{
+    float: none;
+    font:800 70px/70px "Microsoft YaHei";
+    color:#aaa;
+}
+.bank-info .add-card {
+    border: 1px dashed #B0ACAC;
+}
+
+</style>
+<div class="content">
+    <div class="totline"></div>
+    <div class="botline"></div>
+    {include file=member.menu.html}
+    <div id="right">
+        {include file=member.submenu.html}
+        <div class="wrap">
+            <div class="public table">
+                <!--start-->
+                <div class="deposit-account">
+                    <div class="account-info">
+                        <h1>预存款账户余额</h1>
+                        <div class="explain">
+                            余额支付[ <em>?
+                                <span></span></em> 
+                            ]：
+                            <a href="http://xjdv3.psmoban.com/index.php?app=deposit&amp;act=pay_status&amp;status=off" onclick="return confirm('点击后关闭余额支付功能，要确定么？')">已开启&gt;&gt;</a>
+                        </div>
+                        <div class="action">
+                            <h2>账户名：seller@ecmall.com</h2>
+                            <a href="http://xjdv3.psmoban.com/index.php?app=deposit&amp;act=recordlist">账户收支明细</a>
+                        </div>
+                        <div class="balanceNum"> <em>3642.13</em>
+                            元可用， <b><a href="http://xjdv3.psmoban.com/index.php?app=deposit&amp;act=frozenlist">2520.00</a></b> 
+                            元不可用
+                            <div class="balanceBtn">
+                                <a href="http://xjdv3.psmoban.com/index.php?app=deposit&amp;act=recharge" class="btn-alipay" id='first_btn'>
+                                    <span>充值</span>
+                                </a>
+                                <a href="http://xjdv3.psmoban.com/index.php?app=deposit&amp;act=withdraw" class="btn-alipay btn-alipay-white">
+                                    <span>提现</span>
+                                </a>
+                                <a href="http://xjdv3.psmoban.com/index.php?app=deposit&amp;act=transfer" class="btn-alipay btn-alipay-white">
+                                    <span>转账</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tradelist">
+                        <div class="title clearfix">
+                            <h1>最近交易记录</h1>
+                        </div>
+                        <div class="subtit">
+                            <ul class="clearfix">
+                                <li class="time">创建日期</li>
+                                <li class="info">名称 | 备注</li>
+                                <li class="tradeNo">商户订单号 | 交易号</li>
+                                <li class="party">对方</li>
+                                <li class="amount">金额</li>
+                                <li class="status">状态</li>
+                                <li class="detail">操作</li>
+                            </ul>
+                        </div>
+                        <div class="list clearfix">
+                            <ul class="clearfix" style="">
+                                <li class="time">2017.03.06 16:06:35</li>
+                                <li class="info break-word">支付 - 【1元购】【ABB低压配电...</li>
+                                <li class="tradeNo break-word">1528657574 | 20170306160635546016</li>
+                                <li class="party">buyer</li>
+                                <li class="amount"> <strong class="price green">+201.75</strong>
+                                </li>
+                                <li class="status">
+                                    <span class="f60">等待买家付款</span>
+                                </li>
+                                <li class="detail">
+                                    <a href="index.php?app=deposit&amp;act=record&amp;tradeNo=20170306160635546016">详情</a>
+                                </li>
+                            </ul>
+                            <ul class="clearfix" style="">
+                                <li class="time">2017.03.03 10:27:05</li>
+                                <li class="info break-word">支付 - Maxchic玛汐 夏装热销 全...</li>
+                                <li class="tradeNo break-word">17061350584 | 20170303102705438500</li>
+                                <li class="party">家家酒业</li>
+                                <li class="amount"> <strong class="price f60">-699.00</strong>
+                                </li>
+                                <li class="status">
+                                    <span class="gray ">交易关闭</span>
+                                </li>
+                                <li class="detail">
+                                    <a href="index.php?app=deposit&amp;act=record&amp;tradeNo=20170303102705438500">详情</a>
+                                </li>
+                            </ul>
+                            <ul class="clearfix" style="">
+                                <li class="time">2016.08.15 10:00:41</li>
+                                <li class="info break-word">支付 - 满包邮（12个月）</li>
+                                <li class="tradeNo break-word">569236335107 | 20160815100041711975</li>
+                                <li class="party">平台应用市场</li>
+                                <li class="amount">
+                                    <strong class="price f60">-60.00</strong>
+                                </li>
+                                <li class="status">
+                                    <span class="">交易完成</span>
+                                </li>
+                                <li class="detail">
+                                    <a href="index.php?app=deposit&amp;act=record&amp;tradeNo=20160815100041711975">详情</a>
+                                </li>
+                            </ul>
+                            <ul class="clearfix" style="">
+                                <li class="time">2016.08.15 10:00:28</li>
+                                <li class="info break-word">支付 - 满包邮（1个月）</li>
+                                <li class="tradeNo break-word">625606733340 | 20160815100028718932</li>
+                                <li class="party">平台应用市场</li>
+                                <li class="amount">
+                                    <strong class="price f60">-5.00</strong>
+                                </li>
+                                <li class="status">
+                                    <span class="">交易完成</span>
+                                </li>
+                                <li class="detail">
+                                    <a href="index.php?app=deposit&amp;act=record&amp;tradeNo=20160815100028718932">详情</a>
+                                </li>
+                            </ul>
+                            <ul class="clearfix" style="">
+                                <li class="time">2016.08.15 10:00:09</li>
+                                <li class="info break-word">支付 - 满折满减（12个月）</li>
+                                <li class="tradeNo break-word">123205561693 | 20160815100009341433</li>
+                                <li class="party">平台应用市场</li>
+                                <li class="amount">
+                                    <strong class="price f60">-120.00</strong>
+                                </li>
+                                <li class="status">
+                                    <span class="">交易完成</span>
+                                </li>
+                                <li class="detail">
+                                    <a href="index.php?app=deposit&amp;act=record&amp;tradeNo=20160815100009341433">详情</a>
+                                </li>
+                            </ul>
+                            <ul class="clearfix" style="">
+                                <li class="time">2016.08.15 09:58:55</li>
+                                <li class="info break-word">支付 - 加价购（12个月）</li>
+                                <li class="tradeNo break-word">813338759400 | 20160815095855132484</li>
+                                <li class="party">平台应用市场</li>
+                                <li class="amount">
+                                    <strong class="price f60">-120.00</strong>
+                                </li>
+                                <li class="status">
+                                    <span class="">交易完成</span>
+                                </li>
+                                <li class="detail">
+                                    <a href="index.php?app=deposit&amp;act=record&amp;tradeNo=20160815095855132484">详情</a>
+                                </li>
+                            </ul>
+                            <ul class="clearfix" style="">
+                                <li class="time">2016.08.15 09:58:43</li>
+                                <li class="info break-word">支付 - 手机专享（12个月）</li>
+                                <li class="tradeNo break-word">377300953678 | 20160815095843177839</li>
+                                <li class="party">平台应用市场</li>
+                                <li class="amount">
+                                    <strong class="price f60">-120.00</strong>
+                                </li>
+                                <li class="status">
+                                    <span class="">交易完成</span>
+                                </li>
+                                <li class="detail">
+                                    <a href="index.php?app=deposit&amp;act=record&amp;tradeNo=20160815095843177839">详情</a>
+                                </li>
+                            </ul>
+                            <ul class="clearfix" style="">
+                                <li class="time">2016.08.15 09:57:53</li>
+                                <li class="info break-word">支付 - 微分销（12个月）</li>
+                                <li class="tradeNo break-word">835154045204 | 20160815095753742957</li>
+                                <li class="party">平台应用市场</li>
+                                <li class="amount">
+                                    <strong class="price f60">-60.00</strong>
+                                </li>
+                                <li class="status">
+                                    <span class="">交易完成</span>
+                                </li>
+                                <li class="detail">
+                                    <a href="index.php?app=deposit&amp;act=record&amp;tradeNo=20160815095753742957">详情</a>
+                                </li>
+                            </ul>
+                            <ul class="clearfix" style="">
+                                <li class="time">2016.07.04 18:09:20</li>
+                                <li class="info break-word">支付 - 【支付测试】小米（MI）随身M...</li>
+                                <li class="tradeNo break-word">16185168202 | 20160704180920874094</li>
+                                <li class="party">buyer</li>
+                                <li class="amount">
+                                    <strong class="price green">+0.01</strong>
+                                </li>
+                                <li class="status">
+                                    <span class="gray ">交易关闭</span>
+                                </li>
+                                <li class="detail">
+                                    <a href="index.php?app=deposit&amp;act=record&amp;tradeNo=20160704180920874094">详情</a>
+                                </li>
+                            </ul>
+                            <ul class="clearfix" style="">
+                                <li class="time">2016.07.04 12:24:30</li>
+                                <li class="info break-word">支付 - 【支付测试】小米（MI）随身M...</li>
+                                <li class="tradeNo break-word">16185933222 | 20160704122430533580</li>
+                                <li class="party">buyer</li>
+                                <li class="amount">
+                                    <strong class="price green">+0.02</strong>
+                                </li>
+                                <li class="status">
+                                    <span class="">交易完成</span>
+                                </li>
+                                <li class="detail">
+                                    <a href="index.php?app=deposit&amp;act=record&amp;tradeNo=20160704122430533580">详情</a>
+                                </li>
+                            </ul>
+                            <div class="list-more">
+                                <a href="index.php?app=deposit&amp;act=tradelist">查看所有交易记录</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bank-info">
+                        <h1>银行卡</h1>
+                        <div class="explain">
+                            已绑定
+                            <span>2</span>
+                            张
+                        </div>
+                        <div class="action">
+                            <a href="index.php?app=bank&amp;act=add">+添加银行卡</a>
+                        </div>
+                        <ul class="cards clearfix">
+                            <li class="card">
+                                <h2>中国工商银行</h2>
+                                <div class="number">9559988888888888888</div>
+                                <div class="handle clearfix">
+                                    <div class="card-type credit">信用卡</div>
+                                    <div class="card-handle">
+                                        <a href="index.php?app=bank&amp;act=edit&amp;short_name=ICBC">编辑</a>
+                                        <a href="index.php?app=bank&amp;act=drop&amp;bid=13" onclick="return confirm('删除后不可恢复，您确认吗？')">删除</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="card">
+                                <h2>中国建设银行</h2>
+                                <div class="number">6222022102010296666</div>
+                                <div class="handle clearfix">
+                                    <div class="card-type debit">储蓄卡</div>
+                                    <div class="card-handle">
+                                        <a href="index.php?app=bank&amp;act=edit&amp;short_name=CCB">编辑</a>
+                                        <a href="index.php?app=bank&amp;act=drop&amp;bid=15" onclick="return confirm('删除后不可恢复，您确认吗？')">删除</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="card add-card">
+                            <a href="index.php?app=bank&amp;act=add&amp;type=debit" title="添加银行卡（储蓄卡）"><h1>+</h1>添加银行卡</a>
+                            </li>
+                            <li class="card add-card">
+                                <a href="index.php?app=bank&amp;act=add&amp;type=credit" title="添加银行卡（信用卡）">
+                                    <h1>+</h1>添加银行卡
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <!--end-->
+                <div class="member_no_records padding6">{$lang.no_records}{$lang.$smarty.get.act}</div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div class="clear"></div>
+<iframe id='iframe_post' name="iframe_post" frameborder="0" width="0" height="0"></iframe>
+{include file=footer.html}
+<script type="text/javascript">
+    var save_color;
+    $('.btn-alipay span').hover(function() {
+        save_color = $(this).css('background-color');
+        $(this).css('background-color','#F89A0A');
+    }, function() {
+        $(this).css('background-color',save_color);   
+    });
+    
+</script>
