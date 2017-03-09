@@ -205,11 +205,16 @@ class My_paymentApp extends StoreadminbaseApp
         {
             $data = array(
                 'payment_desc'  =>  $_POST['payment_desc'],
-                'config'        =>  $_POST['config'],
+                'config'        =>  serialize($_POST['config']),
                 'enabled'       =>  $_POST['enabled'],
                 'sort_order'    =>  $_POST['sort_order'],
             );
+            
+            /*$data['config']['alipay_partner']='1111';
+            $data['config']['sms_code']='1111';*/
+            
             $model_payment->edit("store_id =" . $this->visitor->get('manage_store') . " AND payment_id={$payment_id}", $data);
+
             if ($model_payment->has_error())
             {
                 //$this->show_warning($model_payment->get_error());

@@ -617,6 +617,12 @@ class MemberbaseApp extends MallbaseApp
                     'name'  => 'message',
                     'icon'  => 'ico3',
                 ),
+                'my_deposit'  => array(
+                    'text'  => Lang::get('my_deposit'),
+                    'url'   => 'index.php?app=deposit&act=deposit',
+                    'name'  => 'my_deposit',
+                    'icon'  => 'ico13',
+                ),
                 'friend'  => array(
                     'text'  => Lang::get('friend'),
                     'url'   => 'index.php?app=friend',

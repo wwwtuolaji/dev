@@ -970,7 +970,32 @@ class IndexApp extends IndexbaseApp
     function transaction()
     {
         $transaction_mod =& m('transaction');
+        $db=db();
+
+        //获取交易的数据信息
+        $transaction_arr= $transaction_mod->find(array('conditions'=>'transaction_status>-1 and transaction_count>0'));
+        
+        foreach ($transaction_arr as $key => $value) {
+            $transaction_arr[$key]['date_des']=date('Y-m-d H:i:s',$value['transaction_time']);
+             if ($value['goods_type'] == 2) {
+                    $transaction_arr[$key]['type_des'] = '中期茶';
+                } else if ($value['goods_type'] == 1) {
+                    $transaction_arr[$key]['type_des'] = '新茶';
+                } else {
+                    $transaction_arr[$key]['type_des'] = '当年茶';
+                }
+            $transaction_arr[$key]['temp_sn']=sprintf("%06d", $value['transaction_sn']);
+
+        }
+        $this->assign('transaction_arr',$transaction_arr);
+        // dump($transaction_arr);
         if ($_POST) {
+            if (empty($_POST['goods_id'])) {
+                echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                $this->show_warning('参数异常');
+                return;
+            }
+            $_POST['tea_type']=$this->_get_tea_des($_POST['goods_id']);
             if ($arr = $this->_check_is_empty($_POST)) {
                 //数据正常
                 extract($arr);
@@ -997,7 +1022,7 @@ class IndexApp extends IndexbaseApp
                     $transaction_status = 1;
                 }
                 $user_id = $this->visitor->get('user_id');
-
+                $waiting_price = $transaction_price*100*$transaction_count/100; 
                 $arr = array('goods_id' => $goods_id,
                     'goods_type' => $tea_type,
                     'transaction_status' => $transaction_status,
@@ -1009,18 +1034,57 @@ class IndexApp extends IndexbaseApp
                     'transaction_from_sn' => -1,
                     'date_format' => date('Y-m-d', time()),
                     'have_transaction' => 0,
+                    'waiting_pay_price'=>$waiting_price
                 );
+                
+                $use_money = $this->get_user_count();
+                $use_money_temp=intval($use_money*100);
+                $waiting_price_temp =intval($waiting_price*100);
+                if ($waiting_price_temp>$use_money_temp) {
+                     $this->show_warning('余额不足');
+                     return;
+                }
+                $db->query('SET AUTOCOMMIT=0');
+                $update_money=($use_money_temp-$waiting_price_temp)/100;
+                 //减少金额
+                $abstract="update ecm_member set use_money= '$update_money' where user_id=".$user_id;
+                $ab_result=$db->query($abstract);
+                //增加记录
                 $transaction = $transaction_mod->add($arr);
                 if ($transaction) {
+                     $money_hitory_mod =& m('money_history');
+                    //金额日志记录
+                    $add_money_arr = array(
+                    'transaction_sn' => $transaction,//历史id
+                    'money_from' => 0,
+                    'transaction_type' => 1,//0,收入 1支出
+                    'receive_money' => $waiting_price,
+                    'pay_time' => time(),
+                    'platform_from' => 0,//0,茶通历史表，1，商城 2，transaction
+                    'use_money_history' => $update_money,
+                    'user_id' => $user_id,
+                    'comments' =>"申请买入'$goods_name'扣款",
+                    );
+                    $money_hitory_mod->add($add_money_arr);
+                }
+                if ($transaction &&  $ab_result) {  
+                    $this->transaction_produce();
+                    $db->query('COMMIT');
+                    $db->query("SET AUTOCOMMIT=1");
                     echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
                     $this->show_message('添加成功',
                         'edit_again', 'index.php?app=index&act=transaction',
                         'back_list', 'index.php?app=tea'
                     );
                 } else {
-                    dump($transaction_mod);
-                }
+                     
+                     $db->query('ROLLBACK');
+                     $db->query("SET AUTOCOMMIT=1");
+                      echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                     $this->show_warning('添加失败');
+                } 
             } else {
+                echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
                 $this->show_warning('数据异常,请重新提交');
             }
         }
@@ -1054,10 +1118,36 @@ class IndexApp extends IndexbaseApp
                 $agent_transaction[$key]['format_time'] = date('Y-m-d H:i', $agent['transaction_time']);
             }
         }
+        $sql="SELECT * FROM ecm_transaction_history AS h inner JOIN ecm_transaction AS t on  h.sell_sn_id = t.transaction_sn OR h.buy_sn_id = t.transaction_sn WHERE user_id ={$user_info['user_id']}"; 
+        $history_transaction= $db->getall($sql);
+         if (!empty($history_transaction)) {
+            foreach ($history_transaction as $key => $agent) {
+                # code...
+                if ($agent['goods_type'] == 2) {
+                    $history_transaction[$key]['type_des'] = '中期茶';
+                } else if ($agent['goods_type'] == 1) {
+                    $history_transaction[$key]['type_des'] = '新茶';
+                } else {
+                    $history_transaction[$key]['type_des'] = '当年茶';
+                }
+                $history_transaction[$key]['total_count'] = $agent['transaction_price'] * $agent['transaction_history_count'];
+                if ($agent['transaction_status'] == 1) {
+                    $history_transaction[$key]['status_des'] = '卖';
+                } else {
+                    $history_transaction[$key]['status_des'] = '买';
+                }
+                $history_transaction[$key]['format_time'] = date('Y-m-d H:i', $agent['transaction_time']);
+            }
+        }
+        /*dump($history_transaction);*/
+
+        $this->assign('history_transaction',$history_transaction);
+
         $this->assign('agent_transaction', $agent_transaction);
         $user_name = $this->visitor->get('user_name');
         $out_data['user_name'] = $user_name;
         $drogue_arr = $this->_get_data();
+        $this->assign('user_id',$user_info['user_id']);
         $out_data['drogue_arr'] = $drogue_arr;
         $this->assign("out_data", $out_data);
         $this->import_resource(array(
@@ -1221,7 +1311,7 @@ class IndexApp extends IndexbaseApp
     {
         //1.没有交易过的，获取买的价格最高的前5名
         $db = db();
-        $get_mai = "select transaction_price,transaction_count from ecm_transaction where goods_id='$goods_id' and transaction_status=0 and have_transaction=0 order by transaction_price desc limit 5";
+        $get_mai = "select transaction_price,sum(transaction_count) as transaction_count from ecm_transaction where goods_id='$goods_id' and transaction_status=0 and transaction_count<>0 GROUP BY transaction_price order by transaction_price desc limit 5";
         $out_data['buy'] = $db->getall($get_mai);
         $buy_count = count($out_data['buy']);
         $while = 5 - $buy_count;
@@ -1230,7 +1320,7 @@ class IndexApp extends IndexbaseApp
         }
 
         //2.没有交易过的，获取卖的价格最低的前5名
-        $get_sell_mai = "select transaction_price,transaction_count from ecm_transaction where goods_id='$goods_id' and transaction_status=1 and have_transaction=0 order by transaction_price asc limit 5";
+        $get_sell_mai = "select transaction_price,sum(transaction_count) as transaction_count from ecm_transaction where goods_id='$goods_id' and transaction_status=1 and transaction_count<>0 GROUP BY transaction_price order by transaction_price asc limit 5";
         $out_data['sell'] = $db->getall($get_sell_mai);
         $sell_count = count($out_data['sell']);
         $while = 5 - $sell_count;
@@ -1267,7 +1357,7 @@ class IndexApp extends IndexbaseApp
             $end_time = $begin_time + (3600 * 24);
             //最新价格
             $new_price = $transaction['transaction_price'];
-            $get_kaipan_to = "select * from ecm_transaction where goods_id='$goods_id'and transaction_time > '$begin_time' and transaction_time < '$end_time' have_transaction >0 order by transaction_sn limit 1";
+            $get_kaipan_to = "select * from ecm_transaction where goods_id='$goods_id'and transaction_time > '$begin_time' and transaction_time < '$end_time'and have_transaction >0 order by transaction_sn limit 1";
             //重新定义交易信息获取当天的开盘价格
             $transaction = $db->getrow($get_kaipan_to);
             $transaction['new_price'] = $new_price;
@@ -1308,7 +1398,7 @@ class IndexApp extends IndexbaseApp
      * @return [type] [description]
      */
     function produce_share_tea()
-    {dump('禁止访问！');
+    {dump('禁止访问！');$this->insert_system_tea();
         //1.获取需要超差的id
         $sql = 'select goods_id from ecm_drogue group by goods_id';
         $db = db();
@@ -1352,7 +1442,7 @@ class IndexApp extends IndexbaseApp
     }
 
     function insert_system_tea()
-    {
+    {dump('禁止访问！');
       /* dump('禁止访问！');*/
         $db=db();
         $sql='select goods_id,stock,price from ecm_share_spec';
@@ -1443,8 +1533,10 @@ class IndexApp extends IndexbaseApp
 
             //验证user_money
             $user_money = $this->get_user_count();
+            $temp_money = $user_money*100;
+            $_POST['user_money']=$_POST['user_money']*100;
             /*echo "";*/
-            if ($_POST['user_money'] > $user_money) {
+            if ($_POST['user_money'] > $temp_money) {
                 $out_data = array('code' => 6,
                     'message' => "余额不足,当前余额为$user_money",
                     'data' => ''
@@ -1456,6 +1548,75 @@ class IndexApp extends IndexbaseApp
                     'data' => $user_money
                 );
             }
+            echo json_encode($out_data);
+            return;
+        } else {
+            $_SESSION["user_pwd_count_$user_id"]++;
+            $cha = 3 - $_SESSION["user_pwd_count_$user_id"];
+            $out_data = array('code' => 5,
+                'message' => "密码错误,剩余($cha)次!",
+                'data' => ''
+            );
+            echo json_encode($out_data);
+            return;
+        }
+
+    }
+    /**
+     * [for_sell_pwd 检查出售的密码]
+     * @return [type] [description]
+     */
+    function for_sell_pwd()
+    {
+        
+        if (empty($_POST['pay_pwd'])) {
+            $out_data = array('code' => 1,
+                'message' => '支付密码不能为空',
+                'data' => ''
+            );
+            echo json_encode($out_data);
+            return;
+        }
+        $user_id = $this->visitor->get('user_id');
+        if (empty($user_id)) {
+            $out_data = array('code' => 2,
+                'message' => '当前用户信息没有获取到，请重新登陆',
+                'data' => ''
+            );
+            echo json_encode($out_data);
+            return;
+        }
+        if (empty($_SESSION["user_pwd_count_$user_id"])) {
+            $_SESSION["user_pwd_count_$user_id"] = 0;
+        }
+        if ($_SESSION["user_pwd_count_$user_id"] >= 4) {
+            $out_data = array('code' => 3,
+                'message' => '您已经超出密码验证次数！',
+                'data' => ''
+            );
+            echo json_encode($out_data);
+            return;
+        }
+        $result = $this->check_pwd($_POST['pay_pwd']);
+        if ($result) {
+            $db=db();
+            $goods_id=$_POST['goods_id'];
+            $goods_count=$_POST['goods_count'];
+            //验证当前用户库存
+            $sql="select goods_count from ecm_own_warehouse where goods_id='$goods_id' and user_id='$user_id'";
+            $get_count=$db->getone($sql);
+            if ($goods_count>$get_count) {
+                $out_data = array('code' => 7,
+                        'message' => '库存不足',
+                        'data' => '',
+                );
+            }else{
+                    $out_data = array('code' => 0,
+                        'message' => '请求成功',
+                        'data' => '',
+                );
+            }
+            
             echo json_encode($out_data);
             return;
         } else {
@@ -1507,6 +1668,7 @@ class IndexApp extends IndexbaseApp
         $goods_count = $_POST['goods_count'];
         /*  dump($transaction_sn);*/
         /*$transaction_sn=67;*/
+       
         if (empty($transaction_sn)) {
             $out_data = array('code' => 1,
                 'message' => '参数异常',
@@ -1514,7 +1676,15 @@ class IndexApp extends IndexbaseApp
         } else {
             $transaction_sn = intval($transaction_sn);
             $transaction_mod =& m('transaction');
-            $tran_result = $transaction_mod->cancel_agent_mod($transaction_sn, $goods_count);
+            $user_id=$this->visitor->get('user_id');
+            if (empty($user_id)) {
+                $out_data = array('code' => 2,
+                    'message' => '当前用户信息没有获取到，请重新登陆',
+                    'data' => $transaction_sn);
+                 echo json_encode($out_data);
+                 return;
+            }
+            $tran_result = $transaction_mod->cancel_agent_mod($transaction_sn, $goods_count,$user_id);
             if ($tran_result) {
                 $out_data = array('code' => 0,
                     'message' => '请求成功',
@@ -1530,11 +1700,190 @@ class IndexApp extends IndexbaseApp
     }
 
     /**刷新当前当前用户交易状态*/
-    function transaction_produce($user_id)
-    {
+    function transaction_produce()
+    {   
+        if (empty($user_id)) {
+            $user_id=$this->visitor->get('user_id');
+
+        }
         $transaction_mod =& m('transaction');
         $transaction = $this->_get_agent_transaction($user_id);
+        /*dump($transaction);*/
         $transaction_mod->transaction_produce_mod($transaction);
+    }
+    /*检查当前用户的库存*/
+    function check_current_stock(){
+        $db=db();
+        $own_warehouse_mod =& m('own_warehouse');
+        $user_id=$this->visitor->get('user_id');
+        $goods_id=$_POST['goods_id'] ;
+        $sql = 'select goods_name from ecm_goods where goods_id=' . $_POST['goods_id'];
+        $goods_name = $db->getone($sql);
+        if (empty($goods_id)) {
+            $out_data=array(
+                'code'   =>'2',
+                'message'=>'参数异常',
+                'data'=>'');    
+        }else{
+             $arr=  $own_warehouse_mod ->find(array(
+                'conditions'=>"goods_id='$goods_id' and user_id='$user_id'"
+                ));
+          
+             if (!empty($arr)) {
+                 foreach ($arr as $key => $value) {
+                    $goods_counts=$value;
+                 }
+             }
+             if(empty($arr)){
+                $out_data=array(
+                'code'   =>'3',
+                'message'=>'库存不足',
+                'data'=>''); 
+                
+             }elseif (empty($goods_counts['goods_count'])) {
+                $out_data=array(
+                'code'   =>'3',
+                'message'=>'库存不足',
+                'data'=>''); 
+             }else{
+                $goods_counts['goods_name']=$goods_name;
+                $out_data=array(
+                'code'   =>'0',
+                'message'=>'请求成功',
+                'data'=>$goods_counts); 
+
+             }   
+        }
+        echo json_encode($out_data);
+    }
+    /*处理出售的茶叶信息*/
+    function produce_sell(){
+        if ($_POST) {
+            $db=db();
+            $transaction_mod =& m('transaction');
+            if (empty($_POST['goods_id'])) {
+                echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+            $this->show_warning('参数异常');
+            return;
+            }
+            $_POST['tea_type']=$this->_get_tea_des($_POST['goods_id']);
+            if ($arr = $this->_check_is_empty($_POST)) {
+                //数据正常
+                extract($arr);
+                if (strchr($tea_type, '新')) {
+                    $tea_type = 1;
+                } elseif (strchr($tea_type, '当')) {
+                    $tea_type = 0;
+                } elseif (strchr($tea_type, '中')) {
+                    $tea_type = 2;
+                }
+
+                if ($fruit == 1) {
+                    //买
+                    $transaction_status = 0;
+                    //校验支付密码
+                    $result = $this->check_pwd($confirm_pwd);
+                    if (!$result) {
+                        echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                        $this->show_warning('支付密码错误，请重新提交表单');
+                        return;
+                    }
+
+                } else {
+                    $transaction_status = 1;
+                    //校验支付密码
+                    $result = $this->check_pwd($confirm_pwd);
+                    if (!$result) {
+                        echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                        $this->show_warning('支付密码错误，请重新提交表单');
+                        return;
+                    }
+
+                }
+                $user_id = $this->visitor->get('user_id');
+
+                $arr = array('goods_id' => $goods_id,
+                    'goods_type' => $tea_type,
+                    'transaction_status' => $transaction_status,
+                    'goods_name' => $goods_name,
+                    'transaction_price' => $transaction_price,
+                    'transaction_count' => $transaction_count,
+                    'user_id' => $user_id,
+                    'transaction_time' => time(),
+                    'transaction_from_sn' => -1,
+                    'date_format' => date('Y-m-d', time()),
+                    'have_transaction' => 0,
+                );
+                
+                //获取当前库存信息，减少库存
+                $get_stock="select * from ecm_own_warehouse where goods_id='$goods_id' and user_id=$user_id";
+                $goods_warehouse=$db->getrow($get_stock);
+                if (empty($goods_warehouse['goods_count'])|| $goods_warehouse['goods_count']<$transaction_count) {
+                    echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                        $this->show_warning('库存不足');
+                        return;
+                }
+                //减少成本计算 ： 当前库存除以当前数量，求出平均价格 乘以要卖出的数量
+               /* $transaction_price=intval($transaction_price*100);
+                $abstract_price=$transaction_count*$transaction_price;*/
+                $transaction_price_total = intval($goods_warehouse['transaction_price']*100);
+                $transaction_prev_total  = $transaction_price_total/$goods_warehouse['goods_count'] ;
+                $transaction_prev_total = ceil($transaction_prev_total);
+                $transaction_price= $transaction_price_total- $transaction_prev_total*$transaction_count;
+                if ($transaction_price<0) {
+                   $transaction_price=0; 
+                }else{
+                   $transaction_price= $transaction_price/100; 
+                } 
+                //减少库存
+                $db->query("SET AUTOCOMMIT=0");
+                $abstract_stock="update ecm_own_warehouse set goods_count=goods_count-'$transaction_count',transaction_price='$transaction_price'where user_id='$user_id'and goods_id='$goods_id'";
+                $ab_result= $db->query($abstract_stock);
+                $transaction = $transaction_mod->add($arr);
+                if ($transaction && $ab_result) {
+                    $db->query('COMMIT');
+                    $db->query("SET AUTOCOMMIT=1");
+                    $this->transaction_produce();
+                    echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                    $this->show_message('添加成功');
+                    return;
+                } else {
+                     $db->query('ROLLBACK');
+                    $db->query("SET AUTOCOMMIT=1");
+                    echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                   $this->show_warning('添加失败');
+                   return;
+                }
+            } else {
+                echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                $this->show_warning('数据异常,请重新提交');
+            }
+        }else{
+         $this->show_warning('请求异常');   
+        }
+        
+    }
+
+    function _get_tea_des($goods_id)
+    {
+        $db=&db();
+        $get_tea_des="select cate_id from ecm_goods where goods_id=$goods_id ";
+        $goods_cate_id = $db->getone($get_tea_des);
+        if (in_array($goods_cate_id, array(84, 86, 87, 88, 89, 90, 91, 92, 93, 94, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111))) {
+            //中期茶中 期茶2010年之前        
+            $goods['type'] = 2;
+            $goods['type_des'] = '中期茶';
+        } else if (in_array($goods_cate_id, array(95, 96, 97, 98, 99, 112, 113, 114, 115, 116))) {
+            //新茶  新茶包含2010-2014
+            $goods['type'] = 1;
+            $goods['type_des'] = '新茶';
+        } else {
+            # code...
+            $goods['type'] = 0;
+            $goods['type_des'] = '当年茶';
+        }
+                
+        return   $goods['type_des'];
     }
   
 

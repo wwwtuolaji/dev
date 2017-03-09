@@ -353,6 +353,7 @@ class MemberApp extends MemberbaseApp
             $this->show_message('edit_profile_successed');
         }
     }
+   
     /**
      *    修改密码
      *
