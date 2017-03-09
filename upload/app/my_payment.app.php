@@ -127,7 +127,7 @@ class My_paymentApp extends StoreadminbaseApp
                 'payment_name'  => $payment['name'],
                 'payment_code'  => $code,
                 'payment_desc'  => $_POST['payment_desc'],
-                'config'        => $_POST['config'],
+                'config'        => serialize($_POST['config']),
                 'is_online'     => $payment['is_online'],
                 'enabled'       => $_POST['enabled'],
                 'sort_order'    => $_POST['sort_order'],
