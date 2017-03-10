@@ -72,12 +72,15 @@
         #agent .agent .mingxi-produce{
             margin:0 40px 0 45px;
         }
+         #today .agent .mingxi-produce{
+            margin:0 40px 0 45px;
+        }
         /* 调整茶叶风向标的css样式 */
        #my_div .DhPriceBox{
-            width: 1000px;
+            width: 1001px;
        }
         #my_div .DhPriceBox .dhbox{
-            width: 1000px;
+            width: 1001px;
         }
         #my_div .dh_pbox li .tit{
             width:120px;
@@ -389,6 +392,9 @@
 #agent .agent li{
     margin: 0 29px;
 }
+#today .agent li{
+    margin: 0 29px;
+}
 .agent_bot .mingxi_date{
     text-align: left;
     width: 70px;
@@ -415,6 +421,20 @@
 #agent .agent .agent_date{
     margin: 0 35px;
 }
+
+#today .agent .agent_nianfen{   
+    margin:0 16px;
+}#today .agent .agent_count{
+    margin: 0 20px;
+}#today .agent .mingxi_price_warehouse{
+    width: 88px;
+}#today .agent  .mingxi_price_pre{
+    margin: 0;
+}#today .agent .agent_buy{
+    margin: 0 15px 0 40px;
+}#today .agent .agent_date{
+    margin: 0 35px;
+}
 .agent_price_current{
     margin: 0;
     width: 127px;
@@ -428,6 +448,12 @@
     width: 88px;
 }
 #agent .agent_bot .mingxi_price_pre{
+    margin: 0;
+}
+#today .agent_bot .mingxi_price_warehouse{
+    width: 88px;
+}
+#today .agent_bot .mingxi_price_pre{
     margin: 0;
 }
 .agent_bot{
@@ -470,3 +496,4 @@
     color:#fff;
     background: #DC2E2E;
 }
+

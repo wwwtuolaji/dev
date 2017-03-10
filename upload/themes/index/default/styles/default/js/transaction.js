@@ -1,11 +1,16 @@
 $(function(){
 	//解决360兼容问题
 	$('#count_tran_in').removeAttr('readonly');
+	//解决谷歌的兼容问题
 	//持仓明细卖出
 	$('.mingxi_sell_btn button').on('click', function(event) {
 		var goods_id=$(this).attr('goods_id');
 		var goods_name=$(this).parent().parent().children().eq(0).html();
+		$('#goods_id').val(goods_id);
 		var count=$(this).parent().parent().children().eq(2).html();
+		var tea_des=$(this).parent().parent().children().eq(1).html();
+
+		$('#tea_type_hidden').val(tea_des);
 		$('#serch_content').val(goods_name);
 		//组装触发的表格
 		con_str_body='';
@@ -18,7 +23,27 @@ $(function(){
 		 $('#sell_out').click();
 		 $('#count_tran_in').val(count);
 
-	});	
+	});
+	//设置交易详情的点击事件处理
+	$('.buy_goods_transaction a').on('click',function(){
+		var goods_id=$(this).attr('goods_id');
+		var goods_name=$(this).attr('goods_name');
+		$('#goods_id').val(goods_id);
+		var count=$(this).children().children().eq(4).html();
+		var tea_des=$(this).attr('type_des');
+		$('#tea_type_hidden').val(tea_des);
+		$('#serch_content').val(goods_name);
+		//组装触发的表格
+		con_str_body='';
+		var con_str_head='<table>';
+		con_str_body +='<tr class="new_tr" goods_id="'+goods_id+'"><td>T00'+goods_id+'</td><td class="tea_name">'+goods_name+'</td></tr>';
+		con_str=con_str_head+con_str_body+'</tr></table>';  
+		 $("#produce_con").html(con_str);
+		 $("#transaction_nav").css('display','none');
+		 $('.new_tr[goods_id="'+goods_id+'"]').click();
+		 $('#sell_in').click();
+		 $('#count_tran_in').val(count);
+	})
 
 })
 
@@ -37,7 +62,7 @@ $('#mingxi_transaction').on('click',function(){
 });
 $('#today_transaction').on('click',function(){
 	$('.transaction_click').css('display','none');
-	$('#agent').css('display','');
+	$('#today').css('display','');
 	$('.chicang li').attr('class','');
 	$('.chicang li').eq(2).attr('class','center-jy');
 });
@@ -64,8 +89,9 @@ $('.agent_cancel button').on('click',function(){
         				layer.msg(out_data.message, {icon: 1});
         			}
         			//请求成功更改
-        			cur_button.parent().parent().css('display','none');
+        			cur_button.parent().parent().remove();
         			layer.msg('该委托已经取消', {icon: 1});
+        			location.reload();
         		}
         	})
         	.fail(function() {

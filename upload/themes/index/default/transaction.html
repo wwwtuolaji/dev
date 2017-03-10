@@ -69,123 +69,27 @@
                 </ul>
                 <div id="oDiv" style="height: 150px;overflow: hidden;width: 990px;">
                     <ul class='trans_bot_con'id="oUl">
-                        <li>
-                            <a href="ww">
+                       
+                        {foreach from=$transaction_arr item=transaction_}
+                        <li class='buy_goods_transaction'>
+                            <a href="javascript:;" sn="{$transaction_.transaction_sn}" goods_id="{$transaction_.goods_id}"goods_name="{$transaction_.goods_name}" goods_type="{$transaction_.type_des}">
                                 <ul>
-                                    <li class='tra'style='color: red'>买</li>
-                                    <li class='tra_sn'>100011</li>
-                                    <li class='tra_name'>正山古树春茶饼正山茶王</li>
-                                    <li class='tra_price'>3895.00</li>
-                                    <li class='tra_num'>12</li>
-                                    <li class='tra_time'>2017-02-06 08:32</li>
-                                </ul>
-                            </a>
-
-                        </li>
-                        <li>
-                            <a href="ww">
-                                <ul>
+                                    {if $transaction_.transaction_status eq 1}
                                     <li class='tra'style='color: green'>卖</li>
-                                    <li class='tra_sn'>100011</li>
-                                    <li class='tra_name'>正山古树春茶饼正山茶王</li>
-                                    <li class='tra_price'>3895.00</li>
-                                    <li class='tra_num'>12</li>
-                                    <li class='tra_time'>2017-02-06 08:32</li>
-                                </ul>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <ul>
+                                    {else}
                                     <li class='tra'style='color: red'>买</li>
-                                    <li class='tra_sn'>100011</li>
-                                    <li class='tra_name'>正山古树茶王</li>
-                                    <li class='tra_price'>3895.00</li>
-                                    <li class='tra_num'>12</li>
-                                    <li class='tra_time'>2017-02-06 08:32</li>
+                                    {/if}
+                                    <li class='tra_sn'>{$transaction_.temp_sn}</li>
+                                    <li class='tra_name'>{$transaction_.goods_name}</li>
+                                    <li class='tra_price'>￥{$transaction_.transaction_price}</li>
+                                    <li class='tra_num'>{$transaction_.transaction_count}</li>
+                                    <li class='tra_time'>{$transaction_.date_des}</li>
                                 </ul>
                             </a>
-
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <ul>
-                                    <li class='tra'style='color: red'>买</li>
-                                    <li class='tra_sn'>100011</li>
-                                    <li class='tra_name'>正山古树茶王</li>
-                                    <li class='tra_price'>3895.00</li>
-                                    <li class='tra_num'>12</li>
-                                    <li class='tra_time'>2017-02-06 08:32</li>
-                                </ul>
-                            </a>
-
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <ul>
-                                    <li class='tra'style='color: red'>买</li>
-                                    <li class='tra_sn'>100011</li>
-                                    <li class='tra_name'>正山古树茶王</li>
-                                    <li class='tra_price'>3895.00</li>
-                                    <li class='tra_num'>12</li>
-                                    <li class='tra_time'>2017-02-06 08:32</li>
-                                </ul>
-                            </a>
-
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <ul>
-                                    <li class='tra'style='color: red'>买</li>
-                                    <li class='tra_sn'>100011</li>
-                                    <li class='tra_name'>正山古树茶王</li>
-                                    <li class='tra_price'>3895.00</li>
-                                    <li class='tra_num'>12</li>
-                                    <li class='tra_time'>2017-02-06 08:32</li>
-                                </ul>
-                            </a>
-
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <ul>
-                                    <li class='tra'style='color: red'>买</li>
-                                    <li class='tra_sn'>100011</li>
-                                    <li class='tra_name'>正山古树茶王</li>
-                                    <li class='tra_price'>3895.00</li>
-                                    <li class='tra_num'>12</li>
-                                    <li class='tra_time'>2017-02-06 08:32</li>
-                                </ul>
-                            </a>
-
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <ul>
-                                    <li class='tra'style='color: red'>买</li>
-                                    <li class='tra_sn'>100011</li>
-                                    <li class='tra_name'>正山古树茶王</li>
-                                    <li class='tra_price'>3895.00</li>
-                                    <li class='tra_num'>12</li>
-                                    <li class='tra_time'>2017-02-06 08:32</li>
-                                </ul>
-                            </a>
-
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <ul>
-                                    <li class='tra'style='color: red'>买</li>
-                                    <li class='tra_sn'>100011</li>
-                                    <li class='tra_name'>正山古树茶王</li>
-                                    <li class='tra_price'>3895.00</li>
-                                    <li class='tra_num'>12</li>
-                                    <li class='tra_time'>2017-02-06 08:32</li>
-                                </ul>
-                            </a>
-
                         </li>
 
+                        {/foreach}
+                       
                     </ul>
                 </div>
             </div>
@@ -239,211 +143,209 @@
         <div class="buysell fl">
             <h3>交易申请</h3>
             <form method="post" action="index.php?app=index&act=transaction"id="myForm" >
-                产品:
-                <input type="text" id='serch_content' class="tran_in" name="goods_name" style="border:1px solid #aaa;height: 30px;">
+            <p> 产品:<input type="text" id='serch_content' class="tran_in" name="goods_name" style="border:1px solid #aaa;height: 30px; width: 160px;margin-left: 5px;">
+            </p>
                 <input type="text" id='goods_id' class="tran_in" name="goods_id" style="display: none">
                 <p>
                     年份:
-                    <span id='tea_type'>中期</span>
-                    <input type="text" id='tea_type_hidden' name="tea_type" style="display: none">
-                </p>
+                    <span id='tea_type'>暂无</span>
+                    <input type="text" id='tea_type_hidden' name="tea_type" style="display: none"></p>
                 市值：
                 <span  id='tea_price'style="font: 700 20px/40px 'Microsoft Yahei';color: #a00;"></span>
-            
-                 <br/>
+
+                <br/>
                 <label >
                     <input name="fruit" type="radio"checked_cho='false'value="1" checked="checked"id="sell_in" >买入</label>
                 <label >
                     <input name="fruit" type="radio" id='sell_out'value="2">卖出</label>
                 <br/>
                 <label >
-                     价格:
-                <input type="text" class="tran_in" id='input_price'name="transaction_price" style="width: 90px;border:1px solid #aaa;"> </label>
-                
-               <!--  <label id='fanwei'style="display: none" >
-               <br/>
-                   允许成交浮动范围0.
-                   <input type="text" class="tran_in" name="firstname" style="width: 17px; border:1px solid #aaa;margin-left: 1px;"maxlength='1'>
-                   <span>%</span>
-               </label> -->
-                <br/>
+                    价格:
+                    <input  type="text" class="tran_in" id='input_price'name="transaction_price" style="width: 90px;border:1px solid #aaa;"autocomplete="off"></label>
 
-                数量:
-                <input readonly=false type="text" id='count_tran_in'class="tran_in" name="transaction_count" style="width: 90px;border:1px solid #aaa;"maxlength='5'>
+                <!--  <label id='fanwei'style="display: none" >
                 <br/>
-                <input  id='confirm_order'type="checkbox" value="" />
-                下单确认
-                <br/>
-                <input style="display: none;" id='confirm_pwd' name='confirm_pwd' type='password'>
+                允许成交浮动范围0.
+                <input type="text" class="tran_in" name="firstname" style="width: 17px; border:1px solid #aaa;margin-left: 1px;"maxlength='1'>
+                <span>%</span>
+            </label>
+            -->
+            <br/>
+            数量:
+            <input readonly=false type="text" id='count_tran_in'class="tran_in" name="transaction_count" style="width: 90px;border:1px solid #aaa;"maxlength='5' autocomplete="off">
+            <br/>
+            <input  id='confirm_order'type="checkbox" value="" />
+            下单确认
+            <br/>
+            <input style="display: none;" id='confirm_pwd' name='confirm_pwd' type='password'>
             <div style="text-align:center;">
-                <input type='button' id='submit_aply' style="width: 150px;font: 700 20px/35px 'Microsoft Yahei';border:1px solid #888;"value='提交申请'>
-            </div>
-             </form >
+                <input type='button' id='submit_aply' style="width: 150px;font: 700 20px/35px 'Microsoft Yahei';border:1px solid #888;"value='提交申请'></div>
+        </form >
+    </div>
+    <!--交易持仓导航栏-->
+    <div id='transaction_nav' style="float: left;height: 300px;border:1px solid #aaa;">
+        <div class="chicang">
+            <ul>
+
+                <li class="center-jy">
+                    <a id='mingxi_transaction'>持仓明细</a>
+                </li>
+                <li>
+                    <a id='agent_transaction'>委托交易</a>
+                </li>
+                <li>
+                    <a id='today_transaction'>历史成交</a>
+                </li>
+            </ul>
         </div>
-        <!--交易持仓导航栏-->
-        <div id='transaction_nav' style="float: left;height: 300px;border:1px solid #aaa;">
-            <div class="chicang">
+        <!--持仓明细-->
+        <div id="mingxi" class="transaction_click">
+            <div class="mingxi" >
                 <ul>
-                    
-                      <li class="center-jy">
-                        <a id='mingxi_transaction'>持仓明细</a>
-                    </li>
-                    <li>
-                        <a id='agent_transaction'>委托交易</a>
-                    </li>
-                    <li>
-                        <a id='today_transaction'>今日成交</a>
-                    </li>
+                    <li class="mingxi-produce">产品</li>
+                    <li>年份</li>
+                    <li>持仓量</li>
+                    <li>持仓成本</li>
+                    <li>持仓均价</li>
+                    <li>当前价格</li>
+                    <li class='particular'>浮动盈亏</li>
+                    <li>操作</li>
                 </ul>
             </div>
-            <!--持仓明细-->
-            <div id="mingxi" class="transaction_click">
-                <div class="mingxi" >
-                    <ul>
-                        <li class="mingxi-produce">产品</li>
-                        <li>年份</li>
-                        <li>持仓量</li>
-                        <li>持仓成本</li>
-                        <li>持仓均价</li>
-                        <li>当前价格</li>
-                        <li class='particular'>浮动盈亏</li>
-                        <li>操作</li>
-                    </ul>
-                </div>
-                <div class="mingxi_bot">
-                    <ul>
-                        {foreach from=$particulars item=particular}
-                        <li>
-                            <ul>
-                                <li class="mingxi_name" title="{$particular.goods_name}">{$particular.goods_name}</li>
-                                <li class="mingxi_date">{$particular.type_des}</li>
-                                <li class="mingxi_num">{$particular.goods_count}</li>
-                                <li class="mingxi_price_warehouse">￥{$particular.transaction_price}</li>
-                                <li class="mingxi_price_pre">￥{$particular.pre_price}</li>
-                                <li class="mingxi_price_current">￥{$particular.current_price}</li>
-                                {if $particular.fdyk gte 0}
-                                <li class="mingxi_price_range" style="color: red">↑ {$particular.fdyk}%</li>
-                                {else}
-                                <li class="mingxi_price_range" style="color: green">↓ {$particular.fdyk}%</li>
-                                {/if}
-                                <li class="mingxi_sell_btn"><button goods_id="{$particular.goods_id}">卖出</button></li>
-                            </ul>
-                        </li>
-                        {/foreach}
-                    </ul>
-                </div>
-            </div>
-            <!--持仓明细结束-->
-            <!--委托交易-->
-            <div id='agent' class="transaction_click"style="display: none">
-                <div class="mingxi agent" >
-                    <ul>
-                        <li class="mingxi-produce">产品</li>
-                        <li class="agent_nianfen">年份</li>
-                        <li class="agent_count">数量</li>
-                        <li>单价</li>
-                        <li>总价</li>
-                        <li class="agent_buy">买/卖</li>
-                        <li class='agent_date'>委托时间</li>
-                        <li class='agent_cancel'>操作</li>
-                    </ul>
-                </div>
-                <div class="agent_bot">
-                    <ul >
-                        {foreach from=$agent_transaction item=transaction}
-                        <li>
-                            <ul>
-                                <li class="mingxi_name" title="{$transaction.goods_name}">{$transaction.goods_name}</li>
-                                <li class="mingxi_date">{$transaction.type_des}</li>
-                                <li class="mingxi_num">{$transaction.transaction_count}</li>
-                                <li class="mingxi_price_warehouse">￥{$transaction.transaction_price}</li>
-                                <li class="mingxi_price_total">￥{$transaction.total_count}</li>
-                                <li class="mingxi_price_pre">{$transaction.status_des}</li>
-                                <li class="agent_price_current">{$transaction.format_time}</li>
-                                <li class="agent_cancel"><button transaction_id="{$transaction.transaction_sn}">取消</button></li>
-                            </ul>
-                        </li>
-                        {/foreach}
-
-                    </ul>
-                </div> 
-            </div>
-            <!--委托交易结束-->
-        </div>
-        <div id='prodece_out' class='procduce' style="display:none;">
-            <div id='produce_tit'  style="float: left;height: 30px;border:1px solid #aaa; width: 765px;overflow: hidden;">
-                <div class='tea_serch_tit'>茶叶检索</div>
-                <span class="fr" id='close_produce'>关闭</span>
-            </div>
-            <div id='produce_con'style="float: left;height: 268px;border:1px solid #aaa; width: 765px;overflow: auto;">
-                <table>
-
-                    <tr>
-                        <td>T001000</td>
-                        <td class="tea_name">正山古树春茶饼正山茶王</td>
-                        <td>中期茶</td>
-
-                    </tr>
-                    <tr>
-                        <td>T0002000</td>
-                        <td class="tea_name">正山古树春茶饼正山茶王</td>
-                        <td>中期茶</td>
-
-                    </tr>
-                    <tr>
-                        <td>T0002000</td>
-                        <td class="tea_name">正山古树春茶饼正山茶王</td>
-                        <td>中期茶</td>
-
-                    </tr>
-                    <tr>
-                        <td>T0002000</td>
-                        <td class="tea_name">正山古树春茶饼正山茶王</td>
-                        <td>中期茶</td>
-
-                    </tr>
-                    <tr>
-                        <td>T0002000</td>
-                        <td class="tea_name">正山古树春茶饼正山茶王</td>
-                        <td>中期茶</td>
-
-                    </tr>
-                    <tr>
-                        <td>T0002000</td>
-                        <td class="tea_name">正山古树春茶饼正山茶王</td>
-                        <td>中期茶</td>
-
-                    </tr>
-                    <tr>
-                        <td colspan="100" class='final_table'>
-                            <button>上一页</button>
-                            <button>下一页</button>
-                        </td>
-                    </tr>
-                    <tr></tr>
-                </table>
+            <div class="mingxi_bot">
+                <ul>
+                    {foreach from=$particulars item=particular}
+                    <li>
+                        <ul>
+                            <li class="mingxi_name" title="{$particular.goods_name}">{$particular.goods_name}</li>
+                            <li class="mingxi_date">{$particular.type_des}</li>
+                            <li class="mingxi_num">{$particular.goods_count}</li>
+                            <li class="mingxi_price_warehouse">￥{$particular.transaction_price}</li>
+                            <li class="mingxi_price_pre">￥{$particular.pre_price}</li>
+                            <li class="mingxi_price_current">￥{$particular.current_price}</li>
+                            {if $particular.fdyk gte 0}
+                            <li class="mingxi_price_range" style="color: red">↑ {$particular.fdyk}%</li>
+                            {else}
+                            <li class="mingxi_price_range" style="color: green">↓ {$particular.fdyk}%</li>
+                            {/if}
+                            <li class="mingxi_sell_btn">
+                                <button goods_id="{$particular.goods_id}">卖出</button>
+                            </li>
+                        </ul>
+                    </li>
+                    {/foreach}
+                </ul>
             </div>
         </div>
-        <!--茶产品详情 -->
-        <div id='prodece_info'class='procduce'style="display: none;" >
-            <div class='fl baidu_echars' >
-                <!--start -->
-                <div id="saveEchart">
-                    <div class="container" id="main" style="height:270px;width:540px;margin: 0 auto;"></div>
-                </div>
-                <!--end-->
-                <div style="margin-top: 10px;height: 30px;">
-                    <div class="search_price_drogue" style="text-align: center;">
-                        <form method="post" action="goods.php?id=1547" onsubmit="return checktime()">
+        <!--持仓明细结束-->
+        <!--委托交易-->
+        <div id='agent' class="transaction_click"style="display: none">
+            <div class="mingxi agent" >
+                <ul>
+                    <li class="mingxi-produce">产品</li>
+                    <li class="agent_nianfen">年份</li>
+                    <li class="agent_count">数量</li>
+                    <li>单价</li>
+                    <li>总价</li>
+                    <li class="agent_buy">买/卖</li>
+                    <li class='agent_date'>委托时间</li>
+                    <li class='agent_cancel'>操作</li>
+                </ul>
+            </div>
+            <div class="agent_bot">
+                <ul >
+                    {foreach from=$agent_transaction item=transaction}
+                    <li>
+                        <ul>
+                            <li class="mingxi_name" title="{$transaction.goods_name}">{$transaction.goods_name}</li>
+                            <li class="mingxi_date">{$transaction.type_des}</li>
+                            <li class="mingxi_num">{$transaction.transaction_count}</li>
+                            <li class="mingxi_price_warehouse">￥{$transaction.transaction_price}</li>
+                            <li class="mingxi_price_total">￥{$transaction.total_count}</li>
+                            <li class="mingxi_price_pre">{$transaction.status_des}</li>
+                            <li class="agent_price_current">{$transaction.format_time}</li>
+                            <li class="agent_cancel">
+                                <button transaction_id="{$transaction.transaction_sn}">取消</button>
+                            </li>
+                        </ul>
+                    </li>
+                    {/foreach}
+                </ul>
+            </div>
+        </div>
+        <!--委托交易结束-->
+        <!--今日成交-->
+          <div id='today' class="transaction_click"style="display: none">
+            <div class="mingxi agent" >
+                <ul>
+                    <li class="mingxi-produce">产品</li>
+                    <li class="agent_nianfen">年份</li>
+                    <li class="agent_count">数量</li>
+                    <li>单价</li>
+                    <li>总价</li>
+                    <li class="agent_buy">买/卖</li>
+                    <li class='agent_date'>交易时间</li>
+                    <li class='agent_cancel'>状态</li>
+                </ul>
+            </div>
+            <div class="agent_bot">
+                <ul >
+                    {foreach from=$history_transaction item=hisory}
+                    <li>
+                        <ul>
+                            <li class="mingxi_name" title="{$hisory.goods_name}">{$hisory.goods_name}</li>
+                            <li class="mingxi_date">{$hisory.type_des}</li>
+                            <li class="mingxi_num">{$hisory.transaction_history_count}</li>
+                            <li class="mingxi_price_warehouse">￥{$hisory.transaction_price}</li>
+                            <li class="mingxi_price_total">￥{$hisory.total_count}</li>
+                            <li class="mingxi_price_pre">{$hisory.status_des}</li>
+                            <li class="agent_price_current">{$hisory.format_time}</li>
+                            <li class="agent_cancel">
+                                <span>已成交</span>
+                              
+                            </li>
+                        </ul>
+                    </li>
+                    {/foreach}
+                </ul>
+            </div>
+        </div>
+
+        <!--今日成交结束-->
+         </div>
+    <div id='prodece_out' class='procduce' style="display:none;">
+        <div id='produce_tit'  style="float: left;height: 30px;border:1px solid #aaa; width: 765px;overflow: hidden;">
+            <div class='tea_serch_tit'>茶叶检索</div>
+            <span class="fr" id='close_produce'>关闭</span>
+        </div>
+        <div id='produce_con'style="float: left;height: 268px;border:1px solid #aaa; width: 765px;overflow: auto;">
+            <table>
+
+                    <input id="user_id" user_id="{$user_id}"value="0" type="text" style="display: none">
+            </table>
+        </div>
+    </div>
+    <!--茶产品详情 -->
+    <div id='prodece_info'class='procduce'style="display: none;" >
+        <div class='fl baidu_echars' >
+            <!--start -->
+            <div id="saveEchart">
+                <div class="container" id="main" style="height:270px;width:540px;margin: 0 auto;"></div>
+            </div>
+            <!--end-->
+            <div style="margin-top: 10px;height: 30px;">
+                <div class="search_price_drogue" style="text-align: center;">
+                    <form method="post" action="goods.php?id=1547" onsubmit="return checktime()">
                         <input size="10" value="{$temp_start_time}" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" name="begin_day" id="begin_day1" class="inputbg5" type="text">
                         &nbsp;至&nbsp;&nbsp;
                         <input size="10" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="{$temp_end_time}" name="end_day" id="end_day1" class="inputbg5" type="text">
-                        <input style="background: #FF7F50 none repeat scroll 0 0; border: 1px solid #FF7F50; border-radius: 3px; color: #fff; cursor: pointer; height: 25px; line-height: 22px; margin-left: 5px; text-align: center; width: 41px;"class="submitnow" value="查询"id="commit_date" type="button"> <input name="size" value="10" type="hidden">
+                        <input style="background: #FF7F50 none repeat scroll 0 0; border: 1px solid #FF7F50; border-radius: 3px; color: #fff; cursor: pointer; height: 25px; line-height: 22px; margin-left: 5px; text-align: center; width: 41px;"class="submitnow" value="查询"id="commit_date" type="button">
+                        <input name="size" value="10" type="hidden">
                         <input name="sort_time" value="0" type="hidden"></form>
-                     </div>
-                 </div>
-               
+                </div>
             </div>
+
+        </div>
         <div class='transaction_info'>
             <table id='pan_table'>
                 <tr>
@@ -451,7 +353,9 @@
                     <td class='order_dian'>5</td>
                     <td class="cent_dian">3.454</td>
                     <td class='final_dian'>45</td>
-                    <td class='close_cur' ><span class="fr" id='close_produce_re'>关闭</span></td>
+                    <td class='close_cur' >
+                        <span class="fr" id='close_produce_re'>关闭</span>
+                    </td>
                 </tr>
                 <tr>
                     <td class='order_dian'>4</td>
@@ -472,7 +376,7 @@
                     <td class='order_dian'>1</td>
                     <td class="cent_dian">3.454</td>
                     <td class="final_dian">23</td>
-                </tr> 
+                </tr>
                 <tr class="ge">
                     <td colspan="100">
                         <span></span>
@@ -506,11 +410,12 @@
                 </tr>
             </table>
         </div>
-      <!--   <span class="fr" id='close_produce_re'>关闭</span> -->
-    </div>
+        <!--   <span class="fr" id='close_produce_re'>关闭</span>
+    -->
+</div>
 </div>
 <div>
-    <!--调用商城信息-->
+<!--调用商城信息-->
 </div>
 </div>
 <!--底部-->
@@ -567,98 +472,177 @@
                 return;
              }
             goods_id=$('#goods_id').val();
-            $.ajax({
-                url: 'index.php?app=index&act=get_goods_name',
-                type: 'POST',
-                dataType: 'json',
-                data: {goods_id: goods_id},
-                success:function(outdata){
-                    if (outdata.code!=0) {
-                       alert(outdata.message); 
-                       return;
+            if(choose==2){
+                //卖出
+                $.ajax({
+                    url: 'index.php?app=index&act=check_current_stock',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {goods_id: goods_id},
+                    success:function(outdata){
+                        if (outdata.code!=0) {
+                           alert(outdata.message); 
+                           return;
+                        }
+                        $(this).attr("disabled", true); 
+                          //open弹出一个页面层
+                        layer.open({
+                          type: 1,//0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）。 若你采用layer.open({type: 1})方式调用，则type为必填项（信息框除外）
+                          title: ['【卖出】茶叶交易订单确认', 'font-size:18px;'],//如果你不想显示标题栏，你可以title: false  不想自定义样式 title：'标题'
+                          area: ['500px', '300px'],//弹出层的宽高 默认自适应
+                          //offset: ['100px', '200px'],//默认垂直水平居中  当您top、left都要定义时，你可以offset: ['100px', '200px']。除此之外，你还可以定义offset: 'rb'，表示右下角。其它的特殊坐标，你可以自己计算赋值。
+                          shade: [0.8, '#393D49'],//弹层外区域。默认是0.3透明度的黑色背景（'#000'）。如果你想定义别的颜色，可以shade: [0.8, '#393D49']；如果你不想显示遮罩，可以shade: 0
+                          shadeClose: false, //如果你的shade是存在的，那么你可以设定shadeClose来控制点击弹层外区域关闭。默认值false
+                          closeBtn: 1,//layer提供了两种风格的关闭按钮，可通过配置1和2来展示，如果不显示，则closeBtn: 0
+                          btn: ['确定卖出', '取消'],
+                          //time: 5000,//默认不会自动关闭。当你想自动关闭时，可以time: 5000，即代表5秒后自动关闭
+                          shift:2,//我们的出场动画全部采用CSS3目前shift可支持的动画类型有0-6
+                          maxmin: true,//该参数值对type:1和type:2有效
+                          yes: function(index, layero){
+                            pay_pwd=$('#pay_pwd').val();
+                            $.ajax({
+                                url: 'index.php?app=index&act=for_sell_pwd',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: {pay_pwd: pay_pwd,goods_count:count_tran_in,goods_id:goods_id},
+                                success:function(data){
+                                    if (data.code!=0) 
+                                    {
+                                        layer.alert(data.message, {
+                                                    title:'警告',
+                                                    icon: 2,
+                                                    skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                                                },function(index_s){ 
+                                                    layer.close(index_s);
+                                                });//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6
+                                                return;
+                                    }
+                                    $('#confirm_pwd').val(pay_pwd);
+                                    layer.close(index);
+                                    //按钮1的回调
+                                    layer.msg('提交成功',{icon: 1},{time:5});//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6
+                                    $('#myForm').attr('action','index.php?app=index&act=produce_sell');
+                                    //表单提交
+                                    $("#myForm").submit();
+                                }    
+
+                            })
+                            .fail(function() {
+                                console.log("error");
+                                layer.alert('请求异常！请重试！', {
+                                                    title:'警告',
+                                                    icon: 2,
+                                                    skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                                                },function(index_s){ 
+                                                    layer.close(index_s);
+                                                });//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6
+                                                return;
+
+                            });
+                            },
+                          btn2: function(index, layero){
+                            //按钮2的回调
+                            layer.close(index);
+                             setTimeout("set_continue()",2000);
+                          },
+                          cancel: function(){ 
+                            // alert("点击右上角关闭的回调");
+                             setTimeout("set_continue()",2000);
+                          },
+                          content: '\<\div style="padding:30px 30px 0;">\<\lable style="font: 100 16px/25px \'Microsoft Yahei\'">茶叶名称：\<\/lable>\<\span style="font:100 14px/25px \'Microsoft Yahei\'">'+outdata.data.goods_name+'\<\/span>\<br\/>\<\lable style="font: 100 16px/25px \'Microsoft Yahei\'">茶叶数量：\<\/lable>\<\span style="font:100 14px/25px \'Microsoft Yahei\'">'+count_tran_in+'\<\span>\<br\/>'+
+                            '\<\lable style="font: 100 16px/25px \'Microsoft Yahei\'">茶叶单价：\<\/lable>\<\span style="font:100 14px/25px \'Microsoft Yahei\'">'+input_price+'\<\span>\<br\/>'+
+                            '\<\lable style="font: 100 16px/25px \'Microsoft Yahei\'">金额合计：\<\/lable>\<\span style="font:100 14px/25px \'Microsoft Yahei\'">'+total_count+'\<\span>\<br\/>'+
+                            '\<span id="haha" style="font: 100 16px/25px \'Microsoft Yahei\'">支付密码：\<\/span><input id="pay_pwd" type="password" style="border:1px solid #aaa;font: 100 16px/25px \'Microsoft Yahei\'" maxlength="6"\/>' 
+                          });
+                          return;
+                        //end
                     }
-                    $(this).attr("disabled", true); 
-                      //open弹出一个页面层
-                    layer.open({
-                      type: 1,//0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）。 若你采用layer.open({type: 1})方式调用，则type为必填项（信息框除外）
-                      title: ['茶叶交易订单确认', 'font-size:18px;'],//如果你不想显示标题栏，你可以title: false  不想自定义样式 title：'标题'
-                      area: ['500px', '300px'],//弹出层的宽高 默认自适应
-                      //offset: ['100px', '200px'],//默认垂直水平居中  当您top、left都要定义时，你可以offset: ['100px', '200px']。除此之外，你还可以定义offset: 'rb'，表示右下角。其它的特殊坐标，你可以自己计算赋值。
-                      shade: [0.8, '#393D49'],//弹层外区域。默认是0.3透明度的黑色背景（'#000'）。如果你想定义别的颜色，可以shade: [0.8, '#393D49']；如果你不想显示遮罩，可以shade: 0
-                      shadeClose: false, //如果你的shade是存在的，那么你可以设定shadeClose来控制点击弹层外区域关闭。默认值false
-                      closeBtn: 1,//layer提供了两种风格的关闭按钮，可通过配置1和2来展示，如果不显示，则closeBtn: 0
-                      btn: ['确定支付', '取消'],
-                      //time: 5000,//默认不会自动关闭。当你想自动关闭时，可以time: 5000，即代表5秒后自动关闭
-                      shift:2,//我们的出场动画全部采用CSS3目前shift可支持的动画类型有0-6
-                      maxmin: true,//该参数值对type:1和type:2有效
-                      yes: function(index, layero){
-                        pay_pwd=$('#pay_pwd').val();
-                        $.ajax({
-                            url: 'index.php?app=index&act=for_ajax_pwd',
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {pay_pwd: pay_pwd,user_money:total_count},
-                            success:function(data){
-                                if (data.code!=0) 
-                                {
-                                    layer.alert(data.message, {
-                                                title:'警告',
-                                                icon: 2,
-                                                skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
-                                            },function(index_s){ 
-                                                layer.close(index_s);
-                                            });//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6
-                                            return;
-                                }
-                                $('#confirm_pwd').val(pay_pwd);
-                                layer.close(index);
-                                //按钮1的回调
-                                layer.msg('提交成功',{icon: 1},{time:5});//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6
-                                //表单提交
-                                $("#myForm").submit();
-                            }
-                            
+                }) 
+            }else{
+                $.ajax({
+                    url: 'index.php?app=index&act=get_goods_name',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {goods_id: goods_id},
+                    success:function(outdata){
+                        if (outdata.code!=0) {
+                           alert(outdata.message); 
+                           return;
+                        }
+                        $(this).attr("disabled", true); 
+                          //open弹出一个页面层
+                        layer.open({
+                          type: 1,//0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）。 若你采用layer.open({type: 1})方式调用，则type为必填项（信息框除外）
+                          title: ['【买入】茶叶交易订单确认', 'font-size:18px;'],//如果你不想显示标题栏，你可以title: false  不想自定义样式 title：'标题'
+                          area: ['500px', '300px'],//弹出层的宽高 默认自适应
+                          //offset: ['100px', '200px'],//默认垂直水平居中  当您top、left都要定义时，你可以offset: ['100px', '200px']。除此之外，你还可以定义offset: 'rb'，表示右下角。其它的特殊坐标，你可以自己计算赋值。
+                          shade: [0.8, '#393D49'],//弹层外区域。默认是0.3透明度的黑色背景（'#000'）。如果你想定义别的颜色，可以shade: [0.8, '#393D49']；如果你不想显示遮罩，可以shade: 0
+                          shadeClose: false, //如果你的shade是存在的，那么你可以设定shadeClose来控制点击弹层外区域关闭。默认值false
+                          closeBtn: 1,//layer提供了两种风格的关闭按钮，可通过配置1和2来展示，如果不显示，则closeBtn: 0
+                          btn: ['确定支付', '取消'],
+                          //time: 5000,//默认不会自动关闭。当你想自动关闭时，可以time: 5000，即代表5秒后自动关闭
+                          shift:2,//我们的出场动画全部采用CSS3目前shift可支持的动画类型有0-6
+                          maxmin: true,//该参数值对type:1和type:2有效
+                          yes: function(index, layero){
+                            pay_pwd=$('#pay_pwd').val();
+                            $.ajax({
+                                url: 'index.php?app=index&act=for_ajax_pwd',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: {pay_pwd: pay_pwd,user_money:total_count},
+                                success:function(data){
+                                    if (data.code!=0) 
+                                    {
+                                        layer.alert(data.message, {
+                                                    title:'警告',
+                                                    icon: 2,
+                                                    skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                                                },function(index_s){ 
+                                                    layer.close(index_s);
+                                                });//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6
+                                                return;
+                                    }
+                                    $('#confirm_pwd').val(pay_pwd);
+                                    layer.close(index);
+                                    //按钮1的回调
+                                    layer.msg('提交成功',{icon: 1},{time:5});//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6
+                                    //表单提交
+                                    $("#myForm").submit();
+                                }    
 
+                            })
+                            .fail(function() {
+                                console.log("error");
+                                layer.alert('请求异常！请重试！', {
+                                                    title:'警告',
+                                                    icon: 2,
+                                                    skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                                                },function(index_s){ 
+                                                    layer.close(index_s);
+                                                });//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6
+                                                return;
 
-                        })
-                        .fail(function() {
-                            console.log("error");
-                            layer.alert('请求异常！请重试！', {
-                                                title:'警告',
-                                                icon: 2,
-                                                skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
-                                            },function(index_s){ 
-                                                layer.close(index_s);
-                                            });//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6
-                                            return;
-
-                        });
-                        
-                        
-                       
-                       
-                      },
-                      btn2: function(index, layero){
-                        //按钮2的回调
-                        layer.close(index);
-                         setTimeout("set_continue()",2000);
-                      },
-                      cancel: function(){ 
-                        // alert("点击右上角关闭的回调");
-                         setTimeout("set_continue()",2000);
-                      },
-                      content: '\<\div style="padding:30px 30px 0;">\<\lable style="font: 100 16px/25px \'Microsoft Yahei\'">茶叶名称：\<\/lable>\<\span style="font:100 14px/25px \'Microsoft Yahei\'">'+outdata.data+'\<\/span>\<br\/>\<\lable style="font: 100 16px/25px \'Microsoft Yahei\'">茶叶数量：\<\/lable>\<\span style="font:100 14px/25px \'Microsoft Yahei\'">'+count_tran_in+'\<\span>\<br\/>'+
-                        '\<\lable style="font: 100 16px/25px \'Microsoft Yahei\'">茶叶单价：\<\/lable>\<\span style="font:100 14px/25px \'Microsoft Yahei\'">'+input_price+'\<\span>\<br\/>'+
-                        '\<\lable style="font: 100 16px/25px \'Microsoft Yahei\'">金额合计：\<\/lable>\<\span style="font:100 14px/25px \'Microsoft Yahei\'">'+total_count+'\<\span>\<br\/>'+
-                        '\<span id="haha" style="font: 100 16px/25px \'Microsoft Yahei\'">支付密码：\<\/span><input id="pay_pwd" type="password" style="border:1px solid #aaa;font: 100 16px/25px \'Microsoft Yahei\'" maxlength="6"\/>' 
-                      });
-                      return;
-                    //end
-                }
-            })
-            
-           
-          
+                            });
+                            },
+                          btn2: function(index, layero){
+                            //按钮2的回调
+                            layer.close(index);
+                             setTimeout("set_continue()",2000);
+                          },
+                          cancel: function(){ 
+                            // alert("点击右上角关闭的回调");
+                             setTimeout("set_continue()",2000);
+                          },
+                          content: '\<\div style="padding:30px 30px 0;">\<\lable style="font: 100 16px/25px \'Microsoft Yahei\'">茶叶名称：\<\/lable>\<\span style="font:100 14px/25px \'Microsoft Yahei\'">'+outdata.data+'\<\/span>\<br\/>\<\lable style="font: 100 16px/25px \'Microsoft Yahei\'">茶叶数量：\<\/lable>\<\span style="font:100 14px/25px \'Microsoft Yahei\'">'+count_tran_in+'\<\span>\<br\/>'+
+                            '\<\lable style="font: 100 16px/25px \'Microsoft Yahei\'">茶叶单价：\<\/lable>\<\span style="font:100 14px/25px \'Microsoft Yahei\'">'+input_price+'\<\span>\<br\/>'+
+                            '\<\lable style="font: 100 16px/25px \'Microsoft Yahei\'">金额合计：\<\/lable>\<\span style="font:100 14px/25px \'Microsoft Yahei\'">'+total_count+'\<\span>\<br\/>'+
+                            '\<span id="haha" style="font: 100 16px/25px \'Microsoft Yahei\'">支付密码：\<\/span><input id="pay_pwd" type="password" style="border:1px solid #aaa;font: 100 16px/25px \'Microsoft Yahei\'" maxlength="6"\/>' 
+                          });
+                          return;
+                        //end
+                    }
+                })   
+            }
           /*  $(this).attr("disabled", true); 
 
             layer.msg('提交成功',{icon: 1},{time:5});//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6
@@ -695,19 +679,22 @@
       $("#oDiv").mouseout(function(){
         st_int=setInterval('autoScroll("#oDiv", "#oUl")',3000);
     });
-    $('#input_price').on('onkeyup',function(){
-         this.value=this.value.replace(/[^\d.]/g,'');
+    $('#input_price').on('keyup',function(){
+        var temp=$(this).val().replace(/[^\d.]/g,''); 
+        $(this).val(temp);
     });
 
     $('#input_price').on('change', function(event) {
-       this.value=this.value.replace(/[^\d.]/g,'');
+        event.preventDefault();
+         var temp=$(this).val().replace(/[^\d.]/g,''); 
+        $(this).val(temp);
         /*买卖价格：不高于涨停价，不低于跌停价*/
         //涨停价格
         var kpan= $('.share_price_count').eq('0').html();
         var zht= $('.share_price_count').eq('6').html();
         var dting= $('.share_price_count').eq('7').html();
         if (kpan==''||zht==undefined||kpan=='--'||zht=='--') {
-             $('#input_price').val('');
+            /* $('#input_price').val('');
             layer.alert('请优先选择商品！', {
                                 title:'警告',
                                 icon: 2,
@@ -716,7 +703,8 @@
                                 $('#close_produce').click(); 
                                 layer.close(index);  
                                 return;
-                            });//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6
+                            });//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6*/
+            return;
         }
         kpan=parseFloat(kpan);
         dting=parseFloat(dting);
@@ -748,30 +736,37 @@
                                 
                                 return;
                             });//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6
+            return;
             }
 
     });
     $('#count_tran_in').on('keyup',function(){
-        this.value=this.value.replace(/[^\d]/g,''); 
+        var temp=$(this).val().replace(/[^\d]/g,''); 
+        $(this).val(temp);
     })
     /*数量输入监听*/
     $('#count_tran_in').on('change',function(event){
-        this.value=this.value.replace(/[^\d]/g,''); 
+        event.preventDefault();
+        var temp=$(this).val().replace(/[^\d]/g,''); 
+        $(this).val(temp); 
         var sell_count=$('#sell_count').val();
         if (sell_count=='') {
            /* $('#count_tran_in').val(''); */
-            layer.alert('请优先选择商品', {
+          /*  layer.alert('请优先选择商品', {
                                 title:'警告',
                                 icon: 2,
                                 skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
                             },function(index){
                                 
                                 layer.close(index);
-                            });//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6
+                            });//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6*/
                         return;
         }
          count_tran_in= $(this).val();
-       /* if (count_tran_in>sell_count) {
+        count_tran_in= parseInt(count_tran_in);
+        sell_count=parseInt(sell_count);
+         choose_status=get_choose();
+        if (choose_status==2&&count_tran_in>sell_count) {
             $(this).val(sell_count);
             layer.alert('商品数量最多可选'+sell_count, {
                                 title:'警告',
@@ -782,7 +777,8 @@
                                 layer.close(index);
                             });//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6
             return;
-        }else */if(count_tran_in==0){
+        }
+         if(count_tran_in==0){
             $(this).val('');
             layer.alert('数量不能为空', {
                                 title:'警告',
@@ -794,18 +790,29 @@
                             });//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6
             return;
         }
-        sell_count=parseInt(sell_count);
+        
      
     })
 
-$('#serch_content').on('keyup change',function(){
-    $("#prodece_info").css('display','none');
+var temp_value;
+
+$('#serch_content').on('keyup change',function(event){
     serch_content=$(this).val();
+    if (event.type=='change') {
+        if (temp_value==serch_content) {
+            return;
+        }
+    }else{
+      temp_value=serch_content; 
+    }
+    $("#prodece_info").css('display','none');
+
     if (serch_content=='') {
         $("#prodece_out").css('display','none');
         $("#transaction_nav").css('display','');
         return;
     }
+    $('#sell_in').click();
     /*
     return;*/
     $.ajax({
@@ -1279,5 +1286,46 @@ $('#sell_out').on('click',function(){
     $('#sell_in').attr('checked_cho','false');
    /* $('#fanwei').css('display','');*/
     $(this).attr('checked_cho','checked');
+    //卖出的时候要做校验是否有该商品，数量是够卖出
+    goods_id= $('#goods_id').val();
+    if (goods_id==''||goods_id==undefined) {
+          layer.alert('请优先选择商品！', {
+                            title:'警告',
+                            icon: 2,
+                            skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                        },function(index){ 
+                            $('#sell_in').click(); 
+                            layer.close(index);
+                           
+                        });//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6
+          return;
+    }
+
+    //发送ajax请求检查当前用户该商品的库存
+    $.ajax({
+       url: 'index.php?app=index&act=check_current_stock',
+       type: 'POST',
+       dataType: 'json',
+       data: {goods_id: goods_id},
+       success:function(out_data){
+            if (out_data.code!=0) {
+                   layer.alert(out_data.message, {
+                            title:'警告',
+                            icon: 2,
+                            skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                        },function(index){ 
+                            $('#sell_in').click(); 
+                            layer.close(index);
+                        });//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6 
+                   return;
+            }
+            //设置要卖出的数量
+           $('#sell_count').val(out_data.data.goods_count);
+
+       }
+    })
+   
+   
+    
 })
 </script>
