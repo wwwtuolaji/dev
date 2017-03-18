@@ -115,6 +115,25 @@ class BaseOrder extends Object
         return $model_order->edit($where, $data);
     }
 
+       /**
+     *    响应支付通知
+     *
+     *    @author    Garbin
+     *    @param     int    $order_id
+     *    @param     array  $notify_result
+     *    @return    bool
+     */
+    function respond_notify_new($order_id, $notify_result)
+    {
+       $where="recharge_id = '$order_id'";
+       $recharge_mod = m('recharge_log');
+       $data = array('finished_time'=>time(),
+                     'pay_status'   =>$notify_result
+                        );
+       $recharge_mod -> edit($where,$notify_result);
+        
+    }
+
     /**
      *    获取收货人信息
      *

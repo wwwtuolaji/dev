@@ -15,6 +15,7 @@ return array(
     'board' => '公告栏',
     'sales' => '超特价',
     'best_recommended' => '精品推荐',
+    
 );
 
 ?>

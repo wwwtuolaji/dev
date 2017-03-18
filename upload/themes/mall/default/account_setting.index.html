@@ -1,0 +1,223 @@
+{include file=member.header.html}
+<style type="text/css">
+.user_name { position: relative; bottom: 18px; margin-left:5px; }
+
+</style>
+<link rel="stylesheet" type="text/css" href="{res file='css/account.css'}">
+<div class="content">
+    <div class="totline"></div>
+    <div class="botline"></div>
+    {include file=member.menu.html}
+    <div id="right">
+        {include file=member.submenu.html}
+        <div class="wrap">
+            <div class="public table deposit">
+
+                <div class="deposit-config">
+                    <div class="notice-word">
+                        <p>资金账户名一旦设置后，将不允许修改，请填写正确的信息</p>
+                    </div>
+                    <form method="post" id="deposit-config">
+                        <div class="form">
+                            <dl class="clearfix">
+                                <dt>账 户 名</dt>
+                                <dd>
+                                    <input name="account" class="text width_normal" value="{$user_info.user_name}@ecmall.com" type="text"></dd>
+                                <dd class="gray">您的资金账户名（手机号或邮箱）</dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt>真实姓名</dt>
+                                <dd>
+                                    <input name="real_name" class="text width_normal" value="{$user_info.real_name}" type="text"></dd>
+                                <dd class="gray"></dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt>支付密码</dt>
+                                <dd>
+                                    <input name="password" class="text width_normal" type="password"></dd>
+                                <dd class="gray">付款的时候，需要输入支付密码才能付款成功(不填写不修改)</dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt>重复密码</dt>
+                                <dd>
+                                    <input name="password_confirm" class="text width_normal" type="password"></dd>
+                                <dd class="gray">确认您的密码</dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt>开启余额支付</dt>
+                                <dd>
+                                    <label>
+                                        <input name="pay_status" checked="checked" value="on" type="radio">是</label>
+                                    <label>
+                                        <input name="pay_status" value="off" type="radio">否</label>
+                                </dd>
+                                <dd class="gray">通过此开关，可以设置您的账户余额资金是否可以用于支付，以保护您的资金安全</dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt>&nbsp;</dt>
+                                <dd>
+                                    <span class="btn-alipay">
+                                        <input name="codeType" value="" type="hidden">
+                                        <input name="code" value="" type="hidden">
+                                        <input value="提交" gs_id="deposit_captcha" gs_name="deposit_captcha" gs_callback="gs_callback" gs_title="验证码" gs_width="400" gs_type="captcha" ectype="gselector" gs_opacity="0.05" gs_class="simple-blue" id="deposit-captcha" type="button"></span>
+                                </dd>
+                            </dl>
+                        </div>
+                    </form>
+                </div>
+
+                <!--end-->
+                <!-- <div class="member_no_records padding6">{$lang.no_records}{$lang.$smarty.get.act}</div>
+            -->
+        </div>
+
+    </div>
+</div>
+
+</div>
+<div class="clear"></div>
+<!--start-->
+
+
+<iframe id='iframe_post' name="iframe_post" frameborder="0" width="0" height="0"></iframe>
+{include file=footer.html}
+<script type="text/javascript">
+    $("#deposit-captcha").click(function(){
+        var real_name = $("[name=real_name]").val();
+        if (!real_name) {
+            alert("真实姓名不能为空");
+            return;
+        }
+        $.ajax({
+            url: 'index.php?app=deposit&act=dialog_set_account',
+            type: 'POST',
+            dataType: 'json',
+            data: {param1: 'value1'},
+            success:function(out_data){
+                $(".clear").after(out_data);
+                set_dialog_size();
+            }
+        })
+      
+         
+    });
+    set_dialog_size();
+    //设置蒙版的大小
+    function set_dialog_size(){
+        var height_body = window.screenTop;
+        var width_body  = window.screen.width;
+        var mengban_height =  document.body.scrollHeight;
+    
+        $("#mengban").css({
+         width:  width_body,
+         height: mengban_height
+        });
+        left_dialog= width_body/2-200 +"px";
+         top_dialog= height_body/2-120 +"px";
+        $("#dialog_object_deposit_captcha").css({left:left_dialog,top:top_dialog});
+    }
+    
+
+    /*dialog框框设置*/
+    $(".dialog_content .J_Tab  li").live("click",function(){
+        var codetype=$(this).attr("codeType");
+          $(this).attr('class','active');
+        if (codetype=="phone") {
+            $(this).next().attr('class','');
+            $("#captcah_form ul").eq(0).attr('class',"each");
+            $("#captcah_form ul").eq(1).attr('class',"each hidden");
+        }else{
+           $(this).prev().attr('class','');
+            $("#captcah_form ul").eq(0).attr('class',"each hidden");
+            $("#captcah_form ul").eq(1).attr('class',"each"); 
+        }
+    });
+    $(".dialog_close_button").live("click",function(){
+        $("#dialog_object_deposit_captcha").remove();
+        $("#mengban").remove();
+
+    })
+ 
+   //设置移动事件
+    var _move=false;//移动标记  
+    var _x,_y;//鼠标离控件左上角的相对位置  
+    $(".dialog_title").live("mousedown",function(e){  
+        _move=true;  
+        _x=e.pageX-parseInt($("#dialog_object_deposit_captcha").css("left"));  
+        _y=e.pageY-parseInt($("#dialog_object_deposit_captcha").css("top"));  
+        $("#dialog_object_deposit_captcha").fadeTo(20, 0.5);//点击后开始拖动并透明显示  
+    });  
+    $(document).mousemove(function(e){  
+        
+        if(_move){  
+            var x=e.pageX-_x;//移动时根据鼠标位置计算控件左上角的绝对位置  
+            var y=e.pageY-_y;  
+            $("#dialog_object_deposit_captcha").css({top:y,left:x});//控件新位置  
+        }  
+    }).mouseup(function(){  
+        _move=false;  
+        $("#dialog_object_deposit_captcha").fadeTo("fast", 1);//松开鼠标后停止移动并恢复成不透明  
+    });  
+
+    /*短信发送*/
+    click_send =true;
+    var current_but=120;
+    var current_intervel;
+    $("#send_phonecode").live('click',function(){ 
+        if(!click_send){
+            return;
+        }
+        click_send = false;
+        
+        $.ajax({
+            url: 'index.php?app=deposit&act=get_phonecode',
+            type: 'POST',
+            dataType: 'json',
+            data: {param1: 'value1'},
+        })
+        current_intervel = setInterval(set_but,1000);
+    })
+    function set_but(){
+        current_but--;
+        if (current_but==0) {
+            current_but=120;
+            clearInterval(current_intervel);
+            $("#send_phonecode").val("免费获取验证码"); 
+            click_send = true;
+            return;
+        }
+        $("#send_phonecode").val("请"+ current_but +"秒后重新点击");      
+    }
+
+    /*email发送*/
+    click_send_email =true;
+    var current_but_email=120;
+    var current_intervel_email;
+    $("#send_emailcode").live('click',function(){
+        if (!click_send_email) {
+            return;
+        }
+        click_send_email = false;
+        $.ajax({
+            url: 'index.php?app=deposit&act=send_email',
+            type: 'POST',
+            dataType: 'json',
+            data: {param1: 'value1'},
+        });
+         current_intervel_email = setInterval(set_but_email,1000);
+    });
+    function set_but_email(){
+        current_but_email--;
+        if (current_but_email==0) {
+            current_but_email=120;
+            clearInterval(current_intervel_email);
+            $("#send_emailcode").val("免费获取验证码"); 
+            click_send_email = true;
+            return;
+        }
+        $("#send_emailcode").val("请"+ current_but_email +"秒后重新点击");      
+    }
+
+
+
+</script>

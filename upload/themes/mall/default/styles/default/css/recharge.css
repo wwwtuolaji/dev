@@ -1,0 +1,135 @@
+.user_name { position: relative; bottom: 18px; margin-left:5px; }
+
+/* 充值 */
+
+.public {
+    margin: 0 auto;
+    padding: 0;
+    width: 810px;
+}
+.notice-word p {
+    background: #e5f5ff url("../images/member/T1CqmcXllwXXXXXXXX-64-1800.png") no-repeat scroll 3px -145px;
+    border: 1px solid #40b3ff;
+    color: #3e3e3e;
+    line-height: 25px;
+    margin-bottom: 20px;
+    padding: 0 5px 0 25px;
+    text-align: left;   
+}
+.deposit-withdraw .title {
+    border: 1px #BCCCF0 solid;
+    background: url(../images/index.png) repeat-x 0 0;
+    padding: 15px 30px;
+    height: 25px;
+    line-height: 25px;
+}
+.deposit-withdraw .form {
+    border: 1px #BCCCF0 solid;
+    border-top: 0;
+    padding: 30px 10px 10px 10px;
+}
+.deposit-withdraw .form dl {
+    padding-bottom: 35px;
+    width: 100%;
+}
+.deposit-withdraw dt {
+    width: 100px;
+    text-align: right;
+    padding-right: 40px;
+}
+.deposit dt, .deposit dd {
+    float: left;
+}
+.bank-list dd, .bank-list ul {
+    width: 600px;
+    margin-bottom: 2px;
+}
+.bank-list dd, .bank-list ul {
+    width: 600px;
+    margin-bottom: 2px;
+}
+.bank-list li {
+    float: left;
+    width: 163px;
+    margin-right: 18px;
+    height: 36px;
+    margin-bottom: 10px;
+    text-align: center;
+    line-height: 36px;
+}
+.deposit-withdraw dt {
+    width: 100px;
+    text-align: right;
+    padding-right: 40px;
+}
+.deposit dt, .deposit dd {
+    float: left;
+}
+.deposit-withdraw .form dl {
+    padding-bottom: 35px;
+    width: 100%;
+}
+
+.clearfix::after {
+    content: '\20';
+    display: block;
+    height: 0;
+    overflow: hidden;
+    clear: both;
+}
+
+span.icon-cashier-alipay {
+    background-position: 0px -898px;
+}
+span.icon-cashier-wechat{
+    background-position: 0px -1061px;
+}
+.icon-cashier {
+    display: block;
+    height: 36px;
+    background-repeat: no-repeat;
+    text-align: centertext-indent: -9999px;
+    background: url(../images/member/combo.png) #fff no-repeat left top;
+}
+.bank-list li label {
+    border: 1px #ddd solid;
+    display: inline-block;
+    width: 140px;
+    position: relative;
+}
+.float-left {
+    float: left;
+}
+.bank-list li input {
+    float: left;
+    margin-top: 12px;
+    margin-right: 5px;
+}
+.bank-list li {
+    text-align: center;
+    line-height: 36px;
+}
+.btn-alipay:hover span, .btn-alipay:hover input {
+    background-color: #F2B967;
+}
+.btn-alipay span, .btn-alipay input {
+    padding: 0 22px;
+    background-position: right -503px;
+    font-size: 14px;
+    font-weight: 700;
+}
+.btn-alipay input {
+    color: #fff;
+}
+.btn-alipay, .btn-alipay span, .btn-alipay input {
+    display: inline-block;
+    background: #F89A0A;
+    height: 31px;
+    line-height: 31px;
+    border: 0;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 2px;
+}

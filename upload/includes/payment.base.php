@@ -56,6 +56,26 @@ class BasePayment extends Object
             'params'    =>  $params,
         );
     }
+        /**
+     *    获取规范的支付表单数据
+     *
+     *    @author    Garbin
+     *    @param     string $method
+     *    @param     array  $params
+     *    @return    void
+     */
+    function _create_payform_new($method = '', $params = array())
+    {
+        return array(
+            'online'    =>  1,
+            'desc'      => '用户充值',
+            'method'    =>  $method,
+            'gateway'   =>  $this->_gateway,
+            'params'    =>  $params,
+        );
+    }
+    
+
 
     /**
      *    获取通知地址
@@ -69,6 +89,31 @@ class BasePayment extends Object
     {
         return SITE_URL . "/index.php?app=paynotify&act=notify&order_id={$order_id}";
     }
+    /**
+     *    获取充值的通知地址
+     *
+     *    @author    Garbin
+     *    @param     int $store_id
+     *    @param     int $order_id
+     *    @return    string
+     */
+    function _create_notify_url_new($order_id)
+    {
+        return SITE_URL . "/index.php?app=paynotify&act=notify_new&order_id={$order_id}";
+    }
+    /**
+     *    获取返回地址
+     *
+     *    @author    Garbin
+     *    @param     int $store_id
+     *    @param     int $order_id
+     *    @return    string
+     */
+    function _create_return_url_new($order_id)
+    {
+        return SITE_URL . "/index.php?app=paynotify&act=index_new&order_id={$order_id}";
+    }
+
 
     /**
      *    获取返回地址
@@ -103,6 +148,17 @@ class BasePayment extends Object
         }
 
         return $out_trade_sn;
+    }
+        /**
+     *    获取外部交易号
+     *
+     *    @author    Garbin
+     *    @param     array $order_info
+     *    @return    string
+     */
+    function _get_trade_sn_new($order_info)
+    {
+       return $out_trade_sn = $order_info['out_trade_sn'];
     }
 
     /**

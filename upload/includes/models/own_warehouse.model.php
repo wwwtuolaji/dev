@@ -3,9 +3,9 @@
 /* 商品数据模型 */
 class Own_warehouseModel extends BaseModel
 {
-    var $table  = 'transaction_history';	
-    var $prikey = 'history_id';
-    var $_name  = 'transaction_history';
+    var $table  = 'own_warehouse';	
+    var $prikey = 'warehouse_id';
+    var $_name  = 'own_warehouse';
     var $temp; // 临时变量
    
    

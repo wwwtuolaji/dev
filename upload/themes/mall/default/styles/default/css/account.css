@@ -1,0 +1,246 @@
+.user_name { position: relative; bottom: 18px; margin-left:5px; }
+
+/* 充值 */
+
+.public {
+    margin: 0 auto;
+    padding: 0;
+    width: 810px;
+    height: 745px;
+}
+.notice-word p {
+    background: #e5f5ff url("../images/member/T1CqmcXllwXXXXXXXX-64-1800.png") no-repeat scroll 3px -145px;
+    border: 1px solid #40b3ff;
+    color: #3e3e3e;
+    line-height: 25px;
+    margin-bottom: 20px;
+    padding: 0 5px 0 25px;
+    text-align: left;   
+}
+
+.clearfix::after {
+    clear: both;
+    content: " ";
+    display: block;
+    height: 0;
+    overflow: hidden;
+}
+
+.deposit-config dl {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.deposit-config dt {
+    width: 100px;
+}
+.deposit-config dt, .deposit-config dd {
+    line-height: 20px;
+}
+.deposit dt, .deposit dd {
+    float: left;
+}
+
+input[type="text"], input[type="password"] {
+    height: 18px;
+    line-height: 18px;
+}
+input[type="text"], input[type="password"], textarea {
+    background: #fff url("../images/member/input.png") repeat-x scroll 0 0;
+    border: 1px solid #a7a6aa;
+    color: #666;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    padding: 2px;
+}
+.width_normal {
+    width: 195px;
+}
+
+.deposit-config dd {
+    margin-right: 10px;
+}
+.deposit-config dt, .deposit-config dd {
+    line-height: 20px;
+}
+.deposit dt, .deposit dd {
+    margin-left: 20px;
+    float: left;
+}
+.gray {
+    color: #999;
+}
+
+.deposit-config dd label {
+    margin-right: 20px;
+}
+.btn-alipay, .btn-alipay span, .btn-alipay input {
+    background: #ED801D;
+    border: 0 none;
+    cursor: pointer;
+    display: inline-block;
+    height: 31px;
+    line-height: 31px;
+    overflow: hidden;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 3px;
+}
+.btn-alipay, .btn-alipay span,.btn-alipay input:hover{
+  background: #EEC43D; 
+}
+.btn-alipay span, .btn-alipay input {
+    background-position: right -503px;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 0 22px;
+}
+.btn-alipay input {
+    color: #fff;
+}
+
+/* 新生成的蒙版css */
+
+.simple-blue .dialog_title {
+    background: #e9f1f4 none repeat scroll 0 0;
+    border-bottom: 1px solid #e1e1e1;
+    color: #3e3e3e;
+    display: block;
+    float: none;
+    font-size: 12px;
+    font-weight: bold;
+    height: 22px;
+    line-height: 22px;
+    padding: 0 0 0 10px;
+}
+
+.simple-blue .dialog_close_button {
+    background: rgba(0, 0, 0, 0) url("../images/dialog_close_button_blue.gif") no-repeat scroll left top;
+    height: 14px;
+    top: 8px;
+    width: 14px;
+}
+.dialog_close_button {
+    background: rgba(0, 0, 0, 0) url("../images/dialog_close_button.gif") repeat scroll left top;
+    display: block;
+    height: 14px;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    width: 14px;
+}
+.captcha-form .tab li.active {
+    background: #fff none repeat scroll 0 0;
+    font-weight: bold;
+}
+.captcha-form .tab li {
+    background: #ddd none repeat scroll 0 0;
+    border-bottom: 0 none;
+    border-top: 1px solid #ddd;
+    cursor: pointer;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    width: 50%;
+}
+.captcha-form .tab li {
+    background: #ddd none repeat scroll 0 0;
+    border-bottom: 0 none;
+    border-top: 1px solid #ddd;
+    cursor: pointer;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    width: 44%;
+}
+
+.eject_con .add {
+    overflow: hidden;
+    padding: 20px;
+    width: 538px;
+}
+
+#warning {
+    background: #ffb7b7 none repeat scroll 0 0;
+    border: 1px solid red;
+    color: #000;
+    display: none;
+    font-weight: normal;
+    margin-bottom: 10px;
+    padding: 3px 10px;
+}
+
+.captcha-form .captcha-fields {
+    line-height: 30px;
+    padding: 10px;
+}
+
+.eject_con .add ul {
+    overflow: hidden;
+    width: 538px;
+}
+ul, ol {
+    list-style: outside none none;
+}
+
+.captcha-form .captcha-fields p.first {
+    width: 80px;
+}
+.eject_con .add li p {
+    float: left;
+}
+.eject_con .add li {
+    float: left;
+    overflow: hidden;
+    padding-bottom: 10px;
+    width: 538px;
+}
+
+.captcha-form .captcha-fields p.first {
+    width: 80px;
+}
+.eject_con .add li p {
+    float: left;
+}
+
+.simple-blue .dialog_content input[type="text"], .simple-blue .dialog_content input[type="password"], .simple-blue .dialog_content textarea {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: 1px solid #7f9db9;
+    height: 16px;
+    line-height: 16px;
+    padding: 2px 3px;
+}
+.captcha-form .captcha-fields .width_short {
+    border-radius: 0;
+    width: 50px;
+}
+.dialog_content input[type="text"], .dialog_content input[type="password"], .dialog_content textarea {
+    background: #fff url("images/input.png") repeat-x scroll 0 0;
+    border: 1px solid #a7a6aa;
+    color: #666;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    padding: 2px;
+}
+.mt10 {
+    margin-top: 10px;
+}
+
+.captcha-form .btn-submit {
+    background: #f60 none repeat scroll 0 0;
+    border: 0 none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 80px;
+    padding: 3px 22px;
+}
+input {
+    vertical-align: middle;
+}
+.hidden{
+    display: none;
+}

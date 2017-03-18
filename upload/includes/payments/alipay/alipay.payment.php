@@ -25,7 +25,7 @@ class AlipayPayment extends BasePayment
     {
         $service = $this->_config['alipay_service'];
         $agent = 'C4335319945672464113';
-  /*      $this->_config['alipay_partner']='2088521075622716';
+            /*      $this->_config['alipay_partner']='2088521075622716';
         $this->_config['alipay_account']='ppb_kf1@126.com';*/
         $params = array(
 
@@ -57,7 +57,7 @@ class AlipayPayment extends BasePayment
         die;*/
         $params['sign']         =   $this->_get_sign($params);
         $params['sign_type']    =   'MD5';
-       /* var_dump( $params );
+        /* var_dump( $params );
         die;*/
 
         return $this->_create_payform('GET', $params);
@@ -249,7 +249,7 @@ class AlipayPayment extends BasePayment
     }
 
     /**
-     * [get_new_payform 获取支付表单]
+     * [get_new_payform 获取支付表单用于金额充值]
      *
      * @author    jjc
      * @param  [type] $order_info [description]
@@ -267,13 +267,13 @@ class AlipayPayment extends BasePayment
             'service'           => $service,
             'partner'           => $this->_config['alipay_partner'],
             '_input_charset'    => CHARSET,
-            'notify_url'        => $this->_create_notify_url($order_info['order_id']),
-            'return_url'        => $this->_create_return_url($order_info['order_id']),
+            'notify_url'        => $this->_create_notify_url_new($order_info['order_id']),
+            'return_url'        => $this->_create_return_url_new($order_info['order_id']),
 
             /* 业务参数 */
             'subject'           => $this->_get_subject($order_info),
             //订单ID由不属签名验证的一部分，所以有可能被客户自行修改，所以在接收网关通知时要验证指定的订单ID的外部交易号是否与网关传过来的一致
-            'out_trade_no'      => $this->_get_trade_sn($order_info),
+            'out_trade_no'      => $this->_get_trade_sn_new($order_info),
             'price'             => $order_info['order_amount'],   //应付总价
             'quantity'          => 1,
             'payment_type'      => 1,
@@ -286,12 +286,11 @@ class AlipayPayment extends BasePayment
             /* 买卖双方信息 */
             'seller_email'      => $this->_config['alipay_account']
         );
-        
+       /* dump($params)*/
         $params['sign']         =   $this->_get_sign($params);
         $params['sign_type']    =   'MD5';
 
-
-        return $this->_create_payform('GET', $params);
+        return $this->_create_payform_new('GET', $params);
 
             $c = new AopClient;
             $c->gatewayUrl = "https://openapi.alipay.com/gateway.do";

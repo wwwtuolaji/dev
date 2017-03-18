@@ -1,0 +1,136 @@
+{include file=member.header.html}
+<link rel="stylesheet" type="text/css" href="{res file='css/recharge.css' }">
+<div class="content">
+    <div class="totline"></div>
+    <div class="botline"></div>
+    {include file=member.menu.html}
+    <div id="right">
+        {include file=member.submenu.html}
+        <div class="wrap">
+            <div class="wrap">
+                <div class="public table deposit">
+                    <div class="deposit-withdraw deposit-recharge">
+                        <div class="notice-word">
+                            <p>可以通过线上为自己的账户充值，充值成功后即时到账</p>
+                        </div>
+                        <form method="post" id="deposit-recharge">
+                            <div class="title clearfix">
+                                <h2 class="float-left">充值到您的预存款账户</h2>
+                            </div>
+                            <div class="form">
+                                <dl class="bank-list clearfix" ectype="online">
+                                    <dt style="line-height:35px;">充值渠道：</dt>
+                                    <dd>
+                                        <ul class="ui-list-icons clearfix">
+                                            <li class="clearfix">
+                                                <input class="float-left" checked="checked" name="payment_code" id="payment_alipay" value="alipay"select_option="yes" type="radio">
+                                                <label class="float-left  icon-box" for="payment_alipay">
+                                                    <span class="icon-cashier icon-cashier-alipay">&nbsp;</span>
+                                                </label>
+                                            </li>
+                                            <li class="clearfix">
+                                                <input class="float-left" name="payment_code" id="payment_alipay" value="wechat" type="radio">
+                                                <label class="float-left  icon-box" for="payment_wechat">
+                                                    <span class="icon-cashier icon-cashier-wechat">&nbsp;</span>
+                                                </label>
+                                            </li>
+                                        </ul>
+
+                                    </dd>
+                                </dl>
+
+                                <dl class="clearfix">
+                                    <dt>充值金额：</dt>
+                                    <dd>
+                                        <input id='input_money' name="money" class="text" value="" type="text">元</dd>
+                                </dl>
+                                <dl class="clearfix">
+                                    <dt>充值备注：</dt>
+                                    <dd>
+                                        <textarea name="remark" class="text"></textarea>
+                                    </dd>
+                                </dl>
+                                <dl class="clearfix">
+                                    <dt>&nbsp;</dt>
+                                    <dd class="submit">
+                                        <span class="btn-alipay">
+                                            <input value="下一步" type="submit"></span>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!--end-->
+           <!--  <div class="public table">
+           
+               <div class="member_no_records padding6">{$lang.no_records}{$lang.$smarty.get.act}</div>
+           </div> -->
+
+        </div>
+    </div>
+
+</div>
+<div class="clear"></div>
+<iframe id='iframe_post' name="iframe_post" frameborder="0" width="0" height="0"></iframe>
+{include file=footer.html}
+
+
+<script type="text/javascript">
+
+
+   $("[name=payment_code]").click(function(){
+        $('[select_option=yes]').attr('select_option','no');
+        $(this).attr('select_option','yes');
+    });
+   //判断是谁选中
+   function get_select_payment(){
+        var pay_method=$('[select_option=yes]').attr('value');  
+         if (pay_method=='alipay') {
+            return 1;
+        }
+        if (pay_method=='wechat') {
+            return 2;
+        }
+     
+        return false;
+   }
+   $('form').submit(function(event) {
+         var input_money=$('#input_money').val();
+         if (!input_money) {
+            alert('请输入充值金额');
+            return false;
+         }
+        pay_method=get_select_payment();
+        //阿里支付
+        if (pay_method==1) {
+            $(this).attr('action','index.php?app=deposit&act=alipay_deposit');
+            return;
+        }
+        if(pay_method==2) {
+             $(this).attr('action','index.php?app=deposit&act=wechat_deposit');
+            return;
+        }
+        alert('支付方式异常，请刷新重试');
+       return false;
+
+   });
+   $('#input_money').live('keyup',function(){
+        $(this).val($(this).val().replace(/[^\d.]/g,''));
+   })   
+     $('#input_money').live('change',function(){
+        $(this).val($(this).val().replace(/[^\d.]/g,''));
+         if ($(this).val()) {
+           var temp_match = $(this).val();
+           temp_match=parseFloat(temp_match);
+           temp_match=temp_match.toFixed(3);
+           temp_match=temp_match.substring(0,temp_match.length-1,-1);
+           $(this).val(temp_match);
+
+        }
+   })    
+
+    
+</script>

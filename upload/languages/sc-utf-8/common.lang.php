@@ -27,6 +27,7 @@ return array(
     'search_groupbuy'      => '搜索团购',
     'my_profile'    => '个人资料',
     'my_credit'                  => '我的信用',
+    'my_deposit'                  => '预存款',
     'my_address'                  => '我的地址',
     'my_order'                  => '我的订单',
     'my_question'             => '我的咨询',

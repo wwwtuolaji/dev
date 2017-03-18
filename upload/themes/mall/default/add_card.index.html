@@ -1,0 +1,265 @@
+{include file=member.header.html}
+<style type="text/css">
+.user_name { position: relative; bottom: 18px; margin-left:5px; }
+
+</style>
+<link rel="stylesheet" type="text/css" href="{res file='css/bank.css'}">
+<div class="content">
+    <div class="totline"></div>
+    <div class="botline"></div>
+    {include file=member.menu.html}
+    <div id="right">
+        {include file=member.submenu.html}
+        <div class="wrap">
+            <div class="public table bank">
+
+                <div class="bank-add">
+                    <div class="notice-word">
+                        <p>当您申请提现时平台会向您这里设置的银行卡汇款，请确保您的银行卡是正确的。</p>
+                    </div>
+                    <form method="post">
+                        <div class="form">
+                            <dl class="bank-list clearfix">
+                                <dt>开户银行</dt>
+                                <dd>
+                                    <ul class="ui-list-icons clearfix">
+                                        <li>
+                                            <input name="short_name" id="ICBC" value="ICBC" checked="checked" type="radio">
+                                            <label class="  icon-box current " for="ICBC">
+                                                <span class="icon-cashier icon-cashier-ICBC" title="中国工商银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="CCB" value="CCB" type="radio">
+                                            <label class="  icon-box current " for="CCB">
+                                                <span class="icon-cashier icon-cashier-CCB" title="中国建设银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="ABC" value="ABC" type="radio">
+                                            <label class="  icon-box current " for="ABC">
+                                                <span class="icon-cashier icon-cashier-ABC" title="中国农业银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="POSTGC" value="POSTGC" type="radio">
+                                            <label class="  icon-box current " for="POSTGC">
+                                                <span class="icon-cashier icon-cashier-POSTGC" title="中国邮政储蓄银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="COMM" value="COMM" type="radio">
+                                            <label class="  icon-box current " for="COMM">
+                                                <span class="icon-cashier icon-cashier-COMM" title="交通银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="CMB" value="CMB" type="radio">
+                                            <label class="  icon-box current " for="CMB">
+                                                <span class="icon-cashier icon-cashier-CMB" title="招商银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="BOC" value="BOC" type="radio">
+                                            <label class="  icon-box current " for="BOC">
+                                                <span class="icon-cashier icon-cashier-BOC" title="中国银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="CEBBANK" value="CEBBANK" type="radio">
+                                            <label class="  icon-box current " for="CEBBANK">
+                                                <span class="icon-cashier icon-cashier-CEBBANK" title="中国光大银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="CITIC" value="CITIC" type="radio">
+                                            <label class="  icon-box current " for="CITIC">
+                                                <span class="icon-cashier icon-cashier-CITIC" title="中信银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="SPABANK" value="SPABANK" type="radio">
+                                            <label class="  icon-box current " for="SPABANK">
+                                                <span class="icon-cashier icon-cashier-SPABANK" title="深圳发展银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="SPDB" value="SPDB" type="radio">
+                                            <label class="  icon-box current " for="SPDB">
+                                                <span class="icon-cashier icon-cashier-SPDB" title="上海浦东发展银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="CMBC" value="CMBC" type="radio">
+                                            <label class="  icon-box current " for="CMBC">
+                                                <span class="icon-cashier icon-cashier-CMBC" title="中国民生银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="CIB" value="CIB" type="radio">
+                                            <label class="  icon-box current " for="CIB">
+                                                <span class="icon-cashier icon-cashier-CIB" title="兴业银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="GDB" value="GDB" type="radio">
+                                            <label class="  icon-box current " for="GDB">
+                                                <span class="icon-cashier icon-cashier-GDB" title="广东发展银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="SHRCB" value="SHRCB" type="radio">
+                                            <label class="  icon-box current " for="SHRCB">
+                                                <span class="icon-cashier icon-cashier-SHRCB" title="上海农村商业银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="SHBANK" value="SHBANK" type="radio">
+                                            <label class="  icon-box current " for="SHBANK">
+                                                <span class="icon-cashier icon-cashier-SHBANK" title="上海银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="NBBANK" value="NBBANK" type="radio">
+                                            <label class="  icon-box current " for="NBBANK">
+                                                <span class="icon-cashier icon-cashier-NBBANK" title="宁波银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="HZCB" value="HZCB" type="radio">
+                                            <label class="  icon-box current " for="HZCB">
+                                                <span class="icon-cashier icon-cashier-HZCB" title="杭州银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="BJBANK" value="BJBANK" type="radio">
+                                            <label class="  icon-box current " for="BJBANK">
+                                                <span class="icon-cashier icon-cashier-BJBANK" title="北京银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="BJRCB" value="BJRCB" type="radio">
+                                            <label class="  icon-box current " for="BJRCB">
+                                                <span class="icon-cashier icon-cashier-BJRCB" title="北京农村商业银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="FDB" value="FDB" type="radio">
+                                            <label class="  icon-box current " for="FDB">
+                                                <span class="icon-cashier icon-cashier-FDB" title="富滇银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="WZCB" value="WZCB" type="radio">
+                                            <label class="  icon-box current " for="WZCB">
+                                                <span class="icon-cashier icon-cashier-WZCB" title="温州银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="CDCB" value="CDCB" type="radio">
+                                            <label class="  icon-box current " for="CDCB">
+                                                <span class="icon-cashier icon-cashier-CDCB" title="成都银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input name="short_name" id="HXBANK" value="HXBANK" type="radio">
+                                            <label class="  icon-box current " for="HXBANK">
+                                                <span class="icon-cashier icon-cashier-HXBANK" title="华夏银行">&nbsp;</span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </dd>
+
+                            </dl>
+                            <dl class="clearfix">
+                                <dt>卡 号</dt>
+                                <dd>
+                                    <input name="num" placeholder="请输入银行卡号" class="text width_normal" value="" type="text"></dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt>户 名</dt>
+                                <dd>
+                                    <input name="account_name" placeholder="请输入真实姓名" class="text width_normal" value="" type="text"></dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt>开户支行</dt>
+                                <dd>
+                                    <input name="open_bank" class="text width_normal" value="" type="text">
+                                    <span class="gray">示例：XXX银行XXX支行</span>
+                                </dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt>卡类型</dt>
+                                <dd>
+                                    <label>
+                                        <input name="type" value="debit" checked="checked" type="radio">储蓄卡（借记卡）</label>
+                                    <label>
+                                        <input name="type" value="credit" type="radio">信用卡（贷记卡）</label>
+                                </dd>
+
+                            </dl>
+                            <dl class="clearfix">
+                                <dt>验证码</dt>
+                                <dd class="captcha clearfix">
+                                    <input name="captcha" class="text" id="captcha1" type="text" maxlength="4">
+                                    <a href="javascript:change_captcha($('#captcha'));" class="renewedly">
+                                        <img id="captcha" src="index.php?app=captcha&amp;15749"></a>
+                                </dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt>&nbsp;</dt>
+                                <dd>
+                                    <span class="btn-alipay">
+                                        <input id='commit' value="提交" type="button"></span>
+                                </dd>
+                            </dl>
+                        </div>
+                    </form>
+                </div>
+                <!--end-->
+                <div class="member_no_records padding6">{$lang.no_records}{$lang.$smarty.get.act}</div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div class="clear"></div>
+<iframe id='iframe_post' name="iframe_post" frameborder="0" width="0" height="0"></iframe>
+{include file=footer.html}
+<script type="text/javascript">
+    $("#captcha").click();
+    $("#commit").click(function(){
+        var captcha_code = $("#captcha1").val();
+        captcha_code= $.trim(captcha_code);
+        if (!captcha_code) {
+            alert('验证码不能为空');
+        }
+        //校验验证码
+        $.ajax({
+            url: 'index.php?app=captcha&act=check_captcha',
+            type: 'GET',
+            dataType: 'json',
+            data: {captcha: captcha_code},
+            success:function(data){
+                if (data==false) {
+                    alert('验证码输入错误'); 
+                    
+                }else{
+                    $("form").attr('action','index.php?app=bank&act=add_card')
+                    $("form").submit();
+                    
+                }
+            }
+        })
+        
+        .fail(function() {
+            console.log("error");
+            alert("网络异常请重试！");
+            
+        })
+       
+        return false;
+        
+    })
+</script>

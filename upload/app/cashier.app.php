@@ -133,13 +133,15 @@ class CashierApp extends ShoppingbaseApp
 
                 return;
             }
+            /*dump($payment_info);*/
             //替换config配置数据a:5:{s:14:"alipay_account";s:6:"111112";s:10:"alipay_key";s:0:"";s:14:"alipay_partner";s:0:"";s:14:"alipay_service";s:21:"trade_create_by_buyer";s:5:"pcode";s:0:"";}
             //替换支付宝配置信息
             $payment_info['config']='a:5:{s:14:"alipay_account";s:15:"ppb_kf1@126.com";s:10:"alipay_key";s:32:"7j0f1lc72we44pwwr9wf6087wzis0h9l";s:14:"alipay_partner";s:16:"2088521075622716";s:14:"alipay_service";s:25:"create_direct_pay_by_user";s:5:"pcode";s:0:"";}';
           /*  $a=json_decode($payment_info['config']);
             var_dump($a);*/
-        
+             /*dump($payment_info);*/
             $payment    = $this->_get_payment($order_info['payment_code'], $payment_info);
+            /*dump($order_info);  */
             $payment_form = $payment->get_payform($order_info);
             /*var_dump($payment_info);
             die;*/
@@ -161,7 +163,7 @@ class CashierApp extends ShoppingbaseApp
                     Lang::get('post_pay_message')
                 );
             }
-          
+            /*dump($payment_form);*/
             /* 跳转到真实收银台 */
             $this->_config_seo('title', Lang::get('cashier'));
             $this->assign('payform', $payment_form);
