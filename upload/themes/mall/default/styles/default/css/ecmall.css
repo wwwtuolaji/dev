@@ -478,16 +478,16 @@ ul, ol { list-style-type:none; }
 .top_10 { background: url(../images/num.gif) no-repeat left -191px; }
 
 .flow_chart { width: 1220px; height: 35px; margin: 10px auto 0; position: relative; }
-.flow_chart .pos_x1 { width: 333px; height: 35px; position: absolute; top: 0; left: 0; }
-.flow_chart .pos_x2 { width: 349px; height: 35px; position: absolute; top: 0; left: 323px; }
-.flow_chart .pos_x3 { width: 338px; height: 35px; position: absolute; top: 0; right: 0; }
+.flow_chart .pos_x1 { width: 403px; height: 35px; position: absolute; top: 0; left: 0; }
+.flow_chart .pos_x2 { width: 410px; height: 35px; position: absolute; top: 0; left: 402px; }
+.flow_chart .pos_x3 { width: 395px; height: 35px; position: absolute; top: 0; right: 0; }
 
-.flow_chart .bg_a1 { background: url(../images/flow_chart.gif) no-repeat 0 0; }
-.flow_chart .bg_a2 { background: url(../images/flow_chart.gif) no-repeat 0 -35px; }
-.flow_chart .bg_b1 { background: url(../images/flow_chart.gif) no-repeat 0 -70px; }
-.flow_chart .bg_b2 { background: url(../images/flow_chart.gif) no-repeat 0 -105px; }
-.flow_chart .bg_c1 { background: url(../images/flow_chart.gif) no-repeat 0 -140px; }
-.flow_chart .bg_c2 { background: url(../images/flow_chart.gif) no-repeat 0 -175px; }
+.flow_chart .bg_a1 { background: url(../images/011.jpg) no-repeat 0 0; }
+.flow_chart .bg_a2 { background: url(../images/011.jpg) no-repeat 0 -35px; }
+.flow_chart .bg_b1 { background: url(../images/011.jpg) no-repeat 0 -70px; }
+.flow_chart .bg_b2 { background: url(../images/011.jpg) no-repeat 0 -105px; }
+.flow_chart .bg_c1 { background: url(../images/011.jpg) no-repeat 0 -140px; }
+.flow_chart .bg_c2 { background: url(../images/011.jpg) no-repeat 0 -175px; }
 
 .module_new_shop { width: 875px; margin: 0 auto; }
 

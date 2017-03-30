@@ -1,0 +1,110 @@
+{include file=member.header.html}
+<style type="text/css">
+.user_name { position: relative; bottom: 18px; margin-left:5px; }
+
+</style>
+<link rel="stylesheet" type="text/css" href="{res file='css/withdraw_confirm.css'}">
+<div class="content">
+    <div class="totline"></div>
+    <div class="botline"></div>
+    {include file=member.menu.html}
+    <div id="right">
+        {include file=member.submenu.html}
+        <div class="wrap">
+            <div class="public table deposit">
+                <div class="deposit-withdraw-confirm">
+                    <div class="notice-word">
+                        <p>向平台商提交提现申请，审核通过之后，平台将向您提交的银行卡汇款，请确保您的银行卡信息正确</p>
+                    </div>
+                    <form method="post" id="deposit-withdraw-confirm">
+                        <div class="title">确认提现信息</div>
+                        <div class="form">
+                            <div class="confirm-info">
+                                <dl class="clearfix">
+                                    <dt>银行卡信息：</dt>
+                                    <dd> <strong>{$lang.$bank_info.short_name}({$bank_info.num})</strong>
+                                    </dd>
+                                </dl>
+                                <dl class="clearfix">
+                                    <dt>提现金额：</dt>
+                                    <dd>
+                                        <span class="money">{$smarty.get.money}</span>
+                                        元
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="confirm-form">
+                                <dl class="clearfix">
+                                    <dt>支付密码：</dt>
+                                    <dd>
+                                        <input id="password"name="password" class="text" maxlength="6" value="" type="password"></dd>
+                                </dl>
+                                <dl class="clearfix">
+                                    <dt>验证码：</dt>
+                                    <dd class="captcha">
+                                        <input name="captcha" class="text" id="captcha1" type="text">
+                                        <a href="javascript:change_captcha($('#captcha'));" class="renewedly">
+                                            <img id="captcha" src="index.php?app=captcha&amp;16832"></a>
+                                    </dd>
+                                </dl>
+                                <dl class="clearfix">
+                                    <dt>&nbsp;</dt>
+                                    <dd class="submit">
+                                        <span class="btn-alipay">
+                                            <input name="bid" value="{$bank_info.bank_id}" type="hidden">
+                                            <input name="user_money" value="{$smarty.get.money}" type="hidden">
+                                            <input id="submit_btn" value="确认提现" type="button"></span>
+                                        <a class="goback" href="index.php?app=deposit&amp;act=withdraw">返回修改</a>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!--end-->
+                <div class="member_no_records padding6">{$lang.no_records}{$lang.$smarty.get.act}</div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div class="clear"></div>
+<iframe id='iframe_post' name="iframe_post" frameborder="0" width="0" height="0"></iframe>
+{include file=footer.html}
+<script type="text/javascript">
+  
+    $('#submit_btn').click(function(){
+        var captcha_code = $("#captcha1").val();
+        var password = $("#password").val();
+        if (!captcha_code) {
+            alert('请填写验证码');
+            return;
+        }
+        if (!password) {
+            alert('请填写密码');
+            return;
+        }
+         //校验验证码
+        $.ajax({
+            url: 'index.php?app=captcha&act=check_captcha',
+            type: 'GET',
+            dataType: 'json',
+            data: {captcha: captcha_code},
+            success:function(data){
+                if (data==false) {
+                    alert('验证码输入错误'); 
+                    
+                }else{
+                    $("form").attr('action','index.php?app=deposit&act=withdraw_confirm');
+                    $("form").submit();
+                    
+                }
+            }
+        })
+
+     
+
+   })
+</script>

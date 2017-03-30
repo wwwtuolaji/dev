@@ -207,6 +207,7 @@ class BankApp extends MemberbaseApp
         $this->show_message('删除失败','go_back','index.php?app=deposit&act=deposit');
        
     }
+    
    
    
 

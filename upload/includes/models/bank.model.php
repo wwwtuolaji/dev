@@ -69,4 +69,13 @@ class BankModel extends BaseModel
         	}
         	return $bank_count;
     	}
+        /**
+         * [get_short_name 获取银行卡简称]
+         * @param  [type] $bank_id [description]
+         * @return [type]          [description]
+         */
+        function get_short_name($bank_id){
+            $sql = "select short_name from ecm_bank where bank_id =$bank_id";
+            return $this->db->getone($sql);
+        }   
 }

@@ -2,7 +2,13 @@
 <link rel="stylesheet" type="text/css" href="{res file='css/deposit.css'}">
 <style type="text/css">
 .user_name { position: relative; bottom: 18px; margin-left:5px; }
-
+.hidden{display: none}
+div#right{
+    height: 765px;
+}
+div.public{
+    height: 680px;
+}
 </style>
 <div class="content">
     <div class="totline"></div>
@@ -30,8 +36,8 @@
                             <h2>账户名：{$member_info.user_name}@ecmall.com</h2>
                             <a href="index.php?app=deposit&amp;act=recordlist">账户收支明细</a>
                         </div>
-                        <div class="balanceNum"> <em>{$member_info.use_money}</em>
-                            元可用， <b><a href="javascript:;">0.00</a></b> 
+                        <div class="balanceNum"> <em>{$use_money}</em>
+                            元可用， <b><a href="javascript:;">{$not_use_money}</a></b> 
                             元不可用
                             <div class="balanceBtn">
                                 <a href="index.php?app=deposit&amp;act=recharge" class="btn-alipay" id='first_btn'>
@@ -47,8 +53,8 @@
                         </div>
                     </div>
 
-                    <div class="tradelist">
-                        <div class="title clearfix">
+                    <div class="tradelist hidden">
+                        <div class="title clearfix hidden" >
                             <h1>最近交易记录</h1>
                         </div>
                         <div class="subtit">

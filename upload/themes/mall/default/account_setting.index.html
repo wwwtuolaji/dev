@@ -34,13 +34,13 @@
                             <dl class="clearfix">
                                 <dt>支付密码</dt>
                                 <dd>
-                                    <input name="password" class="text width_normal" type="password"></dd>
+                                    <input name="password" class="text width_normal" type="password" maxlength="6"></dd>
                                 <dd class="gray">付款的时候，需要输入支付密码才能付款成功(不填写不修改)</dd>
                             </dl>
                             <dl class="clearfix">
                                 <dt>重复密码</dt>
                                 <dd>
-                                    <input name="password_confirm" class="text width_normal" type="password"></dd>
+                                    <input name="password_confirm" class="text width_normal" type="password"maxlength="6"></dd>
                                 <dd class="gray">确认您的密码</dd>
                             </dl>
                             <dl class="clearfix">
@@ -87,6 +87,14 @@
         if (!real_name) {
             alert("真实姓名不能为空");
             return;
+        }
+        var password = $("input[name=password]").val();
+        if (password) {
+            password_confirm = $("input[name=password_confirm]").val();
+            if (password_confirm!=password) {
+                alert('两次输入的密码不一致');
+                return;
+            }
         }
         $.ajax({
             url: 'index.php?app=deposit&act=dialog_set_account',
@@ -203,6 +211,11 @@
             type: 'POST',
             dataType: 'json',
             data: {param1: 'value1'},
+            success:function(out_data){
+                if (out_data.data!=0) {
+                    alert(out_data.message);
+                }
+            }
         });
          current_intervel_email = setInterval(set_but_email,1000);
     });
@@ -217,6 +230,29 @@
         }
         $("#send_emailcode").val("请"+ current_but_email +"秒后重新点击");      
     }
+    $("#gs_submit").live('click', function(event) {
+        var email_code = $("input[name=email_code]").val();
+        var phone_code = $("input[name=phone_code]").val();
+        $.ajax({
+            url: 'index.php?app=deposit&act=check_code',
+            type: 'POST',
+            dataType: 'json',
+            data: {email_code: email_code,phone_code:phone_code},
+            success:function(out_data){
+                if (out_data.code!=0) {
+                    alert(out_data.message);
+                    return;
+                }
+                //添加表单元素code用于后台校验
+                $("input[name=codeType]").val(out_data.data.code_type);
+                $("input[name=code]").val(out_data.data.code);
+                $("form").attr("action","index.php?app=deposit&act=account_setting");
+                $("form").submit();
+            }
+        })
+        
+        
+    });
 
 
 

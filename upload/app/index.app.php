@@ -991,7 +991,7 @@ class IndexApp extends IndexbaseApp
         // dump($transaction_arr);
         if ($_POST) {
             if (empty($_POST['goods_id'])) {
-                echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
                 $this->show_warning('参数异常');
                 return;
             }
@@ -1013,7 +1013,7 @@ class IndexApp extends IndexbaseApp
                     //校验支付密码
                     $result = $this->check_pwd($confirm_pwd);
                     if (!$result) {
-                        echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                        echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
                         $this->show_warning('支付密码错误，请重新提交表单');
                         return;
                     }
@@ -1053,38 +1053,48 @@ class IndexApp extends IndexbaseApp
                 $transaction = $transaction_mod->add($arr);
                 if ($transaction) {
                      $money_hitory_mod =& m('money_history');
-                    //金额日志记录
-                    $add_money_arr = array(
-                    'transaction_sn' => $transaction,//历史id
-                    'money_from' => 0,
-                    'transaction_type' => 1,//0,收入 1支出
-                    'receive_money' => $waiting_price,
-                    'pay_time' => time(),
-                    'platform_from' => 0,//0,茶通历史表，1，商城 2，transaction
-                    'use_money_history' => $update_money,
-                    'user_id' => $user_id,
-                    'comments' =>"申请买入'$goods_name'扣款",
-                    );
-                    $money_hitory_mod->add($add_money_arr);
+
+                     $have_add = $money_hitory_mod ->get(array('fields'=>'money_history_id','conditions'=>"transaction_sn ='$transaction'AND money_from ='0' AND platform_from ='2' AND transaction_type ='1'"));
+                     //检查该订单是否已经插入过,没做直接给了数据表unique 非法操作
+                     if (!$have_add) {
+                          //金额日志记录
+                        $add_money_arr = array(
+                        'transaction_sn' => $transaction,//历史id
+                        'money_from' => 0,
+                        'transaction_type' => 1,//0,收入 1支出
+                        'receive_money' => $waiting_price,
+                        'pay_time' => time(),
+                        'platform_from' => 2,//0,茶通历史表，1，商城 2，transaction
+                        'use_money_history' => $update_money,
+                        'user_id' => $user_id,
+                        'comments' =>"申请买入$goods_name 扣款",
+                        );
+                        $money_log = $money_hitory_mod->add($add_money_arr); 
+                    } else{
+                        /*设置为false让以上修改都不成功*/
+                        $money_log = false;
+                    } 
+                    
                 }
-                if ($transaction &&  $ab_result) {  
+                if ($money_log && $transaction &&  $ab_result) {  
                     $this->transaction_produce();
                     $db->query('COMMIT');
                     $db->query("SET AUTOCOMMIT=1");
-                    echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                    echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
                     $this->show_message('添加成功',
                         'edit_again', 'index.php?app=index&act=transaction',
-                        'back_list', 'index.php?app=tea'
+                        'back_list', 'index.php?app=tea'    
                     );
+                    return;
                 } else {
                      
                      $db->query('ROLLBACK');
                      $db->query("SET AUTOCOMMIT=1");
-                      echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                     echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
                      $this->show_warning('添加失败');
                 } 
             } else {
-                echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
                 $this->show_warning('数据异常,请重新提交');
             }
         }
@@ -1589,7 +1599,7 @@ class IndexApp extends IndexbaseApp
         if (empty($_SESSION["user_pwd_count_$user_id"])) {
             $_SESSION["user_pwd_count_$user_id"] = 0;
         }
-        if ($_SESSION["user_pwd_count_$user_id"] >= 4) {
+        if ($_SESSION["user_pwd_count_$user_id"] >= 3) {
             $out_data = array('code' => 3,
                 'message' => '您已经超出密码验证次数！',
                 'data' => ''
@@ -1635,10 +1645,9 @@ class IndexApp extends IndexbaseApp
     /**获取当前用户的余额*/
     function get_user_count()
     {
-        $db = db();
         $user_id = $this->visitor->get('user_id');
-        $use_money = "select use_money from ecm_member where user_id='$user_id'";
-        $use_money = $db->getone($use_money);
+         $recharge_log = m('recharge_log');
+        $use_money = $recharge_log->get_use_money($user_id);
         return $use_money;
     }
 
@@ -1762,7 +1771,7 @@ class IndexApp extends IndexbaseApp
             $db=db();
             $transaction_mod =& m('transaction');
             if (empty($_POST['goods_id'])) {
-                echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
             $this->show_warning('参数异常');
             return;
             }
@@ -1784,7 +1793,7 @@ class IndexApp extends IndexbaseApp
                     //校验支付密码
                     $result = $this->check_pwd($confirm_pwd);
                     if (!$result) {
-                        echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                        echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
                         $this->show_warning('支付密码错误，请重新提交表单');
                         return;
                     }
@@ -1794,7 +1803,7 @@ class IndexApp extends IndexbaseApp
                     //校验支付密码
                     $result = $this->check_pwd($confirm_pwd);
                     if (!$result) {
-                        echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                        echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
                         $this->show_warning('支付密码错误，请重新提交表单');
                         return;
                     }
@@ -1819,7 +1828,7 @@ class IndexApp extends IndexbaseApp
                 $get_stock="select * from ecm_own_warehouse where goods_id='$goods_id' and user_id=$user_id";
                 $goods_warehouse=$db->getrow($get_stock);
                 if (empty($goods_warehouse['goods_count'])|| $goods_warehouse['goods_count']<$transaction_count) {
-                    echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                    echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
                         $this->show_warning('库存不足');
                         return;
                 }
@@ -1844,18 +1853,18 @@ class IndexApp extends IndexbaseApp
                     $db->query('COMMIT');
                     $db->query("SET AUTOCOMMIT=1");
                     $this->transaction_produce();
-                    echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                    echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
                     $this->show_message('添加成功');
                     return;
                 } else {
                      $db->query('ROLLBACK');
                     $db->query("SET AUTOCOMMIT=1");
-                    echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                    echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
                    $this->show_warning('添加失败');
                    return;
                 }
             } else {
-                echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } </style>';
+                echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
                 $this->show_warning('数据异常,请重新提交');
             }
         }else{

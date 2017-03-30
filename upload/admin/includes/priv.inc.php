@@ -51,6 +51,7 @@ $menu_data = array
     'order' => array
     (
         'order'   => 'order|all',//订单管理
+        'drawlist'=> 'drawlist|all',
     ),
     'website' => array
     (

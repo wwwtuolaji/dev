@@ -169,31 +169,38 @@ class PaynotifyApp extends MallbaseApp
             dump('用户已经信息过期请重新登陆！');
         }
         $db=& db();
-        $get_sql = "select use_money from ecm_member where user_id = '{$user_info['user_id']}'";
-        $use_money = $db->getone($get_sql);
-        $use_money = intval($use_money*100)+ intval($recharge_arr['pay_money']*100);
-        $use_money = $use_money/100;
-        $sql="update ecm_member set use_money = '$use_money' where user_id = '{$user_info['user_id']}'";
-        $db->query($sql);
         $money_mod = m('money_history');
-        //生成历史记录
-        $add = array(
+         //检查该订单是否已经插入过,非法操作
+        $have_add = $money_mod ->get(array('fields'=>'money_history_id','conditions'=>"transaction_sn ='$order_id'AND money_from ='1' AND platform_from ='3'"));
+        if (!$have_add) {
+            $get_sql = "select use_money from ecm_member where user_id = '{$user_info['user_id']}'";
+            $use_money = $db->getone($get_sql);
+            $use_money = intval($use_money*100)+ intval($recharge_arr['pay_money']*100);
+            $use_money = $use_money/100;
+            $sql="update ecm_member set use_money = '$use_money' where user_id = '{$user_info['user_id']}'";
+            $db->query($sql);
+
+            $add = array(
                         'transaction_sn'     => $order_id,//充值id
                         'money_from'         => 1,//0预存款，1支付宝, 2微信
-                        'transaction_type'   => 1,//0,收入 1支出
+                        'transaction_type'   => 0,//0,收入 1支出
                         'receive_money'      => $recharge_arr['pay_money'],//收入或减去的金额
                         'pay_time'           => time(),//支付时间
                         'platform_from'      => 3,//0,茶通历史表，1，商城 2，transaction3,个人充值
                         'use_money_history'  => $use_money,//当前的金额
                         'user_id'            => $user_info['user_id'],//user_id
-                        'comments'           => '个人充值@JJC',//备注
+                        'comments'           => '个人充值',//备注
                         );
-        $money_mod ->add($add);
-        //修改充值记录
+            $money_mod ->add($add);
 
-        
-        #TODO 临时在此也改变订单状态为方便调试，实际发布时应把此段去掉，订单状态的改变以notify为准
-        $this->_change_order_status_new($order_id, $order_info['extension'], $notify_result);
+            //修改充值记录 
+            #TODO 临时在此也改变订单状态为方便调试，实际发布时应把此段去掉，订单状态的改变以notify为准
+            
+        }
+            $this->_change_order_status_new($order_id, $order_info['extension'], $notify_result);
+          //生成历史记录
+    
+       
         /* 只有支付时会使用到return_url，所以这里显示的信息是支付成功的提示信息 */
         $this->_curlocal(LANG::get('pay_successed'));
         $this->assign('order', $order_info);

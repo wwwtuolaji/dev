@@ -324,5 +324,35 @@ class OrderApp extends BackendApp
         }
         echo json_encode($output);
     }
+    /**
+     * [drawlist 充提记录]
+     * @return [type] [description]
+     */
+    function drawlist(){
+        $recharge_mod = m('recharge_log');
+        $user_id = $this->visitor->get('user_id');
+        $where = "user_id = '$user_id' AND recharge_status ='0'".$where_time;
+        $page = $this->_get_page(10);
+        $recharge_arr = $recharge_mod ->find_recharge_all($where,$page['limit']);
+
+
+        foreach ($recharge_arr as $key => $recharge) {
+            $recharge_arr[$key]['first_time'] = date('Y-m-d H:i:s',$recharge['first_time']);
+            $recharge_arr[$key]['pay_status_des'] = Lang::get("pay_status_".$recharge['pay_status']);
+            /*$recharge_arr[$key]['bank_info'] = $bank_mod->get($recharge['pay_account']);*/
+             if ($recharge['pay_method'] == 1) {
+               $recharge_arr[$key]['money_from_des']='支付宝';
+            }elseif($money['pay_method'] == 2){
+               $recharge_arr[$key]['money_from_des']='微信'; 
+            }elseif($money['pay_method'] == 0){
+               $recharge_arr[$key]['money_from_des']='预存款'; 
+            }
+   
+        }
+        $this->assign('recharge_arr',$recharge_arr);
+        $this->import_resource(array('script' => 'inline_edit.js,jquery.ui/jquery.ui.js,layer/layer.js,jquery.ui/i18n/' . i18n_code() . '.js',
+                                      'style'=> 'jquery.ui/themes/ui-lightness/jquery.ui.css'));
+        $this->display('drawlist.index.html');
+    }
 }
 ?>

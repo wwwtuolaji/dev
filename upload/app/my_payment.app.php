@@ -168,7 +168,7 @@ class My_paymentApp extends StoreadminbaseApp
 
             return;
         }
-        $payment = $model_payment->get_builtin_info($payment_info['payment_code']);
+            $payment = $model_payment->get_builtin_info($payment_info['payment_code']);
         if (!$payment)
         {
             echo Lang::get('no_such_payment');

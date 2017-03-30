@@ -3,22 +3,124 @@
 .user_name { position: relative; bottom: 18px; margin-left:5px; }
 
 </style>
+<link rel="stylesheet" type="text/css" href="{res file='css/withdraw.css'}">
 <div class="content">
-    <div class="totline"></div><div class="botline"></div>
+    <div class="totline"></div>
+    <div class="botline"></div>
     {include file=member.menu.html}
     <div id="right">
         {include file=member.submenu.html}
         <div class="wrap">
-            <div class="public table">
-             
-                <div class="member_no_records padding6">{$lang.no_records}{$lang.$smarty.get.act}</div>
+            <div class="public table deposit">
+            {if empty($bank_arr)}
+            <div class="member_no_records padding6">{$lang.no_records}{$lang.$smarty.get.act}</div>
+            {else}
+                <div class="deposit-withdraw">
+                    <div class="notice-word">
+                        <p>向平台商提交提现申请，审核通过之后，平台将向您提交的银行卡汇款，请确保您的银行卡信息正确</p>
+                    </div>
+                    <form method="get" id="deposit-withdraw">
+                        <input name="app" value="deposit" type="hidden">
+                        <input name="act" value="withdraw_confirm" type="hidden">
+                        <div class="title clearfix">
+                            <h2 class="float-left">提取余额到银行卡</h2>
+                            <p class="float-left">
+                                余额： <strong id="show_money">{$money}</strong>
+                                元
+                            </p>
+                            <div class="float-right link">
+                                <a class="add-bank" href="index.php?app=bank&amp;act=add_card&amp;type=debit">添加银行卡</a>
+                                <a href="index.php?app=deposit&amp;act=drawlist">提现记录</a>
+                            </div>
+                        </div>
+                        <div class="form">
+                            <dl class="clearfix">
+                                <dt>选择银行卡：</dt>
+                                <dd>
+                                    {foreach from=$bank_arr item=bank name=name}
+                                        {if $smarty.foreach.name.iteration eq 1}
+                                        <div class="bank-each clearfix  selected">
+                                            <div class="radio float-left">
+                                                <input name="bid" value="{$bank.bank_id}" checked="checked" type="radio"></div>
+                                            <div class="bank-name float-left">{$lang.$bank.short_name}</div>
+                                            <div class="bank-num float-left">{$bank.num}</div>
+                                            <div class="action float-right">
+                                                <a href="index.php?app=bank&amp;act=edit&amp;bid={$bank.bank_id}">编辑</a>
+                                            </div>
+                                        </div>
+                                        {else}
+                                        <div class="bank-each clearfix">
+                                            <div class="radio float-left">
+                                                <input name="bid" value="{$bank.bank_id}"  type="radio"></div>
+                                            <div class="bank-name float-left">{$lang.$bank.short_name}</div>
+                                            <div class="bank-num float-left">{$bank.num}</div>
+                                            <div class="action float-right">
+                                                <a href="index.php?app=bank&amp;act=edit&amp;bid={$bank.bank_id}">编辑</a>
+                                            </div>
+                                        </div>
+                                        {/if}
+                                    {/foreach}   
+                                </dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt>提现金额：</dt>
+                                <dd>
+                                    <input name="money" id="input_money"class="text" value="" type="text">元</dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt>&nbsp;</dt>
+                                <dd class="submit">
+                                    <span class="btn-alipay">
+                                        <input value="下一步" type="button" id="submit_btn"></span>
+                                </dd>
+                            </dl>
+                        </div>
+                    </form>
+                </div>
+                <!--end-->
+            {/if}    
             </div>
-           
+
         </div>
     </div>
-    
+
 </div>
 <div class="clear"></div>
-<iframe id='iframe_post' name="iframe_post" frameborder="0" width="0" height="0">
-</iframe>
+<iframe id='iframe_post' name="iframe_post" frameborder="0" width="0" height="0"></iframe>
+<script type="text/javascript">
+    $(".bank-each input[name=bid]").click(function(){
+        $(".bank-each").attr('class',"bank-each clearfix");
+        $(this).parent().parent().attr('class',"bank-each clearfix selected");
+    })
+</script>
 {include file=footer.html}
+<script type="text/javascript">
+    $('#input_money').live('change',function(){
+        $(this).val($(this).val().replace(/[^\d.]/g,''));
+         if ($(this).val()) {
+           var temp_match = $(this).val();
+           temp_match=parseFloat(temp_match);
+           var show_money = $("#show_money").html();
+           show_money = parseFloat(show_money);
+           if (temp_match >show_money) {
+                alert("余额不足无法提取!");
+                $('#input_money').val('');
+                return;
+           }
+           temp_match=temp_match.toFixed(3);
+           temp_match=temp_match.substring(0,temp_match.length-1,-1);
+           $(this).val(temp_match);
+
+        }
+   }) 
+   $('#submit_btn').click(function(){
+       var input_money = $("#input_money").val();
+       if (!input_money) {
+            alert('请优先填写提现金额');
+            return;
+       }else{
+            $("form").submit();
+       }
+
+   })
+</script>

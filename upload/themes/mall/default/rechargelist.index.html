@@ -1,0 +1,101 @@
+{include file=member.header.html}
+<style type="text/css">
+.user_name { position: relative; bottom: 18px; margin-left:5px; }
+
+</style>
+<link rel="stylesheet" type="text/css" href="{res file='css/drawlist.css'}">
+<div class="content">
+    <div class="totline"></div>
+    <div class="botline"></div>
+    {include file=member.menu.html}
+    <div id="right">
+        {include file=member.submenu.html}
+        <div class="wrap">
+
+            <div class="public table deposit">
+                <div class="drawlist">
+                    <div class="tab-ttl">
+                        <ul class="withdraw-tab clearfix">
+                            <li >
+                                <a href="index.php?app=deposit&amp;act=drawlist">
+                                    <span>提现记录</span>
+                                </a>
+                            </li>
+                            <li class="current">
+                                <a href="index.php?app=deposit&amp;act=rechargelist">
+                                    <span>充值记录</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="title clearfix">
+                        <form method="get" class="float-left">
+                            <input name="app" value="deposit" type="hidden">
+                            <input name="act" value="drawlist" type="hidden">
+                            <input name="add_time_from" id="add_time_from" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly" value="{$smarty.get.add_time_from}" class="hasDatepicker" type="text">
+                            <span>-</span>
+                            <input name="add_time_to" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly" id="add_time_to" value="{$smarty.get.add_time_to}" class="hasDatepicker" type="text">
+                            <input class="btn-withdraw" value="搜索" type="submit"></form>
+                        <div class="float-left">&nbsp;</div>
+                    </div>
+                    <ul class="subtit">
+                        <li class="clearfix">
+                            <div class="time">创建时间</div>
+                            <div class="info">名称 | 备注</div>
+                            <div class="tradeNo">交易号</div>
+                            <div class="method">收/支</div>
+                            <div class="money">金额(元)</div>
+                            <div class="fundchannel">资金渠道</div>
+                            <div class="status">状态</div>
+                            <div class="handle">操作</div>
+                        </li>
+                    </ul>
+                    {if empty($recharge_arr)}
+                        <div class="member_no_records padding6">{$lang.no_records}{$lang.$smarty.get.act}</div>
+                    {else}
+                    <div class="content">           
+                        <ul>
+                            {foreach from=$recharge_arr item=recharge}
+                            <li class="clearfix">
+                                <div class="time">{$recharge.first_time}</div>
+                                <div class="info">{$recharge.comment_des}</div>
+                                <div class="tradeNo">{$recharge.recharge_sn}</div>
+                                <div class="method">
+                                    <span class="f60">收入</span>
+                                </div>
+                                <div class="money">{$recharge.pay_money}</div>
+                                <div class="fundchannel">
+                                    {$recharge.money_from_des}
+                                    <!-- <br>
+                                    <span class="gray">{$recharge.bank_info.num}</span> -->
+                                </div>
+                                <div class="status">
+                                    <span class="f60">{$recharge.pay_status_des}</span>
+                                </div>
+                                <div class="handle">
+                                {if $recharge.pay_status eq 80}
+                                 <a href="index.php?app=deposit&amp;act=record&amp;tradeNo={$recharge.recharge_id}">查看</a>
+                                {else}
+                                 <a href="index.php?app=deposit&amp;act=record&amp;tradeNo={$recharge.money_history_id}">查看</a>
+                                {/if}
+                                   
+                                </div>
+                            </li>
+                            {/foreach}
+                        </ul>
+                    </div>
+                    {include file=page.bottom.html}
+                </div>
+
+                <!--END-->
+                {/if}
+                
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div class="clear"></div>
+<iframe id='iframe_post' name="iframe_post" frameborder="0" width="0" height="0"></iframe>
+{include file=footer.html}

@@ -1,0 +1,127 @@
+{include file=member.header.html}
+<style type="text/css">
+.user_name { position: relative; bottom: 18px; margin-left:5px; }
+
+</style>
+<link rel="stylesheet" type="text/css" href="{res file='css/record.css'}">
+<div class="content">
+    <div class="totline"></div>
+    <div class="botline"></div>
+    {include file=member.menu.html}
+    <div id="right">
+
+        {include file=member.submenu.html}
+        <div class="wrap">
+            <div class="public table deposit">
+                <div class="record">
+                    <div class="title">
+                        <h2></h2>
+                    </div>
+                    <div class="content">
+                        <div class="status-info clearfix">
+                            <h3 class="float-left">{if empty($recharge_arr)}交易完成{else}{$recharge_arr.pay_status_des}{/if}</h3>
+                            <div class="extra float-left ml10" style="line-height:20px;"></div>
+
+                        </div>
+
+                        <div class="trade-list clearfix">
+                            <ul class="ul-head clearfix">
+                                <li class="paytype">支付类型</li>
+                                <li class="name">资金渠道</li>
+                                <li class="amount">金额</li>
+                            </ul>
+                            <ul class="clearfix">
+                                <li class="paytype">
+                                                    {if $money_info.platform_from eq 0}
+                                                        {$lang.platform_from_0}
+                                                    {elseif $money_info.platform_from eq 1}
+                                                        {$lang.platform_from_1}
+                                                    {elseif $money_info.platform_from eq 2}
+                                                        {if $history_info.transaction_status eq -1}
+                                                            {$lang.platform_from_2}
+                                                        {else}
+                                                             {$lang.platform_from_0} 
+                                                        {/if}
+                                                        
+                                                    {elseif $money_info.platform_from eq 3}
+                                                        {$lang.platform_from_3}
+                                                    {/if}
+                                </li>
+                                <li class="name"> {$money_info.money_from_des}</li>
+                                {if $money_info.transaction_type eq 1}
+                                    <li class="amount"> <strong class="price f60">-{$money_info.receive_money}</strong>
+                                {else}
+                                     <li class="income"> <strong class="price green">+{$money_info.receive_money}</strong>
+                                {/if}
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="trade-slips">
+
+                            <dl class="clearfix">
+                                <dt>对方信息：</dt>
+                                <dd>{if $money_info.platform_from eq 3 OR $money_info.platform_from eq 2}
+                                        {$lang.platform_from_admin}
+                                    {else }
+                                        {$history_info.user_name}
+                                    {/if}</dd>
+                            </dl>
+                            <dl class="clearfix time">
+                                <dt>时间报告：</dt>
+                                <dd class="clearfix time-head">
+                                    <div class="add-time">创建时间</div>
+                                    <div class="pay-time">付款时间</div>
+                                    <div class="end-time">结束时间</div>
+                                </dd>
+                                <dd class="clearfix">
+                                    {if $money_info.platform_from eq 0}
+                                        <div class="add-time">{$money_info.transaction_time_des}&nbsp;</div>
+                                        <div class="pay-time">{$money_info.pay_time_des}&nbsp;</div>
+                                        <div class="end-time">{$money_info.pay_time_des}&nbsp;</div>
+                                    {elseif $money_info.platform_from eq 1}
+                                         <!--来源商城-->
+                                        <div class="add-time">2016.08.15 10:00:41</div>
+                                        <div class="pay-time">{$money_info.pay_time_des}&nbsp;</div>
+                                        <div class="end-time">{$money_info.pay_time_des}&nbsp;</div>
+                                    {elseif $money_info.platform_from eq 2}
+                                        {if $history_info.transaction_status eq -1}
+                                            <!--取消委托-->
+                                            <div class="add-time">{$history_info.transaction_time_des}&nbsp;</div>
+                                            <div class="pay-time">{$money_info.pay_time_des}&nbsp;</div>
+                                            <div class="end-time">{$money_info.pay_time_des}&nbsp;</div>                                        
+                                        {else}
+                                            <!--购买扣款-->
+                                            <div class="add-time">{$history_info.transaction_time_des}&nbsp;</div>
+                                            <div class="pay-time">{$money_info.pay_time_des}&nbsp;</div>
+                                            <div class="end-time">{$money_info.pay_time_des}</div>
+                                        {/if}              
+                                    {elseif $money_info.platform_from eq 3}
+                                        <div class="add-time">{$history_info.first_time_des}&nbsp;</div>
+                                        <div class="pay-time">{$history_info.finished_time_des}&nbsp;</div>
+                                        <div class="end-time">{$money_info.pay_time_des}&nbsp;</div>
+                                    {/if}
+                                   
+                                </dd>
+                            </dl>
+                            <dl class="clearfix time">
+                                <dt>交易描述：</dt>
+                                <dd>{$money_info.comments}</dd>
+
+                                
+                            </dl>
+                        </div>
+    
+                    </div>
+                </div>
+                <!--end-->
+                <!-- <div class="member_no_records padding6">{$lang.no_records}{$lang.$smarty.get.act}</div> -->
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div class="clear"></div>
+<iframe id='iframe_post' name="iframe_post" frameborder="0" width="0" height="0"></iframe>
+{include file=footer.html}

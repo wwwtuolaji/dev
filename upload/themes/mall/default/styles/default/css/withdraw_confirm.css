@@ -1,0 +1,132 @@
+
+.user_name { position: relative; bottom: 18px; margin-left:5px; }
+
+/* 充值 */
+
+.public {
+    margin: 0 auto;
+    padding: 0;
+    width: 805px;
+    height: 745px;
+}
+.notice-word p {
+    background: #e5f5ff url("../images/member/T1CqmcXllwXXXXXXXX-64-1800.png") no-repeat scroll 3px -145px;
+    border: 1px solid #40b3ff;
+    color: #3e3e3e;
+    line-height: 25px;
+    margin-bottom: 20px;
+    padding: 0 5px 0 25px;
+    text-align: left;   
+}
+
+.clearfix::after {
+    clear: both;
+    content: " ";
+    display: block;
+    height: 0;
+    overflow: hidden;
+}
+
+
+.deposit-withdraw a {
+    color: #0088cc;
+    text-decoration: none;
+}
+
+input[type="text"], input[type="password"] {
+    height: 18px;
+    line-height: 18px;
+}   
+.btn-alipay, .btn-alipay span, .btn-alipay input {
+    background: #ED801D;
+    border: 0 none;
+    cursor: pointer;
+    display: inline-block;
+    height: 31px;
+    line-height: 31px;
+    overflow: hidden;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 3px;
+}
+.btn-alipay, .btn-alipay span,.btn-alipay input:hover{
+  background: #EEC43D; 
+}
+.btn-alipay span, .btn-alipay input {
+    background-position: right -503px;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 0 22px;
+}
+.btn-alipay input {
+    color: #fff;
+}
+
+
+.deposit-withdraw-confirm .title {
+    color: #333;
+    font-family: "Microsoft yahei";
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 30px;
+    margin-bottom: 5px;
+}
+
+.deposit-withdraw-confirm .form {
+    border: 1px solid #d2e8ec;
+    border-radius: 5px;
+    line-height: 20px;
+}
+
+.deposit-withdraw-confirm .confirm-info {
+    background: #ebf2f9 none repeat scroll 0 0;
+    margin-bottom: 20px;
+    padding-top: 45px;
+}
+
+.deposit-withdraw-confirm dt {
+    color: #4d4d4d;
+    margin-right: 40px;
+    text-align: right;
+    width: 160px;
+}
+
+.deposit dt, .deposit dd {
+    float: left;
+}
+
+.deposit-withdraw-confirm span.money {
+    color: #f60;
+    font-size: 16px;
+}
+
+.deposit-withdraw-confirm .confirm-form {
+    padding-top: 5px;
+}
+
+.deposit-withdraw-confirm .confirm-form .captcha input {
+    float: left;
+    width: 70px;
+}
+
+.deposit-withdraw-confirm .confirm-form .captcha a {
+    display: inline-block;
+    float: left;
+    margin-left: 3px;
+}
+.deposit-withdraw-confirm dl {
+    padding-bottom: 20px;
+    width: 760px;
+}
+
+.deposit-withdraw-confirm .goback {
+    background: #ebf2f9 none repeat scroll 0 0;
+    color: #444;
+    display: block;
+    margin-top: 20px;
+    padding: 3px 0;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    width: 80px;
+}

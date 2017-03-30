@@ -1,0 +1,156 @@
+.user_name { position: relative; bottom: 18px; margin-left:5px; }
+
+/* 充值 */
+
+.public {
+    margin: 0 auto;
+    padding: 0;
+    width: 805px;
+    height: 745px;
+}
+.notice-word p {
+    background: #e5f5ff url("../images/member/T1CqmcXllwXXXXXXXX-64-1800.png") no-repeat scroll 3px -145px;
+    border: 1px solid #40b3ff;
+    color: #3e3e3e;
+    line-height: 25px;
+    margin-bottom: 20px;
+    padding: 0 5px 0 25px;
+    text-align: left;   
+}
+
+.clearfix::after {
+    clear: both;
+    content: " ";
+    display: block;
+    height: 0;
+    overflow: hidden;
+}
+.deposit-withdraw .title {
+    background: rgba(0, 0, 0, 0) url("../images/index.png") repeat-x scroll 0 0;
+    border: 1px solid #bcccf0;
+    height: 25px;
+    line-height: 25px;
+    padding: 15px 30px;
+}
+
+.deposit-withdraw .title p {
+    margin-left: 40px;
+}
+
+.deposit-withdraw .title strong {
+    color: #fc491e;
+    font-family: Tahoma,Geneva,sans-serif;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.deposit-withdraw .title .link a.add-bank {
+    background: rgba(0, 0, 0, 0) url("../images/index.png") no-repeat scroll -184px -65px;
+    display: inline-block;
+    padding-left: 24px;
+}
+
+.deposit-withdraw .title .link a {
+    margin: 0 10px;
+}
+.deposit-withdraw a {
+    color: #0088cc;
+    text-decoration: none;
+}
+
+.float-right {
+    float: right;
+}
+
+.deposit-withdraw .title p {
+    margin-left: 40px;
+}
+.float-left {
+    float: left;
+}
+
+.deposit-withdraw .form {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: currentcolor #bcccf0 #bcccf0;
+    border-image: none;
+    border-style: none solid solid;
+    border-width: 0 1px 1px;
+    padding: 30px 10px 10px;
+}
+.deposit-withdraw .form dl {
+    padding-bottom: 35px;
+    width: 100%;
+}
+.deposit-withdraw dt {
+    padding-right: 40px;
+    text-align: right;
+    width: 100px;
+}
+.deposit dt, .deposit dd {
+    float: left;
+}
+
+.deposit dt, .deposit dd {
+    float: left;
+}
+.deposit-withdraw .bank-each.selected {
+    background: #ecf3f8 none repeat scroll 0 0;
+    border: 1px solid #90c1dc;
+}
+.deposit-withdraw .bank-each {
+    background: #f1f1f1 none repeat scroll 0 0;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 560px;
+}
+
+.deposit-withdraw .bank-each div {
+    color: #030303;
+    margin-right: 10px;
+}
+
+input {
+    vertical-align: middle;
+}
+input, button, select, textarea {
+    outline: medium none;
+}
+
+.deposit-withdraw a {
+    color: #0088cc;
+    text-decoration: none;
+}
+
+input[type="text"], input[type="password"] {
+    height: 18px;
+    line-height: 18px;
+}   
+.btn-alipay, .btn-alipay span, .btn-alipay input {
+    background: #ED801D;
+    border: 0 none;
+    cursor: pointer;
+    display: inline-block;
+    height: 31px;
+    line-height: 31px;
+    overflow: hidden;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 3px;
+}
+.btn-alipay, .btn-alipay span,.btn-alipay input:hover{
+  background: #EEC43D; 
+}
+.btn-alipay span, .btn-alipay input {
+    background-position: right -503px;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 0 22px;
+}
+.btn-alipay input {
+    color: #fff;
+}

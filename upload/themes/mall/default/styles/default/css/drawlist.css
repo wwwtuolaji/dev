@@ -1,0 +1,168 @@
+.drawlist .title form {
+    margin-right: 20px;
+}
+.drawlist .title form input, .drawlist .title form span, .drawlist .title form select {
+    float: left;
+    margin-right: 5px;
+    line-height: 25px;
+}
+.drawlist .title select {
+    border: 1px solid #cccccc;
+    height: 24px;
+    line-height: 24px;
+    padding: 1px;
+    vertical-align: middle;
+    width: 100px;
+}
+.drawlist .title strong {
+    color: #f60;
+    font-family: Tahoma,Geneva,sans-serif;
+}
+.drawlist .subtit {
+    border-bottom: 1px solid #ddd;
+    padding: 5px 0;
+    width: 840px;
+}
+.drawlist li div {
+    float: left;
+    line-height: 18px;
+    text-align: left;
+    width: 95px;
+}
+.drawlist li .tradeNo {
+    font-family: Tahoma,Geneva,sans-serif;
+    overflow-wrap: break-word;
+    padding-right: 15px;
+    width: 80px;
+    word-break: break-all;
+}
+.drawlist li .info {
+    padding-right: 5px;
+    width: 100px;
+}
+.drawlist li .money, .drawlist li .method, .drawlist li .status, .drawlist li .fundchannel {
+    position: relative;
+    width: 90px;
+}
+.drawlist .content li .money {
+    font-family: Tahoma,Geneva,sans-serif;
+    font-weight: bold;
+}
+.drawlist .content li .remark {
+    background: rgba(0, 0, 0, 0) url("../images/member/new_msg.gif") repeat scroll left top;
+    display: block;
+    height: 13px;
+    left: 40%;
+    margin: 0 auto;
+    position: absolute;
+    top: 70%;
+    width: 15px;
+}
+.drawlist .content li {
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+}
+.drawlist .content li div {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.drawlist li div.time {
+    line-height: 18px;
+}
+.drawlist li div.handle {
+    text-align: center;
+    width: 60px;
+}
+.drawlist .text {
+    height: 12px;
+    line-height: 12px;
+    width: 100px;
+}
+.drawlist .btn-withdraw {
+    background: #ff9100 none repeat scroll 0 0;
+    border: 1px solid #e47000;
+    color: #fff;
+    cursor: pointer;
+    line-height: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.drawlist .btn-withdraw:hover {
+    background: #f60 none repeat scroll 0 0;
+}
+.drawlist .tab-ttl {
+    border-bottom: 1px solid #d2d2d2;
+    margin-bottom: 10px;
+}
+.drawlist .withdraw-tab {
+    width: 838px;
+}
+.drawlist .withdraw-tab li {
+    cursor: pointer;
+    float: left;
+    height: 24px;
+    line-height: 23px;
+    margin-right: 2px;
+    overflow: hidden;
+}
+.drawlist .withdraw-tab li a, .drawlist .withdraw-tab li span {
+    background: rgba(0, 0, 0, 0) url("../images/member/bg-tab.png") repeat scroll 0 0;
+    color: #333;
+    display: block;
+    float: left;
+    text-decoration: none;
+}
+.drawlist .withdraw-tab {
+    position: relative;
+    top: 1px;
+}
+.drawlist .withdraw-tab li a {
+    background-position: 0 -181px;
+}
+.drawlist .withdraw-tab li span {
+    background-position: right -215px;
+    padding: 0 15px;
+}
+.drawlist .withdraw-tab .current {
+    color: #4d4d4d;
+    font-weight: bold;
+}
+.drawlist .withdraw-tab .current a, .drawlist .withdraw-tab .current a:hover {
+    background-position: 0 -316px;
+}
+.drawlist .withdraw-tab .current span, .drawlist .withdraw-tab .current a:hover span {
+    background-position: right -349px;
+    padding: 1px 15px 0;
+}
+.drawlist .withdraw-tab li a:hover {
+    background-position: 0 -249px;
+}
+.drawlist .withdraw-tab li a:hover span {
+    background-position: right -283px;
+}
+
+.clearfix::after {
+    clear: both;
+    content: " ";
+    display: block;
+    height: 0;
+    overflow: hidden;
+}
+#add_time_from{
+
+}
+.f60 {
+    color: #f60;
+}
+a {
+    color: #3366cc;
+    text-decoration: none;
+}
+
+a {
+    outline: medium none;
+    text-decoration: none;
+}
+.deposit .content .fundchannel,.deposit .subtit .fundchannel{
+	width: 140px;
+}

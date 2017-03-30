@@ -148,6 +148,11 @@ return array(
                 'text'  => Lang::get('order_manage'),
                 'url'   => 'index.php?app=order'
             ),
+            'drawlist' => array(
+                'text'  => Lang::get('drawlist'),
+                'url'   => 'index.php?app=order&act=drawlist'
+            )
+
         ),
     ),
     // 网站

@@ -47,6 +47,10 @@ return array(
     'postscript' =>'买家附言',
     'groupbuy_detail' => '团购详情',
     'groupbuy' => '团购',
-    'preference' => '优惠了'
+    'preference' => '优惠了',
+    'drawlist' =>'充提记录',
+    'record'=>'记录',
+    'bank_transfer'=>'银行转帐'
+    
 );
 ?>

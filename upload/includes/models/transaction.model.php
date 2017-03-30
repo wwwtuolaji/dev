@@ -56,23 +56,31 @@ class TransactionModel extends BaseModel
             $result_re = $this->db->query($up_price);
             if ($result_re) {
                 $money_hitory_mod =& m('money_history');
-                //增加金额日志记录
-                $add_money_arr = array(
-                    'transaction_sn' => $sn['transaction_sn'],//历史id
-                    'money_from' => 0,
-                    'transaction_type' => 0,//0,收入 1支出
-                    'receive_money' => $sn['waiting_pay_price'],
-                    'pay_time' => time(),
-                    'platform_from' => 2,//0,茶通历史表，1，商城 2，transaction
-                    'use_money_history' => $cur_price,
-                    'user_id' => $user_id,
-                    'comments' => '买茶金额取消回退金额到原来账户',
-                );
-                $money_hitory_mod->add($add_money_arr);
+                /*校驗是否已經支付過*/
+                $have_add = $money_hitory_mod ->get(array('fields'=>'money_history_id','conditions'=>"transaction_sn ='{$sn['transaction_sn']}'AND money_from ='0' AND platform_from ='2'AND transaction_type ='0' AND user_id='$user_id'"));
+                if (!$have_add) {
+                    //增加金额日志记录
+                    $add_money_arr = array(
+                        'transaction_sn' => $sn['transaction_sn'],//历史id
+                        'money_from' => 0,
+                        'transaction_type' => 0,//0,收入 1支出
+                        'receive_money' => $sn['waiting_pay_price'],
+                        'pay_time' => time(),
+                        'platform_from' => 2,//0,茶通历史表，1，商城 2，transaction
+                        'use_money_history' => $cur_price,
+                        'user_id' => $user_id,
+                        'comments' => '买茶金额取消回退金额到原来账户',
+                    );
+                    $result_log=$money_hitory_mod->add($add_money_arr);
+                }else{
+                    $result_log= false;
+                     echo "重复添加金额，非法操作01";
+                }
+                
             }
         }
 
-        if ($result && $result_re) {
+        if ($result_log && $result && $result_re) {
             $this->db->query("COMMIT");
             $this->db->query("SET AUTOCOMMIT=1");
             return true;
@@ -191,22 +199,30 @@ class TransactionModel extends BaseModel
                 $result = $history_mod->add($insert_data);
                 if ($pay_result) {
                     $money_hitory_mod =& m('money_history');
+                     /*校驗是否已經支付過*/
+                    $have_add = $money_hitory_mod ->get(array('fields'=>'money_history_id','conditions'=>"transaction_sn ='$result'AND money_from ='0' AND platform_from ='0'AND transaction_type ='0' AND user_id='{$tran['user_id']}'"));
                     //增加金额日志记录
-                    $add_money_arr = array(
-                        'transaction_sn' => $result,//历史id
-                        'money_from' => 0,
-                        'transaction_type' => 0,//0,收入 1支出
-                        'receive_money' => $buy['waiting_pay_price'],
-                        'pay_time' => time(),
-                        'platform_from' => 0,//0,茶通历史表，1，商城 2，transaction
-                        'use_money_history' => $cur_price,
-                        'user_id' => $tran['user_id'],
-                        'comments' => '茶通卖方的金额增加商品id是：' . $tran['goods_id'],
-                    );
-                    $money_hitory_mod->add($add_money_arr);
+                    if (!$have_add) {
+                         $add_money_arr = array(
+                            'transaction_sn' => $result,//历史id
+                            'money_from' => 0,
+                            'transaction_type' => 0,//0,收入 1支出
+                            'receive_money' => $buy['waiting_pay_price'],
+                            'pay_time' => time(),
+                            'platform_from' => 0,//0,茶通历史表，1，商城 2，transaction
+                            'use_money_history' => $cur_price,
+                            'user_id' => $tran['user_id'],
+                            'comments' => '茶通卖方的金额增加商品id是：' . $tran['goods_id'],
+                        );
+                       $add_log = $money_hitory_mod->add($add_money_arr);
+                    }else{
+                         $add_log = false;
+                         echo "重复添加金额，非法操作02";
+                    }
+                   
                 }
 
-                if ($result && $buy_edit && $buy_insert && $sell_edit && $sell_later && $pay_result) {
+                if ( $add_log && $result && $buy_edit && $buy_insert && $sell_edit && $sell_later && $pay_result) {
                     $this->db->query('COMMIT');
                     $this->db->query("SET AUTOCOMMIT=1");
                     return true;
@@ -255,8 +271,10 @@ class TransactionModel extends BaseModel
         $result_re = $history_mod->add($insert_data_re);
         if ($result_re) {
             $money_hitory_mod =& m('money_history');
+            $have_add = $money_hitory_mod ->get(array('fields'=>'money_history_id','conditions'=>"transaction_sn ='$result_re'AND money_from ='0' AND platform_from ='0'AND transaction_type ='0' AND user_id='{$tran['user_id']}'"));
             //增加金额日志记录
-            $add_money_arr = array(
+            if (!$have_add) {
+                 $add_money_arr = array(
                 'transaction_sn' => $result_re,//历史id
                 'money_from' => 0,
                 'transaction_type' => 0,//0,收入 1支出
@@ -266,10 +284,15 @@ class TransactionModel extends BaseModel
                 'use_money_history' => $alter_price,
                 'user_id' => $tran['user_id'],
                 'comments' => '茶通卖方的金额增加商品id是：' . $tran['goods_id'],
-            );
-            $money_hitory_mod->add($add_money_arr);
+                );
+                $add_log = $money_hitory_mod->add($add_money_arr);
+            }else{
+                $add_log = false;
+                echo "重复添加金额，非法操作03";
+            }
+           
         }
-        if ($result_re && $buy_edit_re && $buy_insert_re && $sell_edit_re  && $up_usemoney) {
+        if ($add_log && $result_re && $buy_edit_re && $buy_insert_re && $sell_edit_re  && $up_usemoney) {
             $this->db->query('COMMIT');
         } else {
             $this->db->query('ROLLBACK');
@@ -339,19 +362,27 @@ class TransactionModel extends BaseModel
                 $result = $history_mod->add($insert_data);
                 if ($result) {
                     $money_hitory_mod =& m('money_history');
+                     $have_add = $money_hitory_mod ->get(array('fields'=>'money_history_id','conditions'=>"transaction_sn ='$result'AND money_from ='0' AND platform_from ='0'AND transaction_type ='0' AND user_id='{$sell['user_id']}'"));
                     //增加金额日志记录
-                    $add_money_arr = array(
+                    if(!$have_add){
+                        $add_money_arr = array(
                         'transaction_sn' => $result,//历史id
                         'money_from' => 0,
                         'transaction_type' => 0,//0,收入 1支出
                         'receive_money' => $tran['waiting_pay_price'],
                         'pay_time' => time(),
-                        'platform_from' => 0,//0,茶通历史表，1，商城 2，transaction
+                        'platform_from' => 0,//0,茶通历add_log史表，1，商城 2，transaction
                         'use_money_history' => $cur_price,
                         'user_id' => $sell['user_id'],
                         'comments' => '茶通卖方的金额增加商品id是：' . $tran['goods_id'],
-                    );
-                    $money_hitory_mod->add($add_money_arr);
+                        );
+                        $add_have = $money_hitory_mod->add($add_money_arr);
+                    }else{
+                      echo "重复添加金额，非法操作04";  
+                      $add_have = false;
+                    }
+                    
+                    
                 }
                 /* if (!$result) {
                      echo "1";
@@ -370,7 +401,7 @@ class TransactionModel extends BaseModel
                  }
              */
 
-                if ($result && $buy_edit && $sell_edit && $sell_alter && $buy_insert && $pay_result) {
+                if ($add_have && $result && $buy_edit && $sell_edit && $sell_alter && $buy_insert && $pay_result) {
                     $this->db->query('COMMIT');
                     $this->db->query("SET AUTOCOMMIT=1");
                     echo "请求成功";
@@ -424,25 +455,31 @@ class TransactionModel extends BaseModel
             $insert_data_re['transaction_price'] = $tran['transaction_price'];
             $result_re = $history_mod->add($insert_data_re);
             if ($result_re) {
-                $money_hitory_mod =& m('money_history');
-                //增加金额日志记录
-                $add_money_arr = array(
-                    'transaction_sn' => $result_re,//历史id
-                    'money_from' => 0,
-                    'transaction_type' => 0,//0,收入 1支出
-                    'receive_money' => $add_price/100,
-                    'pay_time' => time(),
-                    'platform_from' => 0,//0,茶通历史表，1，商城 2，transaction
-                    'use_money_history' => $use_money ,
-                    'user_id' => $sell['user_id'],
-                    'comments' => '茶通卖方的金额增加商品id是：' . $tran['goods_id'],
-                );
-                $money_hitory_mod->add($add_money_arr);
-            }
-            if($result_re){
 
+                $money_hitory_mod =& m('money_history');
+                 $have_add = $money_hitory_mod ->get(array('fields'=>'money_history_id','conditions'=>"transaction_sn ='$result_re'AND money_from ='0' AND platform_from ='0'AND transaction_type ='0' AND user_id='{$sell['user_id']}'"));
+                //增加金额日志记录
+                if ($have_add) {
+                    $add_money_arr = array(
+                        'transaction_sn' => $result_re,//历史id
+                        'money_from' => 0,
+                        'transaction_type' => 0,//0,收入 1支出
+                        'receive_money' => $add_price/100,
+                        'pay_time' => time(),
+                        'platform_from' => 0,//0,茶通历史表，1，商城 2，transaction
+                        'use_money_history' => $use_money ,
+                        'user_id' => $sell['user_id'],
+                        'comments' => '茶通卖方的金额增加商品id是：' . $tran['goods_id'],
+                    );
+                    $add_log =  $money_hitory_mod->add($add_money_arr);
+                }else{
+                    echo "重复添加金额，非法操作05";  
+                    $add_log = false;
+                }
+                
             }
-            if ($result_re && $sell_edit_re && $sell_alter_re && $buy_edit_re && $buy_insert_re && $up_price_re) {
+            
+            if ($add_log && $result_re && $sell_edit_re && $sell_alter_re && $buy_edit_re && $buy_insert_re && $up_price_re) {
                 $this->db->query('COMMIT');
                 $this->db->query("SET AUTOCOMMIT=1");
             } else {
@@ -495,8 +532,6 @@ class TransactionModel extends BaseModel
      */
     function insert_warehouse($user_id, $goods_id, $count, $price)
     {
-
-
         $get_user_count = "select * from ecm_own_warehouse where user_id='$user_id' and goods_id=$goods_id";
         $warehouse = $this->db->getrow($get_user_count);
         if ($warehouse['warehouse_id']) {

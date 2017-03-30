@@ -1,0 +1,109 @@
+{include file=member.header.html}
+<style type="text/css">
+.user_name { position: relative; bottom: 18px; margin-left:5px; }
+div.member_no_records{
+    width: 800px;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="{res file='css/financial_detaills.css'}">
+<div class="content">
+    <div class="totline"></div>
+    <div class="botline"></div>
+    {include file=member.menu.html}
+    <div id="right">
+        {include file=member.submenu.html}
+        <div class="wrap">
+            <div class="public table deposit">
+                <!--start-->
+               
+                    <div class="recordlist">
+                        <div class="notice-word">
+                            <p>您资金账户余额变动的所有财务明细</p>
+                        </div>
+                        <div class="title clearfix">
+                            <form method="get" class="float-left">
+                                <input name="app" value="deposit" type="hidden">
+                                <input name="act" value="recordlist" type="hidden">
+                                <input name="add_time_from" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"  id="add_time_from" value="{$smarty.get.add_time_from}" class="hasDatepicker" readonly="readonly"type="text">
+                                <span>-</span>
+                                <input name="add_time_to" id="add_time_to" readonly="readonly" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"  value="{$smarty.get.add_time_to}" class="hasDatepicker" type="text">
+                                <input class="btn-record" value="搜索" type="submit"></form>
+                            <div class="float-left">
+                                总收入 <strong>{$details.income}</strong>
+                                元，总支出 <strong>{$details.expenditure}</strong>
+                                元
+                            </div>
+                            <div class="float-right" style="display: none">
+                                <a href="index.php?app=deposit&amp;act=monthbill">月账单下载</a>
+                            </div>
+                        </div>
+                        <ul class="subtit">
+                            <li class="clearfix">
+                                <div class="time">付款日期</div>
+                                <div class="info" style="width:100px;">
+                                    类型
+                                    <!--名称 | 备注--> </div>
+                                <div class="tradeNo" style="width:163px;">商户订单号 | 交易号</div>
+                                <div class="income">收入(元)</div>
+                                <div class="defray">支出(元)</div>
+                                <div class="balanceNum">账户余额(元)</div>
+                                <div class="fundchannel">资金渠道</div>
+                                <div class="detail">操作</div>
+                            </li>
+                        </ul>
+                        <div class="content">
+                        {if empty($money_array)}
+                            <div class="member_no_records padding6">{$lang.no_records}{$lang.$smarty.get.act}</div>
+                        {else}
+                            {foreach from=$money_array item=money}
+                            <ul>
+                                <li class="clearfix">
+                                    <div class="time">{$money.pay_time_des}</div>
+                                    {if $money.platform_from eq 0}
+                                    <div class="info break-word" style="width:100px;">{$lang.platform_from_0}</div>
+                                    {elseif $money.platform_from eq 1}
+                                    <div class="info break-word" style="width:100px;">{$lang.platform_from_1}</div>
+                                    {elseif $money.platform_from eq 2}
+                                        {if $money.is_cancle eq -1}
+                                          <div class="info break-word" style="width:100px;">{$lang.platform_from_2}</div>
+                                        {else}
+                                          <div class="info break-word" style="width:100px;">{$lang.platform_from_0}</div>
+                                        {/if}
+                                    {elseif $money.platform_from eq 3}
+                                    <div class="info break-word" style="width:100px;">{$lang.platform_from_3}</div>
+                                    {/if}
+                                    <div class="tradeNo" style="width:165px;">{$money.money_history_id_des}</div>
+                                    <div class="income">
+                                        <strong class="price green">{if $money.transaction_type eq 0} +{$money.receive_money} {else} &nbsp; {/if}</strong> </div>
+                                    <div class="defray">
+                                        <strong class="price f60">{if $money.transaction_type eq 1} -{$money.receive_money} {else} &nbsp; {/if}</strong>
+                                    </div>
+                                    <div class="balanceNum">
+                                        <strong class="price">{$money.use_money_history}</strong>
+                                    </div>
+                                    <div class="fundchannel">{$money.money_from_des}</div>
+                                    <div class="detail">
+                                        <a target="_blank" href="index.php?app=deposit&amp;act=record&amp;tradeNo={$money.money_history_id}">查看</a>
+                                    </div>
+                                </li>
+                            </ul>
+                            {/foreach}
+                        {/if}
+                        </div>
+
+                        <div class="mt10 clearfix">
+                        {include file=page.bottom.html}
+                        </div>
+                    </div>
+                    <!--end--> 
+            
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div class="clear"></div>
+<iframe id='iframe_post' name="iframe_post" frameborder="0" width="0" height="0"></iframe>
+<script type="text/javascript"></script>
+{include file=footer.html}

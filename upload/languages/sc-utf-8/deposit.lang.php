@@ -9,6 +9,7 @@ return array(
     'financial_details' => '财务明细',
     'deposit' => '账户总览',
     'recharge' => '账户充值',
+     'drawlist'=> '充提记录',   
     'pay_successed'  => '恭喜您！支付成功！',
     'order_info_empty'  => '订单信息为空',
     'notify_unauthentic'  => '不可靠的通知',
@@ -63,4 +64,14 @@ return array(
     "WZCB"	=> "温州银行",
     "CDCB"	=> "成都银行",
     "HXBANK"	=> "华夏银行",
+    "platform_from_0" =>"茶通金额交易",
+    "platform_from_1" =>"商城交易",
+    "platform_from_2" =>"茶通取消代理",
+    "platform_from_3" =>"个人充提记录",
+    "record" =>"交易详情",
+    "platform_from_admin"=>"福禄仓投资集团",
+    "withdraw_confirm" => "提现确认",
+    "pay_status_80"=>'等待系统审核',
+    "pay_status_40"=>'交易成功',
+    
 );

@@ -100,6 +100,7 @@ return array(
     'warning'  => '警告！！！',
     'dangerous_initdata'  => '为了您的商城的安全，请立马删除商城根目录下的 ./initdata 目录',
     'dangerous_integrate'  => '为了您的商城的安全，请立马删除商城根目录下的 ./integrate 目录',
+    'drawlist' =>'充提记录'
 );
 
 

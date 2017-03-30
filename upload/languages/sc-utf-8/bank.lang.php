@@ -7,6 +7,7 @@ return array(
     'account_setting' =>'账户配置',
     'transaction_history' => '交易记录',
     'financial_details' => '财务明细',
+    'drawlist'=> '充提记录',
     'deposit' => '账户总览',
     'recharge' => '账户充值',
     'pay_successed'  => '恭喜您！支付成功！',

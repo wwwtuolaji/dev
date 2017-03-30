@@ -128,9 +128,9 @@ class BaseOrder extends Object
        $where="recharge_id = '$order_id'";
        $recharge_mod = m('recharge_log');
        $data = array('finished_time'=>time(),
-                     'pay_status'   =>$notify_result
+                     'pay_status'   =>40,
                         );
-       $recharge_mod -> edit($where,$notify_result);
+       $recharge_mod -> edit($where,$data);
         
     }
 
