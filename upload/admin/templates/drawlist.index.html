@@ -25,30 +25,30 @@ $(function(){
                 <input type="hidden" name="app" value="order" />
                 <input type="hidden" name="act" value="drawlist" />
                 用户名称检索：
-                <input name="user_name" style="width: 90px">
-                <select class="querySelect" name="field">
-                    <option>记录选择</option>
-                    <option value="recharge">充值记录</option>
-                    <option value="withdraw">提现记录</option>
+                <input name="user_name" value="{$smarty.get.user_name}"style="width: 90px">
+                <select class="querySelect" name="record_type">
+                    <option value="">记录选择</option>
+                    <option value="recharge"{if $smarty.get.record_type eq 'recharge'}selected{/if}>充值记录</option>
+                    <option value="withdraw"{if $smarty.get.record_type eq 'withdraw'}selected{/if}>提现记录</option>
 
                 </select>
                 <select class="querySelect" name="status">
                     <option value="">{$lang.search_status}</option>
-                    <option value="success">已完成</option>
-                    <option value="apply">未完成</option>
+                    <option {if $smarty.get.status eq 'success'}selected{/if}  value="success">{$lang.success_status}</option>
+                    <option {if $smarty.get.status eq 'waiting_status'}selected{/if}   value="waiting_status">{$lang.waiting_status}</option>
                 </select>
                 {$lang.add_time_from}:
-                <input class="queryInput2" type="text" value="{$query.add_time_from}" id="add_time_from" name="add_time_from" class="pick_date" />
+                <input class="queryInput2" type="text" readonly="readonly" value="{$smarty.get.add_time_from}" id="add_time_from" name="add_time_from" class="pick_date" />
                 {$lang.add_time_to}:
-                <input class="queryInput2" type="text" value="{$query.add_time_to}" id="add_time_to" name="add_time_to" class="pick_date" />
+                <input class="queryInput2" type="text" readonly="readonly" value="{$smarty.get.add_time_to}" id="add_time_to" name="add_time_to" class="pick_date" />
                 {$lang.order_amount_from}:
-                <input class="queryInput2" style="width:60px" type="text" value="{$query.order_amount_from}" name="order_amount_from" />
+                <input class="queryInput2" style="width:60px" type="text" value="{$smarty.get.order_amount_from}" name="order_amount_from" />
                 {$lang.order_amount_to}:
-                <input class="queryInput2" type="text" style="width:60px;" value="{$query.order_amount_to}" name="order_amount_to" class="pick_date" />
+                <input class="queryInput2" type="text" style="width:60px;" value="{$smarty.get.order_amount_to}" name="order_amount_to" class="pick_date" />
                 <input type="submit" class="formbtn" value="{$lang.query}" />
             </div>
-            <!--{if $filtered}-->
-            <a class="left formbtn1" href="index.php?app=order">{$lang.cancel_query}</a>
+            <!--{if $init_btn}-->
+            <a class="left formbtn1" href="index.php?app=order&act=drawlist">{$lang.cancel_query}</a>
             <!--{/if}--> </form>
     </div>
     <div class="fontr">{if $orders}{include file=page.top.html}{/if}</div>
@@ -60,14 +60,17 @@ $(function(){
             <td width="15%" class="firstCell">
                 <span ectype="order_by" fieldname="seller_id">{$lang.buyer_name}</span>
             </td>
+            <td width="15%" class="firstCell">
+                <span ectype="order_by" fieldname="seller_id">{$lang.record_type}</span>
+            </td>
             <td width="15%">
                 <span ectype="order_by" fieldname="order_sn">{$lang.order_sn}</span>
             </td>
-            <td width="15%">
+            <td width="10%">
                 <span ectype="order_by" fieldname="add_time">{$lang.add_time}</span>
             </td>
             <td width="10%">
-                <span ectype="order_by" fieldname="buyer_name">{$lang.buyer_name}</span>
+                <span ectype="order_by" fieldname="buyer_name">{$lang.seller_name}</span>
             </td>
             <td width="10%">
                 <span ectype="order_by" fieldname="order_amount">{$lang.order_amount}</span>
@@ -77,50 +80,43 @@ $(function(){
                 <span ectype="order_by" fieldname="status">{$lang.status}</span>
             </td>
             <td width="8%">{$lang.handler}</td>
-            <td width="8%">{$lang.bank_transfer}</td>
+           
         </tr>
         <!--{/if}-->
         <!--{foreach from=$recharge_arr item=recharge}-->
-        <tr class="tatr2">
+        <tr class="tatr2" style="color: {if $recharge.recharge_status eq 1}
+        {if $recharge.pay_status neq 81}#fa5757{else}#9ADE1B{/if}{else}#2824da{/if}">
             <td class="firstCell">{$recharge.user_name|escape}</td>
+            <td >{if $recharge.recharge_status eq 1}提现记录{else}充值记录{/if}</td>
             <td>
-                {$order.order_sn}&nbsp;&nbsp;
+                {$recharge.recharge_sn}&nbsp;&nbsp;
                 <!--{if $order.extension eq 'groupbuy'}-->
                 [{$lang.groupbuy}]
                 <!--{/if}--> </td>
-            <td>{$order.add_time|date:complete}</td>
-            <td>{$order.buyer_name|escape}</td>
-            <td>{$order.order_amount|price}</td>
-            <td>{$order.payment_name|escape|default:-}</td>
-            <td>{$order.status|modifier:order_status}</td>
+            <td>{$recharge.first_time_des}</td>
+            <td>{$lang.admin_name}</td>
+            <td>{$recharge.pay_money|price}</td>
+            <td>{$recharge.money_from_des|escape|default:-}</td>
+            <td>{if $recharge.pay_status eq 80}
+                    {$lang.apply_withdraw}
+                {elseif $recharge.pay_status eq 81}
+                    {$lang.apply_denied}
+                {elseif $recharge.pay_status eq 40}
+                    {$lang.apply_success}
+                {/if}</td>
             <td>
-                <a href="index.php?app=order&amp;act=view&amp;id={$order.order_id}">{$lang.view}</a>
+             
+                <a href="index.php?app=order&amp;act=view_withdraw&amp;id={$recharge.recharge_id}">{$lang.view}</a>
+                
             </td>
-            <td>
-                {if $order.status eq 11 && $order.pay_have eq 1}
-                <a href="javascript:void(0);" order_status="{$order.status}"class="confirm_click" order_id="{$order.order_id}" seller_id="{$order.order_sn|escape}">
-                    待确认
-                    <span style="color: red">(已支付)</span>
-                </a>
-                {elseif $order.status eq 11 && $order.pay_have eq 0}
-                <a href="javascript:void(0);" order_status="{$order.status}"class="confirm_click" order_id="{$order.order_id}" seller_id="{$order.order_sn|escape}">待确认</a>
-                {elseif $order.status eq 40 && $order.pay_to_fac eq 0}
-                <a href="javascript:void(0);" order_status="{$order.status}"class="to_fac_confirm" order_id="{$order.order_id}" seller_id="{$order.order_sn|escape}">
-                    已完成
-                    <span style="color: red">(待向商家支付)</span>
-                </a>
-                {else}
-                <a href="javascript:void(0);" order_status="{$order.status}"class="confirm_click" order_id="{$order.order_id}" seller_id="{$order.order_sn|escape}" disabled="disabled"style="text-decoration: none;color:#3D3A3A">{$order.status|modifier:order_status}</a>
-                {/if}
-            </td>
-        </tr>
+                </tr>
         <!--{foreachelse}-->
         <tr class="no_data">
             <td colspan="7">{$lang.no_data}</td>
         </tr>
         <!--{/foreach}--> </table>
     <div id="dataFuncs">
-        <div class="pageLinks">{if $orders}{include file=page.bottom.html}{/if}</div>
+        <div class="pageLinks">{if $recharge_arr}{include file=page.bottom.html}{/if}</div>
     </div>
     <div class="clear"></div>
 </div>
@@ -128,7 +124,7 @@ $(function(){
 <script type="text/javascript">
     $(function(){
         var site_url="{$site_url}";
-       
+       console.log('ss');
         $(".confirm_click").click(function(event) {
             if ($(this).attr("disabled")) {
                 return ;

@@ -1,0 +1,140 @@
+{include file="header.html"}
+<style type="text/css">
+    .order_form #allow_withdraw:hover{
+        cursor: pointer;
+        color: red;
+    }
+    .order_form button{
+        margin-right: 5px;
+    }
+    #denied_withdraw{
+        background-color: #ffcd38;
+        color:#f3f3f3;
+    }
+    #allow_withdraw{
+        background-color: #1c0c59;
+        color:#f3f3f3;
+    }
+    /* transaction */
+    .transaction .title-ul li{
+        width: 12%;
+        border: 1px solid #cbe4f5;
+        text-align: center;
+    }
+   
+    ul{
+        overflow: hidden;
+    }
+  
+    .content-ul li {
+        width: 100%;
+    }
+    .content-ul li ul li{
+         width: 12%;
+         border: 1px solid #cbe4f5;
+         height: 50px;
+         text-align: center;
+    }
+    .order_form .reason{
+        margin-left: 50px;
+        border: 1px solid #cbe4f5;
+        height: 50px;
+        width: 730px;
+        font: 100 12px/14px 'MicroSoft YaHei'
+    }
+    #submit{
+        margin-left: 80px;
+    }   
+    .order_form p{
+        border: 1px solid #33BFBD;
+        margin: 10px 80px;
+        width: 60%;
+        height: 100px;
+    }
+
+</style>
+<div id="rightTop">
+<p><a href="index.php?app=order&act=view_withdraw&id={$smarty.get.id}"><b><<{$lang.order_detail_back}</b></a></p>
+</div>
+<div class="info">
+    <div class="demand">
+    </div>
+    <div class="order_form">
+        <h1>{$lang.order_status}</h1>
+        <ul>
+            <li> <b>{$lang.order_platform}:</b>
+               {$money_info.platform_from_des}
+            </li>
+            <li> <b>{$lang.order_status}:</b>
+                {$money_info.status_des}
+            </li>
+            <li>
+                <b>{$lang.history_money}:</b>
+                <span class="red_common">{$money_info.use_money_history}</span>
+            </li>
+            <li>
+                <b>{$lang.order_price}:</b>
+                <span class="red_common">{$money_info.receive_money|price}</span>
+            </li>
+            {if $recharge.pay_status eq 80}
+            <li>
+                <b>{$lang.approva}:</b>
+                <button  id="allow_withdraw">{$lang.allow_withdraw}</button>
+                <button  id="denied_withdraw">{$lang.denied_withdraw}</button>
+            </li>
+            {/if}
+            {if $recharge.pay_status eq 81}
+            <li>
+                <b>{$lang.denied_reason}:</b>
+                <textarea class="reason" id="reason">{$recharge.comment_des}</textarea> 
+                <button  id="submit">{$lang.submit}</button>
+            </li>
+            {/if}
+            
+        </ul> 
+     
+        <div class="clear"></div>
+    </div>
+    <div class="order_form">
+        <h1>{$lang.order_detail}</h1>
+        <h2>{$lang.order_info}</h2>
+        <ul>
+            <li><b>{$lang.buyer_name} :</b> {$money_info.buyer_name|escape}</li>
+            <li><b>{$lang.seller_name} :</b> {$money_info.seller_name|escape}</li>
+            
+            <li><b>{$lang.payment_name}:</b>{$money_info.money_from_des|escape}&nbsp;</li>
+            
+            <li><b>{$lang.account}:</b></li>
+        
+            <li><b>{$lang.add_time}:</b>{$money_info.transaction_time}</li>
+          
+            <li><b>{$lang.pay_time}:</b>{$money_info.pay_time}</li>
+
+            <li><b>{$lang.transaction_comments}:</b>{$money_info.comments}</li>
+      
+
+        </ul>
+        <div><b>{$lang.transaction_info}:</b>
+        <p>{$money_info.transaction_des}</p></div>
+        <div class="clear"></div>
+    </div>
+
+    <div class="order_form">
+        <h2>{$lang.user_info}</h2>
+        <ul>
+            <li><b>{$lang.real_name}:</b> {$user_info.real_name|escape}</li>
+            <li><b>{$lang.email}:</b> {$user_info.email|escape}</li>
+            <li><b>{$lang.phone_tel}:</b> {$user_info.phone_tel|escape}</li>
+            <li><b>{$lang.phone_mob}:</b> {$user_info.phone_mob|escape}</li>
+            <li><b>{$lang.address}:</b> {$user_info.address|escape}</li>
+                    <!--{if $order.invoice_no}-->
+            <li><b>{$lang.invoice_no}:</b> {$order.invoice_no|escape}</li>
+            <!--{/if}-->
+        </ul>
+        <div class="clear"></div>
+    </div>
+    
+</div>
+
+  
+{include file="footer.html"}

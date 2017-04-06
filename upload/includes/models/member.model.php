@@ -160,6 +160,18 @@ class MemberModel extends BaseModel
         }
         return $droped_rows;
     }
+    /**
+     * [get_money 获取到当前使用的余额]
+     * @param  [type] $user_id [description]
+     * @return [type]          [description]
+     */
+    function get_money($user_id){
+        if (empty($user_id)) {
+            return 0;
+        }
+        $sql = "select use_money from ecm_member where user_id = $user_id";
+        return $this->db->getone($sql);
+    }
 }
 
 ?>

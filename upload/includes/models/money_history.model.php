@@ -48,5 +48,6 @@ class Money_historyModel extends BaseModel
 	      $money_array = $this->db->getone($get_money_log);
 	      return $money_array;
      	}
+   
     
 }

@@ -77,7 +77,12 @@ class Recharge_logModel extends BaseModel
 
 	function find_recharge_all($where,$limit){
 		/*$sql = "select * from ecm_recharge_log where $where limit $limit";*/
-		$sql = "SELECT member.user_name, log.* FROM ecm_money_history AS history RIGHT JOIN ecm_recharge_log AS log ON history.transaction_sn = log.recharge_id INNER JOIN ecm_member AS member ON log.user_id = member.user_id WHERE (history.platform_from = 3 OR (log.recharge_status = 1 AND log.pay_status = 80 )) limit $limit"; 
+		$sql = "SELECT member.user_name, log.* FROM ecm_money_history AS history RIGHT JOIN ecm_recharge_log AS log ON history.transaction_sn = log.recharge_id INNER JOIN ecm_member AS member ON log.user_id = member.user_id WHERE (history.platform_from = 3 OR (log.recharge_status = 1 AND log.pay_status in (80,81))) $where limit $limit"; 
 		return $this->db->getall($sql);
+	}
+	function get_wehre_count($where){
+		$sql = "SELECT count(log.recharge_id) FROM ecm_money_history AS history RIGHT JOIN ecm_recharge_log AS log ON history.transaction_sn = log.recharge_id INNER JOIN ecm_member AS member ON log.user_id = member.user_id WHERE (history.platform_from = 3 OR (log.recharge_status = 1 AND log.pay_status in (80,81))) $where"; 
+		return $this->db->getone($sql);
+
 	}
 }  

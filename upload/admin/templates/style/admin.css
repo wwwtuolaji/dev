@@ -97,7 +97,7 @@ html,body {padding: 0;margin: 0; overflow-x:hidden; overflow-y:auto;}
 .tatr2 td {border-bottom: 1px dotted #bbdbf1; empty-cells:show;}
 .padding1 { padding-right: 15px; }
 .tdare{margin-left: 2px; padding: 0 5px 60px 5px; background: #fbfdff;}
-.tdare td {padding: 10px 0;}
+.tdare td {padding: 10px 20px;}
 .tdare th a, .tdare td a {color: #234f8d;}
 .tdare th a:hover, .tdare td a:hover {color: #12325f;}
 .seledr { font-size:12px; }

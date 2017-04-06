@@ -1,0 +1,244 @@
+{include file="header.html"}
+<style type="text/css">
+    .order_form #allow_withdraw:hover{
+        cursor: pointer;
+        color: red;
+    }
+    .order_form button{
+        margin-right: 5px;
+    }
+    #denied_withdraw{
+        background-color: #ffcd38;
+        color:#f3f3f3;
+    }
+    #allow_withdraw{
+        background-color: #1c0c59;
+        color:#f3f3f3;
+    }
+    /* transaction */
+    .transaction .title-ul li{
+        width: 12%;
+        border: 1px solid #cbe4f5;
+        text-align: center;
+    }
+   
+    ul{
+        overflow: hidden;
+    }
+  
+    .content-ul li {
+        width: 100%;
+    }
+    .content-ul li ul li{
+         width: 12%;
+         border: 1px solid #cbe4f5;
+         height: 50px;
+         text-align: center;
+    }
+    .order_form .reason{
+        margin-left: 50px;
+        border: 1px solid #cbe4f5;
+        height: 50px;
+        width: 730px;
+        font: 100 12px/14px 'MicroSoft YaHei'
+    }
+    #submit{
+        margin-left: 50px;
+    }
+
+</style>
+<div id="rightTop">
+    <p><b>{$lang.order_detail}</b></p>
+</div>
+<div class="info">
+    <div class="demand">
+    </div>
+    <div class="order_form">
+        <h1>{$lang.order_status}</h1>
+        <ul>
+            <li> <b>{$lang.order_sn}:</b>
+                {$recharge.recharge_sn}{if $order.extension eq 'groupbuy'}[{$lang.groupbuy}]{/if}&nbsp;&nbsp;&nbsp;
+            </li>
+            <li> <b>{$lang.order_status}:</b>
+                {if $recharge.pay_status eq 80}
+                    {$lang.apply_withdraw}
+                {elseif $recharge.pay_status eq 81}
+                    {$lang.apply_denied}
+                {elseif $recharge.pay_status eq 40}
+                    {$lang.apply_success}
+                {/if}
+            </li>
+            <li>
+                <b>{$lang.total_money}:</b>
+                <span class="red_common">{$user_info.use_money|price}</span>
+            </li>
+            <li>
+                <b>{$lang.order_amount}:</b>
+                <span class="red_common">{$recharge.pay_money|price}</span>
+            </li>
+            {if $recharge.pay_status eq 80}
+            <li>
+                <b>{$lang.approva}:</b>
+                <button  id="allow_withdraw">{$lang.allow_withdraw}</button>
+                <button  id="denied_withdraw">{$lang.denied_withdraw}</button>
+            </li>
+            {/if}
+            {if $recharge.pay_status eq 81}
+            <li>
+                <b>{$lang.denied_reason}:</b>
+                <textarea class="reason" id="reason">{$recharge.comment_des}</textarea> 
+                <button  id="submit">{$lang.submit}</button>
+            </li>
+            {/if}
+        
+        </ul> 
+     
+        <div class="clear"></div>
+    </div>
+    <div class="order_form">
+        <h1>{$lang.order_detail}</h1>
+        <h2>{$lang.order_info}</h2>
+        <ul>
+            <li><b>{$lang.buyer_name} :</b> {$user_info.user_name|escape}</li>
+            <li><b>{$lang.seller_name} :</b> {$lang.admin_name}</li>
+            <!--{if $recharge}-->
+            <li><b>{$lang.payment_name}:</b>{$lang.$recharge.payment_name}&nbsp;</li>
+            <!--{/if}-->
+            <!--{if $recharge}-->
+            <li><b>{$lang.account}:</b>{$bank_info.num_des}</li>
+            <!--{/if}-->
+            <li><b>{$lang.add_time}:</b>{$recharge.first_time_des}</li>
+            <li><b>{$lang.bank_address}:</b>{$bank_info.open_bank}</li>
+            <!--{if $order.postscript}-->
+            <li><b>{$lang.postscript}:</b>{$order.postscript|escape}</li>
+            <!--{/if}-->
+            <!--{if $alipay_tofac.log_time}-->
+            <li><b>平台向商户付款时间:</b>{$alipay_tofac.log_time}</li>
+            <!--{/if}-->
+             <!--{if $alipay_tofac.alipay_account}-->
+            <li><b>商户支付宝账户:</b>{$alipay_tofac.alipay_account}</li>
+            <!--{/if}-->
+            
+
+        </ul>
+        <div class="clear"></div>
+    </div>
+
+    <div class="order_form">
+        <h2>{$lang.user_info}</h2>
+        <ul>
+            <li><b>{$lang.real_name}:</b> {$user_info.real_name|escape}</li>
+            <li><b>{$lang.email}:</b> {$user_info.email|escape}</li>
+            <li><b>{$lang.phone_tel}:</b> {$user_info.phone_tel|escape}</li>
+            <li><b>{$lang.phone_mob}:</b> {$user_info.phone_mob|escape}</li>
+            <li><b>{$lang.address}:</b> {$user_info.address|escape}</li>
+                    <!--{if $order.invoice_no}-->
+            <li><b>{$lang.invoice_no}:</b> {$order.invoice_no|escape}</li>
+            <!--{/if}-->
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="order_form transaction">
+        <h2>{$lang.money_transaction}</h2>
+        <ul class="title-ul"><li><b>&nbsp;交易编号</b></li><li><b>&nbsp;收入|支出</b></li> <li><b>&nbsp;交易平台</b></li> <li><b>&nbsp;交易金额</b></li> <li><b>&nbsp;历史金额</b></li>  <li><b>&nbsp;交易简述</b></li><li><b>&nbsp;交易时间</b></li></li><li><b>&nbsp;操作</b></li></ul>
+        <ul class='content-ul'>
+            {foreach from=$money_array item=money}
+            <li>
+                <ul class="inner-ul">
+                    <li>{$money.money_history_id_des}</li>
+                    <li>{if $money.transaction_type eq 1}{$lang.money_pay}{else}{$lang.money_recive}{/if}</li>
+                    <li>{$money.platform_from_des}</li>
+                    <li>{if $money.transaction_type eq 1}-{else}+{/if}{$money.receive_money}</li>
+                    <li>{$money.use_money_history}</li>
+                    <li>{$money.comments}</li>
+                    <li>{$money.pay_time_des}</li>
+                    <li>
+                        <a href="index.php?app=order&act=money_info&platform_from={$money.platform_from}&money_history_id={$money.money_history_id}&id={$smarty.get.id}&sn={$money.transaction_sn}&user_id={$money.user_id}">查看</a>
+                    </li>
+                </ul>
+            </li>
+            {/foreach}
+            
+        </ul>
+    
+        
+        <!--{foreach from=$goods_list item=goods}-->
+        <div class="order_info">
+            <a href="{$site_url}/index.php?app=goods&amp;id={$goods.goods_id}" target="_blank" class="order_info_pic"><img width="50" height="50" alt="{$lang.goods_pic}" src="{$goods.goods_image}" /></a>
+            <div class="order_info_text"><a href="{$site_url}/index.php?app=goods&amp;id={$goods.goods_id}" target="_blank">{$goods.goods_name|escape}</a><br />{$goods.specification|escape}</div>
+            <p><b>{$lang.price} :</b> <span class="red_common">{$goods.price|price}</span></p>
+            <p><b>{$lang.quantity} :</b> {$goods.quantity}</p>
+        </div>
+        <!--{/foreach}-->
+        <div class="clear"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#confirm_withdraw").click(function(){
+
+    })
+    $("#allow_withdraw").click(function(){
+        var result = confirm('您是否已经查阅了，该用户的相关交易信息？确认后将无法撤销！');
+        if (result) {
+           $.ajax({
+               url: 'index.php?app=order&act=allow_withdraw',
+               type: 'POST',
+               dataType: 'json',
+               data: {recharge_id:"{$smarty.get.id}"},
+               success:function(outdata){
+                    if (outdata.code!=0) {
+                         alert(outdata.message); 
+                         return;   
+                    }else{
+                         alert(outdata.message); 
+                         history.go(0);
+                    }
+                   
+               }
+           })
+           
+           
+        }
+    })
+    $("#submit").click(function(){
+        var reason = $("#reason").val();
+        $.ajax({
+            url: '?index.php&app=order&act=edit_denied_reason',
+            type: 'POST',
+            dataType: 'json',
+            data: {recharge_id: "{$smarty.get.id}",comments:reason},
+            success:function(outdata){
+               /* if (outdata.code!=0) {
+                    alert(outdata.message);
+                    return;
+                }*/
+                alert(outdata.message);
+            }
+        })
+    })
+    $("#denied_withdraw").click(function(){
+        var reason = prompt('请填写拒绝的理由？');
+        if (!reason) {
+            alert('请求理由不能为空');
+            return;
+        }
+        $.ajax({
+            url: 'index.php?app=order&act=denied_withdraw',
+            type: 'POST',
+            dataType: 'json',
+            data: {comments: reason,recharge_id: "{$smarty.get.id}"},
+            success:function(outdata){
+                if (outdata.code!=0) {
+                    alert(outdata.message); 
+                    return;   
+                }else{
+                    alert(outdata.message); 
+                    history.go(0);
+                }
+            }
+        });
+      
+        
+    })
+</script>
+{include file="footer.html"}
