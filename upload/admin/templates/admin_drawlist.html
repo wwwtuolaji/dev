@@ -5,10 +5,16 @@ $(function(){
     $('#add_time_to').datepicker({dateFormat: 'yy-mm-dd'});
 });
 </script>
+<style type="text/css">
+    input.queryInput2{
+        width: 72px;
+    }
+   
+</style>
 <div id="rightTop">
-    <p>{$lang.order_manage}</p>
+    <p>{$lang.admin_drawlist}</p>
     <ul class="subnav">
-        <li><span>{$lang.manage}</span></li>
+        <li><span>{$lang.manage}</span><span style="letter-spacing:2px;color: #4685D4;margin-left: 30px;font: 100 12px/12px 'MicroSoft YaHei';">({$lang.admin_des})</span></li>
     </ul>
 </div>
 <div class="mrightTop">
@@ -16,67 +22,70 @@ $(function(){
         <form method="get">
              <div class="left">
                 <input type="hidden" name="app" value="order" />
-                <input type="hidden" name="act" value="index" />
-                <select class="querySelect" name="field">{html_options options=$search_options selected=$smarty.get.field}
-                </select>:<input class="queryInput" type="text" name="search_name" value="{$query.search_name|escape}" />
+                <input type="hidden" name="act" value="admin_drawlist" />
+                <span class="querySelect" name="field">{$lang.user_obj_name}
+                </span>:<input class="queryInput" type="text" name="search_name" value="{$smarty.get.search_name|escape}" />
                 <select class="querySelect" name="status">
-                    <option value="">{$lang.search_status}</option>
-                    {html_options options=$order_status_list selected=$query.status}
+                    <option value="">{$lang.plat_form}</option>
+                    {html_options options=$plat_form_list selected=$smarty.get.status}
                 </select>
-                {$lang.add_time_from}:<input class="queryInput2" type="text" value="{$query.add_time_from}" id="add_time_from" name="add_time_from" class="pick_date" />
-                {$lang.add_time_to}:<input class="queryInput2" type="text" value="{$query.add_time_to}" id="add_time_to" name="add_time_to" class="pick_date" />
-                {$lang.order_amount_from}:<input class="queryInput2" type="text" value="{$query.order_amount_from}" name="order_amount_from" />
-                {$lang.order_amount_to}:<input class="queryInput2" type="text" style="width:60px;" value="{$query.order_amount_to}" name="order_amount_to" class="pick_date" />
+                {$lang.add_time_from}:<input class="queryInput2" type="text" value="{$smarty.get.add_time_from}" id="add_time_from" name="add_time_from" class="pick_date" />
+                {$lang.add_time_to}:<input class="queryInput2" type="text" value="{$smarty.get.add_time_to}" id="add_time_to" name="add_time_to" class="pick_date" />
+                {$lang.order_amount_from}:<input class="queryInput2" type="text" value="{$smarty.get.order_amount_from}" name="order_amount_from" />
+                {$lang.order_amount_to}:<input class="queryInput2" type="text" style="width:60px;" value="{$smarty.get.order_amount_to}" name="order_amount_to" class="pick_date" />
+                <input type="hidden"name="cancel_is_show" value="1"/>
                 <input type="submit" class="formbtn" value="{$lang.query}" />
             </div>
-            <!--{if $filtered}-->
-            <a class="left formbtn1" href="index.php?app=order">{$lang.cancel_query}</a>
+            <!--{if $smarty.get.cancel_is_show}-->
+            <a class="left formbtn1" href="index.php?app=order&act=admin_drawlist">{$lang.cancel_query}</a>
             <!--{/if}-->
         </form>
     </div>
     <div class="fontr">
-        {if $orders}{include file=page.top.html}{/if}
+        {if $money_history_admin}{include file=page.top.html}{/if}
     </div>
 </div>
 <div class="tdare">
     <table width="100%" cellspacing="0" class="dataTable">
-        <!--{if $orders}-->
+        <!--{if $money_history_admin}-->
         <tr class="tatr1">
-            <td width="15%" class="firstCell"><span ectype="order_by" fieldname="seller_id">{$lang.store_name}</span></td>
-            <td width="15%"><span ectype="order_by" fieldname="order_sn">{$lang.order_sn}</span></td>
-            <td width="15%"><span ectype="order_by" fieldname="add_time">{$lang.add_time}</span></td>
-            <td width="10%"><span ectype="order_by" fieldname="buyer_name">{$lang.buyer_name}</span></td>
-            <td width="10%"><span ectype="order_by" fieldname="order_amount">{$lang.order_amount}</span></td>
-            <td>{$lang.payment_name}</td>
-            <td width="8%"><span ectype="order_by" fieldname="status">{$lang.status}</span></td>
-            <td width="8%">{$lang.handler}</td>
-            <td width="8%">确认收款</td>
+            <td width="5%" class="firstCell"><span ectype="order_by" fieldname="seller_id">序号</span></td>
+            <td width="10%" class="firstCell"><span ectype="order_by" fieldname="seller_id">{$lang.user_obj}</span></td>
+            <td width="10%"><span ectype="order_by" fieldname="order_sn">{$lang.plat_form}</span></td>
+            <td width="12%"><span  eq 1ectype="order_by" fieldname="add_time">{$lang.add_time}</span></td>
+            <td width="12%"><span ectype="order_by" fieldname="order_amount">{$lang.price_total}</span></td>
+            <td width="12%"><span ectype="order_by" fieldname="history_price">{$lang.history_price}</span></td>
+            <td width="8%">{$lang.payment_name}</td>
+            <td width="8%"><span ectype="order_by" fieldname="status">收入/支出</span></td>
+            <td width="30%"><span ectype="order_by" fieldname="status">备注</span></td>
         </tr>
         <!--{/if}-->
-        <!--{foreach from=$orders item=order}-->
-        <tr class="tatr2">
-            <td class="firstCell">{$order.seller_name|escape}</td>
-            <td>{$order.order_sn}&nbsp;&nbsp;<!--{if $order.extension eq 'groupbuy'}-->[{$lang.groupbuy}]<!--{/if}--></td>
-            <td>{$order.add_time|date:complete}</td>
-            <td>{$order.buyer_name|escape}</td>
-            <td>{$order.order_amount|price}</td>
-            <td>{$order.payment_name|escape|default:-}</td>
-            <td>{$order.status|modifier:order_status}</td>
-            <td><a href="index.php?app=order&amp;act=view&amp;id={$order.order_id}">{$lang.view}</a></td>
-            <td>
-                {if $order.status eq 11 && $order.pay_have eq 1}
-                <a href="javascript:void(0);" order_status="{$order.status}"class="confirm_click" order_id="{$order.order_id}" seller_id="{$order.order_sn|escape}"> 待确认<span style="color: red">(已支付)</span></a>
-                {elseif $order.status eq 11 && $order.pay_have eq 0}
-                <a href="javascript:void(0);" order_status="{$order.status}"class="confirm_click" order_id="{$order.order_id}" seller_id="{$order.order_sn|escape}"> 待确认</a>
-                {elseif $order.status eq 40 && $order.pay_to_fac eq 0}
-                <a href="javascript:void(0);" order_status="{$order.status}"class="to_fac_confirm" order_id="{$order.order_id}" seller_id="{$order.order_sn|escape}"> 已完成<span style="color: red">(待向商家支付)</span></a>
-                {else}
-                     <a href="javascript:void(0);" order_status="{$order.status}"class="confirm_click" order_id="{$order.order_id}" seller_id="{$order.order_sn|escape}" disabled="disabled"style="text-decoration: none;color:#3D3A3A">{$order.status|modifier:order_status} </a>
-                {/if}
-
-                
-            </td>   
+        <!--{foreach from=$money_history_admin item=admin name=name}-->
+        {if $admin.transaction_type eq 1}
+        <tr class="tatr2" style="color: #43DDD1">
+            <td style="color: #000;"><b>{$smarty.foreach.name.iteration}</b></td>
+            <td class="firstCell">{$admin.user_name|escape}</td>
+            <td>{$admin.plat_form_des}</td>
+            <td>{$admin.pay_time_des}</td>
+            <td>{$admin.receive_money|price}</td>
+            <td>{$admin.use_money_history|price}</td>
+            <td>{$admin.money_from_des|escape}</td>
+            <td>支出</td>
+            <td>{$admin.comments|escape}</td>   
         </tr>
+        {else}
+        <tr class="tatr2" style="color: #D42020">
+            <td style="color: #000;"><b>{$smarty.foreach.name.iteration}</b></td>
+            <td class="firstCell">{$admin.user_name|escape}</td>
+            <td>{$admin.plat_form_des}</td>
+            <td>{$admin.pay_time_des}</td>
+            <td>{$admin.receive_money|price}</td>
+            <td>{$admin.use_money_history|price}</td>
+            <td>{$admin.money_from_des|escape}</td>
+            <td>收入</td>
+            <td>{$admin.comments|escape}</td>   
+        </tr>
+        {/if}
         <!--{foreachelse}-->
         <tr class="no_data">
             <td colspan="7">{$lang.no_data}</td>

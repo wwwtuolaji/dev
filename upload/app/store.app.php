@@ -15,7 +15,7 @@ class StoreApp extends StorebaseApp
         $this->set_store($id);
         $store = $this->get_store_data();
         $this->assign('store', $store);
-
+        $user_info = $this->assign('user_info',$this->visitor->get());
         /* 取得友情链接 */
         $this->assign('partners', $this->_get_partners($id));
 

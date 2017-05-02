@@ -196,7 +196,8 @@ return array(
     'share_link' => '分享链接',
     'not_csv_file' => '您选择的文件不是CSV格式',
     'enable_radar'=>'商品雷达',
-    'enable_radar_note'=>'商品雷达，电商网络情报之窗'
+    'enable_radar_note'=>'商品雷达，电商网络情报之窗',
+    'admin_drawlist' =>'管理员账户',
 );
 
 ?>

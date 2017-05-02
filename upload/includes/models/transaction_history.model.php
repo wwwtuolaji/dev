@@ -18,7 +18,7 @@ class Transaction_historyModel extends BaseModel
    	$history_info = $this->db->getrow($sql);
    	$member_mod = m('member');
    	$buy_arr = $member_mod->get($history_info['buy_sn_id']);
-   	$sell_arr = $history_info['sell_sn_id']==-1?'福禄仓投资集团':$member_mod ->get($history_info['sell_sn_id']);
+   	$sell_arr = $history_info['sell_sn_id']==1?'福禄仓投资集团':$member_mod ->get($history_info['sell_sn_id']);
    	$name_arr['transaction_history_count'] = $history_info['transaction_history_count'];
    	$name_arr['transaction_price'] = $history_info['transaction_price'];
    	$name_arr['goods_name'] = $history_info['goods_name'];
@@ -26,6 +26,14 @@ class Transaction_historyModel extends BaseModel
    	$name_arr['buyer'] = $buy_arr['user_name'];
    	$name_arr['seller'] = $sell_arr['user_name'];
    	return $name_arr;
+   }  
+
+   function get_history_info_where($sn,$where){
+    $sql = "select h.*,g.goods_name,m.user_name from ecm_transaction_history as h inner join ecm_goods as g on h.goods_id = g.goods_id inner join ecm_member as m h.sell_sn_id = m.user_id where h.history_id = '$sn' $where";
+    $history_info = $this->db->getrow($sql);
+    return $history_info;
    }
+
+  
 
 }

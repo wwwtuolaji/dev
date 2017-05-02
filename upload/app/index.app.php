@@ -970,8 +970,15 @@ class IndexApp extends IndexbaseApp
     function transaction()
     {
         $transaction_mod =& m('transaction');
+        $recharge_mod = m('recharge_log');
+        $member_mod = m('member');
         $db=db();
 
+         //如果token为空则生成一个token
+        if(!isset($_SESSION['token']) || $_SESSION['token']=='') {
+          $recharge_mod->set_token();
+        }
+        $this->assign('token',$_SESSION['token']);
         //获取交易的数据信息
         $transaction_arr= $transaction_mod->find(array('conditions'=>'transaction_status>-1 and transaction_count>0'));
         
@@ -990,6 +997,13 @@ class IndexApp extends IndexbaseApp
         $this->assign('transaction_arr',$transaction_arr);
         // dump($transaction_arr);
         if ($_POST) {
+            //校验token
+              if (!$recharge_mod->valid_token()) {
+                     echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
+                $this->show_warning('表单无法重复提交，请刷新页面重试');
+                return;
+            }
+
             if (empty($_POST['goods_id'])) {
                 echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
                 $this->show_warning('参数异常');
@@ -1021,8 +1035,10 @@ class IndexApp extends IndexbaseApp
                 } else {
                     $transaction_status = 1;
                 }
+
                 $user_id = $this->visitor->get('user_id');
-                $waiting_price = $transaction_price*100*$transaction_count/100; 
+                $member_info = $member_mod ->get($user_id);
+                $waiting_price = (int)(string)($transaction_price*100)*$transaction_count/100; 
                 $arr = array('goods_id' => $goods_id,
                     'goods_type' => $tea_type,
                     'transaction_status' => $transaction_status,
@@ -1038,9 +1054,10 @@ class IndexApp extends IndexbaseApp
                 );
                 
                 $use_money = $this->get_user_count();
-                $use_money_temp=intval($use_money*100);
-                $waiting_price_temp =intval($waiting_price*100);
-                if ($waiting_price_temp>$use_money_temp) {
+                $use_money_temp=(int)(string)($use_money*100);
+                $waiting_price_temp =(int)(string)($waiting_price*100);
+                $able_use_money = $recharge_mod ->get_use_money($user_id);//可以用的钱
+                if ($waiting_price_temp > (int)(string)($able_use_money*100)) {
                      $this->show_warning('余额不足');
                      return;
                 }
@@ -1053,9 +1070,7 @@ class IndexApp extends IndexbaseApp
                 $transaction = $transaction_mod->add($arr);
                 if ($transaction) {
                      $money_hitory_mod =& m('money_history');
-
                      $have_add = $money_hitory_mod ->get(array('fields'=>'money_history_id','conditions'=>"transaction_sn ='$transaction'AND money_from ='0' AND platform_from ='2' AND transaction_type ='1'"));
-                     //检查该订单是否已经插入过,没做直接给了数据表unique 非法操作
                      if (!$have_add) {
                           //金额日志记录
                         $add_money_arr = array(
@@ -1069,14 +1084,37 @@ class IndexApp extends IndexbaseApp
                         'user_id' => $user_id,
                         'comments' =>"申请买入$goods_name 扣款",
                         );
-                        $money_log = $money_hitory_mod->add($add_money_arr); 
+                        $money_log = $money_hitory_mod->add($add_money_arr);
+
+                        //将要买入的金额临时转入到admin账户
+                        //4.1 获取到admin账户的金额
+                        $admin_money =  $member_mod ->get_money(1);
+                        //4.2 计算增加后的金额
+                        $set_admin_money = ((int)(string)($waiting_price*100)+(int)(string)(100*$admin_money))/100;
+                        //4.3 编辑金额
+                        $edit_admin_array =  array('use_money'=>$set_admin_money);
+                        $result_member_admin = $member_mod ->edit(1,$edit_admin_array);
+                        //4.4 增加admin的金额日志记录
+                         $add_admin_array = array(
+                            'transaction_sn'     => $transaction,//充值id
+                            'money_from'         => 0,//0预存款，1支付宝, 2微信
+                            'transaction_type'   => 0,//0,收入 1支出
+                            'receive_money'      => $waiting_price,//收入或减去的金额
+                            'pay_time'           => time(),//支付时间
+                            'platform_from'      => 2,//0,茶通历史表，1，商城 2，transaction3,个人充值
+                            'use_money_history'  => $set_admin_money,//当前的金额
+                            'user_id'            => 1,//user_id
+                            'comments'           => "用户({$member_info['user_name']})申请买入商品(id={$goods_id}),单价是({$transaction_price})元，数量$transaction_count"//备注
+                        ); 
+                        $result_add_admin = $money_hitory_mod ->add($add_admin_array); 
+
                     } else{
                         /*设置为false让以上修改都不成功*/
                         $money_log = false;
                     } 
                     
                 }
-                if ($money_log && $transaction &&  $ab_result) {  
+                if ($money_log && $transaction &&  $ab_result && $result_add_admin && $result_member_admin) {  
                     $this->transaction_produce();
                     $db->query('COMMIT');
                     $db->query("SET AUTOCOMMIT=1");
@@ -1106,7 +1144,6 @@ class IndexApp extends IndexbaseApp
             $this->flush_html('没有权限', 0);
             die;
         }
-
         $agent_transaction = $this->_get_agent_transaction($user_info['user_id']);
         /*dump($agent_transaction);*/
         if (!empty($agent_transaction)) {
@@ -1152,7 +1189,6 @@ class IndexApp extends IndexbaseApp
         /*dump($history_transaction);*/
 
         $this->assign('history_transaction',$history_transaction);
-
         $this->assign('agent_transaction', $agent_transaction);
         $user_name = $this->visitor->get('user_name');
         $out_data['user_name'] = $user_name;
@@ -1540,22 +1576,20 @@ class IndexApp extends IndexbaseApp
         }
         $result = $this->check_pwd($_POST['pay_pwd']);
         if ($result) {
-
             //验证user_money
-            $user_money = $this->get_user_count();
-            $temp_money = $user_money*100;
             $_POST['user_money']=$_POST['user_money']*100;
-            /*echo "";*/
-            if ($_POST['user_money'] > $temp_money) {
+            $recharge_mod = m('recharge_log');
+            $able_use_money = $recharge_mod ->get_use_money($user_id);//可以用
+            if ($_POST['user_money'] > (int)(string)($able_use_money*100)) {
                 $out_data = array('code' => 6,
-                    'message' => "余额不足,当前余额为$user_money",
+                    'message' => "余额不足,当前余额为$able_use_money",
                     'data' => ''
                 );
 
             } else {
                 $out_data = array('code' => 0,
                     'message' => '请求成功',
-                    'data' => $user_money
+                    'data' => $able_use_money
                 );
             }
             echo json_encode($out_data);
@@ -1646,9 +1680,9 @@ class IndexApp extends IndexbaseApp
     function get_user_count()
     {
         $user_id = $this->visitor->get('user_id');
-         $recharge_log = m('recharge_log');
-        $use_money = $recharge_log->get_use_money($user_id);
-        return $use_money;
+         $member_mod = m('member');
+        $use_money = $member_mod->get($user_id);
+        return $use_money['use_money'];
     }
 
     /**
@@ -1673,6 +1707,16 @@ class IndexApp extends IndexbaseApp
     /**取消代理*/
     function cancel_agent()
     {
+
+        //校验token
+        $recharge_mod =m("recharge_log");
+        $result_token = $recharge_mod ->valid_token();
+        if (!$result_token) {
+            $out_data = array('code' => 3,
+                'message' => '请勿重复提交，刷新页面重试',
+                'data' => '');
+            return;
+        }
         $transaction_sn = $_POST['transaction_sn'];
         $goods_count = $_POST['goods_count'];
         /*  dump($transaction_sn);*/
@@ -1835,7 +1879,7 @@ class IndexApp extends IndexbaseApp
                 //减少成本计算 ： 当前库存除以当前数量，求出平均价格 乘以要卖出的数量
                /* $transaction_price=intval($transaction_price*100);
                 $abstract_price=$transaction_count*$transaction_price;*/
-                $transaction_price_total = intval($goods_warehouse['transaction_price']*100);
+                $transaction_price_total = (int)(string)($goods_warehouse['transaction_price']*100);
                 $transaction_prev_total  = $transaction_price_total/$goods_warehouse['goods_count'] ;
                 $transaction_prev_total = ceil($transaction_prev_total);
                 $transaction_price= $transaction_price_total- $transaction_prev_total*$transaction_count;

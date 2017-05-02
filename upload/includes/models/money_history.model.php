@@ -21,7 +21,7 @@ class Money_historyModel extends BaseModel
       	$money_array = $this->db->getcol($get_money_log);
       	$money_count_temp =0;
       	foreach ($money_array as $money_price) {
-      		$money_count_temp =$money_count_temp + intval($money_price*100);
+      		$money_count_temp =$money_count_temp + (int)(string)($money_price*100);
       	}
       	$money_count = $money_count_temp/100;
       	return $money_count;
@@ -37,7 +37,7 @@ class Money_historyModel extends BaseModel
       	$money_array = $this->db->getcol($get_money_log);
       	$money_count_temp =0;
       	foreach ($money_array as $money_price) {
-      		$money_count_temp =$money_count_temp + intval($money_price*100);
+      		$money_count_temp =$money_count_temp + (int)(string)($money_price*100);
       	}
       	$money_count = $money_count_temp/100;
       	return $money_count;

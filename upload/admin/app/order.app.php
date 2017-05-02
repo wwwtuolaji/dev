@@ -85,6 +85,10 @@ class OrderApp extends BackendApp
         )); //找出所有商城的合作伙伴
         $page['item_count'] = $model_order->getCount();   //获取统计的数据
         $this->_format_page($page);
+        //分配token数据
+        $recharge_mod = m("recharge_log");
+        $recharge_mod -> set_token();
+        $this->assign('token',$_SESSION['token']);
         $this->assign('filtered', $conditions? 1 : 0); //是否有查询条件
         $this->assign('order_status_list', array(
             ORDER_PENDING => Lang::get('order_pending'),
@@ -158,8 +162,6 @@ class OrderApp extends BackendApp
         $db=&db();
         $query="select * from ecm_order_tofac where order_id='$order_id' limit 1";
         $tofac=$db->getrow($query);
-                //获取当前支付账号信息
-            /*{s:14:"alipay_account";s:6:"111112";s:10:"alipay_key";s:0:"";s:14:"alipay_partner";s:0:"";s:14:"alipay_service";s:21:"trade_create_by_buyer";s:5:"pcode";s:0:"";s:8:"sms_code";s:0:"";}*/
         $payment=& m('payment');
         $payment_info= $payment->get(array("store_id = {$order_info['seller_id']}")
                     );
@@ -298,16 +300,33 @@ class OrderApp extends BackendApp
      *    @return    void
      */
     function confirm_pay_tofac(){
+        //防止重复提交增加token验证
+        $recharge_mod = m('recharge_log');
+        $recharge_result = $recharge_mod ->valid_token();
+        $member_mod = m('member');
+        $money_hitory_mod =m('money_history');
+        if (!$recharge_result) {
+            $output=array(
+                            'code'=>2,
+                            'message'=>'该订单已经提交过,请刷新页面重试',
+                            'data'=>"",
+                            );
+            echo json_encode($output);
+            return;
+        }
+        //以上校验通过进行交易
+        $recharge_mod ->start();//开启事务
+
         //数据准备
         $order_id   =$_GET['order_id'];
         if (empty($order_id)) {
-              $output=array(
+            $output=array(
                             'code'=>3,
                             'message'=>'参数异常',
                             'data'=>"",
-                            );
-               echo json_encode($output);
-               return;
+                        );
+            echo json_encode($output);
+            return;
         }
         $operator   =$this->visitor->get('user_name');
         $remark     =$_POST['remark'];
@@ -316,15 +335,78 @@ class OrderApp extends BackendApp
         $insert="insert into ecm_order_tofac values(null,'$order_id','$operator','$remark','$log_time')";
         $result=$db->query($insert);
         //修改订单的状态
-        $update="update ecm_order set pay_to_fac=1 where order_id=$order_id";
-        $db->query($update);
-        if ($result) {
-            $output=array(
+        $order_mod = m('order');
+       
+        //1.向商家付款，增加商家的预存款金额
+        //1.1交易信息
+        
+        $order_info = $order_mod ->getorder_info_by_id($order_id);
+        //1.2需要支付的金额计算
+        //$price = ((int)(string)($order_info['price']*100)+(int)(string)($order_info['shipping_fee']*100))/100;
+        $price = $order_info['order_amount'];
+        //1.3获取当前商家的金额
+        $use_money = $member_mod ->get_money($order_info['seller_id']);
+        if (empty($use_money)) {
+            $use_money = 0;
+        }
+        $set_money =  ((int)(string)($use_money*100)+(int)(string)($price*100))/100;
+        //1.4生成交易记录
+        $add_array = array(
+                        'transaction_sn'     => $order_id,//充值id
+                        'money_from'         => 0,//0预存款，1支付宝, 2微信
+                        'transaction_type'   => 0,//0,收入 1支出
+                        'receive_money'      => $price,//收入或减去的金额
+                        'pay_time'           => time(),//支付时间
+                        'platform_from'      => 1,//0,茶通历史表，1，商城 2，transaction3,个人充值
+                        'use_money_history'  => $set_money,//当前的金额
+                        'user_id'            => $order_info['seller_id'],//user_id
+                        'comments'           => "卖出商品({$order_info['goods_name']}),盈利金额是({$price})元",//备注
+                        );  
+        $money_history_mod = m('money_history');
+        $result_add_history = $money_history_mod ->add($add_array);   
+        //1.5 设置用户金额
+        $edit_array = array('use_money'=>$set_money);
+        $result_member = $member_mod ->edit($order_info['seller_id'],$edit_array);
+        if (empty($order_info)) {
+            $order_result =false;
+        }
+        //1.6 admin账户减少
+        //减少admin账户的金额
+        //1.获取admin账户的金额
+        $admin_money = $member_mod->get_money(1);
+        //2.计算减少后的金额
+        $set_admin_money = ((int)(string)(100 * $admin_money) -(int)(string)(100 * $price)) / 100;
+        //3.编辑金额
+        $edit_admin_array = array('use_money' => $set_admin_money);
+        $result_member_admin = $member_mod->edit(1, $edit_admin_array);
+        //4.增加admin的金额日志记录
+        $seller_member_info = $member_mod->get($order_info['seller_id']);
+        $buyer_member_info = $member_mod->get($order_info['buyer_id']);
+        $add_admin_array = array(
+                        'transaction_sn' => $order_id,//充值id
+                        'money_from' => 0,//0预存款，1支付宝, 2微信
+                        'transaction_type' => 1,//0,收入 1支出
+                        'receive_money' => $price,//收入或减去的金额
+                        'pay_time' => time(),//支付时间
+                        'platform_from' => 1,//0,茶通历史表，1，商城 2，transaction3,个人充值
+                        'use_money_history' => $set_admin_money,//当前的金额
+                        'user_id' => 1,//user_id
+                        'comments' => "买家({$buyer_member_info['user_name']})购买商品(id={$order_info['goods_id']}),已经确认到货，由admin转给卖家({$seller_member_info['user_name']})货款($price)元",//备注
+                    ); ~
+        $result_add_admin = $money_hitory_mod->add($add_admin_array);
+        $update=array("pay_to_fac"=>1);
+        $order_result = $order_mod->edit($order_id,$update);
+
+        //4.以上成功事务提交
+        if ($result_member && $result_add_history && $order_result &&  $result_add_admin  &&  $result_member_admin) {
+            $recharge_mod ->commit();
+             $output=array(
                             'code'=>0,
                             'message'=>'请求成功',
                             'data'=>"",
                             );
         }else{
+            $recharge_mod ->cancel();
             $output=array(
                             'code'=>1,
                             'message'=>'请求失败',
@@ -610,7 +692,7 @@ class OrderApp extends BackendApp
             }else{
                 $member = m('member');
                 $use_money = $member ->get_money($recharge_info['user_id']);
-                $update_money = (intval($use_money*100)-intval($recharge_info['pay_money'])*100)/100;
+                $update_money = ((int)(string)($use_money*100)-(int)(string)($recharge_info['pay_money'])*100)/100;
                 $money_history_mod = m('money_history');
                 $recharge_log_mod = m('recharge_log');
                 if ($update_money>0) {
@@ -635,6 +717,7 @@ class OrderApp extends BackendApp
                     //3.修改当前的订单的状态
                     $recharge_edit =array('finished_time'=>$time,'comment_des'=>'提现申请被通过','pay_status'=>40);
                     $recharge_result = $recharge_log_mod ->edit($recharge_id,$recharge_edit);
+
                     if ($member_result && $money_result &&  $recharge_result) {
                         $this->commit();
                         $out_data = array(
@@ -704,6 +787,100 @@ class OrderApp extends BackendApp
                             'data'=>'');
         }
         echo json_encode($out_data);    
+    }
+    /*管理员账户信息*/
+    function admin_drawlist(){
+        $money_mod = m('money_history');
+        $transaction_mod = m('transaction');
+        $transaction_history =m('transaction_history');
+        $order_mod = m('order');
+     
+        $where ='';
+        if (!empty($_GET['search_name'])) {
+             $where  .= "AND user_name like '%{$_GET['search_name']}%'";
+         }
+        $add_time_from = empty($_GET['add_time_from'])?0:strtotime($_GET['add_time_from']);
+        $add_time_to = empty($_GET['add_time_to'])?time():strtotime($_GET['add_time_to']);
+        $where_date = "AND pay_time > '$add_time_from' AND pay_time < '$add_time_to'";
+
+        $where_date .= empty($_GET['order_amount_from'])?"AND receive_money >'0'": "AND receive_money >'" .$_GET['order_amount_from'] ."'";
+        $where_date .= empty($_GET['order_amount_to'])?"": "AND receive_money <'" .$_GET['order_amount_to'] ."'";
+
+        $money_history_admin = $money_mod ->find(array('conditions'=>"user_id ='1'".$where_date));
+        $this->assign('page_info', $page);
+        $plat_form_list_arr =array(0 => Lang::get('chatong'),1=>Lang::get('shangcheng'),2=>Lang::get('chatong'));
+        $pay_method = array(
+                            Lang::get('recharge'),
+                            Lang::get('alipay'),
+                            Lang::get('wechat'),
+                            Lang::get('bank'));
+        foreach($money_history_admin as $key => $v){
+            $money_history_admin[$key]['pay_time_des'] = date("Y-m-d H:i:s",$v['pay_time']);
+            $money_history_admin[$key]['plat_form_des'] = $plat_form_list_arr[$v['platform_from']];
+            $money_history_admin[$key]['money_from_des'] = $pay_method[$v['money_from']];
+           //根据交易平台，获取与admin用户名交易的用户名
+           if ($v['platform_from'] == 0) {
+                //0来源茶通历史表，是admin用户的钱转给，卖方的用户
+                $transaction_history = $transaction_history ->get_history_info_where($v['transaction_sn'],$where);
+                if (empty($transaction_history)) {
+                    unset($money_history_admin[$key]);
+                }else{
+                   $money_history_admin[$key]['user_name'] = $transaction_history['user_name'];  
+                }
+                
+           }elseif ($v['platform_from'] == 2) {
+                //2来源于trasaction,退款和购买茶通茶叶产品。是用户把钱转给admin账户
+                $transaction_info = $transaction_mod ->get_transaction($v['transaction_sn'],$where);
+                if (empty($transaction_info)) {
+                    unset($money_history_admin[$key]);
+                }else{
+                    $money_history_admin[$key]['user_name'] = $transaction_info['user_name'];
+                }
+                
+                
+           }elseif ($v['platform_from'] == 1) {
+               //来源商城：两种情况
+               
+               //情况1:买家给商家付款，临时转入admin 账户
+               if ($v['transaction_type'] ==1) {
+                    $where ='';
+                    if (!empty($_GET['search_name'])) {
+                         $where  .= "AND seller_name like '%{$_GET['search_name']}%'";
+                     }
+                     $conditions =array('conditions'=>"order_id='{$v['transaction_sn']}'$where");
+                     $order_info = $order_mod ->get($conditions );
+                   //是支出就是admin账户给 卖家付款
+                    if (empty( $order_info)) {
+                        unset($money_history_admin[$key]);
+                    }else{
+                      $money_history_admin[$key]['user_name'] = $order_info['seller_name'];  
+                    }
+                     
+               }else{
+                    $where ='';
+                    if (!empty($_GET['search_name'])) {
+                         $where  .= "AND buyer_name like '%{$_GET['search_name']}%'";
+                     }
+                     $conditions =array('conditions'=>"order_id='{$v['transaction_sn']}'$where");
+                     $order_info = $order_mod ->get($conditions );
+                    if (empty( $order_info)) {
+                        unset($money_history_admin[$key]);
+                    }else{
+                        $money_history_admin[$key]['user_name'] = $order_info['buyer_name']; 
+                    } 
+               }
+               
+           }
+
+        }
+    /*     dump($money_history_admin);*/
+        $this->assign('money_history_admin',$money_history_admin);
+         $plat_form_list_arr =array(0 => Lang::get('chatong'),1=>Lang::get('shangcheng'));
+        $this->import_resource(array('script' => 'inline_edit.js,jquery.ui/jquery.ui.js,layer/layer.js,jquery.ui/i18n/' . i18n_code() . '.js',
+                                      'style'=> 'jquery.ui/themes/ui-lightness/jquery.ui.css'));
+        $this->assign('plat_form_list', $plat_form_list_arr);
+
+        $this->display('admin_drawlist.html');
     }
 
 

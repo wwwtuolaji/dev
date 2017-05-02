@@ -1,0 +1,62 @@
+<!-- <div class="tea-zx">
+<div class="new-zx">
+    <div class="new-nav">
+        <span style="font:200 16px/27px 'Microsoft Yahei'; float: left;margin-left: 10px;">{$widget_data.report.article_type_des}</span>
+        <a href="?app=article&cate_id={$widget_data.report.cate_id}" style="font:200 16px/27px 'Microsoft Yahei';float: right;">更多>></a>
+    </div>
+    <div class="bm-inner bm-inner-all">
+        <ul>
+
+            {foreach from=$widget_data.report.articles item=article}
+                {if empty($article.link)}
+            <li>
+                <a href="?app=article&act=view&article_id={$article.article_id}" title="{$article.title}">
+                    <span class="tit_con_des">&ensp;{$article.title}</span>
+                    <span style="float: right; display:inline-block;width: 40% text-align: right;">{$article.add_time_des}&ensp;</span>
+                </a>
+            </li>
+            {else}
+            <li>
+                <a href="{$article.link}" title="{$article.title}">
+                    <span class="tit_con_des">&ensp;{$article.title}</span>
+                    <span style="float: right; display:inline-block;width: 40%;text-align: right;" >{$article.add_time_des}&ensp;</span>
+                </a>
+            </li>
+            {/if}
+               
+            {/foreach}
+        </ul>
+
+    </div>
+</div>
+</div> -->
+
+
+<div class="new-xp article_re">
+            <div class="new-nav">
+                <span style="font:200 16px/27px 'Microsoft Yahei'; float: left;margin-left: 10px;">{$widget_data.report.article_type_des}</span>
+                <a href="?app=article&cate_id={$widget_data.report.cate_id}" style="font:200 16px/27px 'Microsoft Yahei';float: right;">更多>></a>
+            </div>
+            <div class="bm-inner">
+                <div style="float: left;"><a href="{$widget_data.image.0.ad_link_url}"><img src="{$widget_data.image.0.ad_image_url}" alt="" style="width: 150px;height: 160px;margin: 5px;"></a></div>
+                <ul style="float: left;">
+                    {foreach from=$widget_data.report.arr1 item=article}
+                        <li><a href="?app=article&act=view&article_id={$article.article_id}" title="{$article.title}">&ensp;{$article.title}</a></li>
+                    {/foreach}
+                   {if empty($widget_data.report.arr1)}
+                    <li><a href="?app=article&cate_id={$widget_data.report.cate_id}">&ensp;更多>></a></li> 
+                   {/if}
+                </ul>
+            </div>
+            <div class="bm-inner">
+                <div style="float: left;"><a href="{$widget_data.image.1.ad_image_url}"><img src="{$widget_data.image.1.ad_image_url}" alt="" style="width: 150px;height: 160px;margin: 5px;"></a></div>
+                <ul style="float: left;">
+                    {foreach from=$widget_data.report.arr2 item=article}
+                        <li><a href="?app=article&act=view&article_id={$article.article_id}" title="{$article.title}">&ensp;{$article.title}</a></li>
+                    {/foreach}
+                    {if empty($widget_data.report.arr2)}
+                    <li><a href="?app=article&cate_id={$widget_data.report.cate_id}">&ensp;更多>></a></li> 
+                   {/if}
+                </ul>
+            </div>
+        </div>

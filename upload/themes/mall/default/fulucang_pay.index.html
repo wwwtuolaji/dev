@@ -1,0 +1,200 @@
+{include file="header.html"}
+{include file="curlocal.html"}
+<link rel="stylesheet" type="text/css" href="{res file=css/style3.css}">
+<div class="content">
+     <div class="module_common">
+        <h2 class="hh" style="display: inline-block;"><b >货币支付（FuluCang-pay）</b></h2>
+     
+        <div class="wrap">
+            <div class="wrap_child">
+                 <div class="login_con" id="login_con1"style="">
+                    <div class="login_left login_left_re">
+                        <form method="post" id="fulucang_pay_form" action="?index.php&app=cashier&act=transaction">
+                        <table>
+                             <tr>
+                                <td>账户存款： </td>
+                                <td><span style="font: 400 16px/20px 'MicroSoft YaHei';color:#E8440C;" id="cur_use_money" price ="{$cur_use_money}">{$cur_use_money|price}</span></td>
+                            </tr>
+                            <tr>
+                                <td>支付金额： </td>
+                                <td><span style="font: 400 16px/20px 'MicroSoft YaHei';color:#E8440C;" id="price" price="{$order_info.price}">{$order_info.price|price}</span></td>
+                            </tr>
+                            <tr>
+                                <td>支付密码: </td>
+                                <td><input id="password" type="password" name="password" class="text width5" /></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <a href="javascript:;" class="a-btn">
+                                        <span class="a-btn-text">邮箱验证</span>
+                                        <span class="a-btn-slide-text">手机验证</span>
+                                        <span class="a-btn-icon-right">
+                                            <span></span>
+                                        </span>
+                                    </a>
+                                </td>
+                                <td><input id="validate_code" type="password" name="validate_code" class="text" style="width: 120px" /><span id="get_pwd">点击获取验证码</span></td>
+                            </tr>
+                            {if $captcha}
+                            <tr>
+                                <td>{$lang.captcha}:</td>
+                                <td>
+                                    <input type="text" name="captcha" class="text" id="captcha1" />
+                                    <span><a href="javascript:change_captcha($('#captcha'));" class="renewedly"><img id="captcha" src="index.php?app=captcha&amp;{$random_number}" /></a></span>
+                                </td>
+                            </tr>
+                          {/if}
+                            <tr class="distance">
+                                <td></td>
+                                <td>
+                                  <input type="button"  value="确定支付" class="enter_re" />                                  
+                                  <a  target="_blank" href="index.php?app=deposit&act=account_setting" class="clew">忘记密码？</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="hidden" name="token" value="{$token}" />
+                        <input type="hidden" id="sn" name="out_trade_no" value="{$order_info.out_trade_no}" />
+
+
+                        </form>
+                    </div>
+
+                    <div class="login_right">
+                        <h4>{$lang.attention}:<br /><span style="color: #E85252">{$lang.not_member}</span></h4>
+                        <p >{$lang.after_register}</p>
+                        <ol>
+                            <li><strong>1.</strong> {$lang.save_profile}</li>
+                            <li><strong>2.</strong> {$lang.collect_goods}</li>
+                           <!-- <li><strong>3.</strong> {$lang.member_point}</li>-->
+                            <li><strong>3.</strong> {$lang.subscription_goods}</li>
+                        </ol>
+                        <a href="index.php?app=deposit&act=recharge" class="recharge_btn" title="{$lang.register_now}">立即充值</a>
+                    </div>
+                </div>
+            
+
+            </div>
+        </div>
+     </div>
+</div>
+<script type="text/javascript">
+    var validate_method = "email";
+    var code_num = 1;
+    var send_url ="index.php?app=cashier&act=send_email";
+    $(".a-btn-slide-text").click(function(event) {
+       var temp = $(this).html();
+       var top_var = $(".a-btn-text").html();
+       $(this).html(top_var);
+       $(".a-btn-text").html(temp);
+       if (code_num%2!=0) {
+          validate_method ="phone"; 
+          send_url ="index.php?app=cashier&act=get_phonecode";
+
+       }else{
+           send_url ="index.php?app=cashier&act=send_email";
+           validate_method ="email" ; 
+           
+       }
+       code_num++;
+
+    });
+    var _status =true;
+    var n;
+    var html_con;
+    $("#get_pwd").click(function(){
+        if (!_status) {
+            return;
+        }
+        var sn = $("#sn").val();
+
+         _status = false;
+        html_con = $(this).html();
+        if (validate_method ==="email") {
+            alert("请使用注册邮箱接收验证码");
+        }else{
+            alert("请使用手机号接收验证码");
+        }
+        if (!send_url) {
+            alert("选择接收模式");
+            return;
+        }
+        
+        $.ajax({
+            url: send_url,
+            type: 'POST',
+            dataType: 'json',
+            data: {type: 'get_pay_code',sn:sn},
+            success:function(out_data){
+                if (out_data.data!=0) {
+                    alert(out_data.message);
+                }
+            }
+        });
+        n=setInterval("change_sms()",1000);
+        s=160;
+    });
+    function change_sms(){
+        obj=$("#get_pwd");
+             s--;  
+             obj.html("请"+s+"秒重新获取");
+             obj.css({
+                 'background-color': '#D44141'
+             });
+             if (s==0) {
+                 obj.attr("disabled", "false");
+                 
+                 s=160;
+                 _status=true;
+                 obj.html(html_con);
+                 obj.css({
+                 'background-color': '#BDBCBC'
+             });
+                 clearInterval(n);
+            }
+    }
+
+    var enter_status = true;
+    $(".enter_re").click(function(){
+        if (!enter_status) {
+            return;
+        }
+        /*检查当前数据*/
+        pay_pwd = $("#password").val();
+        validate_code =$("#validate_code").val();
+        cur_use_money = $("#cur_use_money").attr("price");
+        price = $("#price").attr("price");
+        if(parseInt(cur_use_money*100)<parseInt(price)){
+            alert('金额不足，不能支付请先充值');
+            return;
+        }
+        if (!pay_pwd) {
+            alert('支付密码不能为空');
+            return;
+        }
+        if (!validate_code) {
+            alert('验证密码不能为空');
+            return;
+        }
+        //检测当前的金额是否足以支付
+        
+        $.ajax({
+            url: 'index.php?app=deposit&act=check_pay_code_pwd',
+            type: 'POST',
+            dataType: 'json',
+            data: {pay_pwd: pay_pwd,validate_code:validate_code},
+            success:function(out_data){
+                    if (out_data.code!=0) {
+                        alert(out_data.message);
+                        return;
+                    }
+                    enter_status = false;
+                    $("#fulucang_pay_form").submit();
+                 }
+             })   
+            /**/
+        })
+</script>
+
+
+{include file="footer.html"}

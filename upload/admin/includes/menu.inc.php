@@ -151,6 +151,10 @@ return array(
             'drawlist' => array(
                 'text'  => Lang::get('drawlist'),
                 'url'   => 'index.php?app=order&act=drawlist'
+            ),
+            'admin_drawlist' => array(
+                'text'  => Lang::get('admin_drawlist'),
+                'url'   => 'index.php?app=order&act=admin_drawlist'
             )
 
         ),

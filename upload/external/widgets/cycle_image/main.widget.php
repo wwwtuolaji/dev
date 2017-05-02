@@ -67,6 +67,7 @@ class Cycle_imageWidget extends BaseWidget
 
         return $images;
     }
+    
 }
 
 ?>

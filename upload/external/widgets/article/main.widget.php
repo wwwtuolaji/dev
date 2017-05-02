@@ -16,14 +16,11 @@ class ArticleWidget extends BaseWidget
     function _get_data()
     {
         $cache_server =& cache_server();
-      
+        $data=$this->_get_zhiji_data();
+         //  var_dump($data);
 
-           $data=$this->_get_zhiji_data();
-           var_dump($data);
-                   
-        echo "string";
         return array(
-            'notices'       => $data,
+            'report'       => $data,
             'ad_image_url'  => $this->options['ad_image_url'],
             'ad_link_url'   => $this->options['ad_link_url'],
         );
@@ -62,14 +59,17 @@ class ArticleWidget extends BaseWidget
     function _get_zhiji_data(){
         $db=db();
         $sql="select cate_id from ecm_acategory where cate_name='直击报导'";
-        $zhiji_cates=$db->getcol($sql);
-        if (!(empty($zhiji_cates))) {
-            $cate= implode(",",$zhiji_cates);
-            strchr($cate,-1);
-            $getcol="select * from ecm_article where cate_id in ($cate) order by sort_order";
+        $cate_id=$db->getone($sql);
+        if (!(empty($cate_id))) {
+            $getcol="select * from ecm_article where cate_id ='$cate_id' order by sort_order limit 7";
             $articles=$db->getall($getcol);
-            return $articles;
+            foreach ($articles as $key => $article) {
+                $articles[$key]['add_time_des'] = date("Y-m-d",$article['add_time']);
+            }
+
+            return array('cate_id'=>$cate_id    ,'articles'=>$articles);
         }
+
         return array();
     }
 }

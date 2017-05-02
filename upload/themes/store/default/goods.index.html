@@ -2,7 +2,16 @@
 {include file=header_new.html}
 {include file=top_nav.html}
 <div id="head">
-    <h1 title="{$site_title|escape}"><a href="index.php"><img src="{$site_logo}" alt="ECMall" /></a></h1>
+    <h1 title="{$site_title|escape}"><a href="index.php"><img src="{$site_logo}" alt="FuluCang" /></a></h1>
+    <div id="subnav">
+        
+        <p>
+        <a class="shopping" href="{url app=cart}">{$lang.shopping_cart}</a> <span>|</span>
+        <a class="favorite" href="{url app=my_favorite}">{$lang.favorite}</a> <span>|</span>
+        <a class="note" href="{url app=message&act=newpm}">{$lang.pm}{if $new_message}({$new_message}){/if}</a> <span>|</span>
+        <a class="help" href="{url app=article&code=$acc_help}">{$lang.help_center}</a>
+        </p>
+    </div>
     <div id="topbtn">
         <div class="topbtn1"></div>
         <div class="topbtn2"></div>

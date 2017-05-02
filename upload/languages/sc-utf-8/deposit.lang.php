@@ -73,5 +73,6 @@ return array(
     "withdraw_confirm" => "提现确认",
     "pay_status_80"=>'等待系统审核',
     "pay_status_40"=>'交易成功',
+    'pay_status_81'=>'被管理员拒绝提现'
     
 );

@@ -80,8 +80,10 @@ class BankApp extends MemberbaseApp
         if ($_POST) {
            //校验验证码
            /*dump($_POST);*/
+             
             $captcha=base64_decode($_SESSION['captcha']) ;
-            if ($_POST['captcha'] !=  $captcha) {
+
+            if (strtolower($_POST['captcha']) !=  strtolower($captcha)) {
                $this->show_warning('验证码错误');
                return;
             }
@@ -102,7 +104,8 @@ class BankApp extends MemberbaseApp
             if(preg_match('/^[\x7f-\xff]+$/', $new_arr['account_name']))
              {} else 
              {
-                show_warning('请输入中文真实姓名');                  
+                $this->show_warning('请输入中文真实姓名'); 
+                return;                 
              } 
              unset($new_arr['captcha'] );
              //$bank_mod = m('bank');
@@ -127,9 +130,9 @@ class BankApp extends MemberbaseApp
     function edit(){
         if ($_POST) {
              //校验验证码
-             /*dump($_POST);*/
+
              $captcha=base64_decode($_SESSION['captcha']) ;
-             if ($_POST['captcha'] !=  $captcha) {
+             if (strtolower($_POST['captcha']) !=  strtolower($captcha)) {
                $this->show_warning('验证码错误');
                return;
              }

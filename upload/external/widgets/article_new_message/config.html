@@ -1,0 +1,16 @@
+<script type="text/javascript">
+var _d = DialogManager.get('config_dialog');
+_d.setWidth(350);
+_d.setPosition('center');
+
+</script>
+<div class="field_item">
+    <label>文章类型:</label>
+    <p><select name="article_type_id">
+        <option value="0">请选择...</option>
+        <!-- {foreach from=$articles_type key=recom_id item=article_type} -->
+        <option value="{$recom_id}"{if $options.article_type_id eq $recom_id} selected="selected"{/if}>{$article_type|escape}</option>
+        <!-- {/foreach} -->
+    </select>
+    <input name="show_count"style="border: 1px solid #aaa"value="{$options.show_count}" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" type="text" placeholder="显示数目"/>
+</div>

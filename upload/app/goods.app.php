@@ -12,6 +12,7 @@ class GoodsApp extends StorebaseApp
     {
         parent::__construct();
         $this->_goods_mod =& m('goods');
+        $user_info = $this->assign('user_info',$this->visitor->get());
     }
 
     function index()

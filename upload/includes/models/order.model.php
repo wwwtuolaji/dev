@@ -87,6 +87,23 @@ class OrderModel extends BaseModel
         /* 操作成功 */
         return true;
     }
+    /**
+     * [getorder_info description]
+     * @param  [type] $sn [用户的订单id]
+     * @return [type]     [description]
+     */
+    function getorder_info($sn){
+        $sql = "select b.*,c.shipping_fee from ecm_order as a inner join ecm_order_goods as b on  a.order_id= b.order_id inner join ecm_order_extm as c on a.order_id = c.order_id where a.order_sn ='$sn' ";
+        $order_info  = $this ->db->getrow($sql);
+        return $order_info;
+
+    }
+    function getorder_info_by_id($order_id){
+        $sql = "select a.*,b.*,c.shipping_fee from ecm_order as a inner join ecm_order_goods as b on  a.order_id= b.order_id inner join ecm_order_extm as c on a.order_id = c.order_id where a.order_id ='$order_id' ";
+        $order_info  = $this ->db->getrow($sql);
+        return $order_info;
+
+    }
 }
 
 ?>

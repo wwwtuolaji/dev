@@ -273,6 +273,7 @@ class DepositApp extends MemberbaseApp
         $this->assign('money',$use_money);
         $bank_arr = $bank_mod ->find(array('conditions'=>"user_id ='$user_id' and bank_status>-1"));
         $this -> assign('bank_arr',$bank_arr);
+       
         $this->display('withdraw.index.html');
     }
     /**
@@ -372,12 +373,17 @@ class DepositApp extends MemberbaseApp
             $this->show_warning('请重新登录');
             return;
         }
+        $recarge_mod = m('recharge_log');
         /* 当前所处子菜单 */
         $this->_curmenu('account_setting');
         /* 当前用户中心菜单 */
         $this->_curitem('my_deposit');
         $this->_config_seo('title', Lang::get('member_center') . ' - ' . '预存款');
         $user_id     =  $this->visitor->get('user_id');
+        $user_info=$recarge_mod->get_member_info($user_id);
+        $data['phone_mob'] = substr_replace($user_info['phone_mob'],"*****",3,5);
+        $data['email']     = substr_replace($user_info['email'],"****",3,5);
+        $this->assign('contact_way',$data);
         $member_mod = m("member");
         $user_info = $member_mod ->get(array('conditions'=>"user_id=$user_id",'fields'=>"real_name,user_name,email,phone_mob,money_is_open"));
         $this->assign('user_info',$user_info);
@@ -388,11 +394,16 @@ class DepositApp extends MemberbaseApp
     function dialog_set_account(){
         $recarge_mod = m('recharge_log');
         $user_id = $this->visitor->get("user_id");
-        $html=$recarge_mod ->get_dialog_html( $user_id );
-        echo json_encode($html);
+        $user_info=$recarge_mod->get_member_info($user_id);
+        $data['phone_mob'] = substr_replace($user_info['phone_mob'],"*****",3,5);
+        $data['email']     = substr_replace($user_info['email'],"****",3,5);
+        $arr = array('code'=>0,
+                    'message'=>'请求成功',
+                    'data'=>$data);
+        echo json_encode($arr);
 
     }
-    /*获取手机验证码请求暂时未做*/
+    /*获取手机验证码请求暂时未做,做的时候验证记得改写！*/
     function get_phonecode(){
         echo "string";
     }
@@ -400,9 +411,16 @@ class DepositApp extends MemberbaseApp
     function send_email(){
         $recarge_mod = m('recharge_log');
         $user_id = $this ->visitor ->get("user_id");
+        if (empty($user_id)) {
+            $array = array('code' => 2,
+                            'message' => "用户过期",
+                            'data'  => $mailer->errors);
+            echo json_encode($array);
+            return;
+        }
         $member_info = $recarge_mod ->get_member_info($user_id);
         $rand = mt_rand(100000,999999);
-        $_SESSION['email_code']= array('code'=>$rand,'time'=>time());
+        $_SESSION['email_code_'.$user_id]= array('code'=>$rand,'time'=>time());
         $email = $member_info['email'];
         /* 使用mailer类 */
         import('mailer.lib');
@@ -414,8 +432,13 @@ class DepositApp extends MemberbaseApp
         $email_id   = Conf::get('email_id');
         $email_pass = Conf::get('email_pass');
         $email_to   = $email;
-        $email_subject = '修改支付密码';
-        $email_content = "【福禄仓投资集团】您的验证码是 $rand ,不要告诉别人哦!有效时间5分钟！";
+        /*获取支付的验证码*/
+        if ($_POST['type']=='get_pay_code') {
+            $email_subject = '支付验证码'; 
+        }else{
+            $email_subject = '修改支付密码';  
+        }
+        $email_content = "【福禄仓投资集团】您的验证码是 $rand ,不要告诉别人哦!有效时间5分钟！";  
         $mailer = new Mailer($email_from, $email_addr, $email_type, $email_host, $email_port, $email_id, $email_pass);
         $mail_result = $mailer->send($email_to, $email_subject, $email_content, CHARSET, 1);
         if ($mail_result)
@@ -471,14 +494,15 @@ class DepositApp extends MemberbaseApp
     }
 
     function _check_code($code){
-        if (empty($_SESSION['email_code'])) {
+        $user_id = $this->visitor->get('user_id');
+        if (empty($_SESSION['email_code_'.$user_id])) {
             return false;
         }
-        /*超出验证时间*/
-        if(time() - $_SESSION['email_code']['time']>60*5){
+        /*超出验证时间*/  
+        if(time() - $_SESSION['email_code_'.$user_id]['time']>60*5){
             return false;
         }
-        if($_SESSION['email_code']['code'] == $code){
+        if($_SESSION['email_code_'.$user_id]['code'] == $code){
             return true;
         }
 
@@ -516,6 +540,8 @@ class DepositApp extends MemberbaseApp
                $money_array[$key]['money_from_des']='支付宝';
             }elseif($money['money_from'] == 2){
                $money_array[$key]['money_from_des']='微信'; 
+             }elseif($money['money_from'] == 3){
+                $money_array[$key]['money_from_des']='银行卡'; 
             }elseif($money['money_from'] == 0){
                $money_array[$key]['money_from_des']='预存款'; 
                if($money_info['platform_from']==0){
@@ -533,6 +559,7 @@ class DepositApp extends MemberbaseApp
         /*dump($page);*/
         $this->assign('page_info',$page);
         //获取总收入
+       /* dump($money_array);*/
         $this ->assign('money_array',$money_array);
         $this->display('financial_details.html');
 
@@ -683,6 +710,8 @@ class DepositApp extends MemberbaseApp
                $money_array[$key]['money_from_des']='支付宝';
             }elseif($money['money_from'] == 2){
                $money_array[$key]['money_from_des']='微信'; 
+            }elseif($money['money_from'] == 3){   
+                $money_array[$key]['money_from_des']='银行卡'; 
             }elseif($money['money_from'] == 0){
                $money_array[$key]['money_from_des']='预存款'; 
                if($money_info['platform_from']==0){
@@ -722,7 +751,17 @@ class DepositApp extends MemberbaseApp
             $this->show_warning('卡号异常请重新编辑');
             return;
         }
+        $recharge_log = m('recharge_log');
+        if (empty($_SESSION['token'])) {
+           $recharge_log ->set_token();
+        }
+        $this->assign('token',$_SESSION['token']);
         if ($_POST) {
+            //校验touken
+            if(!$recharge_log -> valid_token()){
+                $this->show_warning('不能重复提交');
+                return;
+            }
             /*校验支付密码*/
             $member_mod = m('member');
             $member_info = $member_mod->get($user_id);
@@ -737,7 +776,7 @@ class DepositApp extends MemberbaseApp
             $get_count_money = "select count(*) from ecm_recharge_log";
             $get_count_money = $db->getone($get_count_money); 
             $order_rand = $get_count_money + time(); 
-            $recharge_log = m('recharge_log');
+            
             $bank_mod = m('bank');
             //再次检测传入的银行卡是否属于该用户
             $bid = intval($_POST['bid']);
@@ -750,10 +789,10 @@ class DepositApp extends MemberbaseApp
                  return;
             }
             //检测当前用户的可用余额是否足够提取
-            $pay_money = number_format($_POST['user_money']);
+            $pay_money = $_POST['user_money'];
             $use_money = $recharge_log->get_use_money($user_id);
 
-            if (intval($pay_money*100)>intval($use_money*100)) {
+            if ((int)(string)($pay_money*100)>(int)(string)($use_money*100)) {
                 $this-> $this->show_message('余额不足，无法进行提现！',
                    'back_list',    'index.php?app=deposit&act=deposit'
                     );
@@ -895,6 +934,34 @@ class DepositApp extends MemberbaseApp
         /*dump($page);*/
         $this->assign('page_info',$page);
         $this->display('rechargelist.index.html');
+    }
+    /**
+     * [check_pay_pwd 检查支付密码和手机验证码]
+     * @return [type] [description]
+     */
+    function check_pay_code_pwd(){
+        $user_id = $this->visitor->get('user_id');
+        $member_mod = m('member');
+        $member_info = $member_mod->get($user_id);
+        $pwd = md5($_POST['pay_pwd']);
+        $validate_code = $_POST['validate_code'];
+        $result = $this->_check_code( $validate_code);
+        if ($pwd != $member_info['pay_pwd']) {
+            $out_data = array('code' => 1,
+                            'message'=>'支付密码验证失败',
+                            'data'   =>'');
+
+        }elseif(!$result){
+             $user_id = $this->visitor->get('user_id');
+            $out_data = array('code' => 2,
+                            'message'=>'手机或邮箱验证码，验证失败',
+                            'data'   =>'email_code_' . $user_id);
+        }else{
+            $out_data = array('code'=> 0,
+                            'message' =>'验证成功',
+                            'data'=>'');
+        } 
+        echo json_encode($out_data);
     }
 
 

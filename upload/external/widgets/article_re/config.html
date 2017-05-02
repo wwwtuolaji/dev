@@ -1,0 +1,54 @@
+<script type="text/javascript">
+var _d = DialogManager.get('config_dialog');
+_d.setWidth(350);
+_d.setPosition('center');
+
+</script>
+<div class="field_item">
+	<label>文章类型:</label>
+	<p>
+		<select name="article_type_id">
+			<option value="0">请选择...</option>
+			<!-- {foreach from=$articles_type key=recom_id item=article_type} -->
+			<option value="{$recom_id}"{if $options.article_type_id eq $recom_id} selected="selected"{/if}>{$article_type|escape}</option>
+			<!-- {/foreach} -->
+		</select>
+		<input name="show_count"style="border: 1px solid #aaa"value="{$options.show_count}" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" type="text" placeholder="显示数目"/>
+
+		<label>第一张图片:<span>图片尺寸：180*60，支持 gif|jpg|jpeg|png 格式</span></label>
+		
+		<p>
+			<input type="file" name="ad_image_file[]" />
+			<input type="hidden" name="ad_image_url[]" value="{$options.image.0.ad_image_url}" />
+		</p>
+		<!-- {if $options.image.0.ad_image_url} -->
+		<p>
+			<img src="{$options.image.0.ad_image_url}" height="20" />
+		</p>
+		<!-- {/if} -->
+		<div class="field_item">
+		    <label>第一张图片,广告链接地址:</label>
+		    <p><input type="text" name="ad_link_url[]"style="border: 1px solid #aaa" value="{$options.image.0.ad_link_url}" /></p>
+		      <input  type="button" value="删除图片" onclick="drop_image(this)" /></p>
+		</div>
+
+
+
+		<label>第二张图片:<span>图片尺寸：180*60，支持 gif|jpg|jpeg|png 格式</span></label>	
+		<p>
+			<input type="file" name="ad_image_file[]" />
+			<input type="hidden" name="ad_image_url[]" value="{$options.image.1.ad_image_url}" />
+		</p>
+		<!-- {if $options.image.1.ad_image_url} -->
+		<p>
+			<img src="{$options.image.1.ad_image_url}" height="20" />
+		</p>
+		<!-- {/if} -->
+		<div class="field_item">
+		    <label>第二张图片,广告链接地址:</label>
+		    <p><input type="text" name="ad_link_url[]"style="border: 1px solid #aaa" value="{$options.image.1.ad_link_url}" /></p>
+		      <input  type="button" value="删除图片" onclick="drop_image(this)" /></p>
+		</div>
+
+
+</div>

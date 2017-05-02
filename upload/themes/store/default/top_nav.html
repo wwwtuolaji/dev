@@ -1,34 +1,64 @@
-<link	rel="stylesheet" href="{res file=store_new/css/base.css}"/>
-    <link	rel="stylesheet" href="{res file=store_new/css/cyfxb.css}"/>
-    <link	rel="shortcut icon" href="bitbug_favicon.ico"/>
-    <div class="f_inner_c">
-        <div class="w">
-            <dai class="f_user">
-                <ul>
-                    <li><a href="{url app=member&act=login&ret_url=}{url app=store&id=$smarty.get.id}">登录</a></li>
-                    <li class="spacer"></li>
-                    <li><a href="{url app=member&act=register&ret_url=}{url app=store&id=$smarty.get.id}">注册</a></li>
-                </ul>
-            </dai>
-            <div class="f_nav">
-                <ul>
-                    <li class="f_center"><a href="{url app=index}">首页</a></li>
-                     <li class="spacer"></li>
-                    <li><a href="{url app=default}">福禄仓商城</a></li>
-                   
-                    <li class="spacer"></li>
-                    <li><a href="{url app=index&act=tea}">福禄仓茶叶</a></li>
-                     <li class="spacer"></li>
-                    <li><a href="{url app=index&act=leisure}">企业活动中心</a></li>
-                    <li class="spacer"></li>
-                    <li><a href="{url app=index&act=enterprise}">会员企业平台</a></li>
-                     <li class="spacer"></li>
-                    <li><a href="{url app=about&act=recruit}">股权招募</a></li>
-                    <li class="spacer"></li>
-                    <li><a href="{url app=about&act=loan}">会员贷款直通车</a></li>
-                    <li class="spacer"></li>
-                    <li><a href="{url app=about}">关于我们</a></li>
-                </ul>
-            </div>
+<link   rel="stylesheet" href="{res file=store_new/css/base.css}"/>
+<link   rel="stylesheet" href="{res file=store_new/css/cyfxb.css}"/>
+<link   rel="shortcut icon" href="bitbug_favicon.ico"/>
+<div class="f_inner_c">
+    <div class="w">
+        <dai class="f_user">
+            <ul>
+                {if empty($user_info)}
+                <li>
+                    <a href="{url app=member&act=login&ret_url=$ret_url}">登录</a>
+                </li>
+                <li class="spacer"></li>
+                <li>
+                    <a href="{url app=member&act=register&ret_url=}{url app=store&id=$smarty.get.id}">注册</a>
+                </li>              
+                {else}
+                <li>
+                    <a href="javascript:;">你好！{$user_info.user_name|escape}</a>
+                </li>
+                <li class="spacer"></li>
+                <li>
+                    <a href="{url app=member&act=logout}">【退出】</a>
+                </li>
+                {/if}
+            </ul>
+        </dai>
+        <div class="f_nav">
+            <ul>
+                <li class="f_center">
+                    <a href="{url app=index}">首页</a>
+                </li>
+                <li class="spacer"></li>
+                <li>
+                    <a href="{url app=default}">福禄仓商城</a>
+                </li>
+
+                <li class="spacer"></li>
+                <li>
+                    <a href="{url app=index&act=tea}">福禄仓茶叶</a>
+                </li>
+                <li class="spacer"></li>
+                <li>
+                    <a href="{url app=index&act=leisure}">企业活动中心</a>
+                </li>
+                <li class="spacer"></li>
+                <li>
+                    <a href="{url app=index&act=enterprise}">会员企业平台</a>
+                </li>
+                <li class="spacer"></li>
+                <li>
+                    <a href="{url app=about&act=recruit}">股权招募</a>
+                </li>
+                <li class="spacer"></li>
+                <li>
+                    <a href="{url app=about&act=loan}">会员贷款直通车</a>
+                </li>
+                <li class="spacer"></li>
+                <li>
+                    <a href="{url app=about}">关于我们</a>
+                </li>
+            </ul>
         </div>
     </div>
+</div>

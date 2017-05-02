@@ -1,0 +1,32 @@
+<div class="tea-zx">
+<div class="new-zx">
+    <div class="new-nav">
+        <span style="font:200 16px/27px 'Microsoft Yahei'; float: left;margin-left: 10px;">{$widget_data.report.article_type_des}</span>
+        <a href="?app=article&cate_id={$widget_data.report.cate_id}" style="font:200 16px/27px 'Microsoft Yahei';float: right;">更多>></a>
+    </div>
+    <div class="bm-inner bm-inner-all">
+        <ul>
+
+            {foreach from=$widget_data.report.articles item=article}
+                {if empty($article.link)}
+            <li>
+                <a href="?app=article&act=view&article_id={$article.article_id}" title="{$article.title}">
+                    <span class="tit_con_des">&ensp;{$article.title}</span>
+                    <span style="float: right; display:inline-block;width: 40% text-align: right;">{$article.add_time_des}&ensp;</span>
+                </a>
+            </li>
+            {else}
+            <li>
+                <a href="{$article.link}" title="{$article.title}">
+                    <span class="tit_con_des">&ensp;{$article.title}</span>
+                    <span style="float: right; display:inline-block;width: 40%;text-align: right;" >{$article.add_time_des}&ensp;</span>
+                </a>
+            </li>
+            {/if}
+               
+            {/foreach}
+        </ul>
+
+    </div>
+</div>
+</div>

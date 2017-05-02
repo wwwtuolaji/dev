@@ -83,6 +83,23 @@ return array(
     'order_price' =>'订单价格',
     'transaction_comments'=>'交易备注',
     'transaction_info'=>'交易详情描述',
-    'bank_address'=>'开户行地址'
+    'bank_address'=>'开户行地址',
+    'admin_drawlist'=>'管理员账户',
+    'des' =>'说明',
+    'admin_des'=>'该账户的资金来源:1.商城平台,购买产品金额会临时预存在该账户;2.茶通平台,购买产品会临时存在该账户',
+    'plat_form'=>'平台选择',
+    'chatong'=>'茶通平台',
+    'shangcheng'=>'商城平台',
+    'user_name'=>'用户名称',
+    'price_total'=>'交易金额',
+    'user_obj'=>'交易对象',
+    'user_obj_name'=>'交易对象名称',
+    'history_price'=>'历史金额',
+    //0预存款，1支付宝, 2微信3.银行卡
+    'alipay'=>'支付宝',
+    'wechat'=>'微信',
+    'recharge'=>'预存款',
+    'bank'=>'银行卡',
+
 );
 ?>

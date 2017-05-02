@@ -2,16 +2,29 @@
         .new-bm{
             float: left;
             width: 600px;
-            border:2px solid #aaa;
+           /*  border:2px solid #aaa; */
             height:253px;
         }
         .new-nav{
             height:27px;
             background: #eee;
         }
+       /*  .bm-inner{
+           overflow: hidden;
+       } */
         .bm-inner ul{
             float: left;
             margin: 5px;
+        }
+        .tea-zx .bm-inner-all ul{
+            overflow: hidden;
+            width: 100%;
+            float: left;
+            margin: 0px;
+
+        }
+        .tea-zx .bm-inner-all span{
+          /*   margin:0 5px; */
         }
         .bm-inner li{
             width: 400px;
@@ -23,20 +36,19 @@
         /*最新资讯*/
        .new-zx{
             float: left;
-            width: 280px;
-            border:2px solid #aaa;
-            margin:0 5px;
+            width: 100%;
+            
         }
         .new-zx .bm-inner li{
-            width: 260px;
+            width: 100%;
             border-bottom:1px dashed #888;
         }
         /*新品速度、经典点评*/
         .new-xp{
             float: left;
             width: 890px;
-            border:2px solid #aaa;
-            margin:5px 0px 0px;
+        /*     border:2px solid #aaa; */
+    
         }
         .new-xp .bm-inner li{
             width: 270px;
@@ -53,6 +65,75 @@
         .new2 .bm-inner li{
             width: 420px;
         }
-        ul li{
-            cursor: pointer;
+         .tea-memu{
+            overflow: hidden;
+            float: left;
+            border:2px solid #aaa;
+        }
+        .new_report {
+            overflow: hidden;
+            width: 280px;
+            height: 252px;
+            margin: 0 5px;
+            float: left;
+           border:2px solid #aaa;
+
+        }
+        .border_add{
+             border:2px solid #aaa; 
+        }
+        .tit_con_des{
+             display:inline-block;
+            overflow:hidden;
+            text-overflow:ellipsis;
+             -o-text-overflow:ellipsis;
+             white-space:nowrap;
+             width:58%;
+        }
+        .tea-stars{
+            border: #aaa 2px solid;
+            overflow: hidden;
+            height: 300px;
+            width: 315px;
+            float: left; 
+            margin-top: 7px;
+        }
+       .tea-proficient{
+            float: left;
+            margin-top: 7px;
+            height: 300px;
+            width: 315px;
+              border: #aaa 2px solid;
+              overflow: hidden;
+       }
+       .tea-hang{
+            width: 440px;
+            height: 257px;
+            border: #aaa 2px solid;
+            overflow: hidden;
+            float: left;
+       }
+       .tea-hang-left{
+            margin-left: 5px;
+              border: #aaa 2px solid;
+              height: 257px;
+              width: 440px;
+              float: left;
+       }
+        .tea-xp{
+            width: 890px;
+            border: 2px solid #aaa;
+           /*  overflow: hidden; */
+            margin:3px 0px;
+            float: left;
+            height: 195px;
+        }
+
+        .article_re ul a{
+             display:inline-block;
+            overflow:hidden;
+            text-overflow:ellipsis;
+             -o-text-overflow:ellipsis;
+             white-space:nowrap;
+             width:260px;
         }

@@ -41,13 +41,13 @@
                     <!--店主至尊会员-->
                     {if $out_data.member_info.level eq 1}
                      <div class="ac user" style="background:url({res file=images/ka/1.jpg});">
-                      <a class="logout"href="{url app=member&act=logout}"style="float:left;color:#fff;font-size: 16px;padding: 5px">[退出]</a>
+                     <span class="logout"style=""><a href="{url app=store&id=$out_data.member_info.user_id}">我的店铺&ensp;</a>|<a href="{url app=member}">&ensp;用户中心</a></span>
                         <div class="member_i">
                             <ul>
                                 <li>
                                     <span class="top_span">会员名称:{$out_data.member_info.name}</span>
                                     <span>会员级别:店主至尊</span>
-                                    <span>会员卡号:{$out_data.member_info.card}<a class="fr" href="index.php?app=store&id={$out_data.member_info.user_id}">我的店铺</a></span>
+                                    <span>会员卡号:{$out_data.member_info.card}<a class="fr" href="index.php?app=member&act=logout">[退出]</a></span>
                                 </li>
                                 <li>
                                   <!-- <div  href="javascript:void(0)" class="trip_alert" id="trip_alert">
@@ -67,13 +67,13 @@
                      <!--至尊会员-->
                     {elseif $out_data.member_info.level eq 2}
                      <div class="ac user" style="background:url({res file=images/ka/2.jpg});">
-                      <a class="logout"href="{url app=member&act=logout}"style="float:left;color:#fff;font-size: 16px;padding: 5px">[退出]</a>
+                        <span class="logout"style=""><a href="{url app=member}">&ensp;用户中心</a></span>
                         <div class="member_i">
                             <ul>
                                 <li>
                                     <span class="top_span">会员名称:{$out_data.member_info.name}</span>
                                     <span>会员级别:至尊会员</span>
-                                    <span>会员卡号:{$out_data.member_info.card}</span>
+                                    <span>会员卡号:{$out_data.member_info.card}<a class="fr" href="index.php?app=member&act=logout">[退出]</a></span>
                                 </li>
                                 <li>
                                 <a  href="javascript:void(0)" class="trip_alert" id="aplay_dz">点击申请临时店主至尊权限<span>(可查看进货价并可按进货价购买)</span></a>
@@ -86,13 +86,13 @@
                      <!--金卡会员-->
                     {elseif $out_data.member_info.level eq 3}
                     <div class="ac user" style="background:url({res file=images/ka/3.jpg});">
-                      <a class="logout"href="{url app=member&act=logout}"style="float:left;color:#fff;font-size: 16px;padding: 5px">[退出]</a>
+                        <span class="logout"style=""><a href="{url app=member}">&ensp;用户中心</a></span>
                         <div class="member_i">
                             <ul>
                                 <li>
                                     <span class="top_span">会员名称:{$out_data.member_info.name}</span>
                                     <span>会员级别:金卡会员</span>
-                                    <span>会员卡号:{$out_data.member_info.card}</span>
+                                    <span>会员卡号:{$out_data.member_info.card}<a class="fr" href="index.php?app=member&act=logout">[退出]</a></span>
                                 </li>
                             </ul>
 
@@ -101,13 +101,13 @@
                      <!--福禄卡会员-->
                     {elseif $out_data.member_info.level eq 4}
                     <div class="ac user" style="background:url({res file=images/ka/4.jpg});">
-                      <a class="logout"href="{url app=member&act=logout}"style="float:left;color:#fff;font-size: 16px;padding: 5px">[退出]</a>
+                        <span class="logout"style=""><a href="{url app=member}">&ensp;用户中心</a></span>
                         <div class="member_i">
                             <ul>
                                 <li>
                                     <span class="top_span">会员名称:{$out_data.member_info.name}</span>
                                     <span>会员级别:福禄卡会员</span>
-                                    <span>会员卡号:{$out_data.member_info.card}</span>
+                                    <span>会员卡号:{$out_data.member_info.card}<a class="fr" href="index.php?app=member&act=logout">[退出]</a></span>
                                 </li>
                             </ul>
 
@@ -117,13 +117,13 @@
                      <!--集团董事长-->
                     {elseif $out_data.member_info.level eq 100}
                     <div class="ac user" style="background:url({res file=images/ka/mj.png});">
-                            <a class="logout"href="{url app=member&act=logout}"style="float:left;color:#fff;font-size: 16px;padding: 5px">[退出]</a>
+                              <span class="logout"style=""><a href="{url app=member}">用户中心&ensp;</a>|<a class="fr" href="index.php?app=index&act=set_member">&ensp;开通会员</a></span>
                         <div class="member_i">
                             <ul>
                                 <li>
                                     <span class="top_span">内部员工:{$out_data.member_info.name}</span>
                                     <span>员工级别:集团董事长</span>
-                                    <span>员工编号:{$out_data.member_info.card}<a class="fr" href="index.php?app=index&act=set_member">开通会员</a></span>
+                                    <span>员工编号:{$out_data.member_info.card}<a class="fr" href="index.php?app=member&act=logout">[退出]</a></span>
                                 </li>
                             </ul>
 
@@ -133,13 +133,13 @@
                      <!--集团总经理-->
                     {elseif $out_data.member_info.level eq 101}
                     <div class="ac user" style="background:url({res file=images/ka/mj.png});">
-                            <a class="logout"href="{url app=member&act=logout}"style="float:left;color:#fff;font-size: 16px;padding: 5px">[退出]</a>
+                              <span class="logout"style=""><a href="{url app=member}">&ensp;用户中心&ensp;</a>|<a class="fr" href="index.php?app=index&act=set_member">&ensp;开通会员</a></span>
                         <div class="member_i">
                             <ul>
                                 <li>
                                     <span class="top_span">内部员工:{$out_data.member_info.name}</span>
                                     <span>员工级别:总经理</span>
-                                    <span>员工编号:{$out_data.member_info.card}<a class="fr" href="index.php?app=index&act=set_member">开通会员</a></span>
+                                    <span>员工编号:{$out_data.member_info.card}<a class="fr" href="index.php?app=member&act=logout">[退出]</a></span>
                                 </li>
                             </ul>
 
@@ -150,13 +150,13 @@
                      <!--集团店长-->
                     {elseif $out_data.member_info.level eq 102}
                          <div class="ac user" style="background:url({res file=images/ka/mj.png});">
-                            <a class="logout"href="{url app=member&act=logout}"style="float:left;color:#fff;font-size: 16px;padding: 5px">[退出]</a>
+                              <span class="logout"style=""><a href="{url app=member}">&ensp;用户中心&ensp;</a>|<a class="fr" href="index.php?app=index&act=set_member">&ensp;开通会员</a></span>
                         <div class="member_i">
                             <ul>
                                 <li>
                                     <span class="top_span">内部员工:{$out_data.member_info.name}</span>
                                     <span>员工级别:内部集团店长</span>
-                                    <span>员工编号:{$out_data.member_info.card}<a class="fr" href="index.php?app=index&act=set_member">开通会员</a></span>
+                                    <span>员工编号:{$out_data.member_info.card}<a class="fr" href="index.php?app=member&act=logout">[退出]</a></span>
                                 </li>
                             </ul>
 
@@ -166,13 +166,15 @@
                     <!--不是会员-->
                     {else}
                         <div class="ac user" style="background">
-                         <a class="logout"href="{url app=member&act=logout}"style="float:left;color:#fff;font-size: 16px;padding: 5px">[退出]</a>
+                           <span class="logout"style=""><a href="{url app=member}">&ensp;用户中心</a></span>
                             <div class="not_member">
                                 <ul>
                                     <li>
-                                        <span>会员名称:{$out_data.member_info.name}</span>
+                                        <span>用户名称:{$out_data.member_info.name}</span>
+                                        <span class="exit"><a class="fr" href="index.php?app=member&act=logout">[退出]</a></span>
+                                        
                                     </li>
-                                  <!--   <li>
+                                  <!-- <li>
                                       <a  href="javascript:void(0)" class="trip_alert">点击开通会员</a>
                                   </li> -->
                                 </ul>

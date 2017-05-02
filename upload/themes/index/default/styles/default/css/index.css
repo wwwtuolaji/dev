@@ -21,7 +21,7 @@
         }
         .user button {
             display: block;
-            font: 700 20px/40px "";
+            font: 700 20px/40px "MicroSoft YaHei";
             color: #fff;
             cursor:pointer;
         }
@@ -160,7 +160,7 @@
             height: 30px;
             width: 84px;
             color:red;
-            font:100 15px/40px "";
+            font:100 15px/40px "MicroSoft YaHei";
             margin-bottom: 0px;
             text-align: center;
             margin: 0px 10px;
@@ -204,7 +204,7 @@
         }
         .qyjzx a{
             color: #fff;
-            font:700 20px/40px "";
+            font:700 20px/40px "MicroSoft YaHei";
             padding-left:1em;
         }
         .zyqy{
@@ -230,7 +230,7 @@
             display: block;
             margin:0 auto;
             color: #fff;
-            font:400 16px/30px "";
+            font:400 16px/30px "MicroSoft YaHei";
             background-color: #aa0000;
 
         }
@@ -268,7 +268,7 @@
             width:194px;
             height:30px;
             color: #fff;
-            font:400 16px/30px "";
+            font:400 16px/30px "MicroSoft YaHei";
             background: #aa0000;
             margin:0 auto;
         }
@@ -294,7 +294,7 @@
             display: block;
             width:120px;
             height:30px;
-            font:400 16px/30px "";
+            font:400 16px/30px "MicroSoft YaHei";
             text-align: center;
         }
         .qyzz .banner2{
@@ -428,17 +428,27 @@
     display: block;
     width: 278px;
     height: 20px;
-    font: 200 18px/20px "";
+    font: 200 18px/20px "MicroSoft YaHei";
     color:#000;
     text-align: left;
     margin:90px 25px 10px;
+}
+.not_member li .exit{
+   display: block;
+    width: 235px;
+    height: 25px;
+    font: 200 16px/25px "MicroSoft YaHei";
+    color:#fff;
+    text-align: left;
+    margin:-20px 25px 0px;
+    float: left;
 }
 .not_member .trip_alert{
     display: block;
     width: 280px;
     height: 40px;
     background: #BF1000;
-    font: 100 16px/40px "";
+    font: 100 16px/40px "MicroSoft YaHei";
     color:#fff;
     /* cursor: pointer; */
 }
@@ -467,7 +477,7 @@
     display: block;
     width: 235px;
     height: 25px;
-    font: 200 16px/25px "";
+    font: 200 16px/25px "MicroSoft YaHei";
     color:#fff;
     text-align: left;
     margin:0px 25px 0px;
@@ -480,7 +490,7 @@
     width: 279px;
     height: 83px;
     background: #fff;
-    font: 100 16px/40px "";
+    font: 100 16px/40px "MicroSoft YaHei";
     color:#000;
     margin-top: 10px;
     border-bottom-left-radius: 5px;
@@ -489,7 +499,7 @@
 }
 .member_i li dt,.member_i li dd{
     text-align: left;
-     font: 100 11px/14px ""; 
+     font: 100 11px/14px "MicroSoft YaHei"; 
      margin-left: 30px;
 }
 .member_i li button{
@@ -506,25 +516,32 @@
     width: 280px;
     height: 50px;
     background: #BF1000;
-    font: 100 16px/30px "";
+    font: 100 16px/30px "MicroSoft YaHei";
     color:#fff;
 }
 .member_i li a.trip_alert span{
-    font: 100 11px/11px "";
+    font: 100 11px/11px "MicroSoft YaHei";
     margin:0;
     text-align: center;
 }
+.logout{
+    float:left;
+    color:#fff;
+    font-size: 13px;
+    padding: 5px;
+}
 
- .logout :hover{
-    color: red;
+ .logout a:hover{
+  
+    cursor: pointer;
+ }
+ .logout a{
+    color: #fff;
  }
  .member_i li span a{
-    border: solid 1px #fff;
-    background-color: #fff;
-    color: #000;
+    color: #fff;
     padding: 1px;
     cursor: pointer;
-    border-radius: 5px;
  }
   .member_i li span a:hover{
     color:red;

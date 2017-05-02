@@ -142,7 +142,7 @@
         <!--交易申请-->
         <div class="buysell fl">
             <h3>交易申请</h3>
-            <form method="post" action="index.php?app=index&act=transaction"id="myForm" >
+            <form method="post" id="myForm" >
             <p> 产品:<input type="text" id='serch_content' class="tran_in" name="goods_name" style="border:1px solid #aaa;height: 30px; width: 160px;margin-left: 5px;">
             </p>
                 <input type="text" id='goods_id' class="tran_in" name="goods_id" style="display: none">
@@ -178,6 +178,7 @@
             下单确认
             <br/>
             <input style="display: none;" id='confirm_pwd' name='confirm_pwd' type='password'>
+            <input type="hidden" name="token" id="token" value="{$token}">
             <div style="text-align:center;">
                 <input type='button' id='submit_aply' style="width: 150px;font: 700 20px/35px 'Microsoft Yahei';border:1px solid #888;"value='提交申请'></div>
         </form >
@@ -607,6 +608,7 @@
                                     //按钮1的回调
                                     layer.msg('提交成功',{icon: 1},{time:5});//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6
                                     //表单提交
+                                      $('#myForm').attr('action','index.php?app=index&act=transaction');
                                     $("#myForm").submit();
                                 }    
 

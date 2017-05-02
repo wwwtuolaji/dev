@@ -28,6 +28,12 @@ return array(
     'select_payment'  => '选择支付方式并付款',
     'confirm_pay'  => '确认支付',
     'confirm_payment' => '完成付款',
+    'attention'   => '友情提示',
+    'not_member'   => '请先确保，您已经打开预存款支付功能，并且账户有余额！如果账户余额不足，请优先充值！',
+    'after_register'   => '使用福禄仓预存款支付后你就可以',
+    'save_profile'   => '商品在线及时交易',
+    'collect_goods' => '平台优惠补贴',
+    'subscription_goods'   => '平台商品折扣',
 );
 
 ?>

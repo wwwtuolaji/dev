@@ -51,6 +51,7 @@
                                     <dt>&nbsp;</dt>
                                     <dd class="submit">
                                         <span class="btn-alipay">
+                                            <input type="hidden"name="token" value="{$token}"/>
                                             <input name="bid" value="{$bank_info.bank_id}" type="hidden">
                                             <input name="user_money" value="{$smarty.get.money}" type="hidden">
                                             <input id="submit_btn" value="确认提现" type="button"></span>

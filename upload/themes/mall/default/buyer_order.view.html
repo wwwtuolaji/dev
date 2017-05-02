@@ -43,7 +43,7 @@
                     <div class="transportation">{$lang.carriage}&nbsp;:&nbsp;<span>{$order_extm.shipping_fee|price}<strong>({$order_extm.shipping_name|escape})</strong></span>{$lang.preference}&nbsp;:&nbsp;<span>{$order.discount|price}</span>{$lang.total_price}&nbsp;:&nbsp;<b>{$order.order_amount|price}</b></div>
                     <ul class="order_detail_list">
                        <!--{if $order.payment_code}-->
-                        <li>{$lang.payment_name}&nbsp;:&nbsp;{$order.payment_name|escape}<!--{if $order.status eq ORDER_PENDING}-->&nbsp;&nbsp;(&nbsp;<a href="{url app=cashier&order_id=$order.order_id}">{$lang.pay}</a>&nbsp;)<!--{/if}--></li>
+                        <li>{$lang.payment_name}&nbsp;:&nbsp;{$order.payment_name|escape}<!--{if $order.status eq ORDER_PENDING}-->&nbsp;&nbsp;(&nbsp;<a href="{url app=cashier&order_id=$order.order_id}">{if $order.pay_have eq 1}待确认{else}{$lang.pay}{/if}</a>&nbsp;)<!--{/if}--></li>
                         <!--{/if}-->
                         <!--{if $order.pay_message}-->
                         <li>{$lang.pay_message}&nbsp;:&nbsp;{$order.pay_message|escape}</li>

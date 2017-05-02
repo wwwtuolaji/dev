@@ -679,7 +679,7 @@ ul, ol { list-style-type:none; }
 .login_left { width: 450px; float: left; margin: 70px 0 0 100px; padding-left: 100px; color: #646665; display: inline; background: url(../images/login_left.gif) no-repeat; }
 .login_left table { border-collapse:collapse; }
 .login_left td { padding-bottom: 10px; }
-
+.login_con 	.login_left_re td { padding-bottom: 20px; }
 .login_con .renewedly { margin: 0 0 0 10px; position: relative; top: 7px; }
 .login_con .distance { height: 70px; }
 .login_con .enter { display: block; width: 102px; height: 43px; float: left; border: 0; vertical-align:middle; background: url(../images/btn.gif) no-repeat right -96px; }

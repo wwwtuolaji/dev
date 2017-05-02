@@ -39,7 +39,7 @@ class PaynotifyApp extends MallbaseApp
 
         $model_payment =& m('payment');
         $payment_info  = $model_payment->get("payment_code='{$order_info['payment_code']}' AND store_id={$order_info['seller_id']}");
-        /*var_dump($payment_info);
+       /* var_dump($payment_info);
         die;*/
         if (empty($payment_info))
         {
@@ -64,7 +64,7 @@ class PaynotifyApp extends MallbaseApp
         }
         //jjc 增加用户是否支付成功的字段，用于判断用户是否支付过
         $db=& db();
-        $sql="update ecm_order set pay_have='1',status='11' where order_id =".$order_info['order_id'];
+        $sql="update ecm_order set pay_have='1' where order_id =".$order_info['order_id'];
 
         $db->query($sql);
         
@@ -175,7 +175,7 @@ class PaynotifyApp extends MallbaseApp
         if (!$have_add) {
             $get_sql = "select use_money from ecm_member where user_id = '{$user_info['user_id']}'";
             $use_money = $db->getone($get_sql);
-            $use_money = intval($use_money*100)+ intval($recharge_arr['pay_money']*100);
+            $use_money = (int)(string)($use_money*100)+ (int)(string)($recharge_arr['pay_money']*100);
             $use_money = $use_money/100;
             $sql="update ecm_member set use_money = '$use_money' where user_id = '{$user_info['user_id']}'";
             $db->query($sql);

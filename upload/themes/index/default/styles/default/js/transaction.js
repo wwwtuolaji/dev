@@ -69,6 +69,7 @@ $('#today_transaction').on('click',function(){
 //委托交易
 //1.取消交易
 $('.agent_cancel button').on('click',function(){
+	var token =$("#token").val();
 	cur_button=$(this);
 	transaction_sn=$(this).attr('transaction_id');
 	//要取消交易的产品的数量，防止部分成交
@@ -83,10 +84,11 @@ $('.agent_cancel button').on('click',function(){
         		url: 'index.php?app=index&act=cancel_agent',
         		type: 'POST',
         		dataType: 'json',
-        		data: {transaction_sn: transaction_sn,goods_count:goods_count},
+        		data: {transaction_sn: transaction_sn,goods_count:goods_count,token:token},
         		success:function(out_data){
         			if (out_data.code!=0) {
         				layer.msg(out_data.message, {icon: 1});
+        				location.reload();
         			}
         			//请求成功更改
         			cur_button.parent().parent().remove();
