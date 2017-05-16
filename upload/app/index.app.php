@@ -23,8 +23,23 @@ class IndexApp extends IndexbaseApp
             $member_info['card'] = $user_info['member_card_num'];
             $member_info['name'] = $user_info['user_name'];
         }
+        $index_model = m('index_show');
+        $index_arr = $index_model->get(1);
+        $index_arr = $index_model->return_arr_val($index_arr);
+        $this->assign('index_arr',$index_arr);
         //获取企业信息
-        $store_arr = $this->_get_data_priv_store();
+        $day = (time()-$index_arr['current_time_date'])/(60*60*24);
+        $day = intval(strval($day));
+        $to = $day * 6;
+        $limit = "$to,6";
+        $store_arr = $this->_get_data_priv_store_limit($limit);
+        //dump($store_arr);
+        $this->assign('site_url',site_url());
+        if (count($store_arr)<6) {
+            $store_arr = $this->_get_data_priv_store_limit('0,6');
+            $edit['current_time_date'] = time();
+            $index_model->edit('1',$edit);
+        }
         $notice = $this->_get_article_notice();
         $drogue_arr = $this->_get_data();
         $goods_new = $this->_get_data_new();
@@ -34,6 +49,10 @@ class IndexApp extends IndexbaseApp
         $out_data['goods_new'] = $goods_new;
         $out_data['drogue_arr'] = $drogue_arr;
         $out_data['store_arr'] = $store_arr;
+
+     
+        //qq
+        $this->assign('qq_arr',$index_arr ['qq_num_des']);
         $this->assign("out_data", $out_data);
         $this->display("index.html");
     }
@@ -57,16 +76,210 @@ class IndexApp extends IndexbaseApp
      */
     function leisure()
     {
+        $leisure_mod = m('leisure');
+        $province_arr = $leisure_mod->get_province();
+        $leisure_info = $leisure_mod->find();
+        if (empty($_GET['leishure_id'])) {
+            //随机取出一个茶会所
+            
+            $leisure = mt_rand(1,count($leisure_info));
+            $count = 0;
+            $arr   = array();
+            foreach ($leisure_info as $key => $value) {
+                $count++;
+                if ($count==$leisure) {
+                    $arr = $value;
+                }
+            }
+        }else{
+            $arr = $leisure_mod->get($_GET['leishure_id']); 
+        }
+     
+        //通过aera_id 获取当前所在的城市
+        $selected =$leisure_mod-> get_area($arr['area_id']);
+        //获取所在城市的店铺
+        $shop_arr = $leisure_mod->get_shop_arr($arr['area_id']);
+        $this->assign('shop_arr',$shop_arr);
+        $arr['images'] = explode("||", $arr['images']);
+        $arr['slide_link'] = explode("||", $arr['slide_link']);
+        /* dump($arr); */  
+        //获取所有地址，和详细地址名称   
+        foreach ($leisure_info as $key => $leisure) {
+            $temp = explode(",",$leisure['coordinate']);
+           /*  $address_arr[]=array($temp[0],$temp[1],"地址:".$leisure['address_info']."\<br\>\<a href='index.php?app=index&act=leisure&leishure_id=$key'>查看详情\<\/a>");*/
+            $address_arr[]=array($temp[0],$temp[1],"地址:".$leisure['address_info'],$key);
 
+        }
+        $address_arr = json_encode($address_arr);
+        $coordinate = explode(",", $arr['coordinate']);
+        $this->assign('coordinate',$coordinate);
+        $this->assign('address_arr',$address_arr);
+        $this->assign('leisure_info_all',$leisure_info);
+        $this->assign('leisure_info',$arr);
+        //获取初始化的城市
+        $this->assign('selected',$selected);
+        $this->assign('province_arr',$province_arr);
         $this->display("leisure_clubs.html");
     }
+    function search_leisure(){
+        if ($_POST['search']){
+            $search = $_POST['search'];
+            $leisure_mod =m('leisure');
+            $conditions = array('conditions'=>"leisure_name like '%$search%'");
+            $data = $leisure_mod ->find($conditions);
+            if (empty($data)) {
+                $out_data = array(
+                            'code'=>2,
+                            'message'=>'没有找到信息',
+                            'data'=>$data);
+            }else{
+                $out_data = array(
+                            'code'=>0,
+                            'message'=>'请求成功',
+                            'data'=>$data);  
+            }
+        }else{
+            $out_data = array(
+                            'code'=>2,
+                            'message'=>'数据为空',
+                            'data'=>''); 
+        }
+        echo json_encode($out_data);
+    }
+    /**
+     * [get_enterprise 响应ajax请求获取企业信息]
+     * @return [type] [description]
+     */
+   
+    function get_city_enterprise(){
+        if (empty($_POST['area_id'])) {
+            $array  = array(
+                            'code' =>1,
+                            'message'=>'参数异常',
+                            'data' =>'');
+        }else{
+            $leisure_mod = m('leisure');
+            $citys = $leisure_mod ->get_city_enterprise($_POST['area_id']);
+            $array = array(
+                            'code'=>0,
+                            'message'=>'请求成功',
+                            'data'=>$citys);
 
-    function enterprise()
+        }
+        
+        echo json_encode($array);
+
+    }
+    function get_city()
     {
-        $store_arr = $this->_get_data_priv_store(8);
+        if (empty($_POST['area_id'])) {
+            $array  = array(
+                            'code' =>1,
+                            'message'=>'参数异常',
+                            'data' =>'');
+        }else{
+            $leisure_mod = m('leisure');
+            $citys = $leisure_mod ->get_city($_POST['area_id']);
+            $array = array(
+                            'code'=>0,
+                            'message'=>'请求成功',
+                            'data'=>$citys);
+
+        }
+        
+        echo json_encode($array);
+    }
+    function get_shop()
+    {
+        if (empty($_POST['area_id'])) {
+            $array  = array(
+                            'code' =>1,
+                            'message'=>'参数异常',
+                            'data' =>'');
+        }else{
+            $leisure_mod = m('leisure');
+            $citys = $leisure_mod ->get_shop_arr($_POST['area_id']);
+            $array = array(
+                            'code'=>0,
+                            'message'=>'请求成功',
+                            'data'=>$citys);
+
+        }
+        
+        echo json_encode($array);
+
+    }
+    function enterprise()
+    {   
+        $provinceID = $_GET['provinceID'];
+        $province = $_GET['province'];
+        $area = $_GET['area'];
+        $area_id = $_GET['area_id'];
+        $leisure_mod = m('leisure');
+        $province_arr = $leisure_mod->get_province();
+        if (empty($_GET['page'])) {
+            $limit = '8';
+        } 
+        
+         //带条件查询
+        if ($provinceID && $province && $area && $area_id) {
+             $citys = $leisure_mod ->get_city_enterprise($provinceID);
+             $this->assign('citys',$citys);
+             $city_strs=$leisure_mod ->get_enterprise($area);
+             if (empty($city_strs)) {
+                 $city_strs='is_none';             
+             }else{
+                $where ="store.region_id in(".$city_strs.")";
+             }
+             
+            /* dump( $where);*/
+        }
+      
+        if ($city_strs == 'is_none') {
+            $store_arr=array();
+        }else{
+        //获取要查询的分页的参数数目
+    
+            $goods_count = $this->_get_data_priv_store_count($where);
+            $page = $this->_get_page(8);
+            $page['item_count'] = $goods_count;
+            $this->_format_page($page);
+            $store_arr = $this->_get_data_priv_store_limit($page['limit'],$where);  
+
+        }
+        $this->assign('page_info', $page);
+        /*分类加载*/
+        $gcategorys = $this->_list_gcategory();
+     //dump($gcategorys);
+        $this->assign('gcategorys', $gcategorys);
+        /*dump($province_arr);*/
         $out_data['store_arr'] = $store_arr;
         $this->assign("out_data", $out_data);
+        $this->assign("province_arr",$province_arr);
         $this->display("enterprise.html");
+    }
+    /**
+     * [get_shop_by_str 模糊查找企业名称]
+     * @return [type] [description]
+     */
+    function get_shop_by_str(){
+        if (empty($_POST['out_btn_con'])) {
+            $array  = array(
+                            'code' =>1,
+                            'message'=>'参数异常',
+                            'data' =>'');
+        }else{
+            $store_mod = m('store');
+            $conditions = "store_name like '%{$_POST['out_btn_con']}%'";
+            $store_arr = $store_mod ->find(array('conditions'=>$conditions,
+                                                'fields' => 'store_name,store_id'));
+            $array = array(
+                            'code'=>0,
+                            'message'=>'请求成功',
+                            'data'=>$store_arr);
+
+        }
+        echo json_encode($array);
     }
 
     /**
@@ -85,6 +298,7 @@ class IndexApp extends IndexbaseApp
         ));
         return $data;
     }
+
 
     /**
      * [_get_data 获取茶叶风向标数据]
@@ -212,7 +426,8 @@ class IndexApp extends IndexbaseApp
         $db =& db();
         $inner_join = "SELECT
 			store.store_id,
-			store.store_name
+			store.store_name,
+            store.store_logo
 		FROM
 			ecm_store AS store
 		INNER JOIN ecm_category_store AS cs ON store.store_id = cs.store_id
@@ -1938,7 +2153,71 @@ class IndexApp extends IndexbaseApp
                 
         return   $goods['type_des'];
     }
-  
+    
+    /**
+     * [_get_data_priv_store_limit 根据当前时间显示不同的店铺]
+     * @param  [type] $limit [description]
+     * @return [type]        [description]
+     */
+    function _get_data_priv_store_limit($limit,$where=''){
+        if (empty($where)) {
+            $where ='1=1';
+        }
+
+        $db =& db();
+        $inner_join = "SELECT
+            store.store_id,
+            store.store_name,
+            store.store_logo
+        FROM
+            ecm_store AS store
+        INNER JOIN ecm_category_store AS cs ON store.store_id = cs.store_id
+        INNER JOIN ecm_scategory AS es ON cs.cate_id = es.cate_id
+        WHERE
+            es.cate_name NOT LIKE 'VIP%'
+        AND es.parent_id = 0 AND ". $where ." order by store.sort_order ASC limit $limit";
+        $store_arr = $db->getall($inner_join);
+        return $store_arr;
+    }
+   function _get_data_priv_store_count($where='1=1'){
+    if (empty($where)) {
+        $where='1=1';
+    }
+            $db =& db();
+        $inner_join = "SELECT
+           count(store.store_id) 
+        FROM
+            ecm_store AS store
+        INNER JOIN ecm_category_store AS cs ON store.store_id = cs.store_id
+        INNER JOIN ecm_scategory AS es ON cs.cate_id = es.cate_id
+        WHERE
+            es.cate_name NOT LIKE 'VIP%'
+        AND es.parent_id = 0 AND ". $where;
+        $store_count = $db->getone($inner_join);
+        return $store_count;
+   }
+     /* 取得商品分类 */
+    function _list_gcategory()
+    {
+        $cache_server =& cache_server();
+        $key = 'page_goods_category';
+        $data = $cache_server->get($key);
+        if ($data === false)
+        {
+            $gcategory_mod =& bm('gcategory', array('_store_id' => 0));
+            $gcategories = $gcategory_mod->get_list(-1,true);
+    
+            import('tree.lib');
+            $tree = new Tree();
+            $tree->setTree($gcategories, 'cate_id', 'parent_id', 'cate_name');
+            $data = $tree->getArrayList(0);
+
+            $cache_server->set($key, $data, 3600);
+        }
+
+        return $data;
+    }
+
 
 
 }

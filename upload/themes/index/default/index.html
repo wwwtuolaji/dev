@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>福禄仓</title>
+    <title>福禄仓-首页</title>
     <meta content="七彩云南,红木家具,珠宝,紫砂,福禄仓投资集团" name="Keywords">
     <meta name="description" content="万家企业商业资源为基础的互利合作分享平台" />
     {$page_seo}
@@ -17,551 +17,563 @@
     <link rel="shortcut icon" href="{res file=images/bitbug_favicon.ico}"/>
 </head>
 <body>
-<div class="fulucang">
-    <div class="h">
-        <div class="w">
-           {include file=nav.html}
-            <div class="wq"></div>
-            <div id="top_banner" class="w">
-            </div> 
-            <div class="box">
-                <div class="fl  box1">
-                {if empty($out_data.member_info)}
-                    <div class="ac user">
-                        
-                        <a href="{url app=member&act=login&ret_url=}{url app=index}">
-                            <button class="button user_login">登录</button>
-                        </a>
-                        <a href="{url app=member&act=register&ret_url=}{url app=index}">
-                            <button class="button user_reg">注册</button>
-                        </a>
-                    </div>
-                {else}
-                    
-                    <!--店主至尊会员-->
-                    {if $out_data.member_info.level eq 1}
-                     <div class="ac user" style="background:url({res file=images/ka/1.jpg});">
-                     <span class="logout"style=""><a href="{url app=store&id=$out_data.member_info.user_id}">我的店铺&ensp;</a>|<a href="{url app=member}">&ensp;用户中心</a></span>
-                        <div class="member_i">
-                            <ul>
-                                <li>
-                                    <span class="top_span">会员名称:{$out_data.member_info.name}</span>
-                                    <span>会员级别:店主至尊</span>
-                                    <span>会员卡号:{$out_data.member_info.card}<a class="fr" href="index.php?app=member&act=logout">[退出]</a></span>
+    <div class="fulucang">
+        <div class="h">
+            <div class="w">
+                {include file=nav.html}
+                <div class="wq"></div>
+                <div id="top_banner" class="w"></div>
+                <div class="box">
+                    <div class="fl  box1">
+                        {if empty($out_data.member_info)}
+                        <div class="ac user">
+
+                            <a href="{url app=member&act=login&ret_url=}{url app=index}">
+                                <button class="button user_login">登录</button>
+                            </a>
+                            <a href="{url app=member&act=register&ret_url=}{url app=index}">
+                                <button class="button user_reg">注册</button>
+                            </a>
+                        </div>
+                        {else}
+                        <!--店主至尊会员-->
+                        {if $out_data.member_info.level eq 1}
+                        <div class="ac user" style="background:url({res file=images/ka/1.jpg});">
+                            <span class="logout"style="">
+                                <a href="{url app=store&id=$out_data.member_info.user_id}">我的店铺&ensp;</a>
+                                |
+                                <a href="{url app=member}">&ensp;用户中心</a>
+                            </span>
+                            <div class="member_i">
+                                <ul>
+                                    <li>
+                                        <span class="top_span">会员名称:{$out_data.member_info.name}</span>
+                                        <span>会员级别:店主至尊</span>
+                                        <span>
+                                            会员卡号:{$out_data.member_info.card}
+                                            <a class="fr" href="index.php?app=member&act=logout">[退出]</a>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <!-- <div  href="javascript:void(0)" class="trip_alert" id="trip_alert">
+                                        <dl>
+                                            <dt>至尊用户：豁然红木</dt>
+                                            <dt>至尊卡号：ZZ00001231</dt>
+                                            <dd>申请使用您店主至尊的权限，点击确认或取消</dd>
+                                        </dl>
+                                        <button class="fl cancle">取消</button>
+                                        <button class="fl" id="enter">确定</button>
+
+                                    </div>
+                                    -->
                                 </li>
-                                <li>
-                                  <!-- <div  href="javascript:void(0)" class="trip_alert" id="trip_alert">
-                                    <dl>
-                                       <dt>至尊用户：豁然红木</dt>
-                                       <dt>至尊卡号：ZZ00001231</dt>
-                                       <dd>申请使用您店主至尊的权限，点击确认或取消</dd>
-                                    </dl>
-                                    <button class="fl cancle">取消</button><button class="fl" id="enter">确定</button>
-                                    
-                                  </div> -->
-                              </li> 
                             </ul>
 
                         </div>
-                    </div> 
-                     <!--至尊会员-->
+                    </div>
+                    <!--至尊会员-->
                     {elseif $out_data.member_info.level eq 2}
-                     <div class="ac user" style="background:url({res file=images/ka/2.jpg});">
-                        <span class="logout"style=""><a href="{url app=member}">&ensp;用户中心</a></span>
+                    <div class="ac user" style="background:url({res file=images/ka/2.jpg});">
+                        <span class="logout"style="">
+                            <a href="{url app=member}">&ensp;用户中心</a>
+                        </span>
                         <div class="member_i">
                             <ul>
                                 <li>
                                     <span class="top_span">会员名称:{$out_data.member_info.name}</span>
                                     <span>会员级别:至尊会员</span>
-                                    <span>会员卡号:{$out_data.member_info.card}<a class="fr" href="index.php?app=member&act=logout">[退出]</a></span>
+                                    <span>
+                                        会员卡号:{$out_data.member_info.card}
+                                        <a class="fr" href="index.php?app=member&act=logout">[退出]</a>
+                                    </span>
                                 </li>
                                 <li>
-                                <a  href="javascript:void(0)" class="trip_alert" id="aplay_dz">点击申请临时店主至尊权限<span>(可查看进货价并可按进货价购买)</span></a>
-                                <a  href="javascript:void(0)" class="trip_alert" style="display: none">您已经拥有临时店主权限<span>(可查看进货价并可按进货价购买)</span></a>
+                                    <a  href="javascript:void(0)" class="trip_alert" id="aplay_dz">
+                                        点击申请临时店主至尊权限
+                                        <span>(可查看进货价并可按进货价购买)</span>
+                                    </a>
+                                    <a  href="javascript:void(0)" class="trip_alert" style="display: none">
+                                        您已经拥有临时店主权限
+                                        <span>(可查看进货价并可按进货价购买)</span>
+                                    </a>
                                 </li>
                             </ul>
 
                         </div>
                     </div>
-                     <!--金卡会员-->
+                    <!--金卡会员-->
                     {elseif $out_data.member_info.level eq 3}
                     <div class="ac user" style="background:url({res file=images/ka/3.jpg});">
-                        <span class="logout"style=""><a href="{url app=member}">&ensp;用户中心</a></span>
+                        <span class="logout"style="">
+                            <a href="{url app=member}">&ensp;用户中心</a>
+                        </span>
                         <div class="member_i">
                             <ul>
                                 <li>
                                     <span class="top_span">会员名称:{$out_data.member_info.name}</span>
                                     <span>会员级别:金卡会员</span>
-                                    <span>会员卡号:{$out_data.member_info.card}<a class="fr" href="index.php?app=member&act=logout">[退出]</a></span>
+                                    <span>
+                                        会员卡号:{$out_data.member_info.card}
+                                        <a class="fr" href="index.php?app=member&act=logout">[退出]</a>
+                                    </span>
                                 </li>
                             </ul>
 
                         </div>
                     </div>
-                     <!--福禄卡会员-->
+                    <!--福禄卡会员-->
                     {elseif $out_data.member_info.level eq 4}
                     <div class="ac user" style="background:url({res file=images/ka/4.jpg});">
-                        <span class="logout"style=""><a href="{url app=member}">&ensp;用户中心</a></span>
+                        <span class="logout"style="">
+                            <a href="{url app=member}">&ensp;用户中心</a>
+                        </span>
                         <div class="member_i">
                             <ul>
                                 <li>
                                     <span class="top_span">会员名称:{$out_data.member_info.name}</span>
                                     <span>会员级别:福禄卡会员</span>
-                                    <span>会员卡号:{$out_data.member_info.card}<a class="fr" href="index.php?app=member&act=logout">[退出]</a></span>
+                                    <span>
+                                        会员卡号:{$out_data.member_info.card}
+                                        <a class="fr" href="index.php?app=member&act=logout">[退出]</a>
+                                    </span>
                                 </li>
                             </ul>
 
                         </div>
                     </div>
 
-                     <!--集团董事长-->
+                    <!--集团董事长-->
                     {elseif $out_data.member_info.level eq 100}
                     <div class="ac user" style="background:url({res file=images/ka/mj.png});">
-                              <span class="logout"style=""><a href="{url app=member}">用户中心&ensp;</a>|<a class="fr" href="index.php?app=index&act=set_member">&ensp;开通会员</a></span>
+                        <span class="logout"style="">
+                            <a href="{url app=member}">用户中心&ensp;</a>
+                            |
+                            <a class="fr" href="index.php?app=index&act=set_member">&ensp;开通会员</a>
+                        </span>
                         <div class="member_i">
                             <ul>
                                 <li>
                                     <span class="top_span">内部员工:{$out_data.member_info.name}</span>
                                     <span>员工级别:集团董事长</span>
-                                    <span>员工编号:{$out_data.member_info.card}<a class="fr" href="index.php?app=member&act=logout">[退出]</a></span>
+                                    <span>
+                                        员工编号:{$out_data.member_info.card}
+                                        <a class="fr" href="index.php?app=member&act=logout">[退出]</a>
+                                    </span>
                                 </li>
                             </ul>
 
                         </div>
-                    </div> 
-                        
-                     <!--集团总经理-->
+                    </div>
+
+                    <!--集团总经理-->
                     {elseif $out_data.member_info.level eq 101}
                     <div class="ac user" style="background:url({res file=images/ka/mj.png});">
-                              <span class="logout"style=""><a href="{url app=member}">&ensp;用户中心&ensp;</a>|<a class="fr" href="index.php?app=index&act=set_member">&ensp;开通会员</a></span>
+                        <span class="logout"style="">
+                            <a href="{url app=member}">&ensp;用户中心&ensp;</a>
+                            |
+                            <a class="fr" href="index.php?app=index&act=set_member">&ensp;开通会员</a>
+                        </span>
                         <div class="member_i">
                             <ul>
                                 <li>
                                     <span class="top_span">内部员工:{$out_data.member_info.name}</span>
                                     <span>员工级别:总经理</span>
-                                    <span>员工编号:{$out_data.member_info.card}<a class="fr" href="index.php?app=member&act=logout">[退出]</a></span>
+                                    <span>
+                                        员工编号:{$out_data.member_info.card}
+                                        <a class="fr" href="index.php?app=member&act=logout">[退出]</a>
+                                    </span>
                                 </li>
                             </ul>
 
                         </div>
-                     </div>
+                    </div>
 
-
-                     <!--集团店长-->
+                    <!--集团店长-->
                     {elseif $out_data.member_info.level eq 102}
-                         <div class="ac user" style="background:url({res file=images/ka/mj.png});">
-                              <span class="logout"style=""><a href="{url app=member}">&ensp;用户中心&ensp;</a>|<a class="fr" href="index.php?app=index&act=set_member">&ensp;开通会员</a></span>
+                    <div class="ac user" style="background:url({res file=images/ka/mj.png});">
+                        <span class="logout"style="">
+                            <a href="{url app=member}">&ensp;用户中心&ensp;</a>
+                            |
+                            <a class="fr" href="index.php?app=index&act=set_member">&ensp;开通会员</a>
+                        </span>
                         <div class="member_i">
                             <ul>
                                 <li>
                                     <span class="top_span">内部员工:{$out_data.member_info.name}</span>
                                     <span>员工级别:内部集团店长</span>
-                                    <span>员工编号:{$out_data.member_info.card}<a class="fr" href="index.php?app=member&act=logout">[退出]</a></span>
+                                    <span>
+                                        员工编号:{$out_data.member_info.card}
+                                        <a class="fr" href="index.php?app=member&act=logout">[退出]</a>
+                                    </span>
                                 </li>
                             </ul>
 
                         </div>
-                     </div>
-                        
+                    </div>
+
                     <!--不是会员-->
                     {else}
-                        <div class="ac user" style="background">
-                           <span class="logout"style=""><a href="{url app=member}">&ensp;用户中心</a></span>
-                            <div class="not_member">
-                                <ul>
-                                    <li>
-                                        <span>用户名称:{$out_data.member_info.name}</span>
-                                        <span class="exit"><a class="fr" href="index.php?app=member&act=logout">[退出]</a></span>
-                                        
-                                    </li>
-                                  <!-- <li>
-                                      <a  href="javascript:void(0)" class="trip_alert">点击开通会员</a>
-                                  </li> -->
-                                </ul>
+                    <div class="ac user" style="background">
+                        <span class="logout"style="">
+                            <a href="{url app=member}">&ensp;用户中心</a>
+                        </span>
+                        <div class="not_member">
+                            <ul>
+                                <li>
+                                    <span>用户名称:{$out_data.member_info.name}</span>
+                                    <span class="exit">
+                                        <a class="fr" href="index.php?app=member&act=logout">[退出]</a>
+                                    </span>
 
-                            </div>
-                        </div>
-                        
-                    {/if}
+                                </li>
+                                <!-- <li>
+                                <a  href="javascript:void(0)" class="trip_alert">点击开通会员</a>
+                            </li>
+                            -->
+                        </ul>
+
+                    </div>
+                </div>
+                {/if}
 
 
                 {/if}
-                    <div class="new">
-                        <dl>
-                            <dt class="dt3">企业动态</dt>
-                            {foreach from=$out_data.notice item=notice_item}
-                            <dd>
-                                <a href="{url app=article&act=view&article_id=$notice_item.article_id}"><span style="float: left">&nbsp;{$notice_item.title}</span><span style="float: right">{$notice_item.add_time|date:Y-m-d}&nbsp;</span></a>
-                            </dd>
-                            {/foreach}
-                        </dl>
-                    </div>
-                    <div class="ecmall">
-                        <a href="{url}">
-                            <img src="{res file=images/ecmall.jpg}"></a>
-                    </div>
+                <div class="new">
+                    <dl>
+                        <dt class="dt3">企业动态</dt>
+                        {foreach from=$out_data.notice item=notice_item}
+                        <dd>
+                            <a href="{url app=article&act=view&article_id=$notice_item.article_id}">
+                                <span style="float: left">&nbsp;{$notice_item.title}</span>
+                                <span style="float: right">{$notice_item.add_time|date:Y-m-d}&nbsp;</span>
+                            </a>
+                        </dd>
+                        {/foreach}
+                    </dl>
                 </div>
-                <div class="banner_outer">
-                    <div class="banner" id="b06">
-                        <!--start-->
-                        <ul>
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <img src="{res file=images/re_1.jpg}"></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <img src="{res file=images/re_2.jpg}"></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <img src="{res file=images/re_3.jpg}"></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <img src="{res file=images/re_4.jpg}"></a>
-                            </li>
-                        </ul>
-                        <a href="javascript:void(0);" class="unslider-arrow06 prev">
-                            <img class="arrow" id="al" src="{res file=images/arrowl.png}" alt="prev" width="20"
+                <div class="ecmall">
+                    <a href="{$index_arr.small_banner_link}">
+                        <img src="{$index_arr.small_banner}"></a>
+                </div>
+            </div>
+            <div class="banner_outer">
+                <div class="banner" id="b06">
+                    <!--start-->
+                    <ul>
+                        {foreach from=$index_arr.slide_img_url item=img_url key=key}
+                        <li>
+                            {if empty($index_arr.slide_link.$key)}
+                            <a href="javascript:void(0)">
+                            {else}
+                            <a href="{$index_arr.slide_link.$key}">
+                            {/if}
+                                <img src="{$img_url}"></a>
+                           
+                        </li>
+                        {/foreach}
+                   
+                    </ul>
+                    <a href="javascript:void(0);" class="unslider-arrow06 prev">
+                        <img class="arrow" id="al" src="{res file=images/arrowl.png}" alt="prev" width="20"
                                  height="35"></a>
 
-                        <a href="javascript:void(0);" class="unslider-arrow06 next">
-                            <img class="arrow" id="ar" src="{res file=images/arrowr.png}" alt="next" width="20"
+                    <a href="javascript:void(0);" class="unslider-arrow06 next">
+                        <img class="arrow" id="ar" src="{res file=images/arrowr.png}" alt="next" width="20"
                                  height="35"></a>
-                        <!--end-->
+                    <!--end--> </div>
+            </div>
+        </div>
+        <div class="wp"></div>
+        <div class="cmk">
+            <div class="mk_nav">
+                <h3 class="h3f fl">
+                    <a href="">福禄仓茶业</a>
+                </h3>
+                <!--<ul>
+                <li>
+                    <a href="javascript:void(0)">经纪人</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">资讯</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">茶仓</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">茶通</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">微克</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">零售</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">行情</a>
+                </li>
+            </ul>
+            -->
+        </div>
+        <div class="cmk_inner">
+            <div class="zfpm">
+                <dl>
+                    <dt class="dt3">涨幅排名</dt>
+                    {foreach from=$out_data.drogue_arr.drogue_upmount item=foo}
+                    <dd>
+                        <a href="{url app=goods&id=$foo.goods_id}">
+                            <span class="fl">{$foo.tea_name}</span>
 
-                    </div>
-                </div>
+                            <span class="zfzre fr" > <font >涨幅：</font>
+                                {$foo.percentage}%&uarr;
+                            </span>
+                        </a>
+                    </dd>
+                    {/foreach}
+                </dl>
             </div>
-            <div class="wp"></div>
-            <div class="cmk">
-                <div class="mk_nav">
-                    <h3 class="h3f fl">
-                        <a href="">福禄仓茶业</a>
-                    </h3>
-                    <!--<ul>
-                        <li>
-                            <a href="javascript:void(0)">经纪人</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">资讯</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">茶仓</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">茶通</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">微克</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">零售</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">行情</a>
-                        </li>
-                    </ul>-->
-                </div>
-                <div class="cmk_inner">
-                    <div class="zfpm">
-                        <dl>
-                            <dt class="dt3">涨幅排名</dt>
-                        
-                          {foreach from=$out_data.drogue_arr.drogue_upmount item=foo}
-                            <dd>
-                                <a href="{url app=goods&id=$foo.goods_id}">
-                                    <span class="fl">{$foo.tea_name}</span>
-                                    
-                                    <span class="zfzre fr" ><font >涨幅：</font>{$foo.percentage}%&uarr;</span>
-                                </a>
-                            </dd>
-                          {/foreach}
-                        </dl>
-                    </div>
-                    <div class="fl cyfxb">
-                       {include file="drogue.html"}
-                    </div>
-                    <div class="jyxx">
-                        <dl>
-                            <dt class="dt3">新品上市</dt>
-                            {foreach from=$out_data.goods_new item=foo}
-                            <dd>
-                                <a href="{url app=goods&id=$foo.goods_id}"><img src="{$foo.default_image}" >
-                                    <span >{$foo.goods_name}</span></a><font>{$foo.price}</font>
-                                
-                            </dd>
-                            {/foreach}
-                            
-                        </dl>
-                    </div>
-                </div>
-            </div>
-            <!--福禄仓自营企业-->
-            <div class="zymk">
-                <div class="mk_nav">
-                    <h3 class="h3f fl">
-                        <a href="">福禄仓自营企业</a>
-                    </h3>
-                    <ul>
-                        <li>
-                            <a href="javascript:void(0)">酒业公司</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">鑫源红木</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">珠宝公司</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">紫砂厂</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">茶业公司</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">企业家中心</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="zymk_iner">
-                    <div class="fl qyjzx_box">
-                        <dl>
-                            <dt class="qyjzx">
-                                <a href="javascript:void(0)">企业家中心</a>
-                            </dt>
-                            <dd>
-                                <a href="javascript:void(0)">
-                                    <img src="{res file=images/qyjzx.jpg}" alt=""></a>
-                            </dd>
-                        </dl>
-                    </div>
-                    <div class="zyqy">
-                        <ul class="box1">
-                            <li>
-                                <a href="index.php?app=store&id=6">
-                                    <img src="{res file=images/l_11.jpg}" alt=""></a>
-                                <h4>
-                                    <a href="index.php?app=store&id=6">福禄仓茶叶</a>
-                                </h4>
-                            </li>
-                            <li>
-                                <a href="index.php?app=store&id=3">
-                                    <img src="{res file=images/l_15.jpg}" alt=""></a>
-                                <h4>
-                                    <a href="index.php?app=store&id=3">福禄仓紫砂</a>
-                                </h4>
-                            </li>
-                            <li>
-                                <a href="index.php?app=store&id=2">
-                                    <img src="{res file=images/l_12.jpg}" alt=""></a>
-                                <h4>
-                                    <a href="index.php?app=store&id=2">福禄仓鑫源红木</a>
-                                </h4>
-                            </li>
-                        </ul>
-                        <ul class="box2">
-                            <li>
-                                <a href="index.php?app=store&id=8">
-                                    <img src="{res file=images/l_14.jpg}" alt=""></a>
-                                <h4>
-                                    <a href="index.php?app=store&id=8">福禄仓珠宝</a>
-                                </h4>
-                            </li>
-                            <li>
-                                <a href="index.php?app=store&id=4">
-                                    <img src="{res file=images/l_13.jpg}" alt=""></a>
-                                <h4>
-                                    <a href="index.php?app=store&id=4">福禄仓酒业</a>
-                                </h4>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!--福禄仓会员企业平台-->
-            <div class="hyqy">
-                <div class="mk_nav">
-                    <h3 class="h3f fl">
-                        <a href="">福禄仓会员企业平台</a>
-                    </h3>
-                    <ul>
-                        <li>
-                            <a href="index.php?app=index&act=enterprise">更多 >></a>
-                        </li>
-                        <li>
-                        <!--     <a href="javascript:void(0)">企业分类</a>
-                                                </li>
-                                                <li>
-                        <a href="javascript:void(0)">企业分类</a>
-                                                </li>
-                                                <li>
-                        <a href="javascript:void(0)">企业分类</a>
-                                                </li>
-                                                <li>
-                        <a href="javascript:void(0)">企业分类</a>
-                                                </li>
-                                                <li>
-                        <a href="javascript:void(0)">企业分类</a>
-                                                </li> -->
-                    </ul>
-                </div>
-                <div class="hyqy_inner">
-                    <ul>
-                    {foreach from=$out_data.store_arr item=store}
-                        <li>
-                            <a href="{url app=store&id=$store.store_id}">
-                                <img src="{res file=images/hyqy.jpg}" alt=""></i>
-                            </a>
-                            <h4>
-                                <a href="{url app=store&id=$store.store_id}">{$store.store_name}</a>
-                            </h4>
-                        </li>
-                     {/foreach}
-                    </ul>
-                </div>
-                <!-- <div class="hyqy_inner">
-                    <ul>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <img src="{res file=images/hyqy.jpg}" alt=""></i>
-                            </a>
-                            <h4>
-                                <a href="javascript:void(0)">会员企业名称</a>
-                            </h4>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <img src="{res file=images/hyqy.jpg}" alt=""></i>
-                            </a>
-                            <h4>
-                                <a href="javascript:void(0)">会员企业名称</a>
-                            </h4>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <img src="{res file=images/hyqy.jpg}" alt=""></i>
-                            </a>
-                            <h4>
-                                <a href="javascript:void(0)">会员企业名称</a>
-                            </h4>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <img src="{res file=images/hyqy.jpg}" alt=""></i>
-                            </a>
-                            <h4>
-                                <a href="javascript:void(0)">会员企业名称</a>
-                            </h4>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <img src="{res file=images/hyqy.jpg}" alt=""></i>
-                            </a>
-                            <h4>
-                                <a href="javascript:void(0)">会员企业名称</a>
-                            </h4>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <img src="{res file=images/hyqy.jpg}" alt=""></i>
-                            </a>
-                            <h4>
-                                <a href="javascript:void(0)">会员企业名称</a>
-                            </h4>
-                        </li>
-                    </ul>
-                </div> -->
-            </div>
-            <div class="banner1">
-                <a href="javascript:void(0)">
-                    <img src="{res file=images/banner1.jpg}" alt=""></a>
-            </div>
-            <!--福禄仓企业资质-->
-            <div class="qyzz">
-                <div class="qyzz_inner">
-                    <div class="mk_nav">
-                        <h3 class="h3f fl">
-                            <a href="">福禄仓企业资质</a>
-                        </h3>
-                        <ul>
-                            <li>
-                                <a href="javascript:void(0)">更多资质</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="qyzz_box">
-                        <ul>
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <img src="{res file=images/zz.jpg}" alt=""></i>
-                                </a>
-                                <h4>
-                                    <a href="javascript:void(0)">企业资质名称</a>
-                                </h4>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <img src="{res file=images/zz.jpg}" alt=""></i>
-                                </a>
-                                <h4>
-                                    <a href="javascript:void(0)">企业资质名称</a>
-                                </h4>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <img src="{res file=images/zz.jpg}" alt=""></i>
-                                </a>
-                                <h4>
-                                    <a href="javascript:void(0)">企业资质名称</a>
-                                </h4>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <img src="{res file=images/zz.jpg}" alt=""></i>
-                                </a>
-                                <h4>
-                                    <a href="javascript:void(0)">企业资质名称</a>
-                                </h4>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <img src="{res file=images/zz.jpg}" alt=""></i>
-                                </a>
-                                <h4>
-                                    <a href="javascript:void(0)">企业资质名称</a>
-                                </h4>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <img src="{res file=images/zz.jpg}" alt=""></i>
-                                </a>
-                                <h4>
-                                    <a href="javascript:void(0)">企业资质名称</a>
-                                </h4>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <img src="{res file=images/zz.jpg}" alt=""></i>
-                                </a>
-                                <h4>
-                                    <a href="javascript:void(0)">企业资质名称</a>
-                                </h4>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="banner2">
-                    <img src="{res file=images/hydk.jpg}" alt=""></div>
+            <div class="fl cyfxb">{include file="drogue.html"}</div>
+            <div class="jyxx">
+                <dl>
+                    <dt class="dt3">新品上市</dt>
+                    {foreach from=$out_data.goods_new item=foo}
+                    <dd>
+                        <a href="{url app=goods&id=$foo.goods_id}">
+                            <img src="{$foo.default_image}" >
+                            <span >{$foo.goods_name}</span>
+                        </a> <font>{$foo.price}</font>
 
+                    </dd>
+                    {/foreach}
+                </dl>
             </div>
-             { include file="qq_chat.html" }
-            <!--底部-->
-            {include file="footer.html" }
         </div>
     </div>
-    <!-- -->
+    <!--福禄仓自营企业-->
+    <div class="zymk">
+        <div class="mk_nav">
+            <h3 class="h3f fl">
+                <a href="">福禄仓自营企业</a>
+            </h3>
+            <ul>
+                <li>
+                    <a href="javascript:void(0)">酒业公司</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">鑫源红木</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">珠宝公司</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">紫砂厂</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">茶业公司</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">企业家中心</a>
+                </li>
+            </ul>
+        </div>
+        <div class="zymk_iner">
+            <div class="fl qyjzx_box">
+                <dl>
+                    <dt class="qyjzx">
+                        <a href="{$index_arr.qiye_banner_link.0}">{$index_arr.qiye_banner_name.0}</a>
+                    </dt>
+                    <dd>
+                        <a href="javascript:void(0)">
+                            <img src="{$index_arr.qiye_banner_val.0}" alt=""></a>
+                    </dd>
+                </dl>
+            </div>
+            <div class="zyqy">
+                <ul class="box1">
+                    <li>
+                        <a href="{$index_arr.qiye_banner_link.1}">
+                            <img src="{$index_arr.qiye_banner_val.1}" alt=""></a>
+                        <h4>
+                            <a href="{$index_arr.qiye_banner_link.1}">{$index_arr.qiye_banner_name.1}</a>
+                        </h4>
+                    </li>
+                    <li>
+                        <a href="{$index_arr.qiye_banner_link.2}">
+                            <img src="{$index_arr.qiye_banner_val.2}" alt=""></a>
+                        <h4>
+                            <a href="{$index_arr.qiye_banner_link.2}">{$index_arr.qiye_banner_name.2}</a>
+                        </h4>
+                    </li>
+                    <li>
+                        <a href="{$index_arr.qiye_banner_link.3}">
+                            <img src="{$index_arr.qiye_banner_val.3}" alt=""></a>
+                        <h4>
+                            <a href="{$index_arr.qiye_banner_link.3}">{$index_arr.qiye_banner_name.3}</a>
+                        </h4>
+                    </li>
+                </ul>
+                <ul class="box2">
+                    <li>
+                        <a href="{$index_arr.qiye_banner_link.4}">
+                            <img src="{$index_arr.qiye_banner_val.4}" alt=""></a>
+                        <h4>
+                            <a href="{$index_arr.qiye_banner_link.4}">{$index_arr.qiye_banner_name.4}</a>
+                        </h4>
+                    </li>
+                    <li>
+                        <a href="{$index_arr.qiye_banner_link.5}">
+                            <img src="{$index_arr.qiye_banner_val.5}" alt=""></a>
+                        <h4>
+                            <a href="{$index_arr.qiye_banner_link.5}">{$index_arr.qiye_banner_name.5}</a>
+                        </h4>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--福禄仓会员企业平台-->
+    <div class="hyqy">
+        <div class="mk_nav">
+            <h3 class="h3f fl">
+                <a href="">福禄仓会员企业平台</a>
+            </h3>
+            <ul>
+                <li>
+                    <a href="index.php?app=index&act=enterprise">更多 >></a>
+                </li>
+                <li>
+                    <!--     <a href="javascript:void(0)">企业分类</a>
+            </li>
+            <li>
+                <a href="javascript:void(0)">企业分类</a>
+            </li>
+            <li>
+                <a href="javascript:void(0)">企业分类</a>
+            </li>
+            <li>
+                <a href="javascript:void(0)">企业分类</a>
+            </li>
+            <li>
+                <a href="javascript:void(0)">企业分类</a>
+            </li>
+            -->
+        </ul>
+    </div>
+    <div class="hyqy_inner">
+        <ul>
+            {foreach from=$out_data.store_arr item=store}
+            <li>
+                <a href="{url app=store&id=$store.store_id}">
+                    {if empty($store.store_logo)}
+                    <img src="{res file=images/hyqy.jpg}" alt=""/>
+                    {else}
+                      <img src="{$store.store_logo}" alt=""/>
+                    {/if}
+
+            </a>
+            <h4>
+                <a href="{url app=store&id=$store.store_id}">{$store.store_name}</a>
+            </h4>
+        </li>
+        {/foreach}
+    </ul>
+</div>
+<!-- <div class="hyqy_inner">
+<ul>
+    <li>
+        <a href="javascript:void(0)">
+            <img src="{res file=images/hyqy.jpg}" alt=""></i>
+    </a>
+    <h4>
+        <a href="javascript:void(0)">会员企业名称</a>
+    </h4>
+</li>
+<li>
+    <a href="javascript:void(0)">
+        <img src="{res file=images/hyqy.jpg}" alt=""></i>
+</a>
+<h4>
+    <a href="javascript:void(0)">会员企业名称</a>
+</h4>
+</li>
+<li>
+<a href="javascript:void(0)">
+    <img src="{res file=images/hyqy.jpg}" alt=""></i>
+</a>
+<h4>
+<a href="javascript:void(0)">会员企业名称</a>
+</h4>
+</li>
+<li>
+<a href="javascript:void(0)">
+<img src="{res file=images/hyqy.jpg}" alt=""></i>
+</a>
+<h4>
+<a href="javascript:void(0)">会员企业名称</a>
+</h4>
+</li>
+<li>
+<a href="javascript:void(0)">
+<img src="{res file=images/hyqy.jpg}" alt=""></i>
+</a>
+<h4>
+<a href="javascript:void(0)">会员企业名称</a>
+</h4>
+</li>
+<li>
+<a href="javascript:void(0)">
+<img src="{res file=images/hyqy.jpg}" alt=""></i>
+</a>
+<h4>
+<a href="javascript:void(0)">会员企业名称</a>
+</h4>
+</li>
+</ul>
+</div>
+-->
+</div>
+<div class="banner1">
+<a href="javascript:void(0)">
+<img  alt=""></a>
+</div>
+<!--福禄仓企业资质-->
+<div class="qyzz">
+<div class="qyzz_inner">
+<div class="mk_nav">
+<h3 class="h3f fl">
+<a href="">福禄仓企业资质</a>
+</h3>
+<ul>
+<li>
+<a href="javascript:void(0)">更多资质</a>
+</li>
+</ul>
+</div>
+<div class="qyzz_box">
+<ul>
+{foreach from=$index_arr.zizhi_url key=key item=index}
+    <li>
+    <a href="{$index_arr.zizhi_link.$key}">
+        <img src="{$index}" alt=""></i>
+    </a>
+        <h4>
+        <a href="{$index_arr.zizhi_link.$key}">{$index_arr.zizhi_name.$key}</a>
+        </h4>
+    </li>
+{/foreach}
+</ul>
+</div>
+</div>
+<div class="banner2">
+<a href="{$index_arr.bottom_img_link}">
+<img src="{$index_arr.bottom_img_url}" alt=""></a></div>
+
+</div>
+{if $index_arr.open_qq eq '1'}
+{ include file="qq_chat.html" }
+{/if}
+<!--底部-->{include file="footer.html" }</div>
+</div>
+<!-- -->
 </div>
 
 <script type="text/javascript">
@@ -626,11 +638,6 @@
     });
     
 </script>
-
-
-
-    
-
 
 </body>
 </html>

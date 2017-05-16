@@ -4,11 +4,9 @@
   <div class="floatDtt">在线客服</div>
   <div class="floatShadow">
     <ul class="floatDqq">
-      <li><a target="_blank" href="tencent://message/?uin=17123297&Site=fulucang.com&Menu=yes"><img src="{res file=qq_chant/images/qq.png}" align="absmiddle">在线客服1号</a></li>
-      <li><a target="_blank" href="tencent://message/?uin=3256782562&Site=fulucang.com&&Menu=yes"><img src="{res file=qq_chant/images/qq.png}" align="absmiddle">在线客服2号</a></li>
-      <li><a target="_blank" href="tencent://message/?uin=17123297&Site=fulucang.com&&Menu=yes"><img src="{res file=qq_chant/images/qq.png}" align="absmiddle">在线客服4号</a></li>
-      <li><a target="_blank" href="tencent://message/?uin=3256782562&Site=fulucang.com&&Menu=yes"><img src="{res file=qq_chant/images/qq.png}" align="absmiddle">在线客服5号</a></li>
-      <li><a target="_blank" href="tencent://message/?uin=17123297&Site=fulucang.com&&Menu=yes"><img src="{res file=qq_chant/images/qq.png}" align="absmiddle">在线客服6号</a></li>
+     {foreach from=$qq_arr item=qq name=name}
+      <li><a target="_blank" href="tencent://message/?uin={$qq}&Site=fulucang.com&Menu=yes"><img src="{res file=qq_chant/images/qq.png}" align="absmiddle">在线客服{$smarty.foreach.name.iteration}号</a></li>
+     {/foreach} 
      
     </ul>
     <!-- <div class="floatDtxt">热线电话</div>

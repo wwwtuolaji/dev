@@ -6,209 +6,16 @@
 	<script type="text/javascript" src="{res file=js/js_plugin/jquery-1.11.1.min.js}"></script>
 	<script type="text/javascript" src="{res file=js/js_plugin/unslider.min.js}"></script>
 	<script type="text/javascript" src="{res file=js/index.js}"></script>
+	<script type="text/javascript" src="{res file=js/layer/layer.js}"></script>
 	<link rel="stylesheet" href="{res file=css/base.css}"/>
 	<link rel="stylesheet" href="{res file=css/loan.css}"/>
-
+	<link rel="stylesheet" href="{res file=css/leisure.css}"/>
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
 	<script type="text/javascript" src="http://api.map.baidu.com/library/SearchControl/1.4/src/SearchControl_min.js"></script>
 	<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchControl/1.4/src/SearchControl_min.css" />
 	<link href="http://api.map.baidu.com/library/TrafficControl/1.4/src/TrafficControl_min.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="http://api.map.baidu.com/library/TrafficControl/1.4/src/TrafficControl_min.js"></script>
-
-	<style type="text/css">
-     	.serch_outer{
-		overflow: hidden;
-     	}
-	.title_l{
-		width: 350px;
-		font: 100 20px/70px "";
-		color:#F88C15;
-		text-align: center;
-	}
-	.serch_r{
-		width:730px;
-		line-height: 70px;
-	}
-	.serch_r .serch_l{
-		font-size: 16px;
-		color:#000;
-		height: 23px;
-		line-height: 70px;
-		margin-top:5px;
-	}
-	.serch_r input{
-		margin-left: 20px;
-
-	}
-	.out_btn{
-		
-		margin-left: 20px;
-		background-color:#454242; 
-		width: 520px; 
-		display: inline-block;
-		margin-top: 10px;
-		height: 45px; 
-		position: relative;
-	}
-	.serch_r .out_btn input {
-		position: absolute;
-		/* margin:2px,5px; */
-		padding: 3px;
-		 border-radius: 5px;
-		width: 510px;
-		margin-left: 5px;
-		margin-top:5px;
-		/* height: 35px; */
-		font: 100 16px/28px "";
-		color:#454242; 	
-	}
-	.serch_but{
-		width: 100px;
-		height: 35px;
-		border:solid 1px #000;
-		border-radius: 5px;
-		margin: 15px auto; 
-		line-height: 35px;
-		text-align: center;
-		background: #fff;
-		font-size: 17px;
-		cursor: pointer;
-	}
-	/* 休闲会所导航栏部分 */
-	.leisure_nav .w{
-		background-color: #606060;
-	}
-	.leisure_nav span{
-		font: 100 16px/40px "";
-		color:#fff;
-	}
-	.leisure_nav ul li{
-		float: left;
-		margin-right: 20px;
-		font:100 16px/40px "";
-		color: #fff;
-		width: 80px;
-		position: relative;
-		text-align: center;
-	}
-	.leisure_nav ul li :hover{
-
-	}
-	.drop_down {
-		z-index: 1000;
-	    position: absolute;
-	    background-color: #666;
-	    display: none;
-	    width: 414px;	
-	}
-	.leisure_nav  .drop_down li{
-		text-align: center;
-		width: 80px;
-		margin-right: 0px;
-		 cursor: pointer;
-	    font-size: 12px;
-	    line-height: 25px
-	}
-
-	.dt s, .drop_down s {
-	    left: 0;
-	    position: absolute;
-	    top: -8px;
-	}
-	.leisure_nav  .drop_down_i{
-		  width: 80px;
-	}
-	/*轮播图 */
-	.bannner_con .w{
-		z-index: -1;
-		height: 50px;
-		overflow: hidden;
-	}
-	.banner{
-		z-index: -1;
-	}
-	.banner ul li {
-		
-   		 float: left;
-	}
-	.banner li {
-	    list-style: none;
-	}
-
-	.banner ul li {
-	    float: left;
-	}
-	.baidu_map .w{
-		background: #fff;
-		overflow: hidden;
-	}
-	/* 百度地图相关信息 */
-	 .baidu_map .map_master{
-	 	margin: 10px;
-	 	width: 700px;
-	 	height: 400px;
-	 	border:solid 3px #962300;
-
-	 }
-	 .baidu_map .desc_map{
-	 	width: 500px;
-	 	height: 400px;
-	 	border:solid 3px #962300;	
-	 	margin-top: 10px;
-	 }
-	 .desc_map h3{
-	 	width: 500px;
-	 	font:400 18px/50px '';
-	 	text-align: center;
-	 	color:#000;
-	 }
-	.desc_map .line{
-		border-top: solid 1px #666;
-		width: 400px;
-		margin: 0 auto;
-	}
-	.desc_map h4{
-		width: 50px;
-		margin:5px auto;
-		color:#000;
-		font:100 15px/20px "";
-		text-align: center;
-	}
-	.desc_map p{
-		margin: 0 10px;
-		text-indent: 5px;
-		font:100 14px/24px "";
-	}
-	.desc_map .rel_{
-		text-align: left;
-		font:100 18px/40px '';
-	}
-	.desc_map .line_i{
-		margin-top: 40px;
-		margin-bottom: 20px;
-	}
-	 /*小三角*/
-        .third {
-            padding: 0 25px 0 10px;
-            position: relative;
-            cursor: pointer;
-        }
-        .third i {
-            font: 400 20px/30px "simsun";
-            height: 15px;
-            overflow: hidden;
-            position: absolute;
-            right: 0;
-            top: 13px;
-            width: 20px;
-        }
-        .third s {
-            left: 0;
-            position: absolute;
-            text-decoration: none;
-            top: -15px;
-        }
-     </style>
+	 <script type="text/javascript" src="http://api.map.baidu.com/library/TrafficControl/1.4/src/TrafficControl_min.js"></script> 
+	<!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=RSnBIOBSb6wM9mwVhsutmOel8E1VWAiH"></script> -->
 </head>
 <body>
 
@@ -222,75 +29,59 @@
 				<span class="serch_l">搜索会所</span>
 			</div>
 			<span class="out_btn">
-				<input type="text" value="请输入内容" onfocus="javascript:if(this.value=='请输入内容')this.value='';"></span>
-			<div class="fr serch_but">查找</div>
+				<input type="text" id="search"placeholder="请输入内容" ></span>
+			<div class="fr serch_but" id="confirm">查找</div>
 		</div>
 	</div>
 
 	<!--导航-->
 	<div class="leisure_nav">
 		<div class="w">
-			<span>&nbsp;&nbsp;李庄街休闲会所</span>
+			<span>&nbsp;&nbsp;{$leisure_info.leisure_name}</span>
 			<div class="fr">
 				<ul>
-					<li>北京市</li>
-					<li class="place">
+					<!--省选择-->
+					<li id="province" value="{$selected.provinceID}">{$selected.province}</li>
+					<li class="place province">
 						<span class="third"> <i><s>◇</s></i> 
 						</span>
 						<ul class="drop_down">
-							<li>北京市</li>
-							<li>上海市</li>
-							<li>天津市</li>
-							<li>重庆市</li>
-							<li>河北省</li>
-							<li>山东省</li>
-							<li>辽宁省</li>
-							<li>龙江省</li>
-							<li>吉林省</li>
-							<li>甘肃省</li>
-							<li>青海省</li>
-							<li>河南省</li>
-							<li>江苏省</li>
-							<li>湖北省</li>
-							<li>湖南省</li>
-							<li>江西省</li>
-							<li>浙江省</li>
-							<li>广东省</li>
-							<li>云南省</li>
-							<li>福建省</li>
-							<li>台湾省</li>
-							<li>海南省</li>
-							<li>山西省</li>
-							<li>四川省</li>
-							<li>陕西省</li>
-							<li>贵州省</li>
-							<li>安徽省</li>
-
+						{foreach from=$province_arr item=province key=key}
+							<li value="{$key}">{$province}</li>
+						{/foreach}
+							
 						</ul>
 					</li>
-					<li>朝阳区</li>
-					<li class="place">
+					<!--城市选择-->
+					<li id="area" value="{$leisure_info.area_id}">{$selected.city}</li>
+					<li class="place area">
 						<span class="third"> <i><s>◇</s></i> 
 						</span>
 						<ul class="drop_down drop_down_i">	
-							<li>西城区</li>
-							<li>朝阳区</li>
-							<li>丰台区</li>
-							<li>石景山区</li>
-							<li>海淀区</li>
+						{foreach from=$selected.city_arr item=citys key=key}
+							<li value="{$key}">{$citys}</li>
+						{/foreach}
+							
 						</ul>
+						
 					</li>
-					<li>天坛店</li>
-					<li class="place">
+					<!--店铺名称-->
+					<li id="shop_name">{$leisure_info.shop_name}</li>
+					<li class="place shop_name">
 						<span class="third">
 							<i>
 								<s>◇</s>
 							</i>
 						</span>
 						<ul class="drop_down drop_down_i">
+						{if $shop_arr}
+						{foreach from=$shop_arr item=shop}
+							<!-- <li>李庄街店</li>
 							<li>李庄街店</li>
-							<li>李庄街店</li>
-							<li>李庄街店</li>
+							<li>李庄街店</li> -->
+							<li><a href="?app=index&act=leisure&leishure_id={$shop.id}">{$shop.shop_name}</a></li>
+						{/foreach}
+						{/if}
 
 						</ul>
 					</li>
@@ -304,18 +95,28 @@
 			<div class="banner" id="b06">
 				<!--start-->
 				<ul>
+				{if $leisure_info.images}
+					{foreach from=$leisure_info.images item=image key=key}
+						<li>
+							<a href="{$leisure_info.slide_link.$key}">
+							<img src="{$image}" height="300"></a>
+						</li>
+					{/foreach}
+				{else}
 					<li>
-						<a href="javascript:void(0)">
-							<img src="{res file=images/banner_i/1.jpg}" height="300"></a>
+							<a href="javascript:void(0)">
+								<img src="{res file=images/banner_i/1.jpg}" height="300"></a>
 					</li>
 					<li>
 						<a href="javascript:void(0)">
 							<img src="{res file=images/banner_i/2.jpg}" height="300"></a>
 					</li>
+
 					<li>
 						<a href="javascript:void(0)">
 							<img src="{res file=images/banner_i/3.jpg}" height="300"></a>
 					</li>
+				{/if}
 					<!-- <li>
 					<a href="javascript:void(0)">
 						<img src="{res file=images/banner_i/4.jpg}" height="300"></a>
@@ -331,19 +132,23 @@
 </div>
 <div class="baidu_map">
 	<div class="w">
-		<div class="fl map_master" id="allmap"></div>
+		<div class="fl">
+			<div class="fl map_master" id="allmap"></div>
 
+		<div class="little-trip" style="margin-left: 10px"> 鼠标左键双击放大，右键双击缩小</div>
+		</div>
+		
 		<div class="fl desc_map">
-			<h3>福禄仓休闲会所</h3>
+			<h3>{$leisure_info.leisure_name}</h3>
 			<div class="line"></div>
 			<h4>简介</h4>
 			<p>
-				&ensp;&ensp;福禄仓休闲会所拥有风情各异的复式套房、豪华套房、豪华单间及标准客房，全部采用大金空调系统、宽带网络系统，配置高档齐全，是中外贵宾及商务宾客理想的居停地点。备有多媒体投影仪、宽带网络系统、进口音响设备的会议室及多功能厅，是举办各种会议、经贸洽谈、学术演讲、经济研讨的理想场所。会所还精心为商务人士准备了KTV、棋牌室、台球室、书画室、茶座及咖啡厅，以满足不同宾客的休闲、娱乐之需。
+				&ensp;&ensp;{$leisure_info.leisure_des}
 			</p>
 			<div class="line line_i"></div>
-			<h3 class="rel_">电话：18932692999</h3>
-			<h3 class="rel_">地址：保定市李庄街假日花园底商</h3>
-
+			<h3 class="rel_">电话：{$leisure_info.phone}</h3>
+			<h3 class="rel_">地址：{$leisure_info.address_info}</h3>
+		
 		</div>
 	</div>
 </div>
@@ -361,14 +166,20 @@
 	/*百度地图接口*/
 	// 百度地图API功能	
 	map = new BMap.Map("allmap");
-	map.centerAndZoom(new BMap.Point(116.417854,39.921988), 10);
-	var data_info = [		 [116.406605,39.921585,"地址: 保定市李庄街假日花园底商"],
-					 [115.500759,38.913329,"地址: 保定市盛和家园底商"],
+	map.centerAndZoom(new BMap.Point('{$coordinate.0}','{$coordinate.1}'), 13);
+	/*	var data_info = [		 [116.406605,39.921585,"地址: 保定市李庄街假日花园底商<a href='baidu.com'>hahah</a>"],
+					 [115.500759,38.913329,"地址: 保定市盛和家园底商<a href='baidu.com'>hahah</a>"],
 					 [116.417854,39.921988,"地址：北京市东城区王府井大街88号乐天银泰百货八层"],
 					 [116.406605,39.921585,"地址：北京市东城区东华门大街"],
 					 [116.412222,39.912345,"地址：北京市东城区正义路甲5号"]
 					
-					];
+					];*/
+	 var data_info =$.parseJSON('{$address_arr}');
+
+	console.log('{$address_arr}');
+
+	/**/
+	
 	var opts = {
 				width : 250,     // 信息窗口宽度
 				height: 80,     // 信息窗口高度
@@ -378,6 +189,7 @@
 	for(var i=0;i<data_info.length;i++){
 		var marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]));  // 创建标注
 		var content = data_info[i][2];
+		content = content + "<br/><a style='color=#13B134' href='index.php?app=index&act=leisure&leishure_id="+ data_info[i][3] +"'>查看详情</a>";
 		map.addOverlay(marker);               // 将标注添加到地图中
 		addClickHandler(content,marker);
 	}
@@ -397,4 +209,121 @@
 	       $(".nav li:eq(3)").attr("class","center");  
 	    });
 	
-</script></body>
+</script>
+</body>
+<script type="text/javascript">
+
+	/*通过省份获取当下的市和区*/
+  $(".province ul li").click(function(event) {
+      area_id = $(this).val();
+      content =$(this).html();
+      init_li();
+      $("#province").html(content);
+      $.ajax({
+        url: 'index.php?app=index&act=get_city',
+        type: 'POST',
+        dataType: 'json',
+        data: {area_id: area_id},
+        success:function(out_data){
+          if (out_data.code!=0) {
+            alert(out_data.message);
+            return;
+          }
+          str='';
+          //<li value="">长春市</li>
+          $.each(out_data.data, function(index, val) {
+             str += '<li value="'+index+'">'+val+'</li>';
+          });
+          $(".area ul").html(str);
+          console.log(out_data);
+       }
+    })
+      
+      
+   });
+  function init_li(){
+  	$("#area").html("—未选择—");
+  	$("#shop_name").html("—未选择—");
+  	$(".shop_name ul li").remove();
+  }
+  $(document).on('click', '.area ul li', function(event) {
+  	init_li();
+  	 content =$(this).html();
+  	 area_id = $(this).val();
+  	 $("#area").html(content);
+  	    $.ajax({
+	        url: 'index.php?app=index&act=get_shop',
+	        type: 'POST',
+	        dataType: 'json',
+	        data: {area_id: area_id},
+	        success:function(out_data){
+	          if (out_data.code!=0) {	
+	            alert(out_data.message);
+	            return;
+	          }
+	          str='';
+	          //
+	          $.each(out_data.data, function(index, val) {
+	             str += '<li><a href="?app=index&amp;act=leisure&amp;leishure_id='+val.id+'">'+val.shop_name+'</a></li>';
+	          });
+	          $(".shop_name ul").html(str);
+	          console.log(out_data);
+       }
+  });
+});
+  /*layer demo*/
+  //open弹出一个页面层
+$('#confirm').on('click', function(){
+	var search_con=$("#search").val();
+	if (!search_con) {
+		alert('查找内容不能为空！');
+		return;
+	}
+
+	$.ajax({
+		url: 'index.php?app=index&act=search_leisure',
+		type: 'POST',
+		dataType: 'json',
+		data: {search: search_con},
+		success:function(out_data){
+			if (out_data.code==2) {
+				var show_content = '\<\div style="width:270px; height:30px; font:800 19px/30px \'MicroSoft Yahei\'; margin:100px auto; color:red"> 很抱歉！没有查询到相关信息！\<\/div>';
+				
+			}else{
+				var show_content = '\<\div style="width:400px; font:400 22px/30px \'MicroSoft Yahei\'; margin:30px auto; color:#aaa;"> <table cellspacing="1"border="1" style="border-collapse:collapse;width:100%;borer-color:#aaa"><tr ><th>序号</th><th>茶会所名称</th><th>操作</th></tr>';
+			var temp='';
+				var c=0;
+				$.each(out_data.data,function(index, el) {
+
+					temp+='<tr style="width:100%;font:100 19px/30px \'MicroSoft Yahei\'"><td style="text-align:center">'+c+'</td><td>'+el.leisure_name+'</td><td style="text-align:center"><a href="index.php?app=index&act=leisure&leishure_id='+index+'" style="color:#2F96CE;">查看</a></td></tr>';
+					c++;
+				});
+
+				show_content =  show_content +temp+'</table>\<\/div>';
+			}
+			 layer.open({
+				  type: 1,//0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）。 若你采用layer.open({type: 1})方式调用，则type为必填项（信息框除外）
+				  title: ['搜索城市信息列表', 'font-size:18px;'],//如果你不想显示标题栏，你可以title: false  不想自定义样式 title：'标题'
+				  area: ['600px', '360px'],//弹出层的宽高 默认自适应
+				  //offset: ['100px', '200px'],//默认垂直水平居中  当您top、left都要定义时，你可以offset: ['100px', '200px']。除此之外，你还可以定义offset: 'rb'，表示右下角。其它的特殊坐标，你可以自己计算赋值。
+				  shade: [0.8, '#393D49'],//弹层外区域。默认是0.3透明度的黑色背景（'#000'）。如果你想定义别的颜色，可以shade: [0.8, '#393D49']；如果你不想显示遮罩，可以shade: 0
+				  shadeClose: false, //如果你的shade是存在的，那么你可以设定shadeClose来控制点击弹层外区域关闭。默认值false
+				  closeBtn: 1,//layer提供了两种风格的关闭按钮，可通过配置1和2来展示，如果不显示，则closeBtn: 0
+				  btn: [],
+				  time: false,//默认不会自动关闭。当你想自动关闭时，可以time: 5000，即代表5秒后自动关闭
+				  shift:2,//我们的出场动画全部采用CSS3目前shift可支持的动画类型有0-6
+				  maxmin: true,//该参数值对type:1和type:2有效
+				
+				  cancel: function(){ 
+				     /*alert("点击右上角关闭的回调");*/
+				  },
+				  /*content: '\<\div style="padding:60px;">自定义内容\<\/div>'*/
+				  content: show_content
+			  });
+		}
+	})
+	
+	
+ 
+});
+</script>

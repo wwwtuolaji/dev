@@ -1,0 +1,700 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>{$lang.des}</p>
+
+</div>
+<div class="info">
+  <form method="post" enctype="multipart/form-data" action="index.php?app=index_edit&act=index">
+    <table class="infoTable">
+      <tr>
+        <th class="paddingT15" id="container_drop" >
+          <label for="time_zone">{$lang.slide_img}:</label>
+          <br/>
+          <a href="javascript:;" id="add_continue">继续添加</a>
+          <br/>
+
+        </th>
+        <td class="paddingT15 wordSpacing5" id="div_outer">
+          <div class="con_but" id="container_drop" >
+            <a href="javascript:;" class="a-upload" id="container_img">
+              <input type="file"  id="up_img_1">上传文件</a>
+          </div>
+          {foreach from=$index_arr.slide_img_url item=img_url key=key}
+          <div class="img_slide" >
+            <img src="{$img_url}">
+            <input type="hidden" name="slide_img_url[]" value="{$img_url}">
+            <span class="grey">{$lang.address}</span>
+            <input name="slide_link[]"type="text" value="{$index_arr.slide_link.$key}" />
+            <input type="button" value="删除" class="del"/>
+            <a href="javascript:;" class="a-upload" >
+              <input type="button"  class="confirm_true">选中上传文件</a>
+          </div>
+          {/foreach}
+
+        </td>
+      </tr>
+      <tr class="tatr1">
+        <td colspan="10"></td>
+      </tr>
+      <tr >
+        <th class="paddingT15">QQ客服配置：</th>
+        <td class="paddingT15 wordSpacing5" >
+          <span>功能开启：</span>
+          <select class="querySelect"  name="open_qq">{html_options options=$open_qq_arr selected=$index_arr.open_qq}</select>
+          <br/>
+          <br/>
+          <span>新增QQ号码(用"||"分割)：</span>
+          <br/>
+          <textarea class="qq_txt"name="qq_num">{$index_arr.qq_num}</textarea>
+        </td>
+
+      </tr>
+      <tr class="tatr1">
+        <td colspan="10"></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">小广告位：</th>
+        <td>
+          <div class ="up_small_banner"id="small_banner_drop" >
+            <a href="javascript:;" class="a-upload" id="small_banner_outer">
+              <input type="file"  id="small_banner">上传图片</a>
+          </div>
+          <div class="content_baner">
+            <img class="small_banner_img"src="{$index_arr.small_banner}"/>
+            <input type="hidden" id ="small_banner_val"name="small_banner" value="{$index_arr.small_banner}">
+            <span>连接地址：</span>
+            <input type="text" name="small_banner_link" value="{$index_arr.small_banner_link}"></div>
+        </td>
+      </tr>
+      <tr class="tatr1">
+        <td colspan="10"></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">福禄仓自营企业：</th>
+        <td id="qiye_outer">
+          <div class ="up_small_banner"id="qiye_up_drop" >
+            <a href="javascript:;" class="a-upload" id="qiye_up_outer">
+              <input type="file"  id="qiye_up">上传图片</a>
+          </div>
+          <div class="qiye">
+            <img src="{$index_arr.qiye_banner_val.0}">
+            <input type="hidden" name="qiye_banner_val[]"value="{$index_arr.qiye_banner_val.0}" />
+            <span>位置描述：</span>
+            <span>企业家中心大图。</span>
+            <span>位置简称：</span>
+            <input type="text" name="qiye_banner_name[]" value="{$index_arr.qiye_banner_name.0}">
+            <span>连接地址：</span>
+            <input type="text" name="qiye_banner_link[]" value="{$index_arr.qiye_banner_link.0}">
+            <a class="qiye_click" href="javascript:;">选中上传</a>
+          </div>
+          <div class="qiye">
+            <img src="{$index_arr.qiye_banner_val.1}">
+            <input type="hidden" name="qiye_banner_val[]"value="{$index_arr.qiye_banner_val.1}" />
+            <span>位置描述：</span>
+            <span>上左1</span>
+            <span>位置简称：</span>
+            <input type="text" name="qiye_banner_name[]"value="{$index_arr.qiye_banner_name.1}">
+            <span>连接地址：</span>
+            <input type="text" name="qiye_banner_link[]" value="{$index_arr.qiye_banner_link.1}">
+            <a class="qiye_click" href="javascript:;">选中上传</a>
+          </div>
+          <div class="qiye">
+            <img src="{$index_arr.qiye_banner_val.2}">
+            <input type="hidden" name="qiye_banner_val[]"value="{$index_arr.qiye_banner_val.2}" />
+            <span>位置描述：</span>
+            <span>上左2</span>
+            <span>位置简称：</span>
+            <input type="text" name="qiye_banner_name[]" value="{$index_arr.qiye_banner_name.2}">
+            <span>连接地址：</span>
+            <input type="text" name="qiye_banner_link[]" value="{$index_arr.qiye_banner_link.2}">
+            <a class="qiye_click" href="javascript:;">选中上传</a>
+          </div>
+          <div class="qiye">
+            <img src="{$index_arr.qiye_banner_val.3}">
+            <input type="hidden" name="qiye_banner_val[]"value="{$index_arr.qiye_banner_val.3}" />
+            <span>位置描述：</span>
+            <span>上左3</span>
+            <span>位置简称：</span>
+            <input type="text" name="qiye_banner_name[]" value="{$index_arr.qiye_banner_name.3}">
+            <span>连接地址：</span>
+            <input type="text" name="qiye_banner_link[]" value="{$index_arr.qiye_banner_link.3}">
+            <a class="qiye_click" href="javascript:;">选中上传</a>
+          </div>
+          <div class="qiye">
+            <img src="{$index_arr.qiye_banner_val.4}">
+            <input type="hidden" name="qiye_banner_val[]"value="{$index_arr.qiye_banner_val.4}" />
+            <span>位置描述：</span>
+            <span>下左1</span>
+            <span>位置简称：</span>
+            <input type="text" name="qiye_banner_name[]" value="{$index_arr.qiye_banner_name.4}">
+            <span>连接地址：</span>
+            <input type="text" name="qiye_banner_link[]" value="{$index_arr.qiye_banner_link.4}">
+            <a class="qiye_click" href="javascript:;">选中上传</a>
+          </div>
+          <div class="qiye">
+            <img src="{$index_arr.qiye_banner_val.5}">
+            <input type="hidden" name="qiye_banner_val[]"value="{$index_arr.qiye_banner_val.5}" />
+            <span>位置描述：</span>
+            <span>下左2</span>
+            <span>位置简称：</span>
+            <input type="text" name="qiye_banner_name[]" value="{$index_arr.qiye_banner_name.5}">
+            <span>连接地址：</span>
+            <input type="text" name="qiye_banner_link[]"value="{$index_arr.qiye_banner_link.5}" >
+            <a class="qiye_click" href="javascript:;">选中上传</a>
+          </div>
+
+        </td>
+      </tr>
+      <tr class="tatr1">
+        <td colspan="10"></td>
+      </tr>
+      <tr>
+        <th>
+        <label>企业资质：</label>
+         <br/>
+          <a href="javascript:;" id="zizhi_add">继续添加</a>
+          <br/></th>
+     
+          
+        <td class="paddingT15 wordSpacing5" id="zizhi_drop">
+          <div class="con_but">
+            <a href="javascript:;" class="a-upload" id="zizhi_outer">
+              <input type="file"  id="zizhi_id">上传文件</a>
+          </div>
+          {foreach from=$index_arr.zizhi_url key=key item=index}
+          <div class="zizhi_slide" >
+            <img src="{$index}">
+            <input type="hidden" name="zizhi_url[]" value="{$index}">
+            <span class="grey">{$lang.address}</span>
+            <input name="zizhi_link[]"type="text" value="{$index_arr.zizhi_link.$key}" />
+            <span class="grey">资质名称：</span>
+            <input name="zizhi_name[]"type="text" value="{$index_arr.zizhi_name.$key}"/>
+            <input type="button" value="删除" class="del"/>
+            <a href="javascript:;" class="a-upload" >
+              <input type="button"  class="confirm_true_zizhi">选中上传文件</a>
+          </div>
+          {/foreach}
+        </td>
+
+      </tr>
+      <tr class="tatr1">
+        <td colspan="10"></td>
+      </tr>
+      <tr id="bottom_right">
+          <th>底部右下角广告图片：</th><td>
+              <div class="bottom_right">
+                 <a href="javascript:;" class="a-upload" id="bottom_right_outer" >
+                  <input type="file"  id="bottom_right_up" >上传图片
+                 </a>
+              </div>
+              <div class="content_baner">
+                   <img class="bottom_img"src="{$index_arr.bottom_img_url}"/>                 
+                   <input type="hidden" id ="bottom_img_url"name="bottom_img_url" value="{$index_arr.bottom_img_url}">                 
+                   <span>连接地址：</span>
+                   <input type="text" name="bottom_img_link" value="{$index_arr.bottom_img_link}">
+              </div>
+              </td>
+      </tr>
+      <tr class="tatr1">
+        <td colspan="10"></td>
+      </tr>
+      <tr>
+        <th colspan="10" style="text-align: center;"><input value="提交" type="submit" style="color: #E4EDEC;background-color: #DF4040;padding: 5px 15px; border-radius: 5px;"></th>
+      </tr>
+    
+
+    </table>
+  </form>
+</div>
+{include file="footer.html"}
+<script type="text/javascript">var uptoken_url = "<?php echo $this->_var['site_url']; ?>admin/?app=uptoken&act=uptoken";</script>
+<script type="text/javascript" src="{lib file=upload/jquery.min.js}"></script>
+<script type="text/javascript" src="{lib file=upload/plupload/plupload.full.min.js}"></script>
+<script type="text/javascript" src="{lib file=upload/qiniu.js}"></script>
+<script type="text/javascript">
+                /*轮播图*/
+                var up_obj = {
+                            runtimes: 'html5,flash,html4',    //上传模式,依次退化
+                            browse_button: 'up_img_1',       //上传选择的点选按钮，**必需**
+                            uptoken_url: uptoken_url,            //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
+                            // uptoken : '<Your upload token>', //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
+                            unique_names: true,
+                            // unique_names: true, // 默认 false，key为文件名。若开启该选项，SDK为自动生成上传成功后的key（文件名）。
+                            // save_key: true,   // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK会忽略对key的处理
+                            domain: 'http://oflmvdj34.bkt.clouddn.com/',   //bucket 域名，下载资源时用到，**必需**
+                            get_new_uptoken: false,  //设置上传文件的时候是否每次都重新获取新的token
+                            container: 'container_img',           //上传区域DOM ID，默认是browser_button的父元素，
+                            max_file_size: '20mb',           //最大文件体积限制
+                            flash_swf_url: 'js/plupload/Moxie.swf',  //引入flash,相对路径
+                            max_retries: 3,                   //上传失败最大重试次数
+                            dragdrop: true,                   //开启可拖曳上传
+                            drop_element: 'container_drop',        //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
+                            chunk_size: '4mb',                //分块上传时，每片的体积
+                            auto_start: true,                 //选择文件后自动上传，若关闭需要自己绑定事件触发上传
+                            init: {
+                                'FilesAdded': function (up, files) {
+                                    plupload.each(files, function (file) {
+                                        // 文件添加进队列后,处理相关的事情
+                                    });
+                                },
+                                'BeforeUpload': function (up, file) {
+                                    var chunk_size = plupload.parseSize(this.getOption('chunk_size'));
+                                    // 每个文件上传前,处理相关的事情
+                                },
+                                'UploadProgress': function (up, file) {
+
+                                    // 每个文件上传时,处理相关的事情
+                                },
+                                'FileUploaded': function (up, file, info) {
+                                    // 每个文件上传成功后,处理相关的事情
+                                    // 其中 info 是文件上传成功后，服务端返回的json，形式如
+                                    // {
+                                    //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+                                    //    "key": "gogopher.jpg"
+                                    //  }
+                                    // 参考http://developer.qiniu.com/docs/v6/api/overview/up/response/simple-response.html
+
+                                    var domain = up.getOption('domain');
+                                    var resInfo = JSON.parse(info);
+                                    sourceLink = domain + resInfo.key;//获取上传成功后的文件的Url
+                                    if ($(".confirm_img").length ==0) 
+                                    {
+                                      alert('找不到指定目标，请优先选中要上传的位置！');
+                                      return;
+                                    }
+                                    $(".confirm_img").attr("src", sourceLink);
+                                    console.log(sourceLink);
+                                    $(".confirm_img").next().val(sourceLink);
+                                },
+                                'Error': function (up, err, errTip) {
+                                    //var temp=up.getFile();
+                                    $.each(up.files, function (i, n) {
+
+                                        produceError(n.id);
+                                    })
+
+
+                                    alert(errTip);
+
+                                    //上传出错时,处理相关的事情
+                                },
+                                'UploadComplete': function () {
+                                    //队列文件处理完毕后,处理相关的事情
+                                },
+                                'Key': function (up, file) {
+                                    // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                                    // 该配置必须要在 unique_names: false , save_key: false 时才生效
+                                    var key = "";
+                                    // do something with key here
+                                    return key;
+                                }
+                            }
+                        }
+                var change_var =[];
+                $("#add_continue").click(function (event) {
+                  $(this).css("color",'red');
+                  $("#div_outer").append('<div class="img_slide" > <img src=""> <input type="hidden" name="slide_img_url[]"> <span class="grey">{$lang.address}</span> <input name="slide_link[]"type="text"/> <input type="button" value="删除" class="del"/> <a href="javascript:;" class="a-upload" > <input type="button"  class="confirm_true">选中上传文件</a> </div>');
+ 
+                });
+                $(document).on('click', '.confirm_true', function(event) {
+                    //判断当前是否已经选中
+                    if ($(this).attr('is_confirm')=='true') {
+                        init_css();
+                        return;  
+                    }
+                    init_css();
+                    $(this).attr("is_confirm","true");;
+                    $(this).parent().parent().children('img').attr("class","confirm_img");
+                    $(this).parent().parent().css('border','2px solid #D01313');
+                    $(this).parent().css({"background":"#1686B7","color":"#444"});
+                });
+                 var uploader = Qiniu.uploader(up_obj); 
+                
+                function init_css(){
+                  $("input[is_confirm ='true']").removeAttr('is_confirm');
+                  $(".confirm_img").removeAttr('class');
+                  $(".img_slide").css('border','1px solid #bbdbf1');
+                  $(".img_slide .a-upload").css({'background':""});
+                }
+                $("#up_img_1").click(function(event) {
+                  var confirm_img = $(".confirm_img");
+                  if (confirm_img.length==0) {
+                    alert('请优先选中要上传的位置！否则上传无效');
+                    return;
+                  }
+                });
+                $(document).on('click', '.del', function(event) {
+                    console.log($(this));
+                    $(this).parent().remove();
+                });
+                /*小图片*/
+                 var up_banner = {
+                            runtimes: 'html5,flash,html4',    //上传模式,依次退化
+                            browse_button: 'small_banner',       //上传选择的点选按钮，**必需**
+                            uptoken_url: uptoken_url,            //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
+                            // uptoken : '<Your upload token>', //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
+                            unique_names: true,
+                            // unique_names: true, // 默认 false，key为文件名。若开启该选项，SDK为自动生成上传成功后的key（文件名）。
+                            // save_key: true,   // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK会忽略对key的处理
+                            domain: 'http://oflmvdj34.bkt.clouddn.com/',   //bucket 域名，下载资源时用到，**必需**
+                            get_new_uptoken: false,  //设置上传文件的时候是否每次都重新获取新的token
+                            container: 'small_banner_outer',           //上传区域DOM ID，默认是browser_button的父元素，
+                            max_file_size: '20mb',           //最大文件体积限制
+                            flash_swf_url: 'js/plupload/Moxie.swf',  //引入flash,相对路径
+                            max_retries: 3,                   //上传失败最大重试次数
+                            dragdrop: true,                   //开启可拖曳上传
+                            drop_element: 'small_banner_drop',        //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
+                            chunk_size: '4mb',                //分块上传时，每片的体积
+                            auto_start: true,                 //选择文件后自动上传，若关闭需要自己绑定事件触发上传
+                            init: {
+                                'FilesAdded': function (up, files) {
+                                    plupload.each(files, function (file) {
+                                        // 文件添加进队列后,处理相关的事情
+                                    });
+                                },
+                                'BeforeUpload': function (up, file) {
+                                    var chunk_size = plupload.parseSize(this.getOption('chunk_size'));
+                                    // 每个文件上传前,处理相关的事情
+                                },
+                                'UploadProgress': function (up, file) {
+
+                                    // 每个文件上传时,处理相关的事情
+                                },
+                                'FileUploaded': function (up, file, info) {
+                                    // 每个文件上传成功后,处理相关的事情
+                                    // 其中 info 是文件上传成功后，服务端返回的json，形式如
+                                    // {
+                                    //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+                                    //    "key": "gogopher.jpg"
+                                    //  }
+                                    // 参考http://developer.qiniu.com/docs/v6/api/overview/up/response/simple-response.html
+
+                                    var domain = up.getOption('domain');
+                                    var resInfo = JSON.parse(info);
+                                    sourceLink = domain + resInfo.key;//获取上传成功后的文件的Url
+                                   
+                                    $(".small_banner_img").attr("src", sourceLink);
+                                    console.log(sourceLink);
+                                    $("#small_banner_val").val(sourceLink);
+                                },
+                                'Error': function (up, err, errTip) {
+                                    //var temp=up.getFile();
+                                    $.each(up.files, function (i, n) {
+
+                                        produceError(n.id);
+                                    })
+
+
+                                    alert(errTip);
+
+                                    //上传出错时,处理相关的事情
+                                },
+                                'UploadComplete': function () {
+                                    //队列文件处理完毕后,处理相关的事情
+                                },
+                                'Key': function (up, file) {
+                                    // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                                    // 该配置必须要在 unique_names: false , save_key: false 时才生效
+                                    var key = "";
+                                    // do something with key here
+                                    return key;
+                                }
+                            }
+                        }
+                 var uploader_banner = Qiniu.uploader(up_banner); 
+
+
+</script>
+<script type="text/javascript">
+         /*企业图片。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
+                $(document).on('click', '.qiye_click', function(event) {
+                    //判断当前是否已经选中
+                    if ($(this).attr('click_is_confirm')=='true') {
+                        click_init_css();
+                        return;  
+                    }
+                    click_init_css();
+                    $(this).attr("click_is_confirm","true");;
+                    $(this).parent().children('img').attr("class","confirm_img_click");
+                    $(this).parent().css('border','2px solid #D01313');
+                    $(this).css({"background":"#1686B7","color":"#444"});
+                });
+                function click_init_css(){
+                    $("a[click_is_confirm ='true']").removeAttr('click_is_confirm');
+                    $(".confirm_img_click").removeAttr('class');
+                    $(".qiye").css('border','1px solid #bbdbf1');
+                    $(".qiye .qiye_click").css({'background':""});
+                }
+                $("#qiye_up").click(function(){
+                   if ($(".confirm_img_click").length ==0) 
+                   {
+                     alert('找不到指定目标，请优先选中要上传的位置！');
+                      return;
+                   }   
+                })
+                /*企业图片*/
+                var up_qiye = {
+                            runtimes: 'html5,flash,html4',    //上传模式,依次退化
+                            browse_button: 'qiye_up',       //上传选择的点选按钮，**必需**
+                            uptoken_url: uptoken_url,            //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
+                            // uptoken : '<Your upload token>', //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
+                            unique_names: true,
+                            // unique_names: true, // 默认 false，key为文件名。若开启该选项，SDK为自动生成上传成功后的key（文件名）。
+                            // save_key: true,   // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK会忽略对key的处理
+                            domain: 'http://oflmvdj34.bkt.clouddn.com/',   //bucket 域名，下载资源时用到，**必需**
+                            get_new_uptoken: false,  //设置上传文件的时候是否每次都重新获取新的token
+                            container: 'qiye_up_outer',           //上传区域DOM ID，默认是browser_button的父元素，
+                            max_file_size: '20mb',           //最大文件体积限制
+                            flash_swf_url: 'js/plupload/Moxie.swf',  //引入flash,相对路径
+                            max_retries: 3,                   //上传失败最大重试次数
+                            dragdrop: true,                   //开启可拖曳上传
+                            drop_element: 'qiye_up_drop',        //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
+                            chunk_size: '4mb',                //分块上传时，每片的体积
+                            auto_start: true,                 //选择文件后自动上传，若关闭需要自己绑定事件触发上传
+                            init: {
+                                'FilesAdded': function (up, files) {
+                                    plupload.each(files, function (file) {
+                                        // 文件添加进队列后,处理相关的事情
+                                    });
+                                },
+                                'BeforeUpload': function (up, file) {
+                                    var chunk_size = plupload.parseSize(this.getOption('chunk_size'));
+                                    // 每个文件上传前,处理相关的事情
+                                },
+                                'UploadProgress': function (up, file) {
+
+                                    // 每个文件上传时,处理相关的事情
+                                },
+                                'FileUploaded': function (up, file, info) {
+                                    // 每个文件上传成功后,处理相关的事情
+                                    // 其中 info 是文件上传成功后，服务端返回的json，形式如
+                                    // {
+                                    //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+                                    //    "key": "gogopher.jpg"
+                                    //  }
+                                    // 参考http://developer.qiniu.com/docs/v6/api/overview/up/response/simple-response.html
+
+                                    var domain = up.getOption('domain');
+                                    var resInfo = JSON.parse(info);
+                                    sourceLink = domain + resInfo.key;//获取上传成功后的文件的Url
+                                    if ($(".confirm_img_click").length ==0) 
+                                    {
+                                      alert('找不到指定目标，请优先选中要上传的位置！');
+                                      return;
+                                    }
+                                    $(".confirm_img_click").attr("src", sourceLink);
+                                    console.log(sourceLink);
+                                    $(".confirm_img_click").next().val(sourceLink);
+                                },
+                                'Error': function (up, err, errTip) {
+                                    //var temp=up.getFile();
+                                    $.each(up.files, function (i, n) {
+
+                                        produceError(n.id);
+                                    })
+
+
+                                    alert(errTip);
+
+                                    //上传出错时,处理相关的事情
+                                },
+                                'UploadComplete': function () {
+                                    //队列文件处理完毕后,处理相关的事情
+                                },
+                                'Key': function (up, file) {
+                                    // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                                    // 该配置必须要在 unique_names: false , save_key: false 时才生效
+                                    var key = "";
+                                    // do something with key here
+                                    return key;
+                                }
+                            }
+                        }
+                var up_qiye_banner = Qiniu.uploader(up_qiye);
+</script>
+<script type="text/javascript">
+  /*企业资质*/
+  $("#zizhi_add").click(function(){
+      $("#zizhi_drop").append('<div class="zizhi_slide" > <img src=""> <input type="hidden" name="zizhi_url[]"> <span class="grey">{$lang.address}</span> <input name="zizhi_link[]"type="text"/> <span class="grey">资质名称：</span> <input name="zizhi_name[]"type="text"/><input type="button" value="删除" class="del"/> <a href="javascript:;" class="a-upload" > <input type="button"  class="confirm_true_zizhi">选中上传文件</a> </div>');
+  });
+   $(document).on('click', '.confirm_true_zizhi', function(event) {
+      //判断当前是否已经选中
+      if ($(this).attr('is_confirm_zizhi')=='true') {
+          init_css_zizhi();
+          return;  
+      }
+      init_css_zizhi();
+      $(this).attr("is_confirm_zizhi","true");;
+      $(this).parent().parent().children('img').attr("class","confirm_img_zizhi");
+      $(this).parent().parent().css('border','2px solid #D01313');
+      $(this).parent().css({"background":"#1686B7","color":"#444"});
+    });
+   function init_css_zizhi(){
+      $("input[is_confirm_zizhi ='true']").removeAttr('is_confirm_zizhi');
+      $(".confirm_img_zizhi").removeAttr('class');
+      $(".zizhi_slide").css('border','1px solid #bbdbf1');
+      $(".zizhi_slide .a-upload").css({'background':""});
+   }
+   $("#zizhi_id").click(function(){
+    if($(".confirm_img_zizhi").length==0){
+      alert('请优先选中要上传的位置！否则上传无效');
+    }
+   })
+   /*小图片*/
+                 var zizhi_up = {
+                            runtimes: 'html5,flash,html4',    //上传模式,依次退化
+                            browse_button: 'zizhi_id',       //上传选择的点选按钮，**必需**
+                            uptoken_url: uptoken_url,            //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
+                            // uptoken : '<Your upload token>', //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
+                            unique_names: true,
+                            // unique_names: true, // 默认 false，key为文件名。若开启该选项，SDK为自动生成上传成功后的key（文件名）。
+                            // save_key: true,   // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK会忽略对key的处理
+                            domain: 'http://oflmvdj34.bkt.clouddn.com/',   //bucket 域名，下载资源时用到，**必需**
+                            get_new_uptoken: false,  //设置上传文件的时候是否每次都重新获取新的token
+                            container: 'zizhi_outer',           //上传区域DOM ID，默认是browser_button的父元素，
+                            max_file_size: '20mb',           //最大文件体积限制
+                            flash_swf_url: 'js/plupload/Moxie.swf',  //引入flash,相对路径
+                            max_retries: 3,                   //上传失败最大重试次数
+                            dragdrop: true,                   //开启可拖曳上传
+                            drop_element: 'zizhi_drop',        //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
+                            chunk_size: '4mb',                //分块上传时，每片的体积
+                            auto_start: true,                 //选择文件后自动上传，若关闭需要自己绑定事件触发上传
+                            init: {
+                                'FilesAdded': function (up, files) {
+                                    plupload.each(files, function (file) {
+                                        // 文件添加进队列后,处理相关的事情
+                                    });
+                                },
+                                'BeforeUpload': function (up, file) {
+                                    var chunk_size = plupload.parseSize(this.getOption('chunk_size'));
+                                    // 每个文件上传前,处理相关的事情
+                                },
+                                'UploadProgress': function (up, file) {
+
+                                    // 每个文件上传时,处理相关的事情
+                                },
+                                'FileUploaded': function (up, file, info) {
+                                    // 每个文件上传成功后,处理相关的事情
+                                    // 其中 info 是文件上传成功后，服务端返回的json，形式如
+                                    // {
+                                    //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+                                    //    "key": "gogopher.jpg"
+                                    //  }
+                                    // 参考http://developer.qiniu.com/docs/v6/api/overview/up/response/simple-response.html
+
+                                    var domain = up.getOption('domain');
+                                    var resInfo = JSON.parse(info);
+                                    sourceLink = domain + resInfo.key;//获取上传成功后的文件的Url
+                                    if ($(".confirm_img_zizhi").length ==0) 
+                                    {
+                                      alert('找不到指定目标，请优先选中要上传的位置！');
+                                      return;
+                                    }
+                                    $(".confirm_img_zizhi").attr("src", sourceLink);
+                                    console.log(sourceLink);
+                                    $(".confirm_img_zizhi").next().val(sourceLink);
+                                },
+                                'Error': function (up, err, errTip) {
+                                    //var temp=up.getFile();
+                                    $.each(up.files, function (i, n) {
+
+                                        produceError(n.id);
+                                    })
+
+
+                                    alert(errTip);
+
+                                    //上传出错时,处理相关的事情
+                                },
+                                'UploadComplete': function () {
+                                    //队列文件处理完毕后,处理相关的事情
+                                },
+                                'Key': function (up, file) {
+                                    // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                                    // 该配置必须要在 unique_names: false , save_key: false 时才生效
+                                    var key = "";
+                                    // do something with key here
+                                    return key;
+                                }
+                            }
+                        }
+                 var uploader_banner = Qiniu.uploader(zizhi_up); 
+</script>
+<script type="text/javascript">
+   /*轮播图*/
+                var bottom_img = {
+                            runtimes: 'html5,flash,html4',    //上传模式,依次退化
+                            browse_button: 'bottom_right_up',       //上传选择的点选按钮，**必需**
+                            uptoken_url: uptoken_url,            //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
+                            // uptoken : '<Your upload token>', //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
+                            unique_names: true,
+                            // unique_names: true, // 默认 false，key为文件名。若开启该选项，SDK为自动生成上传成功后的key（文件名）。
+                            // save_key: true,   // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK会忽略对key的处理
+                            domain: 'http://oflmvdj34.bkt.clouddn.com/',   //bucket 域名，下载资源时用到，**必需**
+                            get_new_uptoken: false,  //设置上传文件的时候是否每次都重新获取新的token
+                            container: 'bottom_right_outer',           //上传区域DOM ID，默认是browser_button的父元素，
+                            max_file_size: '20mb',           //最大文件体积限制
+                            flash_swf_url: 'js/plupload/Moxie.swf',  //引入flash,相对路径
+                            max_retries: 3,                   //上传失败最大重试次数
+                            dragdrop: true,                   //开启可拖曳上传
+                            drop_element: 'bottom_right',        //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
+                            chunk_size: '4mb',                //分块上传时，每片的体积
+                            auto_start: true,                 //选择文件后自动上传，若关闭需要自己绑定事件触发上传
+                            init: {
+                                'FilesAdded': function (up, files) {
+                                    plupload.each(files, function (file) {
+                                        // 文件添加进队列后,处理相关的事情
+                                    });
+                                },
+                                'BeforeUpload': function (up, file) {
+                                    var chunk_size = plupload.parseSize(this.getOption('chunk_size'));
+                                    // 每个文件上传前,处理相关的事情
+                                },
+                                'UploadProgress': function (up, file) {
+
+                                    // 每个文件上传时,处理相关的事情
+                                },
+                                'FileUploaded': function (up, file, info) {
+                                    // 每个文件上传成功后,处理相关的事情
+                                    // 其中 info 是文件上传成功后，服务端返回的json，形式如
+                                    // {
+                                    //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+                                    //    "key": "gogopher.jpg"
+                                    //  }
+                                    // 参考http://developer.qiniu.com/docs/v6/api/overview/up/response/simple-response.html
+
+                                    var domain = up.getOption('domain');
+                                    var resInfo = JSON.parse(info);
+                                    sourceLink = domain + resInfo.key;//获取上传成功后的文件的Url
+                                    
+                                    $(".bottom_img").attr("src", sourceLink);
+                                    console.log(sourceLink);
+                                    $(".bottom_img").next().val(sourceLink);
+                                },
+                                'Error': function (up, err, errTip) {
+                                    //var temp=up.getFile();
+                                    $.each(up.files, function (i, n) {
+
+                                        produceError(n.id);
+                                    })
+
+
+                                    alert(errTip);
+
+                                    //上传出错时,处理相关的事情
+                                },
+                                'UploadComplete': function () {
+                                    //队列文件处理完毕后,处理相关的事情
+                                },
+                                'Key': function (up, file) {
+                                    // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                                    // 该配置必须要在 unique_names: false , save_key: false 时才生效
+                                    var key = "";
+                                    // do something with key here
+                                    return key;
+                                }
+                            }
+                        }
+
+          var uploader_banner = Qiniu.uploader(bottom_img);
+</script>

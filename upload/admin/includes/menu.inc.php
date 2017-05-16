@@ -75,6 +75,14 @@ return array(
                 'text'  => Lang::get('noticetemplate'),
                 'url'   => 'index.php?app=mailtemplate',
             ),
+            'index_edit' => array(
+                'text'  => '首页编辑',
+                'url'   => 'index.php?app=index_edit&act=index',
+            ),
+            'leisure_list' => array(
+                'text'  => '茶会所地址',
+                'url'   => 'index.php?app=index_edit&act=leisure_list',
+            ),
         ),
     ),
     // 商品

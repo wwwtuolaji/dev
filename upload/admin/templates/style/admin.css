@@ -210,3 +210,87 @@ form label.error { color:red; font-style:normal; margin-left:5px; }
 form input.error { border:red 1px dotted; }
 form label.checking { padding-left:18px; background:transparent url(images/checking.gif) no-repeat; margin-left:5px; font-style:italic; color:#9C9C9C; display:none; }
 form label.right { padding-left:12px; background:transparent url(images/right.gif) no-repeat; margin-left:5px; font-style:italic; color:green; float:none; }
+
+/* 首页编辑css */
+.img_slide img{display: block; margin: 0 auto; height: 70px; } 
+.img_slide{border: 1px solid #bbdbf1; width: 145px; float: left; overflow: hidden; margin: 5px; }
+.a-upload {line-height: 20px; position: relative; cursor: pointer; color: #888; background: #fafafa; border: 1px solid #ddd; border-radius: 4px; overflow: hidden; display: inline-block; *display: inline; *zoom: 1; text-align: center; margin-top: 3px; width: 100%; } 
+.img_slide input{width: 100%; } 
+.a-upload  input {position: absolute; right: 0; top: 0; opacity: 0; filter: alpha(opacity=0); cursor: pointer } .a-upload  input {position: absolute; right: 0; top: 0; opacity: 0; filter: alpha(opacity=0); cursor: pointer } input.del{padding: 4px 10px; background: #fafafa; color: #888; border: 1px solid #ddd; border-radius: 4px; display: inline-block; margin-top: 5px; cursor: pointer; } input.del:hover{color: #444; background: #1686B7; border-color: #ccc; }
+.a-upload:hover{color: #444; background: #1686B7; border-color: #ccc; text-decoration: none } 
+.info th a{font:100 10px/16px "MicroSoft YaHei"; } 
+.con_but{width: 145px; float: left; margin:60px 5px; } tr td .qq_txt{width: 250px; height: 50px; }
+.up_small_banner{
+    width: 80px;
+    float: left;
+}
+.small_banner_img{
+    display: block; margin: 0 auto; height: 90px; width: 120px;
+
+}
+.up_small_banner #small_banner_outer{
+    margin-top:60px;
+}
+div.content_baner{
+   border: 1px solid #bbdbf1; width: 125px; float: left; overflow: hidden; margin: 5px;
+}
+.content_baner input{
+    width: 100%;
+}
+.content_baner span{
+    display: block;
+    width: 100%;
+    border-top: 1px solid #aaa; 
+}
+div.qiye{
+     border: 1px solid #bbdbf1; width: 125px; float: left; overflow: hidden; margin: 5px;
+}
+div.qiye a{
+    line-height: 20px;
+     position: relative; 
+     cursor: pointer; color: #888;
+    background: #fafafa; 
+    border: 1px solid #ddd;
+    border-radius: 4px; 
+    overflow: hidden; 
+    display: inline-block;
+    *display: inline;
+     *zoom: 1;
+     text-align: center; margin-top: 3px; width: 100%; 
+}
+div.qiye span{
+    display: block;
+    width: 100%;
+    border-top: 1px solid #aaa; 
+}
+div.qiye input{
+    display: block;
+    width: 100%;
+}
+#qiye_outer .a-upload{
+    margin-top: 70px;
+}
+div.qiye img{
+    display: block;
+     margin: 0 auto; height: 90px; 
+     width: 120px;
+}
+.qiye_click:hover{
+    background-color: #1686B7;
+}
+.zizhi_slide img{display: block; margin: 0 auto; height: 70px; } 
+.zizhi_slide{border: 1px solid #bbdbf1; width: 145px; float: left; overflow: hidden; margin: 5px; }
+.zizhi_slide input{width: 100%; }
+.bottom_right{width: 120px; float: left; margin-top: 60px;} 
+.bottom_img{display: block; margin: 0 auto; height: 90px; }
+.province li{
+        float: left;
+        margin-right: 30px;
+}
+.province li select{
+    display: inline-block;
+    width: 120px;
+}
+.province {
+        padding-top: 10px;
+}

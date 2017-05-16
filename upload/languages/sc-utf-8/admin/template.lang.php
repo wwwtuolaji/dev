@@ -11,7 +11,7 @@ return array(
     'end_edit'  => '退出编辑',
     'mall_index'  => '商城首页',
     'template_setting'  => '模板编辑',
-    'index' => '首页',
+    'index' => '商城首页',
     'recommend_new' => '最新商品',
     'gcategory' => '商品分类页',
     'tea'       =>'茶通首页',

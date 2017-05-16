@@ -1,0 +1,35 @@
+{include file="header.html"}
+<div id="rightTop">
+	<p>茶会所地址</p>
+	<ul class="subnav"><li><span>地址列表</span></li><li><a class="btn1" href="index.php?app=index_edit&act=add_address">添加地址</a></li></ul>
+</div>
+<div class="tdare info">
+    <table width="100%" cellspacing="0" class="dataTable">
+      
+        <tr class="tatr1">
+            <td class="firstCell" width="15%">茶会所名称</td>
+            <td>茶会所描述</td>
+            <td width="10%">所在省/市</td>
+            <td width="15%">详细地址</td>
+            <td width="10%">联系电话</td>
+            <td width="50" class="handler" style="width: 100px">{$lang.handler}</td>
+        </tr>
+	   <!--{foreach from=$leisure_arr item=leisure}-->
+        <tr class="tatr2">
+            <td class="firstCell">{$leisure.leisure_name}</td>
+            <td><span class="padding1">{$leisure.leisure_des}</span></td>
+            <td>{$leisure.area_des_arr.province}/{$leisure.area_des_arr.city}</td>
+            <td><span class="padding1">{$leisure.address_info}</span></td>
+    
+            <td class="table-center">{$leisure.phone}</td>
+            <td class="handler" width="50" style="width: 100px">
+               
+            <a href="?app=index_edit&act=edit_address&leisure_id={$leisure.id}">编辑</a>
+            <a href="javascript:if(confirm('确定要删除吗？'))window.location='index.php?app=index_edit&act=del_address&leisure_id={$leisure.id}';">删除</a>
+                </td>
+        </tr>
+         <!--{/foreach}-->
+      
+    </table>
+</div>
+{include file="footer.html"}
