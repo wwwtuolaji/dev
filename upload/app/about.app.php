@@ -9,8 +9,6 @@ class AboutApp extends MallbaseApp
         /* 取得导航 */
         $this->assign('navs', $this->_get_navs());
 
-        /* 取得商品分类 */
-        $gcategorys = $this->_list_gcategory();
 
         /* 当前位置 */
         $_curlocal=array(
@@ -23,6 +21,10 @@ class AboutApp extends MallbaseApp
                 'url'   => '',
             ),
         );
+        //获取文章相关的信息
+        $article = m('article');
+        $article = $article->get("title='福禄仓投资集团介绍'");
+        $this->assign('article',$article);
         $this->assign('_curlocal',$_curlocal);
         $model_setting = &af('settings');
         $setting = $model_setting->getAll(); //载入系统设置数据

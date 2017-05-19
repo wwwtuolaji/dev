@@ -63,12 +63,132 @@ class IndexApp extends IndexbaseApp
      */
     function loan()
     {
-        if (empty($_POST)) {
-            $this->display("loan.html");
-        } else {
+         $site_url = site_url();
+        $this->import_resource(array(
+            'script' => 'v531_valid.js',
+        ));
+        $recharge_mod = m('recharge_log');
+          //如果token为空则生成一个token
+        if(!isset($_SESSION['token']) || $_SESSION['token']=='') {
+          $recharge_mod->set_token();
+        }
+        if (isset($_GET['back_token'])) {
+            $conditions = array('conditions'=>"back_token='{$_GET['back_token']}'");
+            $model_loan = m('loan');
+            $loan = $model_loan->get($conditions);
+            $this->assign('loan',$loan);
 
         }
+       
+        $this->assign('token',$_SESSION['token']);
+        if (empty($_POST)) {
+            $this->display("loan.html");
+          /*  $this->display("loan.html");*/
+        }else{
+          
+        }
+
     }
+    /**
+     * [loan_i 表单校验第二部]
+     * @return [type] [description]
+     */
+    function loan_i(){
+            $site_url = site_url();
+            $this->assign('site_url',$site_url);
+            if (empty($_POST)) {
+
+                header("Location:".$site_url."/index.php?app=index&act=loan");
+            }
+            $recharge_mod = m('recharge_log');
+             //1.表单唯一校验
+             //用于表单返回参数
+            $leisure_mod = m('leisure');
+          /*  $province_arr = $leisure_mod->get_province();
+            $this->assign('province_arr',$province_arr);*/
+            if(!$recharge_mod->valid_token()) {
+                echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
+                $this->show_warning('表单无法重复提交，请刷新页面重试');
+                return;
+            }
+           //2.手机验证码校验
+            if($_SESSION['email_code']['code']!=$_POST['smsCode']){
+                echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
+                $this->show_warning('邮箱验证码验证失败');
+                return;
+            }
+           
+            $this->assign('token',$_SESSION['token']);
+            //3.数据处理
+            $add['money'] = sprintf("%.3f", $_POST['money']); 
+            $add['first_name'] = htmlspecialchars($_POST['first_name']);
+            $add['sex'] = $_POST['sex'];
+            $add['phone'] = $_POST['phone'];
+            $add['email'] = htmlspecialchars($_POST['email']);
+            $add['back_token'] = $_POST['token'];
+            $add['apply_time'] = time();
+            $model_loan = m('loan');
+            //分配唯一并且不能修改的校验码
+            $this->assign('back_token',$_POST['token']);
+            if (empty($_POST['back_token'])) {
+                
+                $loan_id = $model_loan ->add($add);
+            }else{
+                //每次都更新token 结果就不会为false
+                $loan_result = $model_loan ->edit("loan_id = '{$_POST['loan_id']}' AND back_token ='{$_POST['back_token']}'",$add); 
+                if (!$loan_result) {
+                     echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
+                    $this->show_warning('非法操作异常');
+                    return;
+                } 
+                $loan_id = $_POST['loan_id'];
+            }
+           
+            if (!$loan_id) {
+                echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
+                $this->show_warning('数据异常');
+                return;
+            }
+
+            $this->assign('back_token',$_POST['token']);
+            $this->assign('loan_id',$loan_id);
+            $this->display("loan_i.html");
+    }
+    function loan_success(){
+        $site_url = site_url();
+        //校验是否被更改过
+        $conditions = array("loan_id = '{$_POST['loan_id']}' AND back_token ='{$_POST['back_token']}'");
+        $model_loan = m('loan');
+        $loan = $model_loan->get($conditions);
+        $this->assign('site_url',$site_url);
+        //获取当前订单是否存在不存在直接返回
+        if (empty($_POST)||empty($loan)) {
+            echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
+                $this->show_warning('数据异常');
+            header("Location:".$site_url."/index.php?app=index&act=loan");
+            return;
+        }
+        $edit['address'] = htmlspecialchars($_POST['address']);
+        $edit['enterprise_name'] = htmlspecialchars($_POST['enterprise_name']);
+        $edit['enterprise_code'] = htmlspecialchars($_POST['enterprise_code']);
+        $edit['relation_name'] = htmlspecialchars($_POST['relation_name']);
+        $edit['member_card'] = htmlspecialchars($_POST['member_card']);
+        $edit['duration'] = htmlspecialchars($_POST['duration']);
+        $edit['apply_time'] = time();
+        $result = $model_loan->edit($_POST['loan_id'],$edit);
+        if ($result) {
+            $this->display("loan_success.html");
+        }else{
+            echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
+                $this->show_warning('数据异常');
+                header("Location:".$site_url."/index.php?app=index&act=loan");
+                return;
+        }
+
+
+        //1.
+    }
+
 
     /**
      * [leisure 茶休闲会所]
@@ -2218,6 +2338,85 @@ class IndexApp extends IndexbaseApp
         return $data;
     }
 
+    function send_code(){
+   
+        if (empty($_POST['email_str'])) {
+            $array = array('code' => "1",
+                            'message' => "请检查邮箱账号",
+                            'data'  => $mailer->errors);
+             echo json_encode($array);
+             return;
 
+        }elseif (!preg_match('/^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}$/',$_POST['email_str'])) {
+            $array = array('code' => "2",
+                            'message' => "邮箱账号格式错误",
+                            'data'  => $_POST['email_str']);
+            echo json_encode($array);
+            return;
+
+        }
+        $rand = mt_rand(100000,999999);
+        $_SESSION['email_code']= array('code'=>$rand,'time'=>time());
+        /* 使用mailer类 */
+        import('mailer.lib');
+        $email_from = Conf::get('site_name');
+        $email_type = Conf::get('email_type');
+        $email_host = Conf::get('email_host');
+        $email_port = Conf::get('email_port');
+        $email_addr = Conf::get('email_addr');
+        $email_id   = Conf::get('email_id');
+        $email_pass = Conf::get('email_pass');
+        $email_to   = $_POST['email_str'];
+        /*获取支付的验证码*/
+        /*if ($_POST['type']=='get_pay_code') {
+            $email_subject = '福禄仓验证码'; 
+        }else{
+            $email_subject = '福禄仓验证码';  
+        }*/
+        $email_subject = '福禄仓验证码';  
+        $email_content = "【福禄仓投资集团】您的验证码是 $rand ,不要告诉别人哦!有效时间5分钟！";  
+        $mailer = new Mailer($email_from, $email_addr, $email_type, $email_host, $email_port, $email_id, $email_pass);
+        $mail_result = $mailer->send($email_to, $email_subject, $email_content, CHARSET, 1);
+        if ($mail_result)
+        {
+            $array = array('code' => "0",
+                            'message' => "请求成功",
+                            'data'  => '');
+        }
+        else
+        { 
+            $array = array('code' => "1",
+                            'message' => "请检查邮箱账号",
+                            'data'  => $mailer->errors);
+            
+        }
+        echo json_encode($array);
+
+    
+    }
+    function check_code(){
+        if(empty($_POST['input_code'])){
+           $array = array('code' => "1",
+                            'message' => "参数异常",
+                            'data'  => ''); 
+        }elseif ($_SESSION['email_code']['code']==$_POST['input_code']) {
+            if (time()-$_SESSION['email_code']['time']>600) {
+               $array = array('code' => "3",
+                            'message' => "超出时间",
+                            'data'  => ''); 
+            }else{
+              $array = array('code' => "0",
+                            'message' => "请求成功",
+                            'data'  => '');   
+            }
+            
+            
+        }else{
+            $array = array('code' => "2",
+                            'message' => "状态码输入错误",
+                            'data'  => ''); 
+        }
+        echo json_encode($array);
+    }
 
 }

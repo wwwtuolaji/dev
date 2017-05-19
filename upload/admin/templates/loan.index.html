@@ -1,0 +1,121 @@
+{include file="header.html"}
+<div id="rightTop">
+    <p><strong>贷款信息列表</strong></p>
+</div>
+<div class="tdare info">
+    <table width="100%" cellspacing="0" class="dataTable">
+        <!--{if $loan}-->
+        <tr class="tatr1">
+            <td class="firstCell" width="5%">序号</td>
+            <td width="5%">姓氏</td>
+            <td width="5%">性别</td>
+            <td width="5%"class="handler" >贷款金额</td>
+            <td width="5%">手机</td>
+            <td width="5%" class="table-center">邮箱</td>
+            <td width="5%" class="handler" >企业名称</td>
+            <td width="5%" class="handler" >联保人姓名</td>
+            <td width="5%" class="handler" >联保人卡号</td>
+            <td width="5%" class="handler" >借款周期</td>
+            <td width="5%" class="handler" >申请时间</td>
+            <td width="5%" >状态</td> 
+            <td width="5%" class="handler" >编辑</td>
+            <td width="5%" class="handler" >备注</td>
+        </tr>
+        <!--{/if}-->
+        <!--{foreach from=$loan item=lo name=name}-->
+        {if $lo.duration neq -1}
+        <tr class="tatr2" style="">
+            <td class="firstCell">{$smarty.foreach.name.iteration}</td>
+            <td><span class="padding1">{$lo.first_name}</span></td>
+            <td>{if $lo.sex eq 1}女{else}男{/if}</td>
+            <td><span class="padding1">{$lo.money}万元</span></td>
+            <td>{$lo.phone}</td>
+            <td class="table-center">{$lo.email}</td>
+            <td>{$lo.enterprise_name}</td>
+            <td>{$lo.relation_name}</td>
+            <td>{$lo.member_card}</td>
+            <td>{$lo.duration_des}</td>
+             <td>{$lo.apply_time_des}</td>
+            <td>完成</td>
+            <td><a href="javascript:;"class="del" data_val="{$lo.loan_id}" href="javascript:;">删除</a>&nbsp;|&nbsp;<a href="javascript:;" class="comments_edit" data_val ="{$lo.loan_id}">编辑</a></td>
+            <td class="comments">{$lo.comments}</td>
+        </tr>
+        {else}
+            <tr class="tatr2" style="background: #D6B4B4; color:#000;">
+            <td class="firstCell">{$smarty.foreach.name.iteration}</td>
+            <td><span class="padding1">{$lo.first_name}</span></td>
+            <td>{if $lo.sex eq 1}女{else}男{/if}</td>
+            <td><span class="padding1">{$lo.money}万元</span></td>
+            <td>{$lo.phone}</td>
+            <td class="table-center">{$lo.email}</td>
+            <td>{$lo.enterprise_name}</td>
+            <td>{$lo.relation_name}</td>
+            <td>{$lo.member_card}</td>
+            <td>{$lo.duration_des}</td>
+             <td>{$lo.apply_time_des}</td>
+            <td>未完成</td>
+            <td><a href="javascript:;"class="del" data_val="{$lo.loan_id}" href="javascript:;">删除</a>&nbsp;|&nbsp;<a href="javascript:;" class="comments_edit" data_val ="{$lo.loan_id}">编辑</a></td>
+            <td class="comments">{$lo.comments}</td>
+        </tr>   
+        {/if}
+        <!--{foreachelse}-->
+        <tr class="no_data">
+            <td colspan="7">{$lang.no_installed_payment}</td>
+        </tr>
+        <!--{/foreach}-->
+    </table>
+</div>
+{include file="footer.html"}
+<script type="text/javascript">
+    $(".comments_edit").click(function(){
+         var comments=prompt("请输入备注信息","");
+         loan_id  = $(this).attr("data_val");
+         save_obj = $(this);
+         if (!comments) {
+            return;
+         }
+         if (!loan_id) {
+            alert('无法操作');
+         }
+         $.ajax({
+             url: 'index.php?app=loan&act=set_comments',
+             type: 'post',
+             dataType: 'json',
+             data: {loan_id: loan_id,comments:comments},
+             success:function(out_data){
+                if (out_data) {
+                    if (out_data.code!=0) {
+                        alert(out_data.message);
+                        return;
+                    }
+                    save_obj.parent().next().html(comments);
+                }
+             }
+         })
+         
+    });
+    /*删除*/
+    $(".del").click(function(){
+        if (confirm('确认删除吗?')) {
+          loan_id  = $(this).attr("data_val");
+          $.ajax({
+              url: 'index.php?app=loan&act=del',
+              type: 'post',
+             dataType: 'json',
+               data: {loan_id: loan_id},
+               success:function(out_data){
+                if (out_data) {
+                    if (out_data.code!=0) {
+                        alert(out_data.message);
+                        return;
+                    }
+                     location.reload();
+                    
+                }
+              }
+          })
+         
+          
+        }
+    })
+</script>

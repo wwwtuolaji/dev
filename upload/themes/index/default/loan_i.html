@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>贷款直通车</title>
+    <style type="text/css">
+    </style>
+    <script type="text/javascript" src="{res file=js/js_plugin/jquery-1.11.1.min.js}"></script>
+     <link rel="stylesheet" href="{res file=css/base.css}"/>
+     <link rel="stylesheet" href="{res file=css/loan.css}"/>
+     <script type="text/javascript" src="{res file=js/layer/layer.js}"></script>
+        {$_head_tags}
+</head>
+<body>
+
+    <div class="h">
+        <div class="w">
+         {include file=nav.html}
+      </div>
+  </div>
+<div class="main applymain">
+    <div class="wrap">
+        <!-- <div class="dk-bread"><a href="/">贷款首页</a><em class="sw">&gt;</em>贷款申请</div> -->
+        <div class="loan-apply clearfix">
+            <div class="hd">
+                <h3>免费申请</h3>
+                <i class="icon icon-cur"></i>
+                <span class="fr"><span class="c-blue">声明：</span>您填写的信息将只作为贷款产品推荐使用，不会以任何形式泄露给其他人员或机构</span>
+            </div>
+            <div class="bd">
+                <div class="step clearfix">
+                    <ul>
+                        <li ><div class="step1 pngbg">1、基本信息</div></li>
+                        <li class="current"><div class="step2 pngbg">2、完善信息</div></li>
+                        <li><div class="step3 pngbg">3、申请成功</div></li>
+                    </ul>
+                </div>
+                <div class="apply-form fl">
+                    <form id="applyForm" method="POST" action="index.php?app=index&act=loan_success">
+                        <div class="item">
+                            <div class="label">企业名称：</div>
+                            <input maxlength="20" id="enterprise_name" value=""  class="ui-input" placeholder="请输入企业名称限制20个字以内" title="请输入企业名称20个字以内" name="enterprise_name" type="text">
+                            <div class="text"></div>
+                        </div>
+                        <div class="item">
+                            <div class="label">企业组织机构代码：</div>
+                            <input name="enterprise_code" value=""  onkeyup="this.value=this.value.replace(/[^0-9 a-z^]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9 a-z^]/g,'')" maxlength="25" class="ui-input" placeholder="营业执照代码"title="营业执照代码" type="text">
+                         
+                        </div>
+
+                        <div class="item">
+                            <div class="label">联保人姓名：</div>
+                            <input name="relation_name" value="" maxlength="8" class="ui-input input-mobile" title="已在商城入驻的联保人姓名" placeholder="请输入已在商城入驻的联保人姓名" type="text">
+                        </div>
+                        <div class="item">
+                            <div class="label">联保人卡号：</div>
+                            <input  name="member_card" value="" maxlength="30" class="ui-input email" placeholder="请输入联保人会员卡号" title="请输入联保人会员卡号" onkeyup="this.value=this.value.replace(/[^0-9^]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9^]/g,'')"type="text">
+                        </div>
+                        <div class="item">
+                            <div class="label">所在省市：</div>
+                            <input  name="address" value="" maxlength="30" class="ui-input email" placeholder="请输入所在省市" title="请输入所在省市如:河北省/保定市" type="text">
+                        </div>
+
+                        <div class="item">
+                            <div class="label">借款期限：</div>
+                            <div class="ui-select" id="t_userType">
+                                <input type="hidden" name="duration" value="0">
+                                <div class="select-value"><span style="color: rgb(51, 51, 51);">3个月以下</span><i class="icon-down"></i></div>
+                                <div class="select-list" style="display: none;">
+                                    <ul>
+                                        <li data-val="0" style="background-color: rgb(235, 245, 255);">3个月以下</li>
+                                        <li data-val="1" style="">3-6个月</li>
+                                        <li data-val="2" style="">6-12个月</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item btns">
+                            <div class="label"></div>
+                            <!--name-->
+                            <input type="hidden" name="loan_id" id="loan_id" value="{$loan_id}">
+                            <input type="hidden" name="back_token" value="{$back_token}" >
+                            <input type="hidden" name="token" value="{$token}" id="success">
+                            <input type="button" id="but_submit_2" class="ui-btn btn-orange btn-next" value="下一步">
+                            <input type="button" class="ui-btn btn-prev" value="上一步" onclick="window.location='{$site_url}/index.php?app=index&act=loan&back_token={$back_token}&loan_id={$loan_id}'">
+                        </div>
+                    </form>
+                </div>
+                <div class="intro fl">
+                    <ul>
+                        <li> <i class="icon icon-1"></i>
+                            <div class="text"><span class="f16 c-333">利率低</span><br>
+                                会员贷款利率低于小额市场利率的20%</div>
+                        </li>
+                        <li> <i class="icon icon-2"></i>
+                            <div class="text"><span class="f16 c-333">放贷快</span><br>
+                                与福元运通投资融资理财服务平台合作，使您最快拿到钱</div>
+                        </li>
+                        <li> <i class="icon icon-3"></i>
+                            <div class="text"><span class="f16 c-333">额度高</span><br>
+                                最高可获得上限为100万元的短期融资</div>
+                        </li>
+                        <li> <i class="icon icon-4"></i>
+                            <div class="text"><span class="f16 c-333">全保密</span><br>
+                                资料只作为贷款产品推荐使用，绝不会泄露给第三方</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(".icon-down").click(
+        function(){
+             $(this).parent().next().slideToggle(400); 
+        }     
+    );
+    $(".select-list ul li").hover(function() {
+        $(this).css('background-color','rgb(235, 245, 255)');
+    }, function() {
+         $(this).css('background-color','#fff');
+    });
+     $(".select-list").mouseleave(function(){
+        $(this).hide();
+     })
+
+    $(".select-list ul li").click(
+        function(){
+           var cur_html = $(this).html();
+           var temp_val = $(this).attr('data-val');
+           $(this).parent().parent().prev().children('span').html(cur_html);
+           $(this).parent().parent().parent().children('input').val(temp_val);
+        }
+    );
+    /*$(".icon-down").toggle(function() {
+        $(this).parent().next().show(); 
+    }, function() {
+        $(this).parent().next().hide(); 
+    });*/
+    
+    /*更改导航栏选中*/
+    $(function(){
+       $(".nav li").attr("class","");  
+       $(".nav li:eq(6)").attr("class","center");  
+    });
+    /*$("#money").blur(function(event) {
+        alert();
+    });*/
+    $("#but_submit_2").click(function(){
+        var status_check =true;
+        $.each($(".ui-input"),function(index,e){
+            if(check_status($(e))===false){
+                status_check=false;
+            }
+        });
+        if (status_check==false) {
+            layer.msg('请修改警告框中的内容',{icon: 2},{time:10});
+            return;
+        }
+        $("form").submit();
+
+    });
+
+    $(".ui-input").blur(function(event) {
+        check_status($(this));
+    });
+
+    function check_status(e){
+      var var_temp =   e.val();
+      if (!var_temp) {
+            e.css({
+                background: '#fef4eb none repeat scroll 0 0',
+                border: '1px solid #ff8e33',
+            });
+            return false;
+      }else if(e.attr('name') =="phone"&&var_temp.length !=11){
+             e.css({
+                background: '#fef4eb none repeat scroll 0 0',
+                border: '1px solid #ff8e33',
+            });
+            return false;
+      }else if (e.attr('name') =="email"&& par_fun.test(var_temp)==false) {
+            e.css({
+                background: '#fef4eb none repeat scroll 0 0',
+                border: '1px solid #ff8e33',
+            });
+            return false;
+      }else{
+         e.css({
+                background: '#fff none repeat scroll 0 0',
+                border: '1px solid #ccc',
+            });
+     
+      return true;
+
+      }
+
+      
+    }
+
+   
+
+   
+</script>
+</body>
+</html>
+

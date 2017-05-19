@@ -134,7 +134,7 @@
             background-position: 0 -50px !important;
         }
         .loan-apply .step li .pngbg {
-            background: rgba(0, 0, 0, 0) url("http://www.edai.com/edai2/Resource/images/shenqin/step.png") no-repeat scroll 0 -100px;
+            background: rgba(0, 0, 0, 0) url("../images/step.png") no-repeat scroll 0 -100px;
             font-size: 18px;
             height: 43px;
             width: 263px;
@@ -161,7 +161,7 @@
             clear: both;
             padding: 0 0 18px;
             position: relative;
-            z-index: 1;
+          
         }
         .apply-form .item {
             font-size: 14px;
@@ -258,7 +258,7 @@
             }
 
             .intro .icon {
-                background: rgba(0, 0, 0, 0) url("http://www.edai.com/edai2/Resource/css/shenqin/../../images/shenqin/sprite.jpg") repeat scroll 0 0;
+                background: rgba(0, 0, 0, 0) url("../images/sprite.jpg") repeat scroll 0 0;
                 float: left;
                 height: 66px;
                 margin: 0 15px 0 0;
@@ -280,3 +280,148 @@
             .f16 {
                 font-size: 16px;
             }
+            .intro .icon-2 {
+                background-position: -70px 0;
+            }
+
+            .intro .icon-3 {
+                background-position: -140px 0;
+            }
+
+.intro .icon-4 {
+    background-position: -210px 0;
+}
+.ui-input:hover {
+    border-color: #7faf2a;
+}
+.ui-input.error {
+    background: #fef4eb none repeat scroll 0 0;
+    border: 1px solid #ff8e33;
+}
+#sendYzm{
+    cursor: pointer;    
+}
+.apply-form .ui-select {
+    height: 38px;
+    background: #FFF;
+    width: 298px;
+    position: relative;
+    font-size: 14px;
+    z-index: 9;
+}
+.ui-select {
+    position: relative;
+    cursor: pointer;
+    border: 1px solid #dbe0e5;
+    float: left;
+    background: #FFF;
+    color: #ababab;
+}
+.apply-form .select-value {
+    height: 38px;
+    line-height: 38px;
+}
+.apply-form .select-value {
+    height: 38px;
+    line-height: 38px;
+}
+.ui-select .select-value {
+    padding: 0 10px;
+}
+.ui-select .icon-down {
+    background: url(../images/g_sprite.png) -135px 0;
+    float: right;
+    width: 16px;
+    height: 16px;
+    margin: 9px 0 0;
+}
+.apply-form .select-list {
+    position: absolute;
+    top: 37px;
+    width: 100%;
+    left: -1px;
+    z-index: 9;
+}
+.ui-select .select-list {
+    display: none;
+    position: absolute;
+    background: #FFF;
+    border: 1px solid #DDD;
+    left: -1px;
+}
+.apply-form .select-list li {
+    text-indent: 10px;
+    line-height: 28px;
+    color: #424242;
+    height: 28px;
+}
+
+.apply-form .btns .ui-btn {
+    width: 145px;
+    float: left;
+}
+.apply-form .btn-prev {
+    background: #f6f6f6;
+    border: 1px solid #d5d5d5;
+    color: #333;
+      margin-left: 8px;
+}
+.apply-form .ui-btn {
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+}
+.ui-btn, a.ui-btn {
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s ease-out;
+    text-decoration: none;
+    text-align: center;
+    font-family: Microsoft YaHei,Simsun,Arial,Helvetica,sans-serif;
+    color: #FFF;
+}
+
+.apply-form .ui-select:hover{
+        border-color: #7faf2a;
+}
+.apply-form-success  .content{
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    font: 700 25px/416px "Microsoft YaHei,Simsun,Arial,Helvetica,sans-serif;"
+}
+/* 00000000000000000000000000000000000000000000000 */
+.apply-form-success{
+     min-height: 416px;
+    width: 580px;
+    margin: 0 auto;
+}
+
+.apply-form-success .flush{
+        border: 2px solid #aaa;
+            height: 230px;
+            margin: 50px auto;
+            width: 400px;
+    }
+    .apply-form-success .flush img{
+          display: block;
+            float: left;
+            margin-left: -30px;
+            margin-top: -10px;
+            width: 100px;
+            z-index: 1;
+    }
+    .apply-form-success .flush h2{
+        float: left;
+        font: 800 48px/230px "宋体";
+        color: #E39136;
+         width: 280px;
+         text-align: center;
+        /* margin-top: 50%;*/
+        }
+    .out_w{
+        width: 1220px;
+        border: 2px solid #aaa;
+        margin: 0px auto;
+
+    }
