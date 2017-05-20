@@ -259,7 +259,8 @@ class Captcha
         for ($i = 0; $i < $seccodelength; $i++)
         {
             $font[$i]['font'] = $seccoderoot.$seccodettf[array_rand($seccodettf)];
-            $font[$i]['angle'] = $this->angle ? mt_rand(-30, 30) : 0;
+            //修改后面mt_rand
+            $font[$i]['angle'] = $this->angle ? mt_rand(-30, 30) : mt_rand(-30, 30);
             $font[$i]['size'] = $this->width / 4;
             $this->size && $font[$i]['size'] = mt_rand($font[$i]['size'] - $this->width / 40, $font[$i]['size'] + $this->width / 20);
             $box = imagettfbbox($font[$i]['size'], 0, $font[$i]['font'], $seccode[$i]);
