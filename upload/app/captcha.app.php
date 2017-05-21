@@ -10,7 +10,7 @@ class CaptchaApp extends FrontendApp
 {
     function index()
     {
-        $this->_captcha(80, 24);
+        $this->_captcha(80, 26);
     }
 
     /* 检查验证码 */

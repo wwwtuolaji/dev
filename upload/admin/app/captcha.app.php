@@ -10,7 +10,7 @@ class CaptchaApp extends ECBaseApp
 {
     function index()
     {
-        $this->_captcha(70, 20);
+        $this->_captcha(70, 26);
     }
 }
 

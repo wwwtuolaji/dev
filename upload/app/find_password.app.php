@@ -178,8 +178,25 @@ class Find_passwordApp extends MallbaseApp
         return $word;
     }
 
+/*    function generate_code($len = 15)
+    {
+        $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        for ($i = 0, $count = strlen($chars); $i < $count; $i++)
+        {
+            $arr[$i] = $chars[$i];
+        }
+
+        mt_srand((double) microtime() * 1000000);
+        shuffle($arr);
+        $code = substr(implode('', $arr), 5, $len);
+        return $code;
+    }*/
+    /*修改后jjc验证码不显示修改*/
     function generate_code($len = 15)
     {
+        if(empty($len)){
+            $len = 15;
+        }
         $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         for ($i = 0, $count = strlen($chars); $i < $count; $i++)
         {

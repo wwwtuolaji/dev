@@ -709,6 +709,10 @@ class IndexApp extends IndexbaseApp
         $this->_curlocal('福禄仓茶叶', 'index.php?app=index&act=tea  ', '茶商首页');
         /* $this->_curitem('my_store');
             $this->_curmenu('my_store');*/
+        $index_model = m('index_show');
+        $index_arr = $index_model->get(1);
+        $index_arr = $index_model->return_arr_val($index_arr);
+        $this->assign('qq_arr',$index_arr ['qq_num_des']);
         $this->display("tea.html");
 
     }

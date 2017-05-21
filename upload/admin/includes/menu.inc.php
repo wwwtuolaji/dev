@@ -83,6 +83,11 @@ return array(
                 'text'  => '茶会所地址',
                 'url'   => 'index.php?app=index_edit&act=leisure_list',
             ),
+            'loan' => array(
+                'text'  => '贷款信息',
+                'url'   => 'index.php?app=loan',
+            ),
+            
         ),
     ),
     // 商品
