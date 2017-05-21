@@ -80,7 +80,7 @@ class Captcha
     function display($code)
     {
         session_cache_limiter('nocache');
-
+        dump($code);
         $this->code = strtoupper($code);
         if (function_exists('imagecreate') && function_exists('imagecolorset') && function_exists('imagecopyresized') && function_exists('imagecolorallocate') && function_exists('imagechar') && function_exists('imagecolorsforindex') && function_exists('imageline') && function_exists('imagecreatefromstring') && (function_exists('imagegif') || function_exists('imagepng') || function_exists('imagejpeg')))
         {
