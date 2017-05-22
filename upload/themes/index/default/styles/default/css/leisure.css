@@ -73,7 +73,7 @@
 		position: relative;
 		text-align: center;
 		height: 40px;
-		overflow: hidden;
+		white-space:nowrap; 
 	}
 	.leisure_nav ul li :hover{
 
