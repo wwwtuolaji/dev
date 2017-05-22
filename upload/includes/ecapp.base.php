@@ -723,15 +723,11 @@ EOT;
         import('captcha.lib');
         $word = generate_code();
         $_SESSION['captcha'] = base64_encode($word);
-        if (empty($width)) {
-            $width = 80;
-        }
-        if (empty($height)) {
-            $height=24;
-        }
-        $code = new Captcha();
-        $code ->vCode($word,4,20,$width,$height);
-        
+        $code = new Captcha(array(
+            'width' => $width,
+            'height'=> $height,
+        ));
+        $code->display($word);
     }
 
     /**

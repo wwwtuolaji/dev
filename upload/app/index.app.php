@@ -2423,4 +2423,8 @@ class IndexApp extends IndexbaseApp
         echo json_encode($array);
     }
 
+    function return_captch(){
+        
+    }
+
 }
