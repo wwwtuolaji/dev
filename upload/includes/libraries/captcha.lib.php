@@ -125,7 +125,7 @@ class Captcha
                 ob_end_clean();
             }
             $anim = new GifMerge($frame, 255, 255, 255, 0, $d, $x, $y, 'C_MEMORY');
-         /*   header('Content-type: image/gif');*/
+            header('Content-type: image/gif');
             echo $anim->getAnimation();
         }
         else
@@ -136,7 +136,7 @@ class Captcha
 
             if (function_exists('imagepng'))
             {
-                /*header('Content-type: image/png');*/
+                header('Content-type: image/png');
                 imagepng($this->im);
             }
             else
@@ -428,7 +428,7 @@ class Captcha
         $image = pack('H*', '424d9e000000000000003e000000280000002000000018000000010001000000'.
                 '0000600000000000000000000000000000000000000000000000FFFFFF00'.implode('', $bitmap));
 
-        /*header('Content-Type: image/bmp');*/
+        header('Content-Type: image/bmp');
         echo $image;
     }
 
