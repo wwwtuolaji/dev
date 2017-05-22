@@ -125,25 +125,25 @@ class Captcha
                 ob_end_clean();
             }
             $anim = new GifMerge($frame, 255, 255, 255, 0, $d, $x, $y, 'C_MEMORY');
-            header('Content-type: image/gif');
+          /*  header('Content-type: image/gif');*/
             echo $anim->getAnimation();
         }
         else
         {
-            $this->im = imagecreatefromstring($bgcontent);
+            $this->im = @imagecreatefromstring($bgcontent);
             $this->adulterate && $this->adulterate();
             $this->ttf && function_exists('imagettftext') ? $this->ttffont() : $this->giffont();
 
             if (function_exists('imagepng'))
             {
                 header('Content-type: image/png');
-                imagepng($this->im);
+              @ imagepng($this->im);
             }
             else
             {
-                header('Content-type: image/jpeg');
+                header('Content-type: image/jpeg'); 
                 imagejpeg($this->im, '', 100);
-            }
+           }
             imagedestroy($this->im);
         }
     }
