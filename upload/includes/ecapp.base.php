@@ -724,18 +724,16 @@ EOT;
         $word = generate_code();
         $_SESSION['captcha'] = base64_encode($word);
         if (empty($width)) {
-            $width = 88;
+            $width = 80;
         }
         if (empty($height)) {
             $height=24;
         }
-        $code = new Verify(array(
-            'imageW' => 100,
-            'imageH'=> 35,
+        $code = new Captcha(array(
+            'width' => $width,
+            'height'=> $height,
         ));
-
-        ob_clean();
-        $code->entry();
+        $code->display($word);
     }
 
     /**
