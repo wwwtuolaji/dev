@@ -61,13 +61,13 @@
 		background-color: #606060;
 	}
 	.leisure_nav span{
-		font: 100 16px/40px "";
+		font: 100 16px/40px "MicroSoft YaHei";
 		color:#fff;
 	}
 	.leisure_nav ul li{
 		float: left;
 		margin-right: 20px;
-		font:100 16px/40px "";
+		font:100 16px/40px "MicroSoft YaHei";
 		color: #fff;
 		width: 80px;
 		position: relative;
@@ -91,7 +91,7 @@
 		margin-right: 0px;
 		 cursor: pointer;
 	    font-size: 12px;
-	    line-height: 25px
+	    line-height: 40px
 	}
 	.leisure_nav .drop_down li:hover{
 		background-color: #fff;
