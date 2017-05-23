@@ -60,7 +60,8 @@ class GoodsproApp extends StorebaseApp
                 $cha=number_format($cha,2);
               /*  var_dump($cha);
                 die;*/
-                $price=$value['price']+$cha;
+                $price=(int)(string)($value['price']*100)+(int)(string)($cha*100);
+                $price = $price/100;
                 $sql_value .="('". $value['goods_id'] ."','" . $price ."','".$type."','". $time ."'),";               
             $sql_value2=$column . $sql_value;
             $sql_value2=substr($sql_value2, 0, -1);
