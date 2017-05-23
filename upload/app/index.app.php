@@ -1783,7 +1783,7 @@ class IndexApp extends IndexbaseApp
      * @return [type] [description]
      */
     function produce_share_tea()
-    {dump('禁止访问！');$this->insert_system_tea();
+    {$this->insert_system_tea();
         //1.获取需要超差的id
         $sql = 'select goods_id from ecm_drogue group by goods_id';
         $db = db();
@@ -1820,14 +1820,14 @@ class IndexApp extends IndexbaseApp
                     $share_tea['type'] = 0;
                     $share_tea['type_des'] = '当年茶';
                 }
-                $insert_tra = "insert into ecm_transaction(transaction_sn,goods_id,goods_name,transaction_price,transaction_count,transaction_time,transaction_from_sn,user_id,transaction_status,goods_type,sell_persentage,date_format,have_transaction) values(null,{$share_tea['goods_id']},'{$share_tea['goods_name']}',{$share_tea['price']},{$share_tea['stock']},$time,-1,-1,1,{$share_tea['type']},0.9,'$date_format',0)";
+                $insert_tra = "insert into ecm_transaction(transaction_sn,goods_id,goods_name,transaction_price,transaction_count,transaction_time,transaction_from_sn,user_id,transaction_status,goods_type,sell_persentage,date_format,have_transaction) values(null,{$share_tea['goods_id']},'{$share_tea['goods_name']}',{$share_tea['price']},{$share_tea['stock']},$time,-1,1,1,{$share_tea['type']},0.9,'$date_format',0)";
                 $db->query($insert_tra);
             }
         }
     }
 
     function insert_system_tea()
-    {dump('禁止访问！');
+    {
       /* dump('禁止访问！');*/
         $db=db();
         $sql='select goods_id,stock,price from ecm_share_spec';
