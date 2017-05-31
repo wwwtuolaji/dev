@@ -127,7 +127,7 @@
         .trans_bot_con ul li{
             margin: 0;
             text-align: center;
-           
+            
              font: 400 16px/30px "Microsoft YaHei";
              cursor: pointer;
 
@@ -496,4 +496,109 @@
     color:#fff;
     background: #DC2E2E;
 }
+
+
+.apply_transaction {
+    height: 347px;
+    margin-top: 5px;
+    width: 220px;
+    border: 2px solid #eee;
+    position: relative; 
+}
+.apply_transaction dl dt{
+    font: 700 20px/30px "Microsoft Yahei";
+    width: 100%;
+    text-align: center;
+    padding: 20px 15px 0;
+
+}
+.apply_transaction dl dd{
+    text-indent: 5px;
+    font: 200 14px/25px "Microsoft Yahei";
+    padding: 10px 10px 0;
+}
+.apply_transaction dd option{
+      border:1px solid #aaa;
+    height: 30px; 
+    font: 200 14px/25px "Microsoft Yahei";
+    width: 170px;
+}
+.apply_transaction dl dd select{
+     border:1px solid #aaa;
+    height: 30px; 
+    width: 200px;
+    margin-left: 5px;
+    font: 200 14px/25px "Microsoft Yahei";
+}
+.apply_transaction dl dd input{
+    border:1px solid #aaa;
+    height: 30px; 
+    width: 200px;
+    margin-left: 5px;
+    font: 200 14px/25px "Microsoft Yahei";
+}
+.apply_transaction dl dd a{
+    display: block;
+    width: 70px;
+    margin: 20px auto;
+    text-align: center;
+    background-color: #ddd;
+    text-indent: 0;
+    border-radius: 2px;
+}
+
+.bt_content{
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    font-size: 13px;
+}
+#show_count{
+    border: dashed 1px #e60012;
+    color: #e60012;
+    display: inline-block;
+    width: 16px;
+    text-align: center;
+}
+#show_count:hover{
+    background: #e60012;
+    color: #fff;
+}
+.layui-layer-content th{
+    width: 10%;
+    height: 50px;
+}
+.layui-layer-content th:nth-of-type(2){
+    width: 15%;
+}
+.layui-layer-content th:nth-last-of-type(1){
+    width: 20%;
+}
+.layui-layer-content tr{
+
+}
+.layui-layer-content td span{
+    display:block;                     /*内联对象需加*/
+    width:100%;
+    word-break:keep-all; 
+  white-space:nowrap; 
+
+  
+  overflow:hidden;              /* 内容超出宽度时隐藏超出部分的内容 */
+    text-overflow:ellipsis;
+    line-height: 18px;
+}
+.layui-layer-content td span:hover{
+    cursor: pointer;
+}
+.layui-layer-content td .com{
+    display:block;                     /*内联对象需加*/
+    width:100%;
+    word-break:keep-all;           /* 不换行 */
+    white-space:nowrap;          /* 不换行 */
+    overflow:hidden;               /* 内容超出宽度时隐藏超出部分的内容 */
+    text-overflow:ellipsis;
+    margin: 0 auto;
+}
+
 

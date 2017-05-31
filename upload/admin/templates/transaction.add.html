@@ -1,0 +1,52 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>申请记录</p>
+  <ul class="subnav">
+    <!--{if $smarty.get.act eq 'add_produce'}-->
+    <li><a class="btn1" href="index.php?app=transaction">申请列表</a></li>
+    <!--{else}-->
+    <li><span>申请列表</span></li>
+    <!--{/if}-->
+    <li><span>添加新产品</span></li>
+     <!--{if $smarty.get.act eq 'init_produce'}-->
+     <li><span>初始库存</span></li>
+     <!--{else}-->
+     <li><a class="btn1" href="index.php?app=transaction&amp;act=init_produce">初始库存</a></li>
+     <!--{/if}-->
+    
+  </ul>
+</div>
+
+<div class="info">
+  <form method="post" enctype="multipart/form-data" id="agent_form" action="index.php?app=transaction&act=add_produce">
+    <table class="infoTable">
+     
+      <tr>
+        <th class="paddingT15">产品名称:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" name="goods_name" type="text" id="owner_name" value="{$agent.agent_name|escape}" /></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">产品价格:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" name="price" type="text" id="owner_name" value="{$agent.agent_name|escape}" /></td>
+      </tr>
+
+       <tr>
+        <th class="paddingT15">产品描述:</th>
+        <td class="paddingT15 wordSpacing5"><textarea name="description">茶通商城添加的产品，非商城产品</textarea></td>
+      </tr>
+    <!--{if $smarty.get.act eq 'edit'}--><input type="hidden" name="agent_id" id="agent_id" value="{$agent.agent_id}">{/if}
+      
+      <tr>
+        <th></th>
+        <input type="hidden" name="token" value="{$token}"/>
+        <td class="ptb20"><input class="formbtn" type="submit"  value="{$lang.submit}" />
+          <input class="formbtn" type="reset"  value="{$lang.reset}" /></td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+<script type="text/javascript">
+   
+</script>
+{include file="footer.html"}

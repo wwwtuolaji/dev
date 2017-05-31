@@ -796,13 +796,20 @@ class OrderApp extends BackendApp
         $order_mod = m('order');
      
         $where ='';
+       
         if (!empty($_GET['search_name'])) {
              $where  .= "AND user_name like '%{$_GET['search_name']}%'";
          }
         $add_time_from = empty($_GET['add_time_from'])?0:strtotime($_GET['add_time_from']);
         $add_time_to = empty($_GET['add_time_to'])?time():strtotime($_GET['add_time_to']);
         $where_date = "AND pay_time > '$add_time_from' AND pay_time < '$add_time_to'";
-
+        if (!empty($_GET['status'])) {
+            if ($_GET['status']==2) {
+                $where_date  .= "AND platform_from in (2,0)";  
+            }else{
+               $where_date  .= "AND platform_from ='{$_GET['status']}'";  
+            }
+        }
         $where_date .= empty($_GET['order_amount_from'])?"AND receive_money >'0'": "AND receive_money >'" .$_GET['order_amount_from'] ."'";
         $where_date .= empty($_GET['order_amount_to'])?"": "AND receive_money <'" .$_GET['order_amount_to'] ."'";
 
@@ -820,6 +827,7 @@ class OrderApp extends BackendApp
             $money_history_admin[$key]['money_from_des'] = $pay_method[$v['money_from']];
            //根据交易平台，获取与admin用户名交易的用户名
            if ($v['platform_from'] == 0) {
+
                 //0来源茶通历史表，是admin用户的钱转给，卖方的用户
                 $transaction_history = $transaction_history ->get_history_info_where($v['transaction_sn'],$where);
                 if (empty($transaction_history)) {
@@ -875,7 +883,7 @@ class OrderApp extends BackendApp
         }
     /*     dump($money_history_admin);*/
         $this->assign('money_history_admin',$money_history_admin);
-         $plat_form_list_arr =array(0 => Lang::get('chatong'),1=>Lang::get('shangcheng'));
+         $plat_form_list_arr =array(2 => Lang::get('chatong'),1=>Lang::get('shangcheng'));
         $this->import_resource(array('script' => 'inline_edit.js,jquery.ui/jquery.ui.js,layer/layer.js,jquery.ui/i18n/' . i18n_code() . '.js',
                                       'style'=> 'jquery.ui/themes/ui-lightness/jquery.ui.css'));
         $this->assign('plat_form_list', $plat_form_list_arr);

@@ -64,9 +64,7 @@ class IndexApp extends IndexbaseApp
     function loan()
     {
          $site_url = site_url();
-        $this->import_resource(array(
-            'script' => 'v531_valid.js',
-        ));
+      
         $recharge_mod = m('recharge_log');
           //如果token为空则生成一个token
         if(!isset($_SESSION['token']) || $_SESSION['token']=='') {
@@ -1312,7 +1310,8 @@ class IndexApp extends IndexbaseApp
         $recharge_mod = m('recharge_log');
         $member_mod = m('member');
         $db=db();
-
+        $user_info = $this->visitor->get();
+        $app_mod = m('transaction_apply');
          //如果token为空则生成一个token
         if(!isset($_SESSION['token']) || $_SESSION['token']=='') {
           $recharge_mod->set_token();
@@ -1334,7 +1333,7 @@ class IndexApp extends IndexbaseApp
 
         }
         $this->assign('transaction_arr',$transaction_arr);
-        // dump($transaction_arr);
+       
         if ($_POST) {
             //校验token
               if (!$recharge_mod->valid_token()) {
@@ -1475,7 +1474,15 @@ class IndexApp extends IndexbaseApp
                 $this->show_warning('数据异常,请重新提交');
             }
         }
-        $user_info = $this->visitor->get();
+         //获取可以申请炒茶的产品名称
+        $get_sql="select goods_id,goods_name from ecm_share_tea";
+        $transaction_apply = $db->getall($get_sql);
+        $this->assign('transaction_apply',$transaction_apply);
+        //获取已经申请的信息
+        $apply_arr = $app_mod->get_apply_transaction($user_info['user_id']);
+        $this->assign('apply_count',count($apply_arr));
+        $apply_arr = json_encode($apply_arr);
+        $this->assign('apply_arr',$apply_arr);
         //持仓明细相关信息
         $particulars=$transaction_mod ->get_warehouse($user_info['user_id']);
         $this->assign('particulars',$particulars);
@@ -1536,11 +1543,50 @@ class IndexApp extends IndexbaseApp
         $out_data['drogue_arr'] = $drogue_arr;
         $this->assign("out_data", $out_data);
         $this->import_resource(array(
-            'script' => 'My97DatePicker/WdatePicker.js,jquery-form.js,echart/build/dist/echarts.js',
+            'script' => 'My97DatePicker/WdatePicker.js,jquery-form.js,echart/build/dist/echarts.js,v531_valid.js',
         ));
         $this->get_drogue_info_echarts();
         $this->_curlocal('福禄仓茶叶', 'index.php?app=index&act=tea', '茶叶交易');
         $this->display('transaction.html');
+    }
+    function transaction_apply(){
+
+       if (empty($_POST)) {
+            echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
+                $this->show_warning('非法操作');
+                return;
+            
+        } 
+        $recharge_mod = m('recharge_log');
+        if (!$recharge_mod->valid_token()) {
+                echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
+                $this->show_warning('表单无法重复提交，请刷新页面重试');
+                return;
+        }
+        $user_info = $this->visitor->get();
+        if (empty($user_info)) {
+            echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
+                $this->show_warning('非法操作');
+                return;
+            
+        } 
+        $add = array(
+                     'produce_count'=>intval($_POST['produce_count']),
+                     'produce_price'=> number_format($_POST['produce_price'],2),
+                     'goods_id' =>intval($_POST['goods_id']),
+                     'apply_time'=>time(),
+                     'user_id' => $user_info['user_id'],
+                     'user_name'=>$user_info['user_name'],
+                    );
+        $app_mod = m('transaction_apply');
+        $add_id = $app_mod->add($add);
+        if ($add_id) {
+            $this->show_message('申请成功');
+        }else{
+          echo '<style type="text/css"> body #header {width:1230px}body #header .search{  bottom: 57px; margin: -73px 0; position: absolute; right: 0; width: 1230px; } div.content{width:1230px;margin:50px auto;}</style>';
+                $this->show_warning('添加失败');
+                return;  
+        }
     }
 
     /**获取用户的买卖交易记录*/
@@ -1783,7 +1829,8 @@ class IndexApp extends IndexbaseApp
      * @return [type] [description]
      */
     function produce_share_tea()
-    {$this->insert_system_tea();
+    {dump('禁止访问！');$this->insert_system_tea();
+         $transaction_init_mod = m('transaction_init');
         //1.获取需要超差的id
         $sql = 'select goods_id from ecm_drogue group by goods_id';
         $db = db();
@@ -1822,19 +1869,33 @@ class IndexApp extends IndexbaseApp
                 }
                 $insert_tra = "insert into ecm_transaction(transaction_sn,goods_id,goods_name,transaction_price,transaction_count,transaction_time,transaction_from_sn,user_id,transaction_status,goods_type,sell_persentage,date_format,have_transaction) values(null,{$share_tea['goods_id']},'{$share_tea['goods_name']}',{$share_tea['price']},{$share_tea['stock']},$time,-1,1,1,{$share_tea['type']},0.9,'$date_format',0)";
                 $db->query($insert_tra);
+                //1.添加到最初交易的记录表
+                $add_init = array('goods_id' =>$goods_id,
+                                'produce_count' => $share_tea['stock'],
+                                'produce_price'=> $share_tea['price'],
+                                'apply_time' => time(),
+                                'user_id'    => 1,//user_id 主用户id为1
+                                'user_name'  => 'admin_fulucang',
+                                'comments'   => 'admin用户初始化项目'
+                                );
+
+                
+                 $transaction_init_mod ->add($add_init);
             }
         }
     }
 
     function insert_system_tea()
     {
-      /* dump('禁止访问！');*/
+        dump('禁止访问！');
         $db=db();
         $sql='select goods_id,stock,price from ecm_share_spec';
         $goods_arr=$db->getall($sql);
         foreach ($goods_arr as $key => $goods) {
-            $price=$goods['stock']*$goods['price'];
-            $insert="insert into ecm_own_warehouse values (null,-1,{$goods['goods_id']},{$goods['stock']},$price)";
+            $goods['price'] = (int)(string)($goods['price']*100);
+            $price = $goods['stock']*$goods['price'];
+            $price = $price/100;
+            $insert="insert into ecm_own_warehouse values (null,1,{$goods['goods_id']},{$goods['stock']},$price)";
             echo "$insert<br/>";
             $db->query($insert);
         }

@@ -1,0 +1,115 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>申请记录</p>
+  <ul class="subnav">
+    <!--{if $smarty.get.wait_verify}-->
+    <li><a class="btn1" href="index.php?app=transaction">申请列表</a></li>
+    <!--{else}-->
+    <li><span>申请列表</span></li>
+    <!--{/if}-->
+    <li><a class="btn1" href="index.php?app=transaction&amp;act=add_produce">添加新产品</a></li>
+    <li><a class="btn1" href="index.php?app=transaction&amp;act=init_produce">初始库存</a></li>
+  </ul>
+</div>
+<div class="mrightTop1 info">
+  <div class="fontl">
+    <form method="get">
+      <input name="app" value="transaction" type="hidden">
+       用户名:
+      <input class="queryInput" name="user_name" value="{$smarty.get.user_name}" type="text">
+      产品名:
+      <input class="queryInput" name="produce_name" value="{$smarty.get.produce_name}" type="text">
+      申请起始时间:
+      <input class="queryInput" name="start_time" value="{$smarty.get.start_time}"id="add_time_from"type="text">
+      申请结束时间:
+      <input class="queryInput" name="end_time" value="{$smarty.get.end_time}"  id="add_time_to"type="text">
+      <span style="position: relative; top: 5px;">
+      <div class="right">
+         
+          <input class="formbtn" value="查询" type="submit">
+      </div>
+            </span>
+    </form>
+  </div>
+  
+</div>
+<div class="mrightTop">
+
+  <div class="fontr">{include file=page.top.html} </div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td width="20" class="firstCell">&nbsp;</td>
+      <td>序号</td>
+      <td><span ectype="order_by" fieldname="store_name">用户名</span></td>
+      <td><span ectype="order_by" fieldname="sgrade">产品名称</span></td>
+      <td class=""><span ectype="order_by" fieldname="add_time">产品数量</span></td>
+      <td class=""><span ectype="order_by" fieldname="add_time">产品价格</span></td>
+      <td class=""><span ectype="order_by" fieldname="state">申请时间</span></td>
+      <td class=""><span ectype="order_by" fieldname="sort_order">状态</span></td>
+       <td class="" style="text-align: center;"><span ectype="order_by" fieldname="sort_order">备注</span></td>
+      <td class="handler">操作</td>
+    </tr>
+    <!--{foreach from=$apply_arr item=apply name=name}-->
+    <tr class="tatr2">
+      <td class="firstCell">&nbsp;</td>
+      <td>{$smarty.foreach.name.iteration}</td>
+      <td>{$apply.user_name|escape} </td>
+       <td>{$apply.goods_name|escape}</td>
+      <td>{$apply.produce_count}</td>
+      <td>{$apply.produce_price|escape}</td>
+      <td>{$apply.apply_time}</td>
+
+      {if $apply.approval_status eq -1}
+      <td>待审核</td>
+      {elseif $apply.approval_status eq 1}
+      <td>通过审核</td>
+      {elseif $apply.approval_status eq 0}
+      <td>已拒绝</td>
+      {/if}
+       <td><a href="javascript:;" class="edit_approval_comments" approval_id="{$apply.id}">{$lang.edit}</a><span style="color: red">&nbsp;{$apply.approval_comments}</span></td>
+      
+      <td class="handler">
+      {if $apply.approval_status eq -1}
+        <a href="index.php?app=transaction&amp;act=edit_approval&amp;approval_id={$apply.id}&amp;approval_status=1&amp;token={$token}">通过</a> | <a href="javascript:drop_confirm('确定要拒绝吗？', 'index.php?app=transaction&amp;act=edit_approval&amp;approval_id={$apply.id}&amp;approval_status=0&amp;token={$token}');">拒绝</a> 
+        {else}
+        <a href="javascript:;" style="text-decoration: none;color: #aaa">已经操作</a>
+      {/if}
+      </td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data">
+      <td colspan="12">{$lang.no_data}</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+  <div class="pageLinks">{include file=page.bottom.html}</div>
+</div>
+{include file="footer.html"}
+<script type="text/javascript">
+  $(function(){
+    $('#add_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#add_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+});
+  $(".edit_approval_comments").click(function(argument) {
+      var content=  prompt("备注：");  
+      if (!content) {
+        return;
+      }
+      var edit_obj = $(this);
+     var approval_id = $(this).attr('approval_id');
+      $.ajax({
+        url: 'index.php?app=transaction&act=edit_comments',
+        type: 'POST',
+        dataType: 'json',
+        data: {approval_comments: content,approval_id:approval_id},
+        success:function(out_data){
+          if (out_data.code!=0) {
+            alert(out_data.message);
+          }
+          edit_obj.next().html("&nbsp;"+content );
+        }
+      })
+    });
+</script>

@@ -239,6 +239,10 @@ return array(
                 'text'  => '经纪人管理',
                 'url'   => 'index.php?app=agent',
             ),
+            'approval_transaction' => array(
+                'text'  => '炒茶审批',
+                'url'   => 'index.php?app=transaction',
+            ),
           
         ),
     ),

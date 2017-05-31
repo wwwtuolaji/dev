@@ -1,4 +1,5 @@
 {include file=tea_common.html}
+
 <link rel="stylesheet" type="text/css" href="{res file=css/transaction.css}">
 <div class="w" style="overflow: hidden;">
     <!--分类菜单-->
@@ -43,9 +44,31 @@
                 </dl>
 
             </div>
-            <div class="tea-banner1">
-                <a href="#">
-                    <!--{widgets page=tea area=banner_1}--> </a>
+            <div class="apply_transaction" >
+                <form id="apply_transaction_form"  method="post">
+                <dl>
+                    <dt>配货申请</dt>
+                    <dd>
+                        <label>产品名称：</label>
+                        <select name="goods_id"required >
+                        {foreach from=$transaction_apply item=apply}
+                            <option value="{$apply.goods_id}">{$apply.goods_name}</option>
+                        {/foreach}
+                        </select>
+                    </dd>
+                    <dd>
+                        <label name="produce">产品数量：</label>
+                        <input name="produce_count" id="produce_count"type="text" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="4" required>
+                    </dd>
+                    <dd>
+                        <label>产品价格：</label>
+                        <input name="produce_price" id="produce_price"type="text" required>
+                        <input type="hidden" name="token" value="{$token}" >
+                    </dd>
+                    <dd><a href="javascript:;" id="apply_transaction_btn">提交</a></dd>
+                </dl>
+                </form>
+                <div class="bt_content"><span>已申请数量：</span><a id="show_count"href="javascript:;" >{$apply_count}</a> </div>
             </div>
         </div>
     </div>
@@ -336,7 +359,7 @@
             <!--end-->
             <div style="margin-top: 10px;height: 30px;">
                 <div class="search_price_drogue" style="text-align: center;">
-                    <form method="post" action="goods.php?id=1547" onsubmit="return checktime()">
+                    <form method="post" action="" onsubmit="return checktime()">
                         <input size="10" value="{$temp_start_time}" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" name="begin_day" id="begin_day1" class="inputbg5" type="text">
                         &nbsp;至&nbsp;&nbsp;
                         <input size="10" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="{$temp_end_time}" name="end_day" id="end_day1" class="inputbg5" type="text">
@@ -421,8 +444,96 @@
 </div>
 <!--底部-->
 {include file="footer.html" }
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+   
+<script type="text/javascript">
+    /*验证js函数设置*/
+    $('#produce_price').on('keyup',function(){
+        var temp=$(this).val().replace(/[^\d.]/g,''); 
+        $(this).val(temp);
+    });
+    $("#apply_transaction_btn").click(function(event) {
+        produce_count = $("#produce_count").val();
+        produce_price = $("#produce_price").val();
+        if (!produce_count||!produce_price) {
+            alert('请填完整信息');
+            return;
+        }
+        $("#apply_transaction_form").attr('action',"?app=index&act=transaction_apply");
+        $("#apply_transaction_form").submit();
+          
+    });
+</script>
 <script type="text/javascript" src="{res file=js/transaction.js}"></script>
 <script type="text/javascript">
+     /* {if $apply_arr}*/
+     var apply_arr = JSON.parse('{$apply_arr}');
+        var c=0;
+        var temp_apply_arr ='';
+         $.each(apply_arr, function(index, val) {
+             this.apply_time=new Date(parseInt(this.apply_time) * 1000).toLocaleString().replace(/:\d{1,2}$/,' '); 
+              console.log(this);
+              switch(this.approval_status){
+                case '-1':
+                    this.approval_status = '未完成';
+                    break;
+                case '1':
+                    this.approval_status = '通过';
+                    break;
+                case '0':
+                    this.approval_status = '被拒绝';
+                    break;
+                default:
+                     this.approval_status = '未知';
+              }
+              if (!this.approval_comments) {
+                this.approval_comments ='暂无';
+              }
+
+              temp_apply_arr+='<tr style="width:100%;font:100 14px/36px \'MicroSoft Yahei\'"><td style="text-align:center">'+c+'</td><td><span title="'+this.goods_name+'">'+this.goods_name+'</span></td><td style="text-align:center">'+this.produce_count+'</td><td style="text-align:center">'+this.produce_price+'</td><td style="text-align:center"><span>'+this.apply_time+'</span></td><td style="text-align:center">'+this.approval_status+'</td><td style="text-align:center"><span class="com"title="'+this.approval_comments+'">'+this.approval_comments+'</span></td></tr>';
+
+             c++;
+         });
+    /*{/if}*/
+    $("#show_count").click(function(event) {
+        var show_count = $(this).html();
+        show_count = parseInt(show_count);
+        if (show_count>0) {
+            var show_content = '\<\div style="width:100%; font:400 16px/20px \'MicroSoft Yahei\'; margin:20px auto; color:#aaa;"> <table border="1" style="border-collapse:collapse;width:100%;"bordercolor="#aaa"><tr ><th>序号</th><th>商品名称</th><th>数量</th><th>价格</th><th>申请时间</th><th>进度</th><th>备注</th></tr>';
+            show_content =  show_content +temp_apply_arr+'</table>\<\/div>';
+             layer.open({
+                  type: 1,//0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）。 若你采用layer.open({type: 1})方式调用，则type为必填项（信息框除外）
+                  title: ['申请进度信息', 'font-size:18px;'],//如果你不想显示标题栏，你可以title: false  不想自定义样式 title：'标题'
+                  area: ['700px', '400px'],//弹出层的宽高 默认自适应
+                  //offset: ['100px', '200px'],//默认垂直水平居中  当您top、left都要定义时，你可以offset: ['100px', '200px']。除此之外，你还可以定义offset: 'rb'，表示右下角。其它的特殊坐标，你可以自己计算赋值。
+                  shade: [0.8, '#393D49'],//弹层外区域。默认是0.3透明度的黑色背景（'#000'）。如果你想定义别的颜色，可以shade: [0.8, '#393D49']；如果你不想显示遮罩，可以shade: 0
+                  shadeClose: false, //如果你的shade是存在的，那么你可以设定shadeClose来控制点击弹层外区域关闭。默认值false
+                  closeBtn: 1,//layer提供了两种风格的关闭按钮，可通过配置1和2来展示，如果不显示，则closeBtn: 0
+                  btn: ['关闭'],
+                  time: false,//默认不会自动关闭。当你想自动关闭时，可以time: 5000，即代表5秒后自动关闭
+                  shift:2,//我们的出场动画全部采用CSS3目前shift可支持的动画类型有0-6
+                  maxmin: true,//该参数值对type:1和type:2有效
+                 yes: function(index, layero){
+                     //按钮1的回调
+                     layer.close(index);
+                 }, 
+                  cancel: function(){ 
+                     
+                     /*alert("点击右上角关闭的回调");*/
+                  },
+                  /*content: '\<\div style="padding:60px;">自定义内容\<\/div>'*/
+                  content: show_content
+              });
+        }else{
+            layer.alert('您还没有任何相关的信息！', {
+                            title:'警告',
+                            icon: 2,
+                            skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                        },function(index){ 
+                            layer.close(index);
+                        });//默认没有图标 当你想显示图标时，默认皮肤可以传入0-6
+        }
+    });
     $(function(){
         //end;
         $(".nav li").attr("class","");
@@ -653,9 +764,7 @@
             setTimeout("set_continue()",2000);*/
         });      
     })
-    $(document).on('click', '#haha', function(event) {
-        alert("123");
-    });
+
     //返回当前选中的买入还是卖出
     function get_choose(){
         var t= $('#sell_in').attr('checked_cho');
@@ -993,7 +1102,6 @@ $('#close_produce').on('click',function(){
         );
     }
     var drogue={$drogue};
-    console.log(drogue);
          var data_length=drogue.length;
                 if (data_length>0) {
                     //取出所有的价格
@@ -1144,7 +1252,6 @@ $('#close_produce').on('click',function(){
                 //请求前的处理
             },
             success: function(req) {
-                console.log(req);
                 if (req.code!=0) {
                     alert(req.message);
                     return;

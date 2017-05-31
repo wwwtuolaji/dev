@@ -1,0 +1,81 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>申请记录</p>
+  <ul class="subnav">
+    <!--{if $smarty.get.act}-->
+    <li><a class="btn1" href="index.php?app=transaction">申请列表</a></li>
+    <!--{else}-->
+     <li><span>申请列表</span></li>
+    <!--{/if}-->
+    <li><a class="btn1" href="index.php?app=transaction&amp;act=add_produce">添加新产品</a></li>
+     <!--{if $smarty.get.act eq 'init_produce'}-->
+     <li><span>初始库存</span></li>
+     <!--{else}-->
+     <li><a class="btn1" href="index.php?app=transaction&amp;act=init_produce">初始库存</a></li>
+     <!--{/if}-->
+  </ul>
+</div>
+
+<div class="mrightTop">
+
+  <div class="fontr">{include file=page.top.html} </div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td width="20" class="firstCell">&nbsp;</td>
+      <td>序号</td>
+      <td><span ectype="order_by" fieldname="store_name">用户名</span></td>
+      <td><span ectype="order_by" fieldname="sgrade">产品名称</span></td>
+      <td class=""><span ectype="order_by" fieldname="add_time">产品数量</span></td>
+      <td class=""><span ectype="order_by" fieldname="add_time">产品价格</span></td>
+      <td class=""><span ectype="order_by" fieldname="state">添加时间</span></td>
+       <td class="" style="text-align: center;"><span ectype="order_by" fieldname="sort_order">备注</span></td>
+   
+    </tr>
+    <!--{foreach from=$transaction_arr item=transaction name=name}-->
+    <tr class="tatr2">
+      <td class="firstCell">&nbsp;</td>
+      <td>{$smarty.foreach.name.iteration}</td>
+      <td>{$transaction.user_name|escape} </td>
+       <td>{$transaction.goods_name|escape}</td>
+      <td>{$transaction.produce_count}</td>
+      <td>{$transaction.produce_price|escape}</td>
+      <td>{$transaction.apply_time}</td>
+       <td><span style="color: red">&nbsp;{$transaction.comments}</span></td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data">
+      <td colspan="12">{$lang.no_data}</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+  <div class="pageLinks">{include file=page.bottom.html}</div>
+</div>
+{include file="footer.html"}
+<script type="text/javascript">
+  $(function(){
+    $('#add_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#add_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+});
+  $(".edit_approval_comments").click(function(argument) {
+      var content=  prompt("备注：");  
+      if (!content) {
+        return;
+      }
+      var edit_obj = $(this);
+     var approval_id = $(this).attr('approval_id');
+      $.ajax({
+        url: 'index.php?app=transaction&act=edit_comments',
+        type: 'POST',
+        dataType: 'json',
+        data: {approval_comments: content,approval_id:approval_id},
+        success:function(out_data){
+          if (out_data.code!=0) {
+            alert(out_data.message);
+          }
+          edit_obj.next().html("&nbsp;"+content );
+        }
+      })
+    });
+</script>
