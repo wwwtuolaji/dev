@@ -90,9 +90,6 @@ class AboutApp extends MallbaseApp
         $this->display('about_recruit.goods.html');
     }
 
-
-
-
         /* 店铺分类 */
     function store()
     {
