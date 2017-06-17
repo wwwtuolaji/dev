@@ -82,6 +82,13 @@ $(function(){
       <span>{$lang.add}</span>
       <!-- {/if} -->
     </li>
+
+    <li>
+     <!-- {if $smarty.get.act eq 'member_recharge'} -->
+       <span>会员充值</span>
+      <!-- {else} -->
+      <a class="btn1" href="index.php?app=user&amp;act=member_recharge&amp;user_id={$user.user_id}">会员充值</a></li>
+      <!-- {/if} -->
   </ul>
 </div>
 <div class="info">

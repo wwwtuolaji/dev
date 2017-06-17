@@ -1,0 +1,58 @@
+{include file="header.html"}
+<script type="text/javascript" src="index.php?act=jslang"></script>
+<script type="text/javascript">
+</script>
+<style type="text/css">
+  
+  .up_img{
+    width: 50px;
+    height: 80px;
+  }
+  .up_img #upimg{
+    height: 26px;
+    width: 147px;
+  }
+</style>
+<script type="text/javascript">var  uptoken_url="<?php echo $this->_var['site_url']; ?>admin/?app=uptoken&act=uptoken";</script>
+<script type="text/javascript" src="{lib file=upload/jquery.min.js}"></script>
+<script type="text/javascript" src="{lib file=upload/plupload/plupload.full.min.js}"></script>
+<script type="text/javascript" src="{lib file=upload/qiniu.js}"></script>
+
+<div id="rightTop">
+  <p>{$lang.user}</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=user">{$lang.manage}</a></li>
+
+    <li>
+     <!-- {if $smarty.get.act eq 'member_recharge'} -->
+       <span>会员充值</span>
+      <!-- {else} -->
+      <a class="btn1" href="index.php?app=user&amp;act=member_recharge&amp;user_id={$user.user_id}">会员充值</a></li>
+      <!-- {/if} -->
+  </ul>
+</div>
+<div class="info">
+  <form method="post" enctype="multipart/form-data" id="agent_form" action="index.php?app=user&act=member_recharge">
+    <table class="infoTable">
+     
+      <tr>
+        <th class="paddingT15">充值金额:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" name="receive_money" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"type="text" id="owner_name" value="{$agent.agent_name|escape}" /></td>
+      </tr>
+    
+      <tr>
+        <th class="paddingT15">充值备注:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" name="comments" type="text" value="" /></td>
+      </tr>
+    <input type="hidden" name="user_id" id="user_id" value="{$smarty.get.user_id}">
+      
+      <tr>
+        <th></th>
+        <td class="ptb20"><input class="formbtn" type="submit"  value="{$lang.submit}" />
+          <input class="formbtn" type="reset"  value="{$lang.reset}" /></td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+{include file="footer.html"}
