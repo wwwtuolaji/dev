@@ -168,7 +168,7 @@ return array(
             'admin_drawlist' => array(
                 'text'  => Lang::get('admin_drawlist'),
                 'url'   => 'index.php?app=order&act=admin_drawlist'
-            )
+            ),
 
         ),
     ),
@@ -240,7 +240,7 @@ return array(
                 'url'   => 'index.php?app=agent',
             ),
             'approval_transaction' => array(
-                'text'  => '炒茶审批',
+                'text'  => '茶叶交易审批',
                 'url'   => 'index.php?app=transaction',
             ),
           
