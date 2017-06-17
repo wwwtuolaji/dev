@@ -240,7 +240,7 @@ return array(
                 'url'   => 'index.php?app=agent',
             ),
             'approval_transaction' => array(
-                'text'  => '茶叶交易审批',
+                'text'  => '茶叶配货审批',
                 'url'   => 'index.php?app=transaction',
             ),
           
