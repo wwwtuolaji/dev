@@ -80,13 +80,15 @@
                             <input name="authCode" maxlength="4" class="ui-input input-mobile" placeholder="4位图形验证码" id="authCode" style="width:120px;" type="text">
                             <a href="javascript:change_captcha($('#captcha'));" class="renewedly" title="看不清？换一张">
                                 <img id="captcha" style="margin-left:10px;float:left;height:34px;"src="index.php?app=captcha&amp;15749"alt="看不清？换一张" ></a>
-                        </div>
+                                                       </div>
 
                         <div class="item">
                             <div class="label">验&nbsp;证&nbsp;码：</div>
                             <input  name="smsCode" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="6" style="width:150px;" class="ui-input input-code" placeholder="请输入验证码" type="text">
                             <input  value="获取验证码" class="ui-btn btn-code" id="sendYzm" type="button">
-                            <div id="notes" class="tip-code2"></div>
+                            <div id="notes" class="tip-code2"style="text-indent: 152px;line-height: 30px;" >邮箱如果没有收到信息，请查看回收站</div>
+
+
                         </div>
                         <div class="item">
                             <div class="label"></div>
