@@ -458,10 +458,12 @@ class OrderApp extends BackendApp
         $user_id = $this->visitor->get('user_id');
         /* $where = "user_id = '$user_id' AND recharge_status ='0'".$where_time;*/  
         $page = $this->_get_page(10);
+        /*dump($page);*/
         $recharge_arr = $recharge_mod ->find_recharge_all($get_where,$page['limit']);
          /* $page['item_count'] = $model_order->getCount();  */ //获取统计的数据
-        $page['item_count'] = $recharge_mod->get_wehre_count($get_where);   //获取统计的数据
+        $page['item_count'] = $recharge_mod->get_where_count($get_where);   //获取统计的数据
         $this->_format_page($page);
+
         foreach ($recharge_arr as $key => $recharge) {
             $recharge_arr[$key]['first_time_des'] = date('Y-m-d H:i:s',$recharge['first_time']);
             $recharge_arr[$key]['pay_status_des'] = Lang::get("pay_status_".$recharge['pay_status']);
@@ -471,7 +473,9 @@ class OrderApp extends BackendApp
             }elseif($recharge['pay_method'] == 2){
                $recharge_arr[$key]['money_from_des']='微信'; 
             }elseif($recharge['pay_method'] == 3){
-               $recharge_arr[$key]['money_from_des']='银行卡';  
+               $recharge_arr[$key]['money_from_des']='银行卡';
+            }elseif($recharge['pay_method'] == 4){
+               $recharge_arr[$key]['money_from_des']='后台充值';  
             }elseif($recharge['pay_method'] == 0){
                $recharge_arr[$key]['money_from_des']='预存款'; 
             }
@@ -881,15 +885,17 @@ class OrderApp extends BackendApp
            }
 
         }
-    /*     dump($money_history_admin);*/
-        $this->assign('money_history_admin',$money_history_admin);
+        /*     dump($money_history_admin);*/
+         $this->assign('money_history_admin',$money_history_admin);
          $plat_form_list_arr =array(2 => Lang::get('chatong'),1=>Lang::get('shangcheng'));
-        $this->import_resource(array('script' => 'inline_edit.js,jquery.ui/jquery.ui.js,layer/layer.js,jquery.ui/i18n/' . i18n_code() . '.js',
+         $this->import_resource(array('script' => 'inline_edit.js,jquery.ui/jquery.ui.js,layer/layer.js,jquery.ui/i18n/' . i18n_code() . '.js',
                                       'style'=> 'jquery.ui/themes/ui-lightness/jquery.ui.css'));
         $this->assign('plat_form_list', $plat_form_list_arr);
 
         $this->display('admin_drawlist.html');
     }
+
+  
 
 
 }

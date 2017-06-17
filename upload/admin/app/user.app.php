@@ -421,6 +421,69 @@ class UserApp extends BackendApp
         $uploader->root_dir(ROOT_PATH);
         return $uploader->save('data/files/mall/portrait/' . ceil($user_id / 500), $user_id);
     }
+    function member_recharge()
+    {   
+       if(empty($_REQUEST['user_id'])) {
+        $this->show_warning('请返回页面重新编辑');
+        return;
+       }
+        if ($_POST['user_id']) {
+            $user_info = $this->_user_mod->get($_POST['user_id']);
+            $recharge_mod = m('recharge_log');
+            $recharge_sn = $recharge_mod ->get_rand();
+            $cur_user_id = $this->visitor->get('user_id');
+            //整理插入到充值数据
+            $recharge_arr = array(
+                                'recharge_sn'=>$recharge_sn,
+                                'pay_money' =>$_POST['receive_money'],
+                                'pay_account'=>"后台管理员$cur_user_id 转入",
+                                'pay_method' =>"4",
+                                'pay_status' =>"40",
+                                'first_time' =>time(),
+                                'finished_time'=>time(),
+                                'comment_des'=>$_POST['comments'],
+                                'user_id' =>$_POST['user_id'],
+                                'recharge_status' =>$_POST['0'],
+                                );
+            $recharge_id = $recharge_mod ->add( $recharge_arr);
+            if (empty($recharge_id)) {
+                $this->show_warning('编辑失败');
+                return;
+            }
+
+            //1.获取当前的金额
+            $use_money_history = $user_info['use_money'];
+            //2.修改金额
+            $use_money = (int)(string)($user_info['use_money']*100) + (int)(string)($_POST['receive_money']*100);
+            $use_money = array('use_money' => $use_money/100);
+            /*dump($use_money_history);*/
+            $result = $this->_user_mod->edit($_POST['user_id'],$use_money);
+            $history_mod = m('money_history');
+            if ($result) {
+                $arr = array('transaction_sn'   => $recharge_id,//个人充值表
+                        'money_from'        => 0,
+                        'transaction_type'  => 0,
+                        'receive_money'     => $_POST['receive_money'],
+                        'pay_time'          => time(),
+                        'platform_from'     => 3,
+                        'use_money_history' => $use_money_history,
+                        'user_id'           => $user_id,
+                        'comments'          => $_POST['comments'],
+                        );
+                $history_mod = m('money_history');
+                $history_mod ->add($arr);
+                $this->show_message('充值成功',
+                    'back_list',    'index.php?app=user',
+                    'continue_add',  "index.php?app=user&amp;act=edit&amp;user_id ={$_POST['user_id']}"
+                );
+                return;
+            }
+            $this->show_warning('编辑失败');
+            return;
+        }
+        //用户充值
+        $this->display('account_recharge.html');
+    }
 }
 
 ?>
